@@ -6,6 +6,8 @@ import { Footer } from "@/components/Footer";
 import { ScrollState } from "@/components/ScrollState";
 import { ChromeGate } from "@/components/ChromeGate";
 import { MetaPixel } from "@/components/MetaPixel";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { site } from "@/lib/site";
 
 const outfit = Outfit({
@@ -46,6 +48,7 @@ export const metadata: Metadata = {
     images: [{ url: "/og.png", width: 1200, height: 630, alt: "Made to disappear." }],
   },
   twitter: { card: "summary_large_image", images: ["/og.png"] },
+  verification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } : undefined,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -59,6 +62,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <div className="grain" aria-hidden="true" />
         <ScrollState />
         <MetaPixel />
+        <Analytics />
+        <SpeedInsights />
         <ChromeGate>
           <Header />
         </ChromeGate>

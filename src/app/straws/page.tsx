@@ -19,7 +19,7 @@ const FAQ: [string, string][] = [
   ["How do I dispose of it?", "Put it in your home compost pile with your coffee grounds and food scraps. It breaks down at ambient temperature."],
   ["Does it change the taste?", "No. It has no coating and no paper flavour, so the drink tastes like the drink."],
   ["Is each straw wrapped?", "Yes. Each straw comes in its own wrapper printed with our wordmark, so it is ready for service."],
-  ["Where do you ship?", "Across North America, by courier for packs and by courier or pallet for cases."],
+  ["Where do you ship?", "Canada and the United States. Packs ship for $9.95 in Canada (free over $99) and $14.95 to the US (free over $149); cases ship by courier at a flat rate each. You see it in the cart before you pay."],
   ["I run a café. Can I get better terms?", "Yes. Switch to Business pricing, order by the case, and apply for net-30. For 10 or more cases, ask us for a quote."],
 ];
 

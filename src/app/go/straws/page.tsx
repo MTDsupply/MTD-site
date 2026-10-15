@@ -38,7 +38,7 @@ const FAQ: [string, string][] = [
   ["Is each straw wrapped?", "Yes. Each one comes in its own wrapper printed with our wordmark, so it is clean and ready to hand across the counter or set on a table."],
   ["What is the catch on 10 cents?", "There is no catch. It is 10 cents a straw whether you buy 100 or 1,000. We would rather you try a small pack than wonder."],
   ["I run a café. Can I get better terms?", "Order the case of 1,000, switch to Business pricing, and apply for net-30 on your account page. For 10 or more cases, ask us for a quote."],
-  ["Do you ship to the US?", "Yes. Canada and the United States, by courier. Shipping is calculated at checkout from your address and shown before you pay."],
+  ["Do you ship to the US?", "Yes. Canada and the United States, by courier. Packs ship for $9.95 in Canada (free over $99) and $14.95 to the US (free over $149). You see it in the cart before you pay."],
   ["What if I do not like them?", "Return unopened packs within 30 days for a refund of the item price. If anything arrives damaged, we replace it free."],
 ];
 
@@ -266,7 +266,7 @@ export default async function StrawsAdLanding() {
           <div className="mt-8">
             <TierPicker product={straw} units={["pack-100", "pack-500", "case"]} cta="Get my straws" />
           </div>
-          <p className="mt-5 text-sm text-paper/75">Shipping and tax are shown at checkout before you pay. Secure checkout by Stripe.</p>
+          <p className="mt-5 text-sm text-paper/75">Packs ship for $9.95 in Canada, free over $99. Tax is added at checkout. Secure checkout by Stripe.</p>
         </div>
       </section>
 

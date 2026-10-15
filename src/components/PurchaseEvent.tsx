@@ -11,7 +11,7 @@ export function PurchaseEvent({ value, orderId }: { value: number; orderId: stri
     } catch {
       // storage blocked: fire anyway
     }
-    track("Purchase", { value, currency: "CAD" });
+    track("Purchase", { value, currency: "CAD" }, { eventID: orderId });
   }, [value, orderId]);
   return null;
 }

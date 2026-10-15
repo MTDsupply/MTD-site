@@ -8,11 +8,13 @@ import { money } from "@/lib/format";
 import { unitInfo } from "@/lib/units";
 import { startCheckout } from "@/app/actions/checkout";
 import { track } from "@/lib/analytics/pixel";
+import { quoteShipping, SHIPPING, COUNTRIES, type Country } from "@/lib/shipping";
 
 export function CartView({ products }: { products: Product[] }) {
   const lines = useCart();
   const mode = useMode();
   const [error, setError] = useState<string | null>(null);
+  const [country, setCountry] = useState<Country>("CA");
   const [pending, start] = useTransition();
   const bySku = new Map(products.map((p) => [p.sku, p]));
 
@@ -21,12 +23,13 @@ export function CartView({ products }: { products: Product[] }) {
     .filter((r): r is { line: (typeof lines)[number]; product: Product } => !!r.product);
 
   const subtotal = rows.reduce((s, { line, product }) => s + line.qty * unitInfo(product, line.unit).price, 0);
+  const ship = quoteShipping(rows.map((r) => r.line), subtotal, country);
 
   const checkout = () => {
     setError(null);
     track("InitiateCheckout", { value: subtotal, currency: "CAD", num_items: rows.reduce((n, r) => n + r.line.qty, 0) });
     start(async () => {
-      const res = await startCheckout({ lines: rows.map((r) => r.line), mode });
+      const res = await startCheckout({ lines: rows.map((r) => r.line), mode, country });
       if (res?.error) setError(res.error);
     });
   };
@@ -111,7 +114,34 @@ export function CartView({ products }: { products: Product[] }) {
           <span>Subtotal</span>
           <span className="tnum font-medium">{money(subtotal)}</span>
         </div>
-        <p className="mt-1 text-xs text-soil/60">Tax and delivery are calculated at checkout.</p>
+        <div className="mt-3">
+          <label htmlFor="ship-to" className="label">
+            Ship to
+          </label>
+          <select id="ship-to" className="input" value={country} onChange={(e) => setCountry(e.target.value as Country)}>
+            {COUNTRIES.map((c) => (
+              <option key={c} value={c}>
+                {SHIPPING[c].label}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="mt-3 flex justify-between">
+          <span>Shipping</span>
+          <span className="tnum">{ship.amount === 0 ? "Free" : money(ship.amount)}</span>
+        </div>
+        <div className="mt-1 flex justify-between border-t border-line pt-2">
+          <span className="font-medium">Total before tax</span>
+          <span className="tnum font-medium">{money(subtotal + ship.amount)}</span>
+        </div>
+        <p className="mt-2 text-xs text-soil/60">
+          {ship.amount === 0 && rows.every((r) => r.line.unit !== "case")
+            ? `Free shipping on pack orders over ${money(SHIPPING[country].packFreeOver)}.`
+            : rows.every((r) => r.line.unit !== "case")
+              ? `Free shipping on pack orders over ${money(SHIPPING[country].packFreeOver)}.`
+              : `Cases ship by courier at ${money(SHIPPING[country].perCase)} each; packs ride along free.`}{" "}
+          Tax is added at checkout.
+        </p>
         <button type="button" onClick={checkout} className="btn btn-primary mt-4 w-full" disabled={pending}>
           {pending ? "Opening checkout…" : "Checkout"}
         </button>

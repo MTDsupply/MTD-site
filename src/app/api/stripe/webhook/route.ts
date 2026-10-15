@@ -5,7 +5,9 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { getLiveProducts } from "@/lib/catalog/queries";
 import { unitInfo } from "@/lib/units";
 import type { Unit } from "@/lib/store/cart";
-import { notifyTeam } from "@/lib/email";
+import { notifyTeam, sendEmail } from "@/lib/email";
+import { orderConfirmation } from "@/lib/email-templates";
+import { sendPurchaseToMeta } from "@/lib/analytics/capi";
 
 /**
  * Stripe → orders table. Set STRIPE_WEBHOOK_SECRET from the Stripe dashboard
@@ -60,6 +62,24 @@ export async function POST(request: Request) {
         console.error("[webhook] order insert failed:", error.message);
         return NextResponse.json({ error: error.message }, { status: 500 });
       }
+      const total = (session.amount_total ?? 0) / 100;
+      const shippingAmount = (session.total_details?.amount_shipping ?? 0) / 100;
+      const addr = shipping?.address;
+      const addressText = addr
+        ? [shipping?.name, addr.line1, addr.line2, `${addr.city ?? ""} ${addr.state ?? ""} ${addr.postal_code ?? ""}`.trim(), addr.country].filter(Boolean).join("\n")
+        : null;
+      if (session.customer_details?.email) {
+        const mail = orderConfirmation({ name: session.customer_details.name ?? null, items, total, shipping: shippingAmount, address: addressText });
+        await sendEmail({ to: session.customer_details.email, ...mail });
+      }
+      await sendPurchaseToMeta({
+        eventId: session.id,
+        email: session.customer_details?.email,
+        value: total,
+        currency: session.currency ?? "cad",
+        contentIds: items.map((i) => i.sku),
+        sourceUrl: "https://www.madetodisappear.com/checkout/success",
+      });
       await notifyTeam({
         subject: `New order: ${((session.amount_total ?? 0) / 100).toFixed(2)} ${(session.currency ?? "cad").toUpperCase()}`,
         replyTo: session.customer_details?.email ?? undefined,
