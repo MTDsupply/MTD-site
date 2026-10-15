@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <g stroke="#2B2B2B" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M40 120 H160 V130 H40 Z"/>
+    <path d="M52 120 V104 Q100 78 148 104 V120"/>
+    <path d="M108 92 Q118 92 122 98 L110 100 Z"/>
+    <path d="M40 130 Q100 140 160 130"/>
+  </g>
+  <g stroke="#2B2B2B" stroke-width="0.8" fill="none"><path d="M40 156 H160 M40 152 V160 M160 152 V160"/></g>
+  <text x="100" y="172" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="9" fill="#2B2B2B">ø 90 mm</text>
+  <text x="100" y="194" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="9" fill="#2B2B2B">hot cup lid</text>
+</svg>

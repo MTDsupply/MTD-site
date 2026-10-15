@@ -1,0 +1,4 @@
+# Raw source media stays local; the site serves optimised copies from public/.
+*.mov
+*.MOV
+docs/

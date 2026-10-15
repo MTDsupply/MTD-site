@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <g stroke="#2B2B2B" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M30 96 H170"/><path d="M30 104 H170"/>
+    <path d="M30 96 Q27 100 30 104"/><path d="M170 96 Q173 100 170 104"/>
+    <path d="M60 97 L68 103 M90 97 L98 103 M120 97 L128 103 M150 97 L158 103"/>
+  </g>
+  <g stroke="#2B2B2B" stroke-width="0.8" fill="none"><path d="M30 130 H170 M30 126 V134 M170 126 V134"/><path d="M186 96 V104 M182 96 H190 M182 104 H190"/></g>
+  <text x="100" y="146" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="9" fill="#2B2B2B">L</text>
+  <text x="192" y="103" font-family="Inter, Arial, sans-serif" font-size="9" fill="#2B2B2B">ø</text>
+  <text x="100" y="194" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="9" fill="#2B2B2B">straw</text>
+</svg>

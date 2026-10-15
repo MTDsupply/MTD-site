@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <g stroke="#2B2B2B" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="46" y="56" width="108" height="108"/>
+    <path d="M46 56 L154 164"/>
+    <path d="M100 56 V110 H154"/>
+    <path d="M46 110 H100"/>
+  </g>
+  <g stroke="#2B2B2B" stroke-width="0.8" fill="none"><path d="M46 36 H154 M46 32 V40 M154 32 V40"/></g>
+  <text x="100" y="28" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="9" fill="#2B2B2B">W</text>
+  <text x="100" y="194" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="9" fill="#2B2B2B">napkin</text>
+</svg>

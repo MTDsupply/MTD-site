@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <g stroke="#2B2B2B" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M52 76 H148 L142 140 H58 Z"/>
+    <path d="M52 76 Q100 86 148 76"/>
+    <path d="M58 140 Q100 150 142 140"/>
+    <path d="M100 86 V146" stroke-dasharray="3 3"/>
+  </g>
+  <g stroke="#2B2B2B" stroke-width="0.8" fill="none"><path d="M166 76 V140 M162 76 H170 M162 140 H170"/></g>
+  <text x="174" y="112" font-family="Inter, Arial, sans-serif" font-size="9" fill="#2B2B2B">H</text>
+  <text x="100" y="194" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="9" fill="#2B2B2B">sleeve</text>
+</svg>

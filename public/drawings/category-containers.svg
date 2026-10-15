@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <g stroke="#2B2B2B" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M40 90 H160 L152 160 H48 Z"/>
+    <path d="M40 90 L60 70 H140 L160 90"/>
+    <path d="M60 70 L68 50 H132 L140 70"/>
+    <path d="M48 160 Q100 168 152 160"/>
+  </g>
+  <g stroke="#2B2B2B" stroke-width="0.8" fill="none"><path d="M176 50 V160 M172 50 H180 M172 160 H180"/></g>
+  <text x="182" y="108" font-family="Inter, Arial, sans-serif" font-size="9" fill="#2B2B2B">H</text>
+  <text x="100" y="194" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="9" fill="#2B2B2B">to-go container</text>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <g stroke="#2B2B2B" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M70 40 V70 Q70 84 80 84 V170 M80 84 Q90 84 90 70 V40 M76 40 V72 M84 40 V72"/>
+    <path d="M118 40 Q134 60 122 90 V170 M118 40 V90"/>
+  </g>
+  <g stroke="#2B2B2B" stroke-width="0.8" fill="none"><path d="M150 40 V170 M146 40 H154 M146 170 H154"/></g>
+  <text x="158" y="108" font-family="Inter, Arial, sans-serif" font-size="9" fill="#2B2B2B">L</text>
+  <text x="100" y="194" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="9" fill="#2B2B2B">cutlery</text>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <g stroke="#2B2B2B" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M58 48 H142 L134 170 H66 Z"/>
+    <path d="M55 48 Q100 36 145 48 Q100 60 55 48 Z"/>
+    <path d="M58 48 Q100 58 142 48"/>
+    <path d="M62 166 Q100 174 138 166"/>
+    <path d="M66 170 Q100 178 134 170"/>
+  </g>
+  <g stroke="#2B2B2B" stroke-width="0.8" fill="none">
+    <path d="M160 48 V170 M156 48 H164 M156 170 H164"/>
+    <path d="M55 24 H145 M55 20 V28 M145 20 V28"/>
+  </g>
+  <text x="166" y="112" font-family="Inter, Arial, sans-serif" font-size="9" fill="#2B2B2B">110 mm</text>
+  <text x="100" y="16" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="9" fill="#2B2B2B">90 mm</text>
+  <text x="100" y="194" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="9" fill="#2B2B2B">12 oz</text>
+</svg>
