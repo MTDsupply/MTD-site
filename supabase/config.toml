@@ -1,0 +1,11 @@
+# Only the properties declared here are pushed (`supabase config push`); everything else stays as set in the dashboard.
+project_id = "made-to-disappear"
+
+[auth]
+site_url = "https://www.madetodisappear.com"
+additional_redirect_urls = [
+  "https://www.madetodisappear.com/auth/confirm",
+  "https://madetodisappear.com/auth/confirm",
+  "https://*.vercel.app/auth/confirm",
+  "http://localhost:3000/auth/confirm",
+]

@@ -42,3 +42,6 @@ next-env.d.ts
 docs/source-video/*.mp4
 *.mov
 *.MOV
+
+# Supabase CLI link state
+supabase/.temp/
