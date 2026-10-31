@@ -50,7 +50,7 @@ export function QuoteForm({ categories, presetSku }: { categories: Category[]; p
           name="volumePerMonth"
           required
           className="input"
-          placeholder="e.g. 6 cases of 16 oz cups, 2 cases of straws"
+          placeholder="e.g. 6 cases of 16 oz cups, 2 cases of lids"
         />
       </div>
       <fieldset className="md:col-span-2">

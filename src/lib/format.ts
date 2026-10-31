@@ -15,7 +15,7 @@ const int = new Intl.NumberFormat("en-CA");
 export function money(n: number): string {
   return cad.format(n);
 }
-/** Per-unit prices can need three decimals (straws). */
+/** Per-unit prices can need three decimals for small items. */
 export function unitMoney(n: number): string {
   return cadUnit.format(n);
 }

@@ -1,7 +1,7 @@
 import type { Catalog, Category, Cert, Product } from "./types";
 
 /**
- * Seed catalogue. Range: cups, lids and straws only. This is the source of truth for `scripts/seed.ts`, which
+ * Seed catalogue. Range: cups and lids only. This is the source of truth for `scripts/seed.ts`, which
  * upserts it into Supabase, and the fallback the site renders if the database
  * is unreachable. A category's `status` drives every surface: home grid,
  * /products grid, mega-menu, footer and /certifications.
@@ -18,25 +18,16 @@ export const categories: Category[] = [
     sortOrder: 1,
   },
   {
-    slug: "straws",
-    name: "Straws",
-    description: "Straws that never go soggy. PHA, 100% certified home-compostable material.",
-    status: "live",
-    lineDrawing: "/drawings/category-straws.svg",
-    sortOrder: 2,
-  },
-  {
     slug: "lids",
     name: "Lids",
     description: "Hot cup lids to fit the 8, 12 and 16 oz cups. PHA, 100% certified home-compostable material.",
     status: "live",
     lineDrawing: "/drawings/category-lids.svg",
-    sortOrder: 3,
+    sortOrder: 2,
   },
 ];
 
 const CUP_CERT = "tuv-home-cups";
-const STRAW_CERT = "tuv-home-straws";
 
 /*
  * Pricing source: cupcasa.com/wholesale (café pricing, cases of 1,000):
@@ -45,7 +36,7 @@ const STRAW_CERT = "tuv-home-straws";
  * Consumer packs follow Cup Casa's bundle sizes (100 / 200 / 500) and its
  * markup: the 100-pack is about 2× the café unit price, the 500-pack about
  * 18% less per unit than the 100-pack. `packPrice`/`packCount` mirror the
- * smallest tier. Straws are a flat 10 cents a unit up to 1,000 units.
+ * smallest tier.
  */
 
 export const products: Product[] = [
@@ -125,30 +116,6 @@ export const products: Product[] = [
     sortOrder: 3,
   },
   {
-    // Straws: 10 cents a unit up to 1,000 units; the 1,000-unit case holds that price.
-    sku: "MTD-STR-200",
-    categorySlug: "straws",
-    name: "Straw, 200 mm",
-    size: "6 × 200 mm",
-    material: "PHA",
-    unitPrice: 0.1,
-    casePrice: 100,
-    caseCount: 1000,
-    packs: [{ count: 100, price: 10 }, { count: 200, price: 20 }, { count: 500, price: 50 }],
-    packPrice: 10,
-    packCount: 100,
-    certId: STRAW_CERT,
-    images: [],
-    status: "live",
-    specs: {
-      length: "200 mm, 6 mm bore",
-      caseDimensions: "40 × 30 × 30 cm",
-      caseWeight: "1.5 kg",
-    },
-    goesWith: ["MTD-CUP-16H", "MTD-CUP-12H"],
-    sortOrder: 1,
-  },
-  {
     sku: "MTD-LID-HOT",
     categorySlug: "lids",
     name: "Hot cup lid",
@@ -178,14 +145,6 @@ export const certs: Cert[] = [
     number: null,
     pdfUrl: null,
     coveredSkus: ["MTD-CUP-8H", "MTD-CUP-12H", "MTD-CUP-16H", "MTD-LID-HOT"],
-  },
-  {
-    id: STRAW_CERT,
-    name: "100% certified home-compostable material",
-    certifier: "TÜV Austria",
-    number: null,
-    pdfUrl: null,
-    coveredSkus: ["MTD-STR-200"],
   },
 ];
 

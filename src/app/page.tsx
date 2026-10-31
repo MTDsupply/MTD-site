@@ -11,6 +11,7 @@ import { HeroVideo } from "@/components/scene/HeroVideo";
 import { Atmosphere } from "@/components/scene/Atmosphere";
 import { FeatureBlock } from "@/components/FeatureBlock";
 import { NotifyForm } from "@/components/NotifyForm";
+import { PressBand } from "@/components/PressBand";
 import { money } from "@/lib/format";
 
 /** Drop `public/hero.mp4` (and optionally `public/hero-poster.jpg`) and the hero picks them up. */
@@ -26,7 +27,6 @@ function heroMedia() {
 const TAGLINES: Record<string, string> = {
   cups: "PHA-lined paper. Three sizes.",
   lids: "PHA. One lid fits all three.",
-  straws: "PHA. Never goes soggy."
 };
 
 export default async function HomePage() {
@@ -41,7 +41,6 @@ export default async function HomePage() {
   const leadFor = (slug: string) => products.filter((p) => p.categorySlug === slug).sort((a, b) => a.sortOrder - b.sortOrder)[0];
   const cup16 = products.find((p) => p.sku === "MTD-CUP-16H");
   const lid = leadFor("lids");
-  const straw = leadFor("straws");
 
   return (
     <div>
@@ -64,7 +63,7 @@ export default async function HomePage() {
             </Reveal>
             <Reveal delay={0.16}>
               <p className="mt-6 max-w-[46ch] text-[17px] leading-7 text-paper/85">
-                Cups, lids and straws made from 100% certified home-compostable material. By the case for the business, by the pack for the house.
+                Cups and lids made from 100% certified home-compostable material. By the case for the business, by the pack for the house.
               </p>
             </Reveal>
             <Reveal delay={0.24}>
@@ -105,7 +104,7 @@ export default async function HomePage() {
       <div className="mx-auto max-w-7xl px-4">
         {/* 2. Category tiles with taglines. */}
         <section className="pt-12 md:pt-16">
-          <RevealGroup className="grid gap-4 md:grid-cols-3" itemClassName="h-full" step={0.08}>
+          <RevealGroup className="mx-auto grid max-w-5xl gap-4 md:grid-cols-2" itemClassName="h-full" step={0.08}>
             {sorted.map((c) => {
               const lead = leadFor(c.slug);
               const isLive = c.status === "live";
@@ -171,6 +170,11 @@ export default async function HomePage() {
           </section>
         </Reveal>
 
+        {/* 3b. Press. */}
+        <Reveal>
+          <PressBand />
+        </Reveal>
+
         {/* 4. Feature blocks, alternating. */}
         <section className="space-y-24 pt-20 md:space-y-36 md:pt-28">
           {cup16 ? (
@@ -210,25 +214,6 @@ export default async function HomePage() {
             >
               <p>A single PHA lid fits the 8, 12 and 16 oz cups, so there is one SKU to stock and one case to reorder.</p>
               <p>Same certified material as the cup, same compost pile at the end.</p>
-            </FeatureBlock>
-          ) : null}
-          {straw ? (
-            <FeatureBlock
-              image={straw.photo ?? "/atmosphere/meadow.jpg"}
-              imageAlt="A straw in an iced drink"
-              eyebrow="Straws"
-              title="Never goes soggy."
-              cta="Shop straws"
-              href="/straws"
-              facts={[
-                ["Length", "200 mm"],
-                ["Material", straw.material],
-                ["Each", money(straw.unitPrice)],
-              ]}
-              secondary={{ label: "Why it never goes soggy", href: "/straws" }}
-            >
-              <p>200 mm PHA straws that hold their shape to the last sip. 10 cents each in any pack size, by the hundred or by the thousand.</p>
-              <p>Made from the same 100% certified home-compostable material as everything else we sell.</p>
             </FeatureBlock>
           ) : null}
         </section>
@@ -283,7 +268,7 @@ export default async function HomePage() {
               </Link>
             </Reveal>
           </div>
-          <RevealGroup className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-5" itemClassName="h-full" step={0.05} base={0.1}>
+          <RevealGroup className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4" itemClassName="h-full" step={0.05} base={0.1}>
             {[
               ...live.map((p) => (
                 <ProductCard key={p.sku} product={p} cert={certById.get(p.certId ?? "")} categoryDrawing={catBySlug.get(p.categorySlug)?.lineDrawing ?? "/drawings/category-cups.svg"} />

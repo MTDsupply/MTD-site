@@ -7,7 +7,7 @@ import { PageHeader } from "@/components/PageHeader";
 
 export const metadata: Metadata = {
   title: "Products",
-  description: "Cups, lids and straws made from 100% certified home-compostable material, all in stock.",
+  description: "Cups and lids made from 100% certified home-compostable material, all in stock.",
 };
 
 export default async function ProductsPage() {
@@ -17,7 +17,7 @@ export default async function ProductsPage() {
       <PageHeader
         eyebrow="Catalogue"
         title="Products"
-        description="Cups, lids and straws, all in stock. Packs for the house, cases for the business."
+        description="Cups and lids, all in stock. Packs for the house, cases for the business."
         actions={<ModeToggle />}
         image="/atmosphere/dew.jpg"
         imageAlt="Dew on meadow grass at sunrise"
