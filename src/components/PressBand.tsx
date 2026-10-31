@@ -12,7 +12,7 @@ export const PRESS = [
     logo: "/press/cbc.svg",
     show: "All Points West",
     host: "Jason D'Souza",
-    blurb: "We joined Jason D'Souza on Vancouver Island's afternoon show to talk about cups that go in the home compost.",
+    blurb: "We joined host Jason D'Souza on Vancouver Island's afternoon show to talk about cups that go in the home compost.",
     href: null as string | null,
   },
 ];
@@ -33,9 +33,7 @@ export function PressBand() {
                 <p className="t-card text-[17px] leading-[22px]">
                   {p.outlet} · {p.show}
                 </p>
-                <p className="mt-1 text-sm text-soil/70">
-                  with {p.host}. {p.blurb}
-                </p>
+                <p className="mt-1 text-sm text-soil/70">{p.blurb}</p>
                 {p.href ? <span className="link mt-2 inline-block text-sm font-medium">Listen to the segment</span> : null}
               </div>
             </div>
