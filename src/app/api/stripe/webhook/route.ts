@@ -49,6 +49,7 @@ export async function POST(request: Request) {
         {
           stripe_session_id: session.id,
           email: session.customer_details?.email ?? "",
+          user_id: session.client_reference_id ?? null,
           status: session.payment_status === "paid" ? "paid" : session.payment_status,
           mode: session.metadata?.mode ?? "consumer",
           currency: session.currency ?? "cad",

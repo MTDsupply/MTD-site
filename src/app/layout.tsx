@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Inter, JetBrains_Mono, Outfit } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
@@ -61,7 +62,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <div className="mesh" aria-hidden="true" />
         <div className="grain" aria-hidden="true" />
         <ScrollState />
-        <MetaPixel />
+        <Suspense fallback={null}>
+          <MetaPixel />
+        </Suspense>
         <Analytics />
         <SpeedInsights />
         <ChromeGate>

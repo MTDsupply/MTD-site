@@ -9,6 +9,7 @@ import { site } from "@/lib/site";
 import { unitInfo } from "@/lib/units";
 import type { Unit } from "@/lib/store/cart";
 import { quoteShipping, type Country } from "@/lib/shipping";
+import { getSession } from "@/lib/account/queries";
 import Stripe from "stripe";
 
 const lineSchema = z.object({
@@ -69,8 +70,13 @@ export async function startCheckout(input: CheckoutInput): Promise<{ error: stri
   const proto = h.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
   const origin = `${proto}://${host}`;
 
+  // Signed-in customers: lock the email so the order lands in their account,
+  // and carry the user id for the webhook.
+  const session_user = await getSession();
+
   const params: Stripe.Checkout.SessionCreateParams = {
     mode: "payment",
+    ...(session_user?.user.email ? { customer_email: session_user.user.email, client_reference_id: session_user.user.id } : {}),
     line_items,
     success_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${origin}/cart`,

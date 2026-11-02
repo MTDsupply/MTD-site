@@ -233,7 +233,7 @@ export function Nav({ categories }: { categories: Category[] }) {
                 </li>
                 <li>
                   <Link href="/account" className="block px-3 py-2">
-                    Sign in
+                    Account
                   </Link>
                 </li>
               </ul>

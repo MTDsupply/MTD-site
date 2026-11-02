@@ -35,7 +35,7 @@ export async function Header() {
           </div>
           <div className="flex shrink-0 items-center gap-4">
             <Link href="/account" className="hidden hover:underline sm:inline">
-              Sign in
+              Account
             </Link>
             <ModeToggle onInk />
           </div>

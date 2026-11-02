@@ -1,9 +1,15 @@
 import "server-only";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
+import { connection } from "next/server";
 
-/** Request-scoped client that carries the signed-in user's session. */
+/**
+ * Request-scoped client that carries the signed-in user's session. Waits for
+ * the request first: the auth client checks token expiry with Date.now(),
+ * which Next refuses inside a prefetch prerender.
+ */
 export async function createServerSupabase() {
+  await connection();
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key =
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;

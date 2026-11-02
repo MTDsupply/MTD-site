@@ -1,5 +1,6 @@
 "use server";
 import { headers } from "next/headers";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { createServerSupabase } from "@/lib/supabase/server";
@@ -39,6 +40,9 @@ const addressSchema = z.object({
   city: z.string().min(1).max(80),
   province: z.string().min(1).max(40),
   postalCode: z.string().min(1).max(20),
+  country: z.enum(["CA", "US"]),
+  notes: z.string().max(300).optional(),
+  isDefault: z.boolean(),
 });
 
 export async function addAddress(_prev: AuthState, formData: FormData): Promise<AuthState> {
@@ -50,6 +54,9 @@ export async function addAddress(_prev: AuthState, formData: FormData): Promise<
     city: String(formData.get("city") ?? "").trim(),
     province: String(formData.get("province") ?? "BC").trim(),
     postalCode: String(formData.get("postalCode") ?? "").trim(),
+    country: String(formData.get("country") ?? "CA"),
+    notes: String(formData.get("notes") ?? "").trim() || undefined,
+    isDefault: formData.get("isDefault") === "on",
   });
   if (!parsed.success) return { ok: false, message: "Fill in every address field." };
 
@@ -58,6 +65,11 @@ export async function addAddress(_prev: AuthState, formData: FormData): Promise<
   if (!supabase || !data.user) return { ok: false, message: "Sign in first." };
 
   const a = parsed.data;
+  // The first saved address becomes the default automatically.
+  const { count } = await supabase.from("addresses").select("id", { count: "exact", head: true });
+  const makeDefault = a.isDefault || !count;
+  if (makeDefault) await supabase.from("addresses").update({ is_default: false }).eq("user_id", data.user.id);
+
   const { error } = await supabase.from("addresses").insert({
     user_id: data.user.id,
     label: a.label ?? "Delivery",
@@ -67,8 +79,12 @@ export async function addAddress(_prev: AuthState, formData: FormData): Promise<
     city: a.city,
     province: a.province,
     postal_code: a.postalCode,
+    country: a.country,
+    notes: a.notes ?? null,
+    is_default: makeDefault,
   });
   if (error) return { ok: false, message: error.message };
+  revalidatePath("/account", "layout");
   return { ok: true, message: "Address saved." };
 }
 
@@ -77,4 +93,10 @@ export async function deleteAddress(formData: FormData) {
   const supabase = await createServerSupabase();
   if (!supabase || !id) return;
   await supabase.from("addresses").delete().eq("id", id);
+  // Keep one default when the default was removed.
+  const { data } = await supabase.from("addresses").select("id, is_default").order("created_at", { ascending: false });
+  if (data?.length && !data.some((r) => r.is_default)) {
+    await supabase.from("addresses").update({ is_default: true }).eq("id", data[0].id);
+  }
+  revalidatePath("/account", "layout");
 }
