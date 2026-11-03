@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { getCatalog } from "@/lib/catalog/queries";
 import { CatalogGrid } from "@/components/CatalogGrid";
-import { ModeToggle } from "@/components/ModeToggle";
 import { PageHeader } from "@/components/PageHeader";
 
 export const metadata: Metadata = {
@@ -18,7 +17,6 @@ export default async function ProductsPage() {
         eyebrow="Catalogue"
         title="Products"
         description="Cups and lids, all in stock. Packs for the house, cases for the business."
-        actions={<ModeToggle />}
         image="/atmosphere/dew.jpg"
         imageAlt="Dew on meadow grass at sunrise"
       />

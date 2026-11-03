@@ -4,7 +4,8 @@ import { getCatalog } from "@/lib/catalog/queries";
 import { money, unitMoney, count } from "@/lib/format";
 import { QuoteForm } from "@/components/QuoteForm";
 import { Reveal } from "@/components/Reveal";
-import { Atmosphere } from "@/components/scene/Atmosphere";
+import Link from "next/link";
+import { QUOTE_KINDS } from "@/lib/quote-kinds";
 
 export const metadata: Metadata = {
   title: "Business accounts",
@@ -23,20 +24,24 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
-      <Reveal>
-        <Atmosphere src="/atmosphere/forest.jpg" alt="" fade="none" tone="soil" parallax={50} drift={1.05} className="text-paper" priority dark>
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(43,43,43,0.8)_0%,rgba(43,43,43,0.6)_55%,rgba(43,43,43,0.3)_100%)]" />
-          <div className="relative grid gap-8 p-6 md:grid-cols-[1.2fr_1fr] md:gap-12 md:p-10">
-            <div>
-              <p className="t-label text-paper/70">Business accounts</p>
-              <h1 className="t-section mt-3">Supply for cafés, restaurants, caterers and events.</h1>
-              <p className="mt-4 max-w-[52ch] text-paper/80">
-                One supplier for the whole range, certified per SKU, in stock and shipping across North America. Case pricing below. Approved accounts get net-30 and a quote on anything over ten cases.
-              </p>
-              <a href="#quote" className="btn btn-paper mt-8">
+      <div className="band-sage relative left-1/2 -mt-8 w-screen -translate-x-1/2">
+        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 md:grid-cols-[1.2fr_1fr] md:gap-12 md:py-16">
+          <Reveal>
+            <p className="t-label text-paper/75">Business accounts</p>
+            <h1 className="t-section mt-3 text-white">Supply for cafés, restaurants, caterers and events.</h1>
+            <p className="mt-4 max-w-[52ch] text-[17px] leading-7 text-paper/85">
+              One supplier for the whole range, certified per SKU, in stock and shipping across North America. Case pricing below. Approved accounts get net-30 and a quote on anything over ten cases.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a href="#quote" className="btn btn-paper px-6 py-3 font-semibold">
                 Request a quote
               </a>
+              <Link href="/business?kind=sample#quote" className="btn border-paper/70 px-6 py-3 font-semibold text-paper hover:bg-white/10">
+                Request a sample pack
+              </Link>
             </div>
+          </Reveal>
+          <Reveal delay={0.1}>
             <dl className="grid gap-5 border-t border-paper/30 pt-5 md:border-l md:border-t-0 md:pl-8 md:pt-0">
               {[
                 ["Case pricing", "Every price below is per case. Switch the header toggle to Business and the whole site shows case prices."],
@@ -44,14 +49,41 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
                 ["Bulk quotes", "Ten cases or more, or custom printing from 100 cases: send a quote request and we reply within one business day."],
               ].map(([h, t]) => (
                 <div key={h}>
-                  <dt className="t-card text-[17px] leading-[22px]">{h}</dt>
-                  <dd className="mt-1 text-sm text-paper/70">{t}</dd>
+                  <dt className="t-card text-[17px] leading-[22px] text-white">{h}</dt>
+                  <dd className="mt-1 text-sm text-paper/75">{t}</dd>
                 </div>
               ))}
             </dl>
+          </Reveal>
+        </div>
+      </div>
+
+      <section className="mt-12 grid gap-4 md:grid-cols-2">
+        <Reveal>
+          <div className="card flex h-full flex-col bg-white p-6">
+            <p className="t-label text-sage-deep">Try it first</p>
+            <h2 className="t-heading mt-2">Sample pack</h2>
+            <p className="mt-3 text-sm text-soil/80">
+              A small pack of each cup size and the lid, so your team can run them on the machines before committing to a case. Ask for one with the form below and we confirm the cost with your reply.
+            </p>
+            <Link href="/business?kind=sample#quote" className="btn btn-outline mt-5 self-start">
+              Request a sample pack
+            </Link>
           </div>
-        </Atmosphere>
-      </Reveal>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <div className="card flex h-full flex-col bg-white p-6">
+            <p className="t-label text-sage-deep">Your mark on the cup</p>
+            <h2 className="t-heading mt-2">Custom printing</h2>
+            <p className="mt-3 text-sm text-soil/80">
+              Your logo on the same certified cup, from 100 cases. Send your artwork details and we reply with options, pricing and a proof.
+            </p>
+            <Link href="/custom-printing" className="btn btn-outline mt-5 self-start">
+              About custom printing
+            </Link>
+          </div>
+        </Reveal>
+      </section>
 
       <section className="mt-12">
         <p className="t-label text-sage-deep">Pricing</p>
@@ -103,7 +135,7 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
 
       <section id="quote" className="mt-12">
         <p className="t-label text-sage-deep">Quote</p>
-        <h2 className="t-heading mt-2">Request a bulk quote</h2>
+        <h2 className="t-heading mt-2">Request a quote, a sample pack or custom printing</h2>
         <p className="mt-1 text-sm text-soil/70">Tell us your monthly volume and the categories you want, including ones not yet in stock.</p>
         <div className="mt-4">
           <Suspense fallback={<QuoteForm categories={categories} />}>
@@ -112,15 +144,12 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
         </div>
       </section>
 
-      <section className="mt-12 grid gap-8 md:grid-cols-[1fr_1.2fr] md:items-center">
-        <Reveal>
-          <Atmosphere src="/atmosphere/cafe.jpg" alt="A customer in a café holding a Made to Disappear cup" fade="none" parallax={30} drift={1.05} className="aspect-square border border-line" sizes="(min-width: 768px) 40vw, 100vw" objectPosition="center 30%" />
-        </Reveal>
+      <section className="mt-12">
         <div className="max-w-2xl border-l-2 border-sage pl-5 text-sm text-soil/80">
-        <h2 className="t-card">Cup Casa accounts</h2>
-        <p className="mt-2">
-          Cafés running Cup Casa OS can turn on auto-replenishment: we track your cup usage and deliver before you run out, on the same net-30 terms. Mention it in the notes above.
-        </p>
+          <h2 className="t-card">Cup Casa accounts</h2>
+          <p className="mt-2">
+            Cafés running Cup Casa OS can turn on auto-replenishment: we track your cup usage and deliver before you run out, on the same net-30 terms. Mention it in the notes above.
+          </p>
         </div>
       </section>
     </div>
@@ -136,5 +165,6 @@ async function QuoteWithPreset({
 }) {
   const sp = await searchParams;
   const sku = typeof sp.sku === "string" ? sp.sku : undefined;
-  return <QuoteForm categories={categories} presetSku={sku} />;
+  const kind = QUOTE_KINDS.find(([k]) => k === sp.kind)?.[0];
+  return <QuoteForm categories={categories} presetSku={sku} presetKind={kind} />;
 }

@@ -58,9 +58,11 @@ export function AddToCart({ product, compact = false }: { product: Product; comp
           {added ? "Added" : "Add to cart"}
         </button>
       </div>
-      <p className="text-xs tnum text-soil/70">
-        {count(qty * info.count)} units · {unitMoney(perUnit)} each · {money(lineTotal)}
-      </p>
+      {!compact ? (
+        <p className="text-xs tnum text-soil/70">
+          {count(qty * info.count)} units · {unitMoney(perUnit)} each · {money(lineTotal)}
+        </p>
+      ) : null}
       {mode === "business" || !compact ? (
         <p className="text-xs text-soil/70">
           Buying 10+ cases?{" "}

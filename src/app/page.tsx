@@ -280,6 +280,13 @@ export default async function HomePage() {
               </div>
             ))}
           </RevealGroup>
+          <Reveal delay={0.2}>
+            <p className="mt-6 text-sm font-medium">
+              <Link href="/compost" className="link-proof">
+                The full guide to composting it at home
+              </Link>
+            </p>
+          </Reveal>
         </section>
 
         {/* 6. The brand film. */}
@@ -369,9 +376,14 @@ export default async function HomePage() {
               <p className="t-label text-sage-deep">Proof</p>
               <h2 className="t-page mt-2">Why it disappears.</h2>
               <p className="mt-4 max-w-[52ch] text-soil/80">{claims.whyParagraph}</p>
-              <Link href="/certifications" className="link-proof mt-5 inline-block text-sm font-medium">
-                See every certificate
-              </Link>
+              <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium">
+                <Link href="/certifications" className="link-proof">
+                  See every certificate
+                </Link>
+                <Link href="/compost" className="link-proof">
+                  How to compost it
+                </Link>
+              </div>
               <ul className="mt-8 divide-y divide-line border-y border-line">
                 {live.map((p) => {
                   const cert = certById.get(p.certId ?? "");

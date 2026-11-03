@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { getCatalog, getCategories } from "@/lib/catalog/queries";
 import { CatalogGrid } from "@/components/CatalogGrid";
 import { ComingSoonTile } from "@/components/ComingSoonTile";
-import { ModeToggle } from "@/components/ModeToggle";
 import { PageHeader } from "@/components/PageHeader";
 import { money, unitMoney, count } from "@/lib/format";
 
@@ -104,7 +103,7 @@ export default async function CategoryPage({ params }: PageProps<"/products/[cat
 
   return (
     <div className="mx-auto max-w-7xl px-4 pb-8">
-      <PageHeader eyebrow="In stock" title={c.name} description={c.description} actions={<ModeToggle />} image="/atmosphere/dew.jpg" imageAlt="Dew on meadow grass at sunrise" />
+      <PageHeader eyebrow="In stock" title={c.name} description={c.description} image="/atmosphere/dew.jpg" imageAlt="Dew on meadow grass at sunrise" />
       <Suspense fallback={<p className="mt-8 text-sm text-soil/60">Loading…</p>}>
         <CatalogGrid catalog={catalog} lockedCategory={c.slug} />
       </Suspense>

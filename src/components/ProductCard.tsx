@@ -40,7 +40,7 @@ export function ProductCard({
       <p className="mt-0.5 text-sm text-soil/70">
         {product.size} · {product.material}
       </p>
-      <div className="mt-2">
+      <div className="mt-1.5">
         <CertChip cert={cert} sku={product.sku} compact />
       </div>
       <div className="mt-3">

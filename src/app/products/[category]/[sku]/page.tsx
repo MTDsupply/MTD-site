@@ -9,6 +9,8 @@ import { AddToCart } from "@/components/AddToCart";
 import { SpecTable } from "@/components/SpecTable";
 import { ProductCard } from "@/components/ProductCard";
 import { ComingSoonTile } from "@/components/ComingSoonTile";
+import { PairedAdd } from "@/components/PairedAdd";
+import { StickyBuyBar } from "@/components/StickyBuyBar";
 import { photoFor } from "@/lib/catalog/assets";
 
 export async function generateStaticParams() {
@@ -49,6 +51,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
   const goesWithProducts = product.goesWith
     .map((s) => catalog.products.find((p) => p.sku === s))
     .filter((p): p is NonNullable<typeof p> => !!p && p.status === "live");
+  const pairedLid = cat.slug === "cups" ? goesWithProducts.find((p) => p.categorySlug === "lids") ?? null : null;
   const pairedComingSoon = catalog.categories.filter((c) => c.status !== "live" && c.slug === "lids" && cat.slug === "cups");
 
   return (
@@ -116,6 +119,26 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
           <div className="mt-4 border border-line bg-white p-4">
             <AddToCart product={product} />
           </div>
+          {pairedLid ? (
+            <div className="mt-3">
+              <PairedAdd product={pairedLid} label="Add the matching lid" />
+            </div>
+          ) : null}
+          {cat.slug === "lids" && goesWithProducts.length ? (
+            <p className="mt-4 text-sm text-soil/75">
+              Fits{" "}
+              {goesWithProducts.map((p, i) => (
+                <span key={p.sku}>
+                  {i > 0 ? (i === goesWithProducts.length - 1 ? " and " : ", ") : ""}
+                  <Link href={`/products/${p.categorySlug}/${p.sku.toLowerCase()}`} className="link font-medium">
+                    the {p.size} cup
+                  </Link>
+                </span>
+              ))}
+              .
+            </p>
+          ) : null}
+          <StickyBuyBar product={product} />
         </div>
       </div>
 

@@ -62,8 +62,18 @@ export async function Footer() {
               </Link>
             </li>
             <li>
+              <Link href="/custom-printing" className="hover:underline">
+                Custom printing
+              </Link>
+            </li>
+            <li>
               <Link href="/certifications" className="hover:underline">
                 Certifications
+              </Link>
+            </li>
+            <li>
+              <Link href="/compost" className="hover:underline">
+                How to compost it
               </Link>
             </li>
             <li>

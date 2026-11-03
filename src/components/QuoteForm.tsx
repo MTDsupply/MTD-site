@@ -2,8 +2,9 @@
 import { useActionState } from "react";
 import { submitQuote, type QuoteState } from "@/app/actions/quote";
 import type { Category } from "@/lib/catalog/types";
+import { QUOTE_KINDS, type QuoteKind } from "@/lib/quote-kinds";
 
-export function QuoteForm({ categories, presetSku }: { categories: Category[]; presetSku?: string }) {
+export function QuoteForm({ categories, presetSku, presetKind = "bulk" }: { categories: Category[]; presetSku?: string; presetKind?: QuoteKind }) {
   const [state, action, pending] = useActionState<QuoteState, FormData>(submitQuote, null);
 
   if (state?.ok) {
@@ -17,6 +18,17 @@ export function QuoteForm({ categories, presetSku }: { categories: Category[]; p
 
   return (
     <form action={action} className="grid gap-4 border border-line bg-white p-6 md:grid-cols-2">
+      <fieldset className="md:col-span-2">
+        <legend className="label">This request is for</legend>
+        <div className="flex flex-wrap gap-x-5 gap-y-1.5">
+          {QUOTE_KINDS.map(([value, label]) => (
+            <label key={value} className="flex items-center gap-2 text-sm">
+              <input type="radio" name="kind" value={value} defaultChecked={value === presetKind} />
+              {label}
+            </label>
+          ))}
+        </div>
+      </fieldset>
       <div>
         <label className="label" htmlFor="q-company">
           Company
@@ -97,7 +109,7 @@ export function QuoteForm({ categories, presetSku }: { categories: Category[]; p
       ) : null}
       <div className="md:col-span-2">
         <button type="submit" className="btn btn-primary" disabled={pending}>
-          {pending ? "Sending…" : "Request a quote"}
+          {pending ? "Sending…" : "Send request"}
         </button>
       </div>
     </form>

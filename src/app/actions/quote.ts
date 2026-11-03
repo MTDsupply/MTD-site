@@ -6,6 +6,7 @@ import { notifyTeam } from "@/lib/email";
 export type QuoteState = { ok: boolean; message: string } | null;
 
 const schema = z.object({
+  kind: z.enum(["bulk", "sample", "printing"]).default("bulk"),
   company: z.string().min(1, "Company is required.").max(120),
   contactName: z.string().min(1, "Your name is required.").max(120),
   email: z.email("Enter a valid email address."),
@@ -18,6 +19,7 @@ const schema = z.object({
 
 export async function submitQuote(_prev: QuoteState, formData: FormData): Promise<QuoteState> {
   const parsed = schema.safeParse({
+    kind: String(formData.get("kind") ?? "bulk"),
     company: String(formData.get("company") ?? "").trim(),
     contactName: String(formData.get("contactName") ?? "").trim(),
     email: String(formData.get("email") ?? "").trim(),
@@ -29,6 +31,8 @@ export async function submitQuote(_prev: QuoteState, formData: FormData): Promis
   });
   if (!parsed.success) return { ok: false, message: parsed.error.issues[0]?.message ?? "Check the form." };
   const q = parsed.data;
+  const kindLabel = { bulk: "Bulk order", sample: "Sample pack", printing: "Custom printing" }[q.kind];
+  const notes = [q.kind !== "bulk" ? `Request type: ${kindLabel}.` : "", q.notes ?? ""].filter(Boolean).join(" ");
 
   const db = createAdminClient();
   if (db) {
@@ -40,7 +44,7 @@ export async function submitQuote(_prev: QuoteState, formData: FormData): Promis
       volume_per_month: q.volumePerMonth,
       categories: q.categories,
       delivery_address: q.deliveryAddress,
-      notes: q.notes ?? null,
+      notes: notes || null,
     });
     if (error) {
       console.error("[quote] insert failed:", error.message);
@@ -49,7 +53,7 @@ export async function submitQuote(_prev: QuoteState, formData: FormData): Promis
   }
 
   await notifyTeam({
-    subject: `Bulk quote request: ${q.company}`,
+    subject: `${kindLabel} request: ${q.company}`,
     replyTo: q.email,
     text: [
       `Company: ${q.company}`,
@@ -57,11 +61,16 @@ export async function submitQuote(_prev: QuoteState, formData: FormData): Promis
       `Volume per month: ${q.volumePerMonth}`,
       `Categories: ${q.categories.join(", ") || "(none selected)"}`,
       `Delivery address: ${q.deliveryAddress}`,
-      q.notes ? `Notes: ${q.notes}` : "",
+      notes ? `Notes: ${notes}` : "",
     ]
       .filter(Boolean)
       .join("\n"),
   });
 
-  return { ok: true, message: "Thanks. We'll reply with case pricing within one business day." };
+  const reply = {
+    bulk: "Thanks. We'll reply with case pricing within one business day.",
+    sample: "Thanks. We'll confirm your sample pack and the cost within one business day.",
+    printing: "Thanks. We'll reply with printing options, pricing and next steps within one business day.",
+  }[q.kind];
+  return { ok: true, message: reply };
 }
