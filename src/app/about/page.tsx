@@ -31,7 +31,7 @@ export default function AboutPage() {
       </Reveal>
 
       <Reveal as="section" className="mt-10">
-        <h2 className="t-heading">The team</h2>
+        <h2 className="t-heading">Our founders</h2>
         <ul className="mt-5 grid gap-6 sm:grid-cols-2">
           {TEAM.map((m) => (
             <li key={m.name} className="card bg-white p-3">
