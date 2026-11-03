@@ -53,73 +53,71 @@ export default async function HomePage() {
 
   return (
     <div>
-      {/* 1. Hero: a flat Sage banner edge to edge, the cups cut out and big, one headline, one button. */}
+      {/* 1. Hero: a flat Sage banner, copy left, the café photograph hard-edged on the right. */}
       <section className="band-sage relative isolate overflow-hidden">
-        <div className="mx-auto grid max-w-7xl items-center gap-x-10 px-4 md:min-h-[min(calc(100dvh-7rem),640px)] md:grid-cols-[1.05fr_1fr]">
-          <div className="pt-12 pb-4 md:py-20">
-            <Reveal>
-              <span className="inline-flex items-center gap-2 rounded-[4px] bg-clay px-2.5 py-1 text-[12px] font-semibold uppercase tracking-[0.06em] text-soil">
-                Hot cups &amp; lids · In stock in {site.city}
-              </span>
-            </Reveal>
-            <Reveal delay={0.08}>
-              <h1 className="t-hero mt-5 max-w-[12ch] text-white text-[clamp(50px,12.5vw,64px)] md:text-[clamp(60px,6.4vw,92px)]">
-                Serve it. Then it disappears.
-              </h1>
-            </Reveal>
-            <Reveal delay={0.16}>
-              <p className="mt-6 max-w-[40ch] text-[18px] leading-7 text-paper/90 md:text-[20px] md:leading-8">
-                Hot cups and lids made from 100% certified home-compostable material. Cases for the café, packs for the house.
-              </p>
-            </Reveal>
-            <Reveal delay={0.24}>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link href="/products/cups" className="btn btn-paper px-7 py-3.5 text-[16px] font-semibold">
-                  Shop cups
-                </Link>
-                <Link href="/products/lids" className="btn border-paper/70 px-7 py-3.5 text-[16px] font-semibold text-paper hover:bg-white/10">
-                  Shop lids
-                </Link>
-              </div>
-            </Reveal>
-            <Reveal delay={0.32}>
-              <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-paper/85">
-                <li className="flex items-center gap-2">
-                  <Check light /> Certified by {site.certifier}
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check light /> No microplastics
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check light /> From {money(cheapestCupPack?.packPrice ?? 0)} per 100
-                </li>
-              </ul>
-            </Reveal>
-          </div>
-          <div className="relative mt-4 self-end md:mt-0 md:pt-8">
-            <Reveal delay={0.1} y={30}>
-              <div className="relative mx-auto w-[min(100%,540px)] pb-4 md:w-[min(100%,600px)] md:pb-6">
-                <Image
-                  src="/hero-cups-cutout.png"
-                  alt="Two paper hot cups, one on its side showing the certification mark on its base"
-                  width={1119}
-                  height={1072}
-                  priority
-                  sizes="(min-width: 768px) 620px, 100vw"
-                  className="h-auto w-full drop-shadow-[0_30px_40px_rgba(0,0,0,0.28)]"
-                />
-                {/* The round home-compostable mark on a white disc, sitting on the banner like a sticker beside the claim. */}
-                <span className="absolute -top-3 left-0 flex w-[27%] -rotate-12 items-center justify-center rounded-full bg-white p-[1.5%] shadow-[0_14px_28px_rgba(0,0,0,0.25)] md:-left-6 md:-top-6">
-                  <Image
-                    src="/badge-home-compostable.png"
-                    alt="Home compostable mark: TÜV Austria certified, no microplastics, PHA lined"
-                    width={892}
-                    height={881}
-                    className="h-auto w-full"
-                  />
+        <div className="grid md:min-h-[min(calc(100dvh-7rem),640px)] md:grid-cols-2">
+          <div className="flex items-center px-4 pt-12 pb-12 md:py-20 md:pl-[max(1rem,calc(50vw_-_40rem_+_1rem))] md:pr-12">
+            <div className="max-w-[38rem]">
+              <Reveal>
+                <span className="inline-flex items-center gap-2 rounded-[4px] bg-clay px-2.5 py-1 text-[12px] font-semibold uppercase tracking-[0.06em] text-soil">
+                  Hot cups &amp; lids · In stock in {site.city}
                 </span>
-              </div>
-            </Reveal>
+              </Reveal>
+              <Reveal delay={0.08}>
+                <h1 className="t-hero mt-5 max-w-[12ch] text-white text-[clamp(50px,12.5vw,64px)] md:text-[clamp(56px,6vw,88px)]">
+                  Serve it. Then it disappears.
+                </h1>
+              </Reveal>
+              <Reveal delay={0.16}>
+                <p className="mt-6 max-w-[40ch] text-[18px] leading-7 text-paper/90 md:text-[20px] md:leading-8">
+                  Hot cups and lids made from 100% certified home-compostable material. Cases for the café, packs for the house.
+                </p>
+              </Reveal>
+              <Reveal delay={0.24}>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Link href="/products/cups" className="btn btn-paper px-7 py-3.5 text-[16px] font-semibold">
+                    Shop cups
+                  </Link>
+                  <Link href="/products/lids" className="btn border-paper/70 px-7 py-3.5 text-[16px] font-semibold text-paper hover:bg-white/10">
+                    Shop lids
+                  </Link>
+                </div>
+              </Reveal>
+              <Reveal delay={0.32}>
+                <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-paper/85">
+                  <li className="flex items-center gap-2">
+                    <Check light /> Certified by {site.certifier}
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check light /> No microplastics
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check light /> From {money(cheapestCupPack?.packPrice ?? 0)} per 100
+                  </li>
+                </ul>
+              </Reveal>
+            </div>
+          </div>
+          <div className="relative aspect-[4/5] md:aspect-auto">
+            <Image
+              src="/hero-cafe.jpg"
+              alt="A customer laughing over a paper hot cup at a café counter"
+              fill
+              priority
+              sizes="(min-width: 768px) 50vw, 100vw"
+              className="object-cover"
+              style={{ objectPosition: "50% 38%" }}
+            />
+            {/* The round home-compostable mark on a white disc, a sticker on the photo's corner beside the claim. */}
+            <span className="absolute bottom-5 left-5 flex w-[120px] -rotate-12 items-center justify-center rounded-full bg-white p-1.5 shadow-[0_14px_28px_rgba(0,0,0,0.25)] md:left-8 md:bottom-8 md:w-[150px]">
+              <Image
+                src="/badge-home-compostable.png"
+                alt="Home compostable mark: TÜV Austria certified, no microplastics, PHA lined"
+                width={892}
+                height={881}
+                className="h-auto w-full"
+              />
+            </span>
           </div>
         </div>
       </section>
