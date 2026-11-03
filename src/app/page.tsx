@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { getCatalog } from "@/lib/catalog/queries";
@@ -27,12 +28,9 @@ function filmMedia() {
   return { video, poster, mobileVideo };
 }
 
-/** The hero photograph: the cups on the forest floor, certification mark showing. */
-const HERO_PHOTO = "/hero-cups.jpg";
-
-function Check() {
+function Check({ light = false }: { light?: boolean }) {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true" className="text-sage-deep">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true" className={light ? "text-paper" : "text-sage-deep"}>
       <path d="m5 12 5 5 9-10" />
     </svg>
   );
@@ -55,63 +53,73 @@ export default async function HomePage() {
 
   return (
     <div>
-      {/* 1. Hero: the product first. Photo bleeds off the right edge, copy on Paper at left. */}
-      <section className="relative isolate overflow-hidden">
-        <div className="grid md:min-h-[min(calc(100dvh-7rem),720px)] md:grid-cols-2">
-          <div className="relative order-first aspect-[4/3] md:order-last md:aspect-auto">
-            <Atmosphere
-              src={HERO_PHOTO}
-              alt="Two paper hot cups on a mossy forest floor, one showing the certification mark on its base"
-              fade="left"
-              tone="paper"
-              parallax={30}
-              drift={1.04}
-              priority
-              className="h-full w-full"
-              objectPosition="center 58%"
-              sizes="(min-width: 768px) 50vw, 100vw"
-            />
+      {/* 1. Hero: a flat Sage banner edge to edge, the cups cut out and big, one headline, one button. */}
+      <section className="band-sage relative isolate overflow-hidden">
+        <div className="mx-auto grid max-w-7xl items-center gap-x-10 px-4 md:min-h-[min(calc(100dvh-7rem),640px)] md:grid-cols-[1.05fr_1fr]">
+          <div className="pt-12 pb-4 md:py-20">
+            <Reveal>
+              <span className="inline-flex items-center gap-2 rounded-[4px] bg-clay px-2.5 py-1 text-[12px] font-semibold uppercase tracking-[0.06em] text-soil">
+                Hot cups &amp; lids · In stock in {site.city}
+              </span>
+            </Reveal>
+            <Reveal delay={0.08}>
+              <h1 className="t-hero mt-5 max-w-[12ch] text-white text-[clamp(50px,12.5vw,64px)] md:text-[clamp(60px,6.4vw,92px)]">
+                Serve it. Then it disappears.
+              </h1>
+            </Reveal>
+            <Reveal delay={0.16}>
+              <p className="mt-6 max-w-[40ch] text-[18px] leading-7 text-paper/90 md:text-[20px] md:leading-8">
+                Hot cups and lids made from 100% certified home-compostable material. Cases for the café, packs for the house.
+              </p>
+            </Reveal>
+            <Reveal delay={0.24}>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link href="/products/cups" className="btn btn-paper px-7 py-3.5 text-[16px] font-semibold">
+                  Shop cups
+                </Link>
+                <Link href="/products/lids" className="btn border-paper/70 px-7 py-3.5 text-[16px] font-semibold text-paper hover:bg-white/10">
+                  Shop lids
+                </Link>
+              </div>
+            </Reveal>
+            <Reveal delay={0.32}>
+              <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-paper/85">
+                <li className="flex items-center gap-2">
+                  <Check light /> Certified by {site.certifier}
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check light /> No microplastics
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check light /> From {money(cheapestCupPack?.packPrice ?? 0)} per 100
+                </li>
+              </ul>
+            </Reveal>
           </div>
-          <div className="flex items-center px-4 py-10 md:py-20 md:pl-[max(1rem,calc(50vw_-_40rem_+_1rem))] md:pr-10">
-            <div className="max-w-[36rem]">
-              <Reveal>
-                <p className="t-label text-sage-deep">Foodservice essentials · {site.city}, {site.province}</p>
-              </Reveal>
-              <Reveal delay={0.08}>
-                <h1 className="t-hero mt-4 max-w-[13ch] text-soil">Serve it. Then it disappears.</h1>
-              </Reveal>
-              <Reveal delay={0.16}>
-                <p className="mt-6 max-w-[44ch] text-[17px] leading-7 text-soil/80">
-                  Hot cups and lids made from 100% certified home-compostable material. Cases for the café, packs for the house.
-                </p>
-              </Reveal>
-              <Reveal delay={0.24}>
-                <div className="mt-8 flex flex-wrap gap-3">
-                  <Link href="/products/cups" className="btn btn-primary">
-                    Shop cups
-                  </Link>
-                  <Link href="/products/lids" className="btn btn-outline">
-                    Shop lids
-                  </Link>
-                  <Link href="/business" className="btn btn-ghost">
-                    Business pricing
-                  </Link>
-                </div>
-              </Reveal>
-              <Reveal delay={0.32}>
-                <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-soil/75">
-                  <li className="flex items-center gap-2">
-                    <Check /> Certified by {site.certifier}
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check /> No microplastics
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check /> In stock in {site.city}
-                  </li>
-                </ul>
-              </Reveal>
-            </div>
+          <div className="relative mt-4 self-end md:mt-0">
+            <Reveal delay={0.1} y={30}>
+              <div className="relative mx-auto w-[min(100%,560px)] translate-y-[2%] md:w-[min(100%,620px)] md:translate-y-[3%]">
+                <Image
+                  src="/hero-cups-cutout.png"
+                  alt="Two paper hot cups, one on its side showing the certification mark on its base"
+                  width={1119}
+                  height={1072}
+                  priority
+                  sizes="(min-width: 768px) 620px, 100vw"
+                  className="h-auto w-full drop-shadow-[0_30px_40px_rgba(0,0,0,0.28)]"
+                />
+                {/* The round home-compostable mark on a white disc, sitting on the banner like a sticker beside the claim. */}
+                <span className="absolute -top-3 left-0 flex w-[27%] -rotate-12 items-center justify-center rounded-full bg-white p-[1.5%] shadow-[0_14px_28px_rgba(0,0,0,0.25)] md:-left-6 md:-top-6">
+                  <Image
+                    src="/badge-home-compostable.png"
+                    alt="Home compostable mark: TÜV Austria certified, no microplastics, PHA lined"
+                    width={892}
+                    height={881}
+                    className="h-auto w-full"
+                  />
+                </span>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -122,7 +130,7 @@ export default async function HomePage() {
           <div className="flex flex-wrap items-end justify-between gap-4">
             <Reveal>
               <p className="t-label text-sage-deep">In stock now</p>
-              <h2 className="t-page mt-2">Shop.</h2>
+              <h2 className="t-page mt-2">Shop best sellers.</h2>
             </Reveal>
             <Reveal delay={0.1}>
               <div className="flex flex-wrap gap-5 text-sm font-medium">
