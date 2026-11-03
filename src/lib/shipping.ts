@@ -10,9 +10,10 @@ export type Country = "CA" | "US";
  * and the shipping page all read from this file.
  */
 export const SHIPPING: Record<Country, { label: string; pack: number; packFreeOver: number; perCase: number }> = {
-  // Per-case rate set by the user on 2026-11-02: a case of 1,000 ships for a minimum of $49.99.
+  // Per-case rates set by the user on 2026-11-02: a case of 1,000 ships for $49.99 in Canada,
+  // and the US case rate is 1.42× the Canadian one ($70.99).
   CA: { label: "Canada", pack: 9.95, packFreeOver: 99, perCase: 49.99 },
-  US: { label: "United States", pack: 14.95, packFreeOver: 149, perCase: 49.99 },
+  US: { label: "United States", pack: 14.95, packFreeOver: 149, perCase: 70.99 },
 };
 
 export const COUNTRIES: Country[] = ["CA", "US"];
