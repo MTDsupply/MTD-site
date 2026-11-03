@@ -17,6 +17,8 @@ export function CatalogGrid({ catalog, lockedCategory }: { catalog: Catalog; loc
   const reduced = useReducedMotion();
 
   const q = (params.get("q") ?? "").trim().toLowerCase();
+  const qs = q.replace(/[^a-z0-9]+/g, "");
+  const has = (...parts: (string | undefined)[]) => !qs || parts.join(" ").toLowerCase().replace(/[^a-z0-9]+/g, "").includes(qs);
   const cat = lockedCategory ?? params.get("category") ?? "";
 
   const set = (key: string, value: string) => {
@@ -33,14 +35,7 @@ export function CatalogGrid({ catalog, lockedCategory }: { catalog: Catalog; loc
   const liveProducts = catalog.products
     .filter((p) => p.status === "live" && catBySlug.get(p.categorySlug)?.status === "live")
     .filter((p) => !cat || p.categorySlug === cat)
-    .filter(
-      (p) =>
-        !q ||
-        p.name.toLowerCase().includes(q) ||
-        p.sku.toLowerCase().includes(q) ||
-        p.material.toLowerCase().includes(q) ||
-        (catBySlug.get(p.categorySlug)?.name.toLowerCase().includes(q) ?? false),
-    )
+    .filter((p) => has(p.name, p.sku, p.size, p.material, catBySlug.get(p.categorySlug)?.name, p.categorySlug === "lids" ? "lid lids" : "cup cups"))
     .sort(
       (a, b) =>
         (catBySlug.get(a.categorySlug)?.sortOrder ?? 99) - (catBySlug.get(b.categorySlug)?.sortOrder ?? 99) ||
@@ -50,7 +45,7 @@ export function CatalogGrid({ catalog, lockedCategory }: { catalog: Catalog; loc
   const comingSoon = categories
         .filter((c) => c.status !== "live")
         .filter((c) => !cat || c.slug === cat)
-        .filter((c) => !q || c.name.toLowerCase().includes(q) || c.description.toLowerCase().includes(q));
+        .filter((c) => has(c.name, c.description, c.slug));
 
   const empty = liveProducts.length === 0 && comingSoon.length === 0;
 
