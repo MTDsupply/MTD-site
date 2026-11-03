@@ -4,7 +4,6 @@ import Image from "next/image";
 import { site } from "@/lib/site";
 import { PageHeader } from "@/components/PageHeader";
 import { Reveal } from "@/components/Reveal";
-import { Atmosphere } from "@/components/scene/Atmosphere";
 
 export const metadata: Metadata = {
   title: "About",
@@ -21,9 +20,6 @@ export default function AboutPage() {
     <div className="mx-auto max-w-3xl px-4 pb-8">
       <PageHeader eyebrow="Our story" title="About" description="Who we are, where the stock sits, and why the name." image="/atmosphere/meadow.jpg" imageAlt="Meadow grasses in late light below a sage hillside" />
 
-      <Reveal className="mt-10">
-        <Atmosphere src="/atmosphere/cafe.jpg" alt="A customer in a café holding a Made to Disappear cup" fade="none" parallax={30} drift={1.05} className="aspect-[4/3] border border-line" sizes="(min-width: 768px) 768px, 100vw" objectPosition="center 30%" />
-      </Reveal>
       <Reveal as="section" className="mt-10 space-y-4 text-base text-soil/85">
         <h2 className="t-heading">Who</h2>
         <p>
