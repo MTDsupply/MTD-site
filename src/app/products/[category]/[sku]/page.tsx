@@ -12,6 +12,7 @@ import { ComingSoonTile } from "@/components/ComingSoonTile";
 import { PairedAdd } from "@/components/PairedAdd";
 import { StickyBuyBar } from "@/components/StickyBuyBar";
 import { photoFor } from "@/lib/catalog/assets";
+import { restockNote } from "@/lib/site";
 
 export async function generateStaticParams() {
   const products = await getLiveProducts();
@@ -89,8 +90,9 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
             {product.material}. 100% certified home-compostable material. {product.caseCount.toLocaleString("en-CA")} per case.{" "}
             <span className="sku text-soil/60">{product.sku}</span>
           </p>
-          <div className="mt-3 flex items-center gap-3">
+          <div className="mt-3 flex flex-wrap items-center gap-2">
             <CertChip cert={cert} sku={product.sku} />
+            {restockNote(cat.slug) ? <span className="chip chip-clay">{restockNote(cat.slug)}</span> : null}
           </div>
 
           {siblings.length > 1 ? (
@@ -118,6 +120,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
           </div>
           <div className="mt-4 border border-line bg-white p-4">
             <AddToCart product={product} />
+            {restockNote(cat.slug) ? <p className="mt-3 text-xs text-soil/70">{restockNote(cat.slug)}. Orders placed now are filled from that stock.</p> : null}
           </div>
           {pairedLid ? (
             <div className="mt-3">

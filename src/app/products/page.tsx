@@ -3,10 +3,11 @@ import { Suspense } from "react";
 import { getCatalog } from "@/lib/catalog/queries";
 import { CatalogGrid } from "@/components/CatalogGrid";
 import { PageHeader } from "@/components/PageHeader";
+import { restockNote, restockNoteLower } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Products",
-  description: "Cups and lids made from 100% certified home-compostable material, all in stock.",
+  description: "Cups and lids made from 100% certified home-compostable material. Packs for the house, cases for the business.",
 };
 
 export default async function ProductsPage() {
@@ -16,7 +17,7 @@ export default async function ProductsPage() {
       <PageHeader
         eyebrow="Catalogue"
         title="Products"
-        description="Cups and lids, all in stock. Packs for the house, cases for the business."
+        description={`${restockNote("cups") ? `Cups ${restockNoteLower("cups")}, lids in stock.` : "Cups and lids, all in stock."} Packs for the house, cases for the business.`}
         image="/atmosphere/dew.jpg"
         imageAlt="Dew on meadow grass at sunrise"
       />

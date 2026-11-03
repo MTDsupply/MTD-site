@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import type { Category } from "@/lib/catalog/types";
+import { restockNote } from "@/lib/site";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -144,7 +145,7 @@ export function Nav({ categories }: { categories: Category[] }) {
                             {c.name}
                           </span>
                           {live ? (
-                            <span className="t-label text-clay-deep">In stock</span>
+                            <span className="t-label text-clay-deep">{restockNote(c.slug) ?? "In stock"}</span>
                           ) : (
                             <span className="chip chip-fog text-[11px]">Coming soon</span>
                           )}

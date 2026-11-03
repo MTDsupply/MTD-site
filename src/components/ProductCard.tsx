@@ -4,6 +4,7 @@ import { CertChip } from "./CertChip";
 import { ProductImage } from "./ProductImage";
 import { Price } from "./Price";
 import { AddToCart } from "./AddToCart";
+import { restockNote } from "@/lib/site";
 
 /**
  * Catalogue card: image, name, size, material, cert chip, price per unit and
@@ -40,8 +41,9 @@ export function ProductCard({
       <p className="mt-0.5 text-sm text-soil/70">
         {product.size} · {product.material}
       </p>
-      <div className="mt-1.5">
+      <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1">
         <CertChip cert={cert} sku={product.sku} compact />
+        {restockNote(product.categorySlug) ? <span className="chip chip-clay">{restockNote(product.categorySlug)}</span> : null}
       </div>
       <div className="mt-3">
         <Price product={product} size="sm" detail={false} />

@@ -20,4 +20,21 @@ export const site = {
     { city: "Calgary", status: "coming_soon" as const, when: "2027" },
   ],
   certifier: "TÜV Austria",
+  /**
+   * Categories waiting on a restock, by slug, with the wording to show.
+   * Remove the entry when the stock lands and every "in stock" line comes back.
+   */
+  restock: { cups: "mid-December" } as Record<string, string>,
 };
+
+/** "Restocking mid-December" for a category that is waiting on stock, or null. */
+export function restockNote(categorySlug: string): string | null {
+  const when = site.restock[categorySlug];
+  return when ? `Restocking ${when}` : null;
+}
+
+/** The same note mid-sentence: "restocking mid-December". */
+export function restockNoteLower(categorySlug: string): string | null {
+  const n = restockNote(categorySlug);
+  return n ? n[0].toLowerCase() + n.slice(1) : null;
+}

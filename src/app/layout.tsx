@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     template: `%s · ${site.name}`,
   },
   description:
-    "Cups and lids made from 100% certified home-compostable material, in stock now. Cases for businesses, packs for everyone else.",
+    "Cups and lids made from 100% certified home-compostable material. Cases for businesses, packs for everyone else.",
   icons: { icon: "/icon.png", apple: "/apple-icon.png" },
   openGraph: {
     type: "website",

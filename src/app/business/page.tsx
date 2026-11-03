@@ -6,6 +6,7 @@ import { QuoteForm } from "@/components/QuoteForm";
 import { Reveal } from "@/components/Reveal";
 import Link from "next/link";
 import { QUOTE_KINDS } from "@/lib/quote-kinds";
+import { restockNote } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Business accounts",
@@ -30,7 +31,7 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
             <p className="t-label text-paper/75">Business accounts</p>
             <h1 className="t-section mt-3 text-white">Supply for cafés, restaurants, caterers and events.</h1>
             <p className="mt-4 max-w-[52ch] text-[17px] leading-7 text-paper/85">
-              One supplier for the whole range, certified per SKU, in stock and shipping across North America. Case pricing below. Approved accounts get net-30 and a quote on anything over ten cases.
+              One supplier for the whole range, certified per SKU, shipping across North America. Case pricing below. Approved accounts get net-30 and a quote on anything over ten cases.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a href="#quote" className="btn btn-paper px-6 py-3 font-semibold">
@@ -117,7 +118,7 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
                     <td className="num">{unitMoney(p.unitPrice)}</td>
                     <td className="num text-soil/80">{(p.packs?.length ? p.packs : [{ count: p.packCount, price: p.packPrice }]).map((t) => money(t.price).replace(".00", "")).join(" / ")}</td>
                     <td className="wrap">{cert && live ? cert.certifier : "In testing"}</td>
-                    <td>{live ? <span className="chip chip-clay">In stock</span> : <span className="chip chip-fog">Coming soon</span>}</td>
+                    <td>{live ? <span className="chip chip-clay">{restockNote(p.categorySlug) ?? "In stock"}</span> : <span className="chip chip-fog">Coming soon</span>}</td>
                   </tr>
                 );
               })}

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { getCatalog } from "@/lib/catalog/queries";
-import { site } from "@/lib/site";
+import { site, restockNote, restockNoteLower } from "@/lib/site";
 import { claims } from "@/lib/copy";
 import { ProductCard } from "@/components/ProductCard";
 import { ComingSoonTile } from "@/components/ComingSoonTile";
@@ -60,7 +60,7 @@ export default async function HomePage() {
             <div className="max-w-[38rem]">
               <Reveal>
                 <span className="inline-flex items-center gap-2 rounded-[4px] bg-clay px-2.5 py-1 text-[12px] font-semibold uppercase tracking-[0.06em] text-soil">
-                  Hot cups &amp; lids · In stock in {site.city}
+                  Hot cups &amp; lids · {restockNote("cups") ? `Cups ${restockNoteLower("cups")}` : `In stock in ${site.city}`}
                 </span>
               </Reveal>
               <Reveal delay={0.08}>
@@ -127,7 +127,7 @@ export default async function HomePage() {
         <section className="pt-14 md:pt-20">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <Reveal>
-              <p className="t-label text-sage-deep">In stock now</p>
+              <p className="t-label text-sage-deep">{restockNote("cups") ? `Cups ${restockNoteLower("cups")} · Lids in stock` : "In stock now"}</p>
               <h2 className="t-page mt-2">Shop best sellers.</h2>
             </Reveal>
             <Reveal delay={0.1}>

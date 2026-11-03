@@ -5,6 +5,7 @@ import { getCatalog, getCategories } from "@/lib/catalog/queries";
 import { CatalogGrid } from "@/components/CatalogGrid";
 import { ComingSoonTile } from "@/components/ComingSoonTile";
 import { PageHeader } from "@/components/PageHeader";
+import { restockNote } from "@/lib/site";
 import { money, unitMoney, count } from "@/lib/format";
 
 export async function generateStaticParams() {
@@ -103,7 +104,7 @@ export default async function CategoryPage({ params }: PageProps<"/products/[cat
 
   return (
     <div className="mx-auto max-w-7xl px-4 pb-8">
-      <PageHeader eyebrow="In stock" title={c.name} description={c.description} image="/atmosphere/dew.jpg" imageAlt="Dew on meadow grass at sunrise" />
+      <PageHeader eyebrow={restockNote(c.slug) ?? "In stock"} title={c.name} description={c.description} image="/atmosphere/dew.jpg" imageAlt="Dew on meadow grass at sunrise" />
       <Suspense fallback={<p className="mt-8 text-sm text-soil/60">Loading…</p>}>
         <CatalogGrid catalog={catalog} lockedCategory={c.slug} />
       </Suspense>
