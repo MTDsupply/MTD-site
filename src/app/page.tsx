@@ -96,9 +96,9 @@ export default async function HomePage() {
               </ul>
             </Reveal>
           </div>
-          <div className="relative mt-4 self-end md:mt-0">
+          <div className="relative mt-4 self-end md:mt-0 md:pt-8">
             <Reveal delay={0.1} y={30}>
-              <div className="relative mx-auto w-[min(100%,560px)] translate-y-[2%] md:w-[min(100%,620px)] md:translate-y-[3%]">
+              <div className="relative mx-auto w-[min(100%,540px)] pb-4 md:w-[min(100%,600px)] md:pb-6">
                 <Image
                   src="/hero-cups-cutout.png"
                   alt="Two paper hot cups, one on its side showing the certification mark on its base"
