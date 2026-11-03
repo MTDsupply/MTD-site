@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { site } from "@/lib/site";
 import { PageHeader } from "@/components/PageHeader";
 import { Reveal } from "@/components/Reveal";
@@ -9,6 +10,11 @@ export const metadata: Metadata = {
   title: "About",
   description: "Who we are, where we are, and why the name.",
 };
+
+const TEAM = [
+  { name: "Sullivan Bryan", role: "Chief Executive Officer", photo: "/team/sullivan-bryan.jpg", alt: "Sullivan Bryan, in a dark suit, outdoors" },
+  { name: "Jack Hill", role: "President and Chief Operating Officer", photo: "/team/jack-hill.jpg", alt: "Jack Hill, in a light blue shirt, under a garden pergola" },
+];
 
 export default function AboutPage() {
   return (
@@ -26,6 +32,21 @@ export default function AboutPage() {
         <p>
           Cup Casa, the café cup brand, is a product line of Made to Disappear. If you have seen a Cup Casa cup, you have seen one of ours.
         </p>
+      </Reveal>
+
+      <Reveal as="section" className="mt-10">
+        <h2 className="t-heading">The team</h2>
+        <ul className="mt-5 grid gap-6 sm:grid-cols-2">
+          {TEAM.map((m) => (
+            <li key={m.name} className="card bg-white p-3">
+              <div className="relative aspect-[4/5] overflow-hidden bg-paper-deep">
+                <Image src={m.photo} alt={m.alt} fill quality={90} sizes="(min-width: 640px) 360px, 100vw" className="object-cover" />
+              </div>
+              <p className="t-card mt-3">{m.name}</p>
+              <p className="mt-0.5 text-sm text-soil/70">{m.role}</p>
+            </li>
+          ))}
+        </ul>
       </Reveal>
 
       <Reveal as="section" className="mt-10 space-y-4 text-base text-soil/85">
