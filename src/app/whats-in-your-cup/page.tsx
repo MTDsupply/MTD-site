@@ -16,17 +16,17 @@ export const metadata = pageMeta({
 
 const LININGS: [string, string, string, string][] = [
   ["PHA (Made to Disappear)", "Made by microorganisms from renewable feedstocks", "Home compost (certified)", `Our cup is certified home-compostable by ${site.certifier}`],
-  ["PLA", "Plant sugars (often corn or sugarcane), fermented and processed into plastic", "Industrial compost facilities", "Needs the high heat of a commercial facility, and many facilities don't accept cups"],
-  ["Water-based coating", "Varies. “Water-based” describes how it's applied, not what it's made of", "Depends on the polymer", "Some are certified compostable, others are plastics designed for recycling. Ask what the polymer is"],
-  ["Conventional plastic (PE)", "Petroleum", "Doesn't compost", "Recyclable only where facilities accept cups"],
+  ["PLA", "Plant sugars (often corn or sugarcane), fermented and processed into plastic", "Industrial compost facilities", "Needs the high heat of a commercial facility, and many facilities don&rsquo;t accept cups"],
+  ["Water-based coating", "Varies. “Water-based” describes how it&rsquo;s applied, not what it&rsquo;s made of", "Depends on the polymer", "Some are certified compostable, others are plastics designed for recycling. Ask what the polymer is"],
+  ["Conventional plastic (PE)", "Petroleum", "Doesn&rsquo;t compost", "Recyclable only where facilities accept cups"],
 ];
 
 const FAQ: [string, string][] = [
-  ["Is PHA a plastic?", "PHA is a biopolymer. It does the job of a plastic in the cup, holding hot liquid and sealing the seam, but it's made by microbes and broken down by them."],
+  ["Is PHA a plastic?", "PHA is a biopolymer. It does the job of a plastic in the cup, holding hot liquid and sealing the seam, but it&rsquo;s made by microbes and broken down by them."],
   ["Will it hold up to hot coffee?", "Yes. These are hot cups, built for coffee and tea."],
   ["How long does it take to compost?", "Home-compost certification requires the material to break down within 12 months in home-compost conditions. A warm, active pile works fastest."],
   ["Is it the same as a PLA cup?", "No. PLA is designed for industrial composting. Our PHA-lined cup is certified for home composting. See the comparison above."],
-  ["Can I see the certificate?", "Yes. Please email us and we'll send them over."],
+  ["Can I see the certificate?", "Yes. Please email us and we&rsquo;ll send them over."],
 ];
 
 export default function WhatsInYourCupPage() {
@@ -48,14 +48,14 @@ export default function WhatsInYourCupPage() {
           </Reveal>
           <Reveal as="section">
             <h2 className="t-page text-forest">What is PHA?</h2>
-            <p className="mt-4">PHA (polyhydroxyalkanoate) is a material made by microorganisms. They produce it naturally, as a way to store energy, when they're fed renewable feedstocks.</p>
-            <p className="mt-3">The same kinds of microbes that make PHA can break it down. That's why it works as a cup lining: it holds hot coffee like a plastic does, then goes back to nature when you're done with it.</p>
+            <p className="mt-4">PHA (polyhydroxyalkanoate) is a material made by microorganisms. They produce it naturally, as a way to store energy, when they&rsquo;re fed renewable feedstocks.</p>
+            <p className="mt-3">The same kinds of microbes that make PHA can break it down. That&rsquo;s why it works as a cup lining: it holds hot coffee like a plastic does, then goes back to nature when you&rsquo;re done with it.</p>
             <p className="mt-3">
               In short: made by nature, unmade by nature. <strong className="font-semibold text-forest">Made to disappear.</strong>
             </p>
           </Reveal>
           <Reveal as="section" className="rounded-[20px] bg-cream p-6">
-            <h2 className="t-heading text-forest">What you're getting</h2>
+            <h2 className="t-heading text-forest">What you&rsquo;re getting</h2>
             <ul className="mt-4 space-y-3">
               {[
                 ["Paper cup with a PHA lining.", "That's the full material list for the cup."],
@@ -78,7 +78,7 @@ export default function WhatsInYourCupPage() {
       <section className="mx-auto mt-16 max-w-6xl md:mt-24">
         <Reveal>
           <h2 className="t-section text-forest">How PHA compares</h2>
-          <p className="mt-3 text-soil/75">The four linings you'll see on paper cups today:</p>
+          <p className="mt-3 text-soil/75">The four linings you&rsquo;ll see on paper cups today:</p>
         </Reveal>
         <div className="mt-6 overflow-x-auto rounded-[20px] bg-cream">
           <table className="price-table w-full text-sm">
@@ -107,13 +107,13 @@ export default function WhatsInYourCupPage() {
           <Reveal as="section" className="text-[16px] leading-7 text-soil/85">
             <h3 className="t-heading text-forest">PHA vs PLA</h3>
             <p className="mt-4">Both are made from renewable sources, and both get called &ldquo;compostable.&rdquo; The difference is where.</p>
-            <p className="mt-3">PLA is made by fermenting plant sugars into lactic acid, then turning that into a plastic. It's designed to break down in industrial composting, where piles run hot for weeks. In a backyard bin, or anywhere cooler, it breaks down very slowly. If your local facility doesn't take compostable cups, a PLA cup usually isn't composted at all.</p>
-            <p className="mt-3">PHA is made directly by microbes, and microbes break it down. Our cups are certified to compost at home, so they don't depend on a facility accepting them.</p>
+            <p className="mt-3">PLA is made by fermenting plant sugars into lactic acid, then turning that into a plastic. It&rsquo;s designed to break down in industrial composting, where piles run hot for weeks. In a backyard bin, or anywhere cooler, it breaks down very slowly. If your local facility doesn&rsquo;t take compostable cups, a PLA cup usually isn&rsquo;t composted at all.</p>
+            <p className="mt-3">PHA is made directly by microbes, and microbes break it down. Our cups are certified to compost at home, so they don&rsquo;t depend on a facility accepting them.</p>
           </Reveal>
           <Reveal as="section" className="text-[16px] leading-7 text-soil/85">
             <h3 className="t-heading text-forest">PHA vs water-based coatings</h3>
             <p className="mt-4">&ldquo;Water-based&rdquo; sounds like it should mean natural, but it only describes the method. The polymer is dispersed in water, painted onto the paper, and dried. That polymer could be a compostable material or a conventional plastic.</p>
-            <p className="mt-3">Some water-based cups are certified compostable, and some aren't. The only way to know is to ask what the lining is made of and check the certificate. With us, the answer is simple: PHA, certified home-compostable.</p>
+            <p className="mt-3">Some water-based cups are certified compostable, and some aren&rsquo;t. The only way to know is to ask what the lining is made of and check the certificate. With us, the answer is simple: PHA, certified home-compostable.</p>
           </Reveal>
         </div>
       </section>
@@ -161,7 +161,7 @@ export default function WhatsInYourCupPage() {
                   </li>
                 ))}
               </ol>
-              <p className="mt-6 font-display font-semibold">We'll answer both for you, every time.</p>
+              <p className="mt-6 font-display font-semibold">We&rsquo;ll answer both for you, every time.</p>
               <Link href="/certifications" className="btn btn-paper mt-5">
                 See every certificate
               </Link>
@@ -193,7 +193,7 @@ export default function WhatsInYourCupPage() {
         <div className="band-peach grid gap-6 rounded-[24px] px-6 py-10 md:grid-cols-[1fr_auto] md:items-center md:px-12 md:py-14">
           <div>
             <h2 className="t-page text-forest">Try them in your café.</h2>
-            <p className="mt-2 text-forest/80">We'll send you sample cups so you can test them on your own bar.</p>
+            <p className="mt-2 text-forest/80">We&rsquo;ll send you sample cups so you can test them on your own bar.</p>
           </div>
           <Link href="/business?kind=sample#quote" className="btn btn-primary btn-lg">
             Get samples
