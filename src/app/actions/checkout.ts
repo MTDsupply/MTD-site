@@ -6,8 +6,8 @@ import { getStripe } from "@/lib/stripe";
 import { getLiveProducts } from "@/lib/catalog/queries";
 import { cents } from "@/lib/format";
 import { site } from "@/lib/site";
-import { unitInfo } from "@/lib/units";
 import type { Unit } from "@/lib/store/cart";
+import { priceOrder, BULK_MIN_UNITS } from "@/lib/pricing";
 import { quoteShipping, type Country } from "@/lib/shipping";
 import { getSession } from "@/lib/account/queries";
 import Stripe from "stripe";
@@ -40,28 +40,26 @@ export async function startCheckout(input: CheckoutInput): Promise<{ error: stri
   const products = await getLiveProducts();
   const bySku = new Map(products.map((p) => [p.sku, p]));
 
-  const line_items = [];
-  const summary = [];
-  let subtotal = 0;
   for (const line of parsed.data.lines) {
-    const p = bySku.get(line.sku);
-    if (!p) return { error: `${line.sku} is no longer available.` };
-    const info = unitInfo(p, line.unit as Unit);
-    const price = info.price;
-    line_items.push({
-      quantity: line.qty,
-      price_data: {
-        currency: site.currency.toLowerCase(),
-        unit_amount: cents(price),
-        product_data: {
-          name: `${p.name} · ${info.label.toLowerCase()}`,
-          description: `${p.sku} · ${p.material} · 100% certified home-compostable material`,
-        },
-      },
-    });
-    summary.push({ sku: p.sku, name: p.name, unit: line.unit, qty: line.qty, price });
-    subtotal += price * line.qty;
+    if (!bySku.has(line.sku)) return { error: `${line.sku} is no longer available.` };
   }
+  // Volume pricing is decided here, on the server, from the whole order.
+  const order = priceOrder(parsed.data.lines as { sku: string; unit: Unit; qty: number }[], products);
+  const line_items = order.rows.map(({ line, product: p, info, price, bulk }) => ({
+    quantity: line.qty,
+    price_data: {
+      currency: site.currency.toLowerCase(),
+      unit_amount: cents(price),
+      product_data: {
+        name: `${p.name} · ${info.label.toLowerCase()}${bulk ? " · volume price" : ""}`,
+        description: `${p.sku} · ${p.material} · 100% certified home-compostable material${
+          bulk ? ` · volume price for orders of ${BULK_MIN_UNITS.toLocaleString("en-CA")}+ units` : ""
+        }`,
+      },
+    },
+  }));
+  const summary = order.rows.map(({ line, product: p, price }) => ({ sku: p.sku, name: p.name, unit: line.unit, qty: line.qty, price }));
+  const subtotal = order.subtotal;
   const country = parsed.data.country as Country;
   const ship = quoteShipping(parsed.data.lines as { sku: string; unit: Unit; qty: number }[], subtotal, country);
 

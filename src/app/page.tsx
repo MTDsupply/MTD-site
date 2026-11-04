@@ -13,7 +13,17 @@ import { Atmosphere } from "@/components/scene/Atmosphere";
 import { FeatureBlock } from "@/components/FeatureBlock";
 import { NotifyForm } from "@/components/NotifyForm";
 import { PRESS } from "@/components/PressBand";
-import { money } from "@/lib/format";
+import { money, unitMoney, count } from "@/lib/format";
+import { BULK_MIN_UNITS } from "@/lib/pricing";
+import { pageMeta, faqLd, SITE_DESCRIPTION } from "@/lib/seo";
+import { homeFaq } from "@/lib/faq";
+import { JsonLd } from "@/components/JsonLd";
+
+export const metadata = pageMeta({
+  title: `${site.name} · Home-compostable coffee cups and lids`,
+  description: SITE_DESCRIPTION,
+  path: "/",
+});
 
 /** Drop `public/hero.mp4` (and optionally `public/film-poster.jpg`) and the film section picks them up. */
 function filmMedia() {
@@ -37,7 +47,9 @@ function Check({ light = false }: { light?: boolean }) {
 }
 
 export default async function HomePage() {
-  const { categories, products, certs } = await getCatalog();
+  const catalog = await getCatalog();
+  const { categories, products, certs } = catalog;
+  const faq = homeFaq(catalog);
   const { video, poster, mobileVideo } = filmMedia();
   const sorted = [...categories].sort((a, b) => a.sortOrder - b.sortOrder);
   const certById = new Map(certs.map((c) => [c.id, c]));
@@ -319,6 +331,8 @@ export default async function HomePage() {
                   <th>Product</th>
                   <th>Case</th>
                   <th className="num">Per case</th>
+                  <th className="num">Per unit</th>
+                  <th className="num">{count(BULK_MIN_UNITS)}+ units</th>
                 </tr>
               </thead>
               <tbody>
@@ -328,10 +342,13 @@ export default async function HomePage() {
                     <td>{p.name}</td>
                     <td className="tnum">{p.caseCount.toLocaleString("en-CA")}</td>
                     <td className="num tnum">{money(p.casePrice)}</td>
+                    <td className="num tnum">{unitMoney(p.unitPrice)}</td>
+                    <td className="num tnum">{unitMoney(p.bulkUnitPrice ?? p.unitPrice)}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
+            <p className="mt-2 text-xs text-soil/60">Per unit, CAD before tax. The volume column applies automatically to every case once an order reaches {count(BULK_MIN_UNITS)} units.</p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link href="/business#quote" className="btn btn-primary">
                 Open a business account
@@ -407,7 +424,42 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* 10. Keep in touch. */}
+        {/* 10. Questions: the answers search engines and assistants quote. */}
+        <section className="mx-auto max-w-3xl pt-16 md:pt-20">
+          <Reveal>
+            <p className="t-label text-sage-deep">Questions</p>
+            <h2 className="t-page mt-2">Asked often.</h2>
+          </Reveal>
+          <RevealGroup className="mt-6 divide-y divide-line border-y border-line" step={0.05}>
+            {faq.map(([q, a]) => (
+              <details key={q} className="group py-4">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[17px] font-medium">
+                  <h3 className="text-[17px] font-medium">{q}</h3>
+                  <span aria-hidden="true" className="text-sage-deep transition-transform group-open:rotate-45">
+                    +
+                  </span>
+                </summary>
+                <p className="mt-3 max-w-[62ch] text-sm leading-6 text-soil/80">{a}</p>
+              </details>
+            ))}
+          </RevealGroup>
+          <Reveal delay={0.1}>
+            <p className="mt-5 text-sm text-soil/70">
+              More on the method on the{" "}
+              <Link href="/compost" className="link-proof font-medium">
+                composting guide
+              </Link>
+              , and every certificate on the{" "}
+              <Link href="/certifications" className="link-proof font-medium">
+                certifications page
+              </Link>
+              .
+            </p>
+          </Reveal>
+        </section>
+        <JsonLd data={faqLd(faq)} />
+
+        {/* 11. Keep in touch. */}
         <Reveal>
           <section className="glass mt-16 grid gap-6 p-6 md:grid-cols-[1fr_auto] md:items-center md:p-10">
             <div>

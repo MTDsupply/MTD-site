@@ -6,7 +6,8 @@ import type { Product } from "@/lib/catalog/types";
 import { useCart, setQty, removeLine } from "@/lib/store/cart";
 import { useMode } from "@/lib/store/mode";
 import { money } from "@/lib/format";
-import { unitInfo } from "@/lib/units";
+import { priceOrder, BULK_MIN_UNITS } from "@/lib/pricing";
+import { count } from "@/lib/format";
 import { startCheckout } from "@/app/actions/checkout";
 import { track } from "@/lib/analytics/pixel";
 import { quoteShipping, SHIPPING, COUNTRIES, type Country } from "@/lib/shipping";
@@ -17,13 +18,10 @@ export function CartView({ products }: { products: Product[] }) {
   const [error, setError] = useState<string | null>(null);
   const [country, setCountry] = useState<Country>("CA");
   const [pending, start] = useTransition();
-  const bySku = new Map(products.map((p) => [p.sku, p]));
-
-  const rows = lines
-    .map((l) => ({ line: l, product: bySku.get(l.sku) }))
-    .filter((r): r is { line: (typeof lines)[number]; product: Product } => !!r.product);
-
-  const subtotal = rows.reduce((s, { line, product }) => s + line.qty * unitInfo(product, line.unit).price, 0);
+  const order = priceOrder(lines, products);
+  const { rows, subtotal } = order;
+  const hasCases = rows.some((r) => r.info.kind === "case");
+  const bulkEligible = products.some((p) => p.bulkUnitPrice != null);
   const ship = quoteShipping(rows.map((r) => r.line), subtotal, country);
 
   const checkout = () => {
@@ -73,9 +71,7 @@ export function CartView({ products }: { products: Product[] }) {
             </tr>
           </thead>
           <tbody>
-            {rows.map(({ line, product }) => {
-              const info = unitInfo(product, line.unit);
-              const each = info.price;
+            {rows.map(({ line, product, info, price: each, bulk }) => {
               return (
                 <tr key={`${line.sku}-${line.unit}`}>
                   <td>
@@ -84,7 +80,10 @@ export function CartView({ products }: { products: Product[] }) {
                     </Link>
                     <div className="sku text-soil/60">{product.sku}</div>
                   </td>
-                  <td>{info.label}</td>
+                  <td>
+                    {info.label}
+                    {bulk ? <div className="mt-0.5 text-[11px] font-medium uppercase tracking-wide text-sage-deep">Volume price</div> : null}
+                  </td>
                   <td className="num">
                     <input
                       aria-label={`Quantity for ${product.name}`}
@@ -115,6 +114,16 @@ export function CartView({ products }: { products: Product[] }) {
           <span>Subtotal</span>
           <span className="tnum font-medium">{money(subtotal)}</span>
         </div>
+        {order.bulk ? (
+          <p className="mt-1 text-xs text-sage-deep">
+            Volume price applied: {count(order.units)} units in this order.
+            {order.listSubtotal > subtotal ? <> You save {money(order.listSubtotal - subtotal)}.</> : null}
+          </p>
+        ) : hasCases && bulkEligible ? (
+          <p className="mt-1 text-xs text-soil/60">
+            Orders of {count(BULK_MIN_UNITS)} units or more get the volume price on every case. {count(order.unitsToBulk)} more units to go.
+          </p>
+        ) : null}
         <div className="mt-3">
           <label htmlFor="ship-to" className="label">
             Ship to

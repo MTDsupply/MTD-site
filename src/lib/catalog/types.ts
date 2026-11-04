@@ -25,6 +25,11 @@ export type Product = {
   unitPrice: number;
   casePrice: number;
   caseCount: number;
+  /**
+   * Volume unit price in CAD, charged on every case once an order reaches
+   * BULK_MIN_UNITS (see src/lib/pricing.ts). Null when the SKU has no volume tier.
+   */
+  bulkUnitPrice: number | null;
   /** Consumer pack tiers, smallest first (Cup Casa sells 100 / 200 / 500). */
   packs: PackTier[];
   /** Smallest pack, derived from `packs` for convenience. */

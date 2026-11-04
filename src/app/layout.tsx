@@ -10,6 +10,8 @@ import { MetaPixel } from "@/components/MetaPixel";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { site } from "@/lib/site";
+import { SITE_DESCRIPTION, organizationLd, websiteLd } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -35,20 +37,28 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} · Foodservice essentials`,
+    default: `${site.name} · Home-compostable coffee cups and lids`,
     template: `%s · ${site.name}`,
   },
-  description:
-    "Cups and lids made from 100% certified home-compostable material. Cases for businesses, packs for everyone else.",
+  description: SITE_DESCRIPTION,
+  applicationName: site.name,
+  authors: [{ name: site.legalName, url: site.url }],
+  creator: site.legalName,
+  publisher: site.legalName,
+  category: "shopping",
   icons: { icon: "/icon.png", apple: "/apple-icon.png" },
   openGraph: {
     type: "website",
+    locale: "en_CA",
     siteName: site.name,
-    title: `${site.name} · Foodservice essentials`,
-    description: "Cups and lids made from 100% certified home-compostable material.",
+    url: "/",
+    title: `${site.name} · Home-compostable coffee cups and lids`,
+    description: SITE_DESCRIPTION,
     images: [{ url: "/og.png", width: 1200, height: 630, alt: "Made to disappear." }],
   },
-  twitter: { card: "summary_large_image", images: ["/og.png"] },
+  twitter: { card: "summary_large_image", title: `${site.name} · Home-compostable coffee cups and lids`, description: SITE_DESCRIPTION, images: ["/og.png"] },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 } },
+  formatDetection: { telephone: false },
   verification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } : undefined,
 };
 
@@ -56,6 +66,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en-CA" className={`${outfit.variable} ${inter.variable} ${jetbrains.variable} h-full`}>
       <body className="flex min-h-full flex-col">
+        <JsonLd data={[organizationLd(), websiteLd()]} />
         <a href="#main" className="skip-link">
           Skip to content
         </a>

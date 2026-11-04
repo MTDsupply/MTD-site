@@ -1,10 +1,15 @@
-import type { Metadata } from "next";
 import { PageHeader } from "@/components/PageHeader";
 import { site } from "@/lib/site";
 import { SHIPPING } from "@/lib/shipping";
 import { money } from "@/lib/format";
 
-export const metadata: Metadata = { title: "Shipping and returns", description: "Where we ship, what it costs, and how returns work." };
+import { pageMeta } from "@/lib/seo";
+
+export const metadata = pageMeta({
+  title: "Shipping and returns",
+  description: `Shipping to Canada and the United States by courier: packs ${money(SHIPPING.CA.pack)} (free over ${money(SHIPPING.CA.packFreeOver)}) in Canada, cases ${money(SHIPPING.CA.perCase)} each. Tracking by email, 30-day returns on unopened packs and cases.`,
+  path: "/shipping-returns",
+});
 
 export default function ShippingReturnsPage() {
   return (

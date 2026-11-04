@@ -13,6 +13,11 @@ import { PairedAdd } from "@/components/PairedAdd";
 import { StickyBuyBar } from "@/components/StickyBuyBar";
 import { photoFor } from "@/lib/catalog/assets";
 import { restockNote } from "@/lib/site";
+import { money, unitMoney, count } from "@/lib/format";
+import { BULK_MIN_UNITS } from "@/lib/pricing";
+import { pageMeta, productLd, breadcrumbLd, faqLd, productPath } from "@/lib/seo";
+import { productFaq } from "@/lib/faq";
+import { JsonLd } from "@/components/JsonLd";
 
 export async function generateStaticParams() {
   const products = await getLiveProducts();
@@ -24,10 +29,16 @@ export async function generateMetadata({ params }: PageProps<"/products/[categor
   const { products } = await getCatalog();
   const p = products.find((x) => x.sku.toLowerCase() === sku.toLowerCase());
   if (!p) return {};
-  return {
-    title: `${p.name} (${p.sku})`,
-    description: `${p.name}. ${p.material}. 100% certified home-compostable material. ${p.caseCount.toLocaleString("en-CA")} per case.`,
-  };
+  const volume = p.bulkUnitPrice != null ? ` ${unitMoney(p.bulkUnitPrice)} each from ${count(BULK_MIN_UNITS)} units.` : "";
+  return pageMeta({
+    title: `${p.name}, certified home-compostable (${p.sku})`,
+    description: `${p.name} in ${p.material}${p.specs.capacity ? `, ${p.specs.capacity}` : ""}. 100% certified home-compostable material, TÜV Austria. ${money(
+      p.casePrice,
+    )} per case of ${count(p.caseCount)} (${unitMoney(p.unitPrice)} each).${volume} Packs of ${count(p.packCount)} from ${money(p.packPrice)}. Ships to Canada and the US.`,
+    path: productPath(p),
+    image: p.photo ?? null,
+    imageAlt: p.name,
+  });
 }
 
 export default async function ProductPage({ params }: PageProps<"/products/[category]/[sku]">) {
@@ -54,6 +65,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
     .filter((p): p is NonNullable<typeof p> => !!p && p.status === "live");
   const pairedLid = cat.slug === "cups" ? goesWithProducts.find((p) => p.categorySlug === "lids") ?? null : null;
   const pairedComingSoon = catalog.categories.filter((c) => c.status !== "live" && c.slug === "lids" && cat.slug === "cups");
+  const faq = productFaq(product, catalog);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
@@ -154,6 +166,23 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
         </div>
       </section>
 
+      <section className="mt-10 max-w-3xl">
+        <h2 className="t-heading">Questions about the {product.name}</h2>
+        <div className="mt-3 divide-y divide-line border-y border-line">
+          {faq.map(([q, a]) => (
+            <details key={q} className="group py-3">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[15px] font-medium">
+                <h3 className="text-[15px] font-medium">{q}</h3>
+                <span aria-hidden="true" className="text-sage-deep transition-transform group-open:rotate-45">
+                  +
+                </span>
+              </summary>
+              <p className="mt-2 max-w-[62ch] text-sm leading-6 text-soil/80">{a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
       <section className="mt-10">
         <h2 className="t-heading">Goes with</h2>
         <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -170,6 +199,18 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
           ))}
         </div>
       </section>
+      <JsonLd
+        data={[
+          productLd(product, cert, cat),
+          breadcrumbLd([
+            { name: "Home", path: "/" },
+            { name: "Products", path: "/products" },
+            { name: cat.name, path: `/products/${cat.slug}` },
+            { name: product.name, path: productPath(product) },
+          ]),
+          faqLd(faq),
+        ]}
+      />
     </div>
   );
 }

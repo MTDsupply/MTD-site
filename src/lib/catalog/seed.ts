@@ -30,9 +30,12 @@ export const categories: Category[] = [
 const CUP_CERT = "tuv-home-cups";
 
 /*
- * Pricing source: cupcasa.com/wholesale (café pricing, cases of 1,000):
- *   cups 18¢ / 20¢ / 22¢ → $180 / $200 / $220 per case
- *   lids 9¢ (one lid fits all three sizes) → $90 per case
+ * Pricing (set by the user on 2026-11-03), cases of 1,000:
+ *   under 10,000 units: cups 18¢ / 19¢ / 20¢ → $180 / $190 / $200 per case
+ *   10,000 units or more in one order: cups 16¢ / 17¢ / 18¢ (bulkUnitPrice)
+ *   lids 9¢ (one lid fits all three sizes) → $90 per case, no volume tier yet
+ * The volume tier is applied automatically by src/lib/pricing.ts once the
+ * order reaches BULK_MIN_UNITS; no quote needed.
  * Consumer packs follow Cup Casa's bundle sizes (100 / 200 / 500) and its
  * markup: the 100-pack is about 2× the café unit price, the 500-pack about
  * 18% less per unit than the 100-pack. `packPrice`/`packCount` mirror the
@@ -49,6 +52,7 @@ export const products: Product[] = [
     unitPrice: 0.18,
     casePrice: 180,
     caseCount: 1000,
+    bulkUnitPrice: 0.16,
     packs: [{ count: 100, price: 36 }, { count: 200, price: 66 }, { count: 500, price: 150 }],
     packPrice: 36,
     packCount: 100,
@@ -71,9 +75,10 @@ export const products: Product[] = [
     name: "12 oz hot cup",
     size: "12 oz",
     material: "PHA-lined paper",
-    unitPrice: 0.2,
-    casePrice: 200,
+    unitPrice: 0.19,
+    casePrice: 190,
     caseCount: 1000,
+    bulkUnitPrice: 0.17,
     packs: [{ count: 100, price: 40 }, { count: 200, price: 72 }, { count: 500, price: 165 }],
     packPrice: 40,
     packCount: 100,
@@ -96,9 +101,10 @@ export const products: Product[] = [
     name: "16 oz hot cup",
     size: "16 oz",
     material: "PHA-lined paper",
-    unitPrice: 0.22,
-    casePrice: 220,
+    unitPrice: 0.2,
+    casePrice: 200,
     caseCount: 1000,
+    bulkUnitPrice: 0.18,
     packs: [{ count: 100, price: 44 }, { count: 200, price: 80 }, { count: 500, price: 180 }],
     packPrice: 44,
     packCount: 100,
@@ -124,6 +130,7 @@ export const products: Product[] = [
     unitPrice: 0.09,
     casePrice: 90,
     caseCount: 1000,
+    bulkUnitPrice: null,
     packs: [{ count: 100, price: 18 }, { count: 200, price: 33 }, { count: 500, price: 75 }],
     packPrice: 18,
     packCount: 100,

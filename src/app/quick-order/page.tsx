@@ -1,12 +1,13 @@
-import type { Metadata } from "next";
 import { getLiveProducts } from "@/lib/catalog/queries";
 import { QuickOrder } from "@/components/QuickOrder";
 import { PageHeader } from "@/components/PageHeader";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Quick order",
-  description: "Paste SKUs and quantities, add everything to the cart in one go.",
-};
+export const metadata = pageMeta({
+  title: "Quick order by SKU",
+  description: "Reordering for the café: paste SKUs and quantities, one per line, and add every case or pack to the cart in one go.",
+  path: "/quick-order",
+});
 
 export default async function QuickOrderPage() {
   const products = await getLiveProducts();

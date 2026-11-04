@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
 import { PageHeader } from "@/components/PageHeader";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = { title: "Privacy policy", description: "What we collect when you shop with us, and what we do with it." };
+import { pageMeta } from "@/lib/seo";
+
+export const metadata = pageMeta({ title: "Privacy policy", description: "What we collect when you shop with us, and what we do with it.", path: "/privacy" });
 
 export default function PrivacyPage() {
   return (

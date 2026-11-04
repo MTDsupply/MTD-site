@@ -1,6 +1,6 @@
 /** What a quote request is for; shared by the form, the action and the pages that preset it. */
 export const QUOTE_KINDS = [
-  ["bulk", "Bulk order (10+ cases)"],
+  ["bulk", "Bulk order or pallet quantities"],
   ["sample", "Sample pack"],
   ["printing", "Custom printing"],
 ] as const;

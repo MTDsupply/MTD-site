@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { pageMeta, breadcrumbLd, itemListLd } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
 import { notFound } from "next/navigation";
 import { getCatalog, getCategories } from "@/lib/catalog/queries";
 import { CatalogGrid } from "@/components/CatalogGrid";
@@ -18,10 +20,25 @@ export async function generateMetadata({ params }: PageProps<"/products/[categor
   const cats = await getCategories();
   const c = cats.find((x) => x.slug === category);
   if (!c) return {};
-  return {
-    title: c.status === "live" ? c.name : `${c.name} (coming soon)`,
-    description: c.description,
+  const { products } = await getCatalog();
+  const live = products.filter((p) => p.categorySlug === c.slug && p.status === "live").sort((a, b) => a.sortOrder - b.sortOrder);
+  const sizes = live.map((p) => p.size).filter((s) => /oz/.test(s));
+  const seo: Record<string, { title: string; description: string }> = {
+    cups: {
+      title: `Compostable hot cups · ${sizes.length ? sizes.join(", ").replace(/, ([^,]*)$/, " and $1") : "8, 12 and 16 oz"}, PHA-lined paper`,
+      description: `Paper hot cups lined with PHA instead of plastic, 100% certified home-compostable material (TÜV Austria, per SKU). ${
+        live.length ? `From ${money(Math.min(...live.map((p) => p.casePrice)))} per case of 1,000 (${unitMoney(Math.min(...live.map((p) => p.unitPrice)))} a cup) or packs of 100.` : ""
+      } Ships from Victoria, BC to Canada and the US.`,
+    },
+    lids: {
+      title: "Compostable hot cup lids · one lid fits 8, 12 and 16 oz",
+      description: `PHA hot cup lids that fit our 8, 12 and 16 oz cups, 100% certified home-compostable material (TÜV Austria). ${
+        live[0] ? `${money(live[0].casePrice)} per case of ${count(live[0].caseCount)}, packs from ${money(live[0].packPrice)}.` : ""
+      } One lid SKU to stock.`,
+    },
   };
+  const fallback = { title: c.status === "live" ? c.name : `${c.name} (coming soon)`, description: c.description };
+  return pageMeta({ ...(seo[c.slug] ?? fallback), path: `/products/${c.slug}`, image: live[0]?.photo ?? null, imageAlt: live[0]?.name });
 }
 
 export default async function CategoryPage({ params }: PageProps<"/products/[category]">) {
@@ -108,6 +125,16 @@ export default async function CategoryPage({ params }: PageProps<"/products/[cat
       <Suspense fallback={<p className="mt-8 text-sm text-soil/60">Loading…</p>}>
         <CatalogGrid catalog={catalog} lockedCategory={c.slug} />
       </Suspense>
+      <JsonLd
+        data={[
+          breadcrumbLd([
+            { name: "Home", path: "/" },
+            { name: "Products", path: "/products" },
+            { name: c.name, path: `/products/${c.slug}` },
+          ]),
+          itemListLd(c.name, catalog.products.filter((p) => p.categorySlug === c.slug && p.status === "live").sort((a, b) => a.sortOrder - b.sortOrder)),
+        ]}
+      />
     </div>
   );
 }

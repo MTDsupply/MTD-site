@@ -54,8 +54,8 @@ export async function GET() {
   page.drawLine({ start: { x: margin, y }, end: { x: width - margin, y }, thickness: 2, color: SOIL });
   y -= 24;
 
-  const cols = [margin, margin + 80, margin + 196, margin + 268, margin + 318, margin + 372, margin + 420];
-  const head = ["SKU", "Product", "Material", "Case", "Per case", "Per unit", "Packs 100 / 200 / 500"];
+  const cols = [margin, margin + 64, margin + 158, margin + 234, margin + 270, margin + 316, margin + 364, margin + 418];
+  const head = ["SKU", "Product", "Material", "Case", "Per case", "Per unit", "10,000+ units", "Packs 100 / 200 / 500"];
   const clip = (v: string, n: number) => (v.length > n ? `${v.slice(0, n - 1).trimEnd()}…` : v);
   const packCol = (p: (typeof products)[number]) =>
     (p.packs?.length ? p.packs : [{ count: p.packCount, price: p.packPrice }]).map((t) => cad(t.price, 0)).join(" / ");
@@ -67,14 +67,15 @@ export async function GET() {
   for (const p of live.filter((p) => liveCats.has(p.categorySlug))) {
     const row = [
       p.sku,
-      clip(p.name, 24),
+      clip(p.name, 22),
       clip(p.material, 17),
       p.caseCount.toLocaleString("en-CA"),
       cad(p.casePrice),
       cad(p.unitPrice, 3),
+      p.bulkUnitPrice != null ? cad(p.bulkUnitPrice, 3) : cad(p.unitPrice, 3),
       packCol(p),
     ];
-    row.forEach((v, i) => text(v, cols[i], 9));
+    row.forEach((v, i) => text(v, cols[i], 8.5));
     y -= 15;
   }
 
@@ -84,14 +85,15 @@ export async function GET() {
   for (const p of soonProducts) {
     const row = [
       p.sku,
-      clip(p.name, 24),
+      clip(p.name, 22),
       clip(p.material, 17),
       p.caseCount.toLocaleString("en-CA"),
       cad(p.casePrice),
       cad(p.unitPrice, 3),
+      p.bulkUnitPrice != null ? cad(p.bulkUnitPrice, 3) : cad(p.unitPrice, 3),
       packCol(p),
     ];
-    row.forEach((v, i) => text(v, cols[i], 9, font, FOG));
+    row.forEach((v, i) => text(v, cols[i], 8.5, font, FOG));
     y -= 15;
   }
   if (soonOnly.length) {
@@ -115,7 +117,7 @@ export async function GET() {
   text("Terms", margin, 9, bold);
   y -= 13;
   for (const l of [
-    "Prices in CAD before tax. Case pricing applies to any quantity of cases; net-30 on approval.",
+    "Prices in CAD before tax. Orders of 10,000 units or more pay the 10,000+ per-unit price on every case, automatically. Net-30 on approval.",
     `${site.phone ? `Order by phone ${site.phone}, ` : "Order "}online at ${site.url.replace(/^https?:\/\//, "")}, or by email ${site.email}.`,
     `Quick order: paste SKUs and quantities at ${site.url.replace(/^https?:\/\//, "")}/quick-order.`,
   ]) {

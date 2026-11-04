@@ -1,15 +1,20 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/lib/site";
 import { claims } from "@/lib/copy";
 import { PageHeader } from "@/components/PageHeader";
 import { Reveal, RevealGroup } from "@/components/Reveal";
+import { pageMeta, breadcrumbLd, faqLd, howToLd } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
 
-export const metadata: Metadata = {
-  title: "How to compost it",
-  description: "What to do with the cup and lid when you are done: into the home compost pile, with the food scraps.",
-};
+export const metadata = pageMeta({
+  title: "How to compost a PHA-lined paper cup at home",
+  description:
+    "Four steps to compost our hot cups and lids in a home pile: finish the drink, lid and cup go in together, mix it in, turn the pile as usual. Plus the questions we get asked: the lining, how long it takes, worm bins and tumblers.",
+  path: "/compost",
+  image: "/hero-cups.jpg",
+  imageAlt: "Two paper hot cups on a mossy forest floor",
+});
 
 const STEPS: [string, string][] = [
   ["Finish the drink", "Tip out any leftover coffee. A rinse is not needed; a little milk or sugar is fine in a compost pile."],
@@ -78,7 +83,7 @@ export default function CompostPage() {
           {FAQ.map(([q, a]) => (
             <details key={q} className="group py-4">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[17px] font-medium">
-                {q}
+                <h3 className="text-[17px] font-medium">{q}</h3>
                 <span aria-hidden="true" className="text-sage-deep transition-transform group-open:rotate-45">
                   +
                 </span>
@@ -88,6 +93,21 @@ export default function CompostPage() {
           ))}
         </RevealGroup>
       </section>
+      <JsonLd
+        data={[
+          breadcrumbLd([
+            { name: "Home", path: "/" },
+            { name: "How to compost it", path: "/compost" },
+          ]),
+          howToLd({
+            name: "How to compost a Made to Disappear cup and lid at home",
+            description: "Into the home compost pile, with the food scraps, in four steps.",
+            steps: STEPS,
+            image: "/hero-cups.jpg",
+          }),
+          faqLd(FAQ),
+        ]}
+      />
 
       <Reveal className="mt-14">
         <div className="flex flex-wrap items-center justify-between gap-4 border border-line bg-white p-6">

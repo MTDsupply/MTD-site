@@ -3,7 +3,8 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import type { Product } from "@/lib/catalog/types";
 import { addManyToCart, packUnit, type CartLine, type Unit } from "@/lib/store/cart";
-import { unitInfo, unitsFor } from "@/lib/units";
+import { unitsFor } from "@/lib/units";
+import { priceOrder } from "@/lib/pricing";
 import { useMode } from "@/lib/store/mode";
 import { money } from "@/lib/format";
 
@@ -35,7 +36,12 @@ export function QuickOrder({ products }: { products: Product[] }) {
     });
 
   const valid = rows.filter((r): r is Parsed & { product: Product } => !!r.product);
-  const total = valid.reduce((s, r) => s + r.qty * unitInfo(r.product, r.unit).price, 0);
+  const priced = priceOrder(
+    valid.map((r) => ({ sku: r.product.sku, unit: r.unit, qty: r.qty })),
+    products,
+  );
+  const pricedRow = new Map(valid.map((r, i) => [r as Parsed, priced.rows[i]]));
+  const total = priced.subtotal;
 
   const addAll = () => {
     const lines: CartLine[] = valid.map((r) => ({ sku: r.product.sku, unit: r.unit, qty: r.qty }));
@@ -96,9 +102,12 @@ export function QuickOrder({ products }: { products: Product[] }) {
                   <tr key={i}>
                     <td className="sku">{r.product.sku}</td>
                     <td>{r.product.name}</td>
-                    <td>{unitInfo(r.product, r.unit).label}</td>
+                    <td>
+                      {pricedRow.get(r)?.info.label}
+                      {pricedRow.get(r)?.bulk ? <span className="ml-2 text-[11px] font-medium uppercase tracking-wide text-sage-deep">Volume price</span> : null}
+                    </td>
                     <td className="num">{r.qty}</td>
-                    <td className="num">{money(r.qty * unitInfo(r.product, r.unit).price)}</td>
+                    <td className="num">{money(r.qty * (pricedRow.get(r)?.price ?? 0))}</td>
                   </tr>
                 ) : (
                   <tr key={i} className="text-clay-deep">

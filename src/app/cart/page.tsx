@@ -3,7 +3,7 @@ import { getLiveProducts } from "@/lib/catalog/queries";
 import { CartView } from "@/components/CartView";
 import { PageHeader } from "@/components/PageHeader";
 
-export const metadata: Metadata = { title: "Cart" };
+export const metadata: Metadata = { title: "Cart", robots: { index: false, follow: true }, alternates: { canonical: "/cart" } };
 
 export default async function CartPage() {
   const products = await getLiveProducts();

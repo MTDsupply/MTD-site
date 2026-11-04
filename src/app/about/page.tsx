@@ -1,14 +1,15 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { site } from "@/lib/site";
 import { PageHeader } from "@/components/PageHeader";
 import { Reveal } from "@/components/Reveal";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "About",
-  description: "Who we are, where we are, and why the name.",
-};
+export const metadata = pageMeta({
+  title: `About us · ${site.city}, ${site.province}`,
+  description: `${site.name} is a foodservice disposables supplier in ${site.city}, ${site.province}, founded by Sullivan Bryan and Jack Hill. We make hot cups and lids from 100% certified home-compostable material, certified by TÜV Austria per SKU, and Cup Casa is our café cup brand.`,
+  path: "/about",
+});
 
 const TEAM = [
   { name: "Sullivan Bryan", role: "Chief Executive Officer", photo: "/team/sullivan-bryan.jpg", alt: "Sullivan Bryan, in a dark suit, outdoors" },

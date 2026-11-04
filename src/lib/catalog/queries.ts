@@ -22,6 +22,8 @@ type ProductRow = {
   unit_price: number | string;
   case_price: number | string;
   case_count: number;
+  /** Added in 0004_bulk.sql; absent until that migration runs. */
+  bulk_unit_price?: number | string | null;
   pack_price: number | string;
   pack_count: number;
   packs: { count: number; price: number | string }[] | null;
@@ -73,6 +75,8 @@ export async function getCatalog(): Promise<Catalog> {
       lineDrawing: r.line_drawing,
       sortOrder: r.sort_order,
     }));
+    // Until 0004_bulk.sql is applied the column is missing: fall back to the seed's volume price per SKU.
+    const seedBulk = new Map(seedCatalog.products.map((x) => [x.sku, x.bulkUnitPrice]));
     const products: Product[] = (p.data as ProductRow[]).map((r) => ({
       sku: r.sku,
       categorySlug: r.category_slug,
@@ -82,6 +86,7 @@ export async function getCatalog(): Promise<Catalog> {
       unitPrice: Number(r.unit_price),
       casePrice: Number(r.case_price),
       caseCount: r.case_count,
+      bulkUnitPrice: r.bulk_unit_price === undefined ? (seedBulk.get(r.sku) ?? null) : r.bulk_unit_price === null ? null : Number(r.bulk_unit_price),
       packs: r.packs?.length
         ? r.packs.map((t) => ({ count: Number(t.count), price: Number(t.price) })).sort((a, b) => a.count - b.count)
         : [{ count: r.pack_count, price: Number(r.pack_price) }],

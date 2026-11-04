@@ -1,15 +1,33 @@
-import type { Metadata } from "next";
 import { getCatalog } from "@/lib/catalog/queries";
 import { claims } from "@/lib/copy";
 import { site } from "@/lib/site";
 import { PageHeader } from "@/components/PageHeader";
 import { Reveal } from "@/components/Reveal";
 import { Atmosphere } from "@/components/scene/Atmosphere";
+import { pageMeta, breadcrumbLd, faqLd } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
 
-export const metadata: Metadata = {
-  title: "Certifications",
-  description: "Every certificate, the certifier, the SKU it covers, and the PDF.",
-};
+export const metadata = pageMeta({
+  title: "Certifications · TÜV Austria home-compostable, per SKU",
+  description:
+    "Every certificate behind the claim: the certifier, the SKU it covers and the certificate itself, for each hot cup and lid. What home-compostable certification tests, and why we certify per product rather than per range.",
+  path: "/certifications",
+});
+
+const FAQ: [string, string][] = [
+  [
+    "What does home-compostable certification test?",
+    `${site.certifier} tests the material for disintegration and breakdown in a home compost pile at ambient temperature, and checks for harmful residues. The certificate covers the material a specific product is made from, lining included.`,
+  ],
+  [
+    "Is home-compostable the same as compostable?",
+    "No. Most compostable certifications assume an industrial facility running hot. Home-compostable certification tests at the lower temperatures of a backyard pile, which is the only kind of composting most people have. Our products are certified home-compostable.",
+  ],
+  [
+    "Why certify per SKU?",
+    "A certificate for the 16 oz cup covers the 16 oz cup. Certifying each product separately means every claim on this site points to a specific row on this page, not to a range or a material in general.",
+  ],
+];
 
 export default async function CertificationsPage() {
   const { categories, products, certs } = await getCatalog();
@@ -98,6 +116,32 @@ export default async function CertificationsPage() {
         </p>
       </Reveal>
       </div>
+
+      <section className="mt-12 max-w-3xl">
+        <h2 className="t-heading">Questions about the certification</h2>
+        <div className="mt-3 divide-y divide-line border-y border-line">
+          {FAQ.map(([q, a]) => (
+            <details key={q} className="group py-3">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[15px] font-medium">
+                <h3 className="text-[15px] font-medium">{q}</h3>
+                <span aria-hidden="true" className="text-sage-deep transition-transform group-open:rotate-45">
+                  +
+                </span>
+              </summary>
+              <p className="mt-2 max-w-[62ch] text-sm leading-6 text-soil/80">{a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+      <JsonLd
+        data={[
+          breadcrumbLd([
+            { name: "Home", path: "/" },
+            { name: "Certifications", path: "/certifications" },
+          ]),
+          faqLd(FAQ),
+        ]}
+      />
     </div>
   );
 }

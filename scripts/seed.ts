@@ -53,9 +53,10 @@ async function main() {
   );
   if (k.error) throw k.error;
 
-  const p = await db.from("products").upsert(
+  const productRows = (withBulk: boolean) =>
     products.map((x) => ({
       sku: x.sku,
+      ...(withBulk ? { bulk_unit_price: x.bulkUnitPrice } : {}),
       category_slug: x.categorySlug,
       name: x.name,
       size: x.size,
@@ -73,8 +74,12 @@ async function main() {
       goes_with: x.goesWith,
       sort_order: x.sortOrder,
       updated_at: new Date().toISOString(),
-    })),
-  );
+    }));
+  let p = await db.from("products").upsert(productRows(true));
+  if (p.error && /bulk_unit_price/.test(p.error.message)) {
+    console.warn("products.bulk_unit_price is missing: run `npm run db:migrate` (0004_bulk.sql), then seed again. Seeding the other columns now.");
+    p = await db.from("products").upsert(productRows(false));
+  }
   if (p.error) throw p.error;
 
   console.log(

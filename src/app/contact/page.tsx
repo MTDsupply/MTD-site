@@ -1,12 +1,13 @@
-import type { Metadata } from "next";
 import { site } from "@/lib/site";
+import { pageMeta } from "@/lib/seo";
 import { ContactForm } from "@/components/ContactForm";
 import { PageHeader } from "@/components/PageHeader";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "Contact",
-  description: "Email and a form. We reply within one business day.",
-};
+  description: `Questions about compostable cups, case pricing or an order: email ${site.email} or use the form. Monday to Friday, 8 am to 5 pm Pacific. We reply within one business day.`,
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

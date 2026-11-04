@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/PageHeader";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = { title: "Terms of sale", description: "The terms that apply when you buy from Made to Disappear." };
+import { pageMeta } from "@/lib/seo";
+
+export const metadata = pageMeta({ title: "Terms of sale", description: "The terms that apply when you buy from Made to Disappear.", path: "/terms" });
 
 export default function TermsPage() {
   return (

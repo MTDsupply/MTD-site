@@ -6,7 +6,7 @@ import { money } from "@/lib/format";
 import { ClearCart } from "@/components/ClearCart";
 import { PurchaseEvent } from "@/components/PurchaseEvent";
 
-export const metadata: Metadata = { title: "Order received" };
+export const metadata: Metadata = { title: "Order received", robots: { index: false, follow: false } };
 
 export default function SuccessPage({ searchParams }: PageProps<"/checkout/success">) {
   return (

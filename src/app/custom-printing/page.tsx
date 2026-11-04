@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -7,11 +6,16 @@ import { site } from "@/lib/site";
 import { PageHeader } from "@/components/PageHeader";
 import { QuoteForm } from "@/components/QuoteForm";
 import { Reveal, RevealGroup } from "@/components/Reveal";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Custom printing",
-  description: "Your logo on the same certified home-compostable cup, from 100 cases.",
-};
+export const metadata = pageMeta({
+  title: "Custom printed compostable cups · your logo, from 100 cases",
+  description:
+    "Your logo on the same 8, 12 or 16 oz PHA-lined paper hot cup, 100% certified home-compostable material (TÜV Austria). From 100 cases. Send the artwork, get options and pricing within one business day, approve a proof before anything runs.",
+  path: "/custom-printing",
+  image: "/products/MTD-CUP-16H-front.jpg",
+  imageAlt: "A 16 oz hot cup, plain white, ready for printing",
+});
 
 export default async function CustomPrintingPage() {
   const { categories } = await getCatalog();

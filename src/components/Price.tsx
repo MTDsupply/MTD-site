@@ -2,6 +2,7 @@
 import { useMode } from "@/lib/store/mode";
 import { money, unitMoney, count } from "@/lib/format";
 import { unitsFor } from "@/lib/units";
+import { bulkCasesFor } from "@/lib/pricing";
 import type { Product } from "@/lib/catalog/types";
 
 /** Price block that follows the Business/Consumer toggle. */
@@ -12,6 +13,12 @@ export function Price({ product, size = "md", detail = true }: { product: Produc
   const packs = units.filter((u) => u.kind === "pack");
   const smallest = packs[0];
   const largest = packs[packs.length - 1];
+  const volume =
+    product.bulkUnitPrice != null ? (
+      <>
+        {unitMoney(product.bulkUnitPrice)} per unit from {count(bulkCasesFor(product))} cases
+      </>
+    ) : null;
 
   if (mode === "business") {
     return (
@@ -19,7 +26,10 @@ export function Price({ product, size = "md", detail = true }: { product: Produc
         <div className={`${big} font-medium`}>
           {money(product.casePrice)} <span className="text-sm font-normal text-soil/70">per case of {count(product.caseCount)}</span>
         </div>
-        <div className="text-sm text-soil/70">{unitMoney(product.unitPrice)} per unit</div>
+        <div className="text-sm text-soil/70">
+          {unitMoney(product.unitPrice)} per unit
+          {volume && detail ? <> · {volume}</> : null}
+        </div>
       </div>
     );
   }
@@ -34,6 +44,7 @@ export function Price({ product, size = "md", detail = true }: { product: Produc
           {largest !== smallest ? <> · from {unitMoney(largest.price / largest.count)} in packs of {count(largest.count)}</> : null}
           {" · "}
           {money(product.casePrice)} per case of {count(product.caseCount)}
+          {volume ? <> · {volume}</> : null}
         </div>
       ) : (
         <div className="text-sm text-soil/70">or {money(product.casePrice)} per case of {count(product.caseCount)}</div>
