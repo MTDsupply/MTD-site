@@ -3,7 +3,7 @@ import Image from "next/image";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { getCatalog } from "@/lib/catalog/queries";
-import { site, restockNote, restockNoteLower, stockSentence } from "@/lib/site";
+import { site, restockNote, stockSentence } from "@/lib/site";
 import { claims } from "@/lib/copy";
 import { ProductCard } from "@/components/ProductCard";
 import { ComingSoonTile } from "@/components/ComingSoonTile";

@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { getCatalog } from "@/lib/catalog/queries";
 import { CatalogGrid } from "@/components/CatalogGrid";
 import { PageHeader } from "@/components/PageHeader";
-import { restockNote, restockNoteLower, stockSentence } from "@/lib/site";
+import { stockSentence } from "@/lib/site";
 import { pageMeta, breadcrumbLd, itemListLd } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 
