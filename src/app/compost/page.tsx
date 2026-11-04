@@ -42,7 +42,7 @@ export default function CompostPage() {
             <div className="relative aspect-[4/3] overflow-hidden border border-line bg-paper-deep">
               <Image src="/compost-cups.jpg" alt="Two paper hot cups softening and breaking down on a mossy forest floor, the certification mark still showing on one base" fill priority sizes="(min-width: 768px) 45vw, 100vw" className="object-cover" />
             </div>
-            <figcaption className="mt-2 text-xs text-soil/60">From our film: an illustration of the breakdown. How long it takes depends on the pile.</figcaption>
+            <figcaption className="mt-2 text-xs text-soil/60">An illustration of the breakdown, not a timed photograph. How long it takes depends on the pile.</figcaption>
           </figure>
         </Reveal>
         <div>
