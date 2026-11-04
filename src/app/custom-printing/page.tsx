@@ -36,15 +36,15 @@ export default async function CustomPrintingPage() {
             <p className="t-label text-sage-deep">How it works</p>
             <h2 className="t-page mt-2">Send the artwork. We send a proof.</h2>
           </Reveal>
-          <RevealGroup className="mt-6 space-y-3" step={0.07}>
+          <RevealGroup className="mt-6 border-t border-line" step={0.07}>
             {[
               ["Tell us what you need", "Cup sizes, roughly how many cases a year, and what the artwork is: a logo, a wordmark, a pattern."],
               ["We reply with options and pricing", "Within one business day. Pricing depends on the sizes, the artwork and the run, so we quote each job rather than publish one number."],
               ["Approve the proof", "You see the print on the cup before anything is made. Nothing runs until you sign it off."],
               ["Same material, same certificate", `Printed cups are made from the same 100% certified home-compostable material, certified by ${site.certifier}, as the plain ones.`],
             ].map(([title, text], i) => (
-              <div key={title} className="card flex gap-4 bg-white p-5">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-sage font-display text-[15px] font-bold text-white tnum">{i + 1}</span>
+              <div key={title} className="flex gap-5 border-b border-line py-5">
+                <span className="t-serif-italic w-10 shrink-0 text-[28px] leading-none text-sage-deep tnum">0{i + 1}</span>
                 <div>
                   <h3 className="t-card">{title}</h3>
                   <p className="mt-1 text-sm text-soil/75">{text}</p>

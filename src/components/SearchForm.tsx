@@ -134,7 +134,7 @@ export function SearchForm({ entries, className = "", defaultValue = "" }: { ent
       </div>
 
       {showList ? (
-        <div className="absolute inset-x-0 top-full z-40 mt-1 overflow-hidden rounded-[4px] border border-line bg-white shadow-[0_24px_48px_-24px_rgba(43,43,43,0.45)]">
+        <div className="absolute inset-x-0 top-full z-40 mt-1 overflow-hidden border border-line bg-white shadow-[0_24px_48px_-24px_rgba(43,43,43,0.45)]">
           <ul id={listId} role="listbox" aria-label="Suggestions">
             {results.length === 0 ? (
               <li className="px-3 py-3 text-sm text-soil/70">No matches. Try a size, a SKU or “lid”.</li>

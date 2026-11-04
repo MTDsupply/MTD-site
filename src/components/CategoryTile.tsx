@@ -41,7 +41,7 @@ export function CategoryTile({ category, products, certs }: { category: Category
             <Link
               key={p.sku}
               href={`/products/${category.slug}/${p.sku.toLowerCase()}`}
-              className="rounded-[4px] border border-line px-2.5 py-1 text-sm hover:border-sage hover:text-sage-deep"
+              className="border border-line px-2.5 py-1 text-sm hover:border-sage hover:text-sage-deep"
             >
               {p.size}
             </Link>

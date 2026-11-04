@@ -50,10 +50,10 @@ export default function CompostPage() {
             <p className="t-label text-sage-deep">Four steps</p>
             <h2 className="t-page mt-2">Serve it. Compost it. Done.</h2>
           </Reveal>
-          <RevealGroup className="mt-6 space-y-3" step={0.07}>
+          <RevealGroup className="mt-6 border-t border-line" step={0.07}>
             {STEPS.map(([title, text], i) => (
-              <div key={title} className="card flex gap-4 bg-white p-5">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-sage font-display text-[15px] font-bold text-white tnum">{i + 1}</span>
+              <div key={title} className="flex gap-5 border-b border-line py-5">
+                <span className="t-serif-italic w-10 shrink-0 text-[28px] leading-none text-sage-deep tnum">0{i + 1}</span>
                 <div>
                   <h3 className="t-card">{title}</h3>
                   <p className="mt-1 text-sm text-soil/75">{text}</p>

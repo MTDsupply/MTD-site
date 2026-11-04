@@ -137,7 +137,7 @@ export function Nav({ categories }: { categories: Category[] }) {
                         <Link
                           key={c.slug}
                           href={`/products/${c.slug}`}
-                          className={`flex items-center justify-between gap-3 rounded-[4px] px-2 py-1.5 text-sm transition-colors hover:bg-sage-tint ${
+                          className={`flex items-center justify-between gap-3 px-2 py-1.5 text-sm transition-colors hover:bg-sage-tint ${
                             live ? "text-soil" : "text-soil/45"
                           }`}
                         >

@@ -9,7 +9,7 @@ export function ModeToggle({ className = "", onInk = false }: { className?: stri
       type="button"
       onClick={() => setMode(m)}
       aria-pressed={mode === m}
-      className={`px-2.5 py-1 text-xs font-medium transition-colors ${
+      className={`px-2.5 py-1 text-[10.5px] font-medium uppercase tracking-[0.12em] transition-colors ${
         mode === m
           ? onInk
             ? "bg-paper text-sage-deep"
@@ -26,7 +26,7 @@ export function ModeToggle({ className = "", onInk = false }: { className?: stri
     <div
       role="group"
       aria-label="Pricing mode"
-      className={`inline-flex overflow-hidden rounded-[4px] border ${onInk ? "border-paper/60" : "border-sage"} ${className}`}
+      className={`inline-flex overflow-hidden border ${onInk ? "border-paper/60" : "border-soil/40"} ${className}`}
     >
       {opt("consumer", "Consumer")}
       {opt("business", "Business")}

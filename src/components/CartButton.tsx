@@ -19,7 +19,7 @@ export function CartButton() {
         initial={reduced ? false : { scale: 0.6 }}
         animate={{ scale: 1 }}
         transition={{ type: "spring", stiffness: 500, damping: 18 }}
-        className={`cart-badge tnum rounded-[4px] px-1.5 py-0.5 text-[11px] leading-none ${n > 0 ? "bg-sage text-white" : "bg-soil text-paper"}`}
+        className={`cart-badge tnum px-1.5 py-0.5 text-[11px] leading-none ${n > 0 ? "bg-sage text-white" : "bg-soil text-paper"}`}
       >
         {n}
       </motion.span>

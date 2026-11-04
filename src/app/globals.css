@@ -21,6 +21,7 @@
   --color-line: #d6d4cb;
 
   --font-display: var(--font-outfit), "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-cormorant), "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
   --font-sans: var(--font-inter), "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), "JetBrains Mono", ui-monospace, Menlo, monospace;
 
@@ -46,56 +47,72 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Type scale: hero 72/68, section 56/56, page 40/42, heading 28/32, card 20/25. */
+/*
+ * Type scale (restrained, editorial): display sizes set in the serif at a
+ * medium weight with quiet tracking; hierarchy comes from size, colour and
+ * space rather than weight. Labels are small, uppercase and widely tracked.
+ */
 h1,
-h2,
+h2 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+}
 h3,
-h4,
+h4 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+}
 .font-display {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 600;
 }
 .t-hero {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(44px, 6vw, 72px);
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-}
-.t-section {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(32px, 4vw, 56px);
-  line-height: 1;
-  letter-spacing: -0.02em;
-}
-.t-page {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(32px, 3.2vw, 40px);
-  line-height: 42px;
-  letter-spacing: -0.02em;
-}
-.t-heading {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 28px;
-  line-height: 32px;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(42px, 5.4vw, 78px);
+  line-height: 1.02;
   letter-spacing: -0.01em;
 }
+.t-section {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(34px, 3.8vw, 54px);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+.t-page {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(30px, 3vw, 40px);
+  line-height: 1.1;
+  letter-spacing: -0.005em;
+}
+.t-heading {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 34px;
+  letter-spacing: 0;
+}
 .t-card {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 25px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 22px;
+  letter-spacing: -0.005em;
 }
 .t-label {
   font-family: var(--font-sans);
-  font-size: 12px;
+  font-size: 11px;
   line-height: 16px;
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.16em;
+}
+.t-serif-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 500;
 }
 .sku {
   font-family: var(--font-mono);
@@ -144,11 +161,11 @@ h4,
 }
 .price-table th {
   font-family: var(--font-sans);
-  font-size: 12px;
+  font-size: 11px;
   line-height: 16px;
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.12em;
   color: #5c5c58;
 }
 .price-table td.wrap {
@@ -166,7 +183,7 @@ h4,
     width: 100%;
     border: 1px solid var(--color-line);
     background: var(--color-card);
-    border-radius: var(--radius-control);
+    border-radius: 0;
     padding: 0.55rem 0.7rem;
     font-size: 15px;
     line-height: 20px;
@@ -179,26 +196,30 @@ h4,
   }
   .label {
     display: block;
-    font-size: 12px;
+    font-size: 11px;
     line-height: 16px;
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-bottom: 0.35rem;
+    letter-spacing: 0.14em;
+    margin-bottom: 0.4rem;
+    color: #5c5c58;
   }
 
+  /* Buttons: square, small tracked capitals, ink or hairline. No fills that shout. */
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.4rem;
-    border-radius: var(--radius-control);
-    padding: 0.6rem 1rem;
-    font-size: 15px;
+    border-radius: 0;
+    padding: 0.85rem 1.5rem;
+    font-size: 12px;
     font-weight: 500;
     line-height: 1.2;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
     border: 1px solid transparent;
-    transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+    transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
     cursor: pointer;
     white-space: nowrap;
   }
@@ -207,26 +228,32 @@ h4,
     cursor: not-allowed;
   }
   .btn-primary {
-    background: var(--color-sage);
-    color: var(--color-white);
+    background: var(--color-soil);
+    color: var(--color-paper);
+    border-color: var(--color-soil);
   }
   .btn-primary:hover:not(:disabled) {
-    background: var(--color-sage-deep);
+    background: #1d1d1d;
+    border-color: #1d1d1d;
   }
   .btn-outline {
-    border-color: var(--color-sage);
-    color: var(--color-sage-deep);
+    border-color: color-mix(in srgb, var(--color-soil) 45%, transparent);
+    color: var(--color-soil);
     background: transparent;
   }
   .btn-outline:hover:not(:disabled) {
-    background: var(--color-sage-tint);
+    border-color: var(--color-soil);
+    background: var(--color-soil);
+    color: var(--color-paper);
   }
   .btn-paper {
     background: var(--color-paper);
-    color: var(--color-ink);
+    color: var(--color-soil);
+    border-color: var(--color-paper);
   }
   .btn-paper:hover:not(:disabled) {
     background: var(--color-card);
+    border-color: var(--color-card);
   }
   .btn-ghost {
     color: var(--color-ink);
@@ -236,41 +263,44 @@ h4,
     background: var(--color-paper-deep);
   }
   .btn-sm {
-    padding: 0.4rem 0.7rem;
-    font-size: 13px;
+    padding: 0.6rem 1rem;
+    font-size: 11px;
   }
 
+  /* Chips are hairline-ruled labels, never filled pills. */
   .chip {
     display: inline-flex;
     align-items: center;
     gap: 0.3rem;
-    border-radius: var(--radius-control);
-    padding: 0.2rem 0.5rem;
-    font-size: 12px;
+    border-radius: 0;
+    border: 1px solid currentColor;
+    padding: 0.2rem 0.55rem;
+    font-size: 10.5px;
     font-weight: 500;
     line-height: 16px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: transparent;
   }
   /* Sage is reserved for supported certification information. */
   .chip-sage {
-    background: var(--color-sage);
-    color: var(--color-white);
+    color: var(--color-sage-deep);
   }
   .chip-sage:hover {
-    background: var(--color-sage-deep);
+    background: var(--color-sage-tint);
   }
-  /* Fog is decorative, not a text colour: fog tint with ink text. */
+  /* Fog is decorative, not a text colour: fog hairline with ink text. */
   .chip-fog {
-    background: var(--color-fog-light);
-    color: var(--color-soil);
+    color: #6b6b66;
+    border-color: var(--color-fog);
   }
   .chip-clay-solid {
-    background: var(--color-clay);
-    color: var(--color-white);
-  }
-  /* Clay marks availability or an offer; readable combination from the kit. */
-  .chip-clay {
-    background: var(--color-clay-tint);
     color: var(--color-clay-deep);
+  }
+  /* Clay marks availability or an offer. */
+  .chip-clay {
+    color: var(--color-clay-deep);
+    border-color: var(--color-clay);
   }
 
   .link {
@@ -319,10 +349,7 @@ html {
 
 /* Controls feel physical. */
 .btn:active:not(:disabled) {
-  transform: translateY(1px) scale(0.985);
-}
-.btn-primary {
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transform: translateY(1px);
 }
 
 /* Native selects get the ink chevron instead of the browser one. */
@@ -334,14 +361,13 @@ select.input {
   background-position: right 0.7rem center;
 }
 
-/* Cards lift a hair and ink their border as you pass. */
+/* Cards are hairline-ruled surfaces; the rule darkens as you pass, nothing lifts. */
 .card {
-  transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1), border-color 320ms ease, box-shadow 320ms ease;
+  border: 1px solid var(--color-line);
+  transition: border-color 320ms ease;
 }
 .card:hover {
-  transform: translateY(-2px);
-  border-color: var(--color-sage);
-  box-shadow: 0 18px 32px -22px rgba(79, 111, 82, 0.45);
+  border-color: color-mix(in srgb, var(--color-soil) 45%, transparent);
 }
 
 /* Links underline from the left. */
@@ -435,7 +461,7 @@ html[data-scrolled] .header-surface {
   padding: 0.5rem 0.75rem;
   background: var(--color-sage);
   color: var(--color-white);
-  border-radius: 4px;
+  border-radius: 0;
 }
 .skip-link:focus {
   top: 1rem;
@@ -482,8 +508,8 @@ html[data-scrolled] .header-surface {
     radial-gradient(50% 60% at 70% 85%, rgba(228, 235, 227, 0.95) 0%, rgba(228, 235, 227, 0) 72%),
     radial-gradient(40% 50% at 20% 90%, rgba(200, 149, 109, 0.22) 0%, rgba(200, 149, 109, 0) 70%),
     linear-gradient(180deg, #f6f3ec 0%, #eef0e8 50%, #f4f1ea 100%);
-  animation: mesh-drift 48s ease-in-out infinite alternate;
-  will-change: transform;
+  /* Still: a drifting background reads as a gimmick on a considered page. */
+  opacity: 0.6;
 }
 @keyframes mesh-drift {
   0% {
@@ -502,14 +528,10 @@ html[data-scrolled] .header-surface {
   }
 }
 
-/* Frosted panels over imagery. */
+/* Panels over imagery: plain white with a hairline, no frost. */
 .glass {
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(18px) saturate(1.15);
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.85),
-    0 24px 48px -32px rgba(43, 43, 43, 0.35);
+  background: var(--color-card);
+  border: 1px solid var(--color-line);
 }
 .glass-dark {
   background: rgba(43, 43, 43, 0.55);
@@ -524,7 +546,7 @@ html[data-scrolled] .header-surface {
   border: 1px solid rgba(255, 255, 255, 0.6);
 }
 .card.glass:hover {
-  border-color: rgba(79, 111, 82, 0.6);
+  border-color: color-mix(in srgb, var(--color-soil) 45%, transparent);
 }
 
 /* Fine grain so flat areas read as paper, not pixels. */

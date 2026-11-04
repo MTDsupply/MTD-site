@@ -39,11 +39,7 @@ export function FeatureBlock({
         }`}
       >
         <div className="relative">
-          <div
-            aria-hidden="true"
-            className={`absolute -bottom-4 top-4 w-full bg-sage/15 ${reverse ? "-left-4" : "-right-4"}`}
-          />
-          <div className="relative aspect-[5/4] overflow-hidden bg-white shadow-[0_32px_64px_-44px_rgba(43,43,43,0.5)]">
+          <div className="relative aspect-[5/4] overflow-hidden border border-line bg-white">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={image} alt={imageAlt} className="h-full w-full object-contain p-6 md:p-10" loading="lazy" />
           </div>

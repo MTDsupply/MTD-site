@@ -38,14 +38,6 @@ function filmMedia() {
   return { video, poster, mobileVideo };
 }
 
-function Check({ light = false }: { light?: boolean }) {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true" className={light ? "text-paper" : "text-sage-deep"}>
-      <path d="m5 12 5 5 9-10" />
-    </svg>
-  );
-}
-
 export default async function HomePage() {
   const catalog = await getCatalog();
   const { categories, products, certs } = catalog;
@@ -69,43 +61,39 @@ export default async function HomePage() {
       <section className="band-sage relative isolate overflow-hidden">
         <div className="grid md:min-h-[min(calc(100dvh-7rem),640px)] md:grid-cols-2">
           <div className="flex items-center px-4 pt-12 pb-12 md:py-20 md:pl-[max(1rem,calc(50vw_-_40rem_+_1rem))] md:pr-12">
-            <div className="max-w-[38rem]">
+            <div className="max-w-[36rem]">
               <Reveal>
-                <span className="inline-flex items-center gap-2 rounded-[4px] bg-clay px-2.5 py-1 text-[12px] font-semibold uppercase tracking-[0.06em] text-soil">
-                  Hot cups &amp; lids · {restockNote("cups") ? `Cups ${restockNoteLower("cups")}` : `In stock in ${site.city}`}
-                </span>
+                <p className="t-label flex items-center gap-4 text-paper/70">
+                  <span aria-hidden="true" className="h-px w-8 bg-paper/50" />
+                  Hot cups &amp; lids · {site.city}, {site.province}
+                </p>
               </Reveal>
               <Reveal delay={0.08}>
-                <h1 className="t-hero mt-5 max-w-[12ch] text-white text-[clamp(50px,12.5vw,64px)] md:text-[clamp(56px,6vw,88px)]">
-                  Serve it. Then it disappears.
-                </h1>
+                <h1 className="t-hero mt-7 max-w-[13ch] text-white">Serve it. Then it disappears.</h1>
               </Reveal>
               <Reveal delay={0.16}>
-                <p className="mt-6 max-w-[40ch] text-[18px] leading-7 text-paper/90 md:text-[20px] md:leading-8">
+                <p className="mt-6 max-w-[42ch] text-[16px] leading-7 text-paper/80 md:text-[17px]">
                   Hot cups and lids made from 100% certified home-compostable material. Cases for the café, packs for the house.
                 </p>
               </Reveal>
               <Reveal delay={0.24}>
-                <div className="mt-8 flex flex-wrap gap-3">
-                  <Link href="/products/cups" className="btn btn-paper px-7 py-3.5 text-[16px] font-semibold">
+                <div className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
+                  <Link href="/products/cups" className="btn btn-paper">
                     Shop cups
                   </Link>
-                  <Link href="/products/lids" className="btn border-paper/70 px-7 py-3.5 text-[16px] font-semibold text-paper hover:bg-white/10">
+                  <Link href="/products/lids" className="text-[12px] font-medium uppercase tracking-[0.14em] text-paper underline decoration-paper/40 underline-offset-[6px] transition-colors hover:decoration-paper">
                     Shop lids
                   </Link>
                 </div>
+                {restockNote("cups") ? (
+                  <p className="mt-5 text-[13px] text-paper/65">Cups {restockNoteLower("cups")}; orders placed now are filled from that stock. Lids in stock.</p>
+                ) : null}
               </Reveal>
               <Reveal delay={0.32}>
-                <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-paper/85">
-                  <li className="flex items-center gap-2">
-                    <Check light /> Certified by {site.certifier}
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check light /> No microplastics
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check light /> From {money(cheapestCupPack?.packPrice ?? 0)} per 100
-                  </li>
+                <ul className="mt-10 flex flex-wrap gap-x-8 gap-y-2 border-t border-paper/20 pt-5 text-[11px] uppercase tracking-[0.14em] text-paper/70">
+                  <li>Certified by {site.certifier}</li>
+                  <li>No microplastics</li>
+                  <li className="tnum">From {money(cheapestCupPack?.packPrice ?? 0)} per 100</li>
                 </ul>
               </Reveal>
             </div>
@@ -120,8 +108,8 @@ export default async function HomePage() {
               className="object-cover"
               style={{ objectPosition: "50% 38%" }}
             />
-            {/* The round home-compostable mark on a white disc, a sticker on the photo's corner beside the claim. */}
-            <span className="absolute bottom-5 left-5 flex w-[120px] -rotate-12 items-center justify-center rounded-full bg-white p-1.5 shadow-[0_14px_28px_rgba(0,0,0,0.25)] md:left-8 md:bottom-8 md:w-[150px]">
+            {/* The round home-compostable mark on a white disc, set quietly in the photo's corner. */}
+            <span className="absolute bottom-5 right-5 flex w-[88px] items-center justify-center rounded-full bg-white p-1 shadow-[0_8px_24px_rgba(0,0,0,0.18)] md:bottom-7 md:right-7 md:w-[112px]">
               <Image
                 src="/badge-home-compostable.png"
                 alt="Home compostable mark: TÜV Austria certified, no microplastics, PHA lined"
@@ -168,60 +156,36 @@ export default async function HomePage() {
 
       {/* 3. Trust band: certification, material, formats, press. */}
       <Reveal>
-        <section className="mt-14 border-y border-sage bg-white md:mt-20">
-          <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 md:grid-cols-4 md:gap-8 md:py-10">
-            <div className="flex items-center gap-4">
-              <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-sage text-sage-deep">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
-                  <path d="m5 12 5 5 9-10" />
-                </svg>
-              </span>
-              <div>
-                <p className="t-card text-[17px] leading-[22px]">Certified by {site.certifier}</p>
-                <p className="mt-1 text-sm text-soil/70">100% certified home-compostable material, per SKU.</p>
+        <section className="mt-16 border-y border-line bg-white md:mt-24">
+          <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:grid-cols-2 md:grid-cols-4 md:gap-0 md:divide-x md:divide-line md:py-0">
+            {[
+              ["Certification", `Certified by ${site.certifier}`, "100% certified home-compostable material, per SKU."],
+              ["Material", "No microplastics", "PHA lining, made by fermentation. No plastic film."],
+              ["Formats", "Case or pack", "Packs of 100, 200 or 500, or cases of 1,000."],
+            ].map(([eyebrow, title, text]) => (
+              <div key={title} className="md:px-8 md:py-9 md:first:pl-0 md:last:pr-0">
+                <p className="t-label text-soil/50">{eyebrow}</p>
+                <p className="mt-2 text-[15px] font-medium">{title}</p>
+                <p className="mt-1 text-[13px] leading-5 text-soil/65">{text}</p>
               </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-sage text-sage-deep">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
-                  <path d="M4 7h16M4 12h10M4 17h7" />
-                </svg>
-              </span>
-              <div>
-                <p className="t-card text-[17px] leading-[22px]">No microplastics</p>
-                <p className="mt-1 text-sm text-soil/70">PHA lining, made by fermentation. No plastic film.</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-sage text-sage-deep">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
-                  <rect x="4" y="7" width="16" height="12" rx="1" />
-                  <path d="M4 11h16M10 7v4" />
-                </svg>
-              </span>
-              <div>
-                <p className="t-card text-[17px] leading-[22px]">Case or pack</p>
-                <p className="mt-1 text-sm text-soil/70">Packs of 100, 200 or 500, or cases of 1,000.</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-line bg-white">
+            ))}
+            <div className="md:px-8 md:py-9 md:last:pr-0">
+              <p className="t-label text-soil/50">Press</p>
+              <p className="mt-2 flex items-center gap-2 text-[15px] font-medium">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={press.logo} alt="" width={34} height={34} className="h-[34px] w-[34px]" />
-              </span>
-              <div>
-                <p className="t-card text-[17px] leading-[22px]">As heard on CBC</p>
-                <p className="mt-1 text-sm text-soil/70">
-                  {press.href ? (
-                    <Link href={press.href} className="link">
-                      {press.show}
-                    </Link>
-                  ) : (
-                    press.show
-                  )}{" "}
-                  with {press.host}.
-                </p>
-              </div>
+                <img src={press.logo} alt="" width={18} height={18} className="h-[18px] w-[18px]" />
+                As heard on CBC
+              </p>
+              <p className="mt-1 text-[13px] leading-5 text-soil/65">
+                {press.href ? (
+                  <Link href={press.href} className="link">
+                    {press.show}
+                  </Link>
+                ) : (
+                  press.show
+                )}{" "}
+                with {press.host}.
+              </p>
             </div>
           </div>
         </section>
@@ -277,18 +241,16 @@ export default async function HomePage() {
             <p className="t-label text-sage-deep">How it disappears</p>
             <h2 className="t-page mt-2">Serve it. Compost it. Done.</h2>
           </Reveal>
-          <RevealGroup className="mt-8 grid gap-4 md:grid-cols-3" itemClassName="h-full" step={0.08}>
+          <RevealGroup className="mt-10 grid border-t border-line md:grid-cols-3 md:gap-10" itemClassName="h-full" step={0.08}>
             {[
               ["Serve", "Same cup, same coffee. Hot cups in 8, 12 and 16 oz, and one lid that fits all three."],
               ["Drop it in the home compost", "The PHA lining is made by fermentation, not from plastic, so the whole cup goes in. No sorting, no special bin."],
               ["It breaks down", `Home-compostable material breaks down in a home compost pile at ambient temperature. Certified by ${site.certifier}, per SKU.`],
             ].map(([title, text], i) => (
-              <div key={title} className="card glass flex h-full gap-4 p-5">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-sage font-display text-[15px] font-bold text-white tnum">{i + 1}</span>
-                <div>
-                  <h3 className="t-card">{title}</h3>
-                  <p className="mt-1 text-sm text-soil/75">{text}</p>
-                </div>
+              <div key={title} className="border-b border-line py-7 md:border-b-0 md:pt-8">
+                <span className="t-serif-italic block text-[30px] leading-none text-sage-deep tnum">0{i + 1}</span>
+                <h3 className="t-card mt-4">{title}</h3>
+                <p className="mt-2 max-w-[38ch] text-sm leading-6 text-soil/70">{text}</p>
               </div>
             ))}
           </RevealGroup>
@@ -461,7 +423,7 @@ export default async function HomePage() {
 
         {/* 11. Keep in touch. */}
         <Reveal>
-          <section className="glass mt-16 grid gap-6 p-6 md:grid-cols-[1fr_auto] md:items-center md:p-10">
+          <section className="mt-16 grid gap-6 border-y border-line py-10 md:grid-cols-[1fr_auto] md:items-center md:py-12">
             <div>
               <p className="t-label text-sage-deep">Keep in touch</p>
               <h2 className="t-heading mt-2">New products, the day they land.</h2>

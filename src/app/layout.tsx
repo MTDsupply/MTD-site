@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { Inter, JetBrains_Mono, Outfit } from "next/font/google";
+import { Cormorant_Garamond, Inter, JetBrains_Mono, Outfit } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -17,6 +17,14 @@ const outfit = Outfit({
   subsets: ["latin"],
   weight: ["500", "700", "800"],
   variable: "--font-outfit",
+  display: "swap",
+});
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-cormorant",
   display: "swap",
 });
 
@@ -64,7 +72,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-CA" className={`${outfit.variable} ${inter.variable} ${jetbrains.variable} h-full`}>
+    <html lang="en-CA" className={`${outfit.variable} ${inter.variable} ${jetbrains.variable} ${cormorant.variable} h-full`}>
       <body className="flex min-h-full flex-col">
         <JsonLd data={[organizationLd(), websiteLd()]} />
         <a href="#main" className="skip-link">

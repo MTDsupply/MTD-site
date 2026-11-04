@@ -103,7 +103,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
             <span className="sku text-soil/60">{product.sku}</span>
           </p>
           <div className="mt-3 flex flex-wrap items-center gap-2">
-            <CertChip cert={cert} sku={product.sku} />
+            <CertChip cert={cert} sku={product.sku} compact />
             {restockNote(cat.slug) ? <span className="chip chip-clay">{restockNote(cat.slug)}</span> : null}
           </div>
 
@@ -116,8 +116,8 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
                     key={s.sku}
                     href={`/products/${cat.slug}/${s.sku.toLowerCase()}`}
                     aria-current={s.sku === product.sku ? "page" : undefined}
-                    className={`rounded-[4px] border px-3 py-1.5 text-sm ${
-                      s.sku === product.sku ? "border-sage bg-sage text-white" : "border-line hover:border-sage"
+                    className={`border px-3.5 py-2 text-[12px] uppercase tracking-[0.12em] transition-colors ${
+                      s.sku === product.sku ? "border-soil bg-soil text-paper" : "border-line text-soil hover:border-soil"
                     }`}
                   >
                     {s.size}

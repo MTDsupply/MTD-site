@@ -23,7 +23,7 @@ export function AccountNav() {
               <Link
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`block whitespace-nowrap rounded-[4px] px-3 py-2 text-sm font-medium transition-colors ${
+                className={`block whitespace-nowrap px-3 py-2 text-sm font-medium transition-colors ${
                   active ? "bg-sage text-white" : "text-soil/80 hover:bg-sage-tint"
                 }`}
               >
