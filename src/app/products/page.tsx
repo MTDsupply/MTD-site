@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { getCatalog } from "@/lib/catalog/queries";
 import { CatalogGrid } from "@/components/CatalogGrid";
 import { PageHeader } from "@/components/PageHeader";
-import { restockNote, restockNoteLower } from "@/lib/site";
+import { restockNote, restockNoteLower, stockSentence } from "@/lib/site";
 import { pageMeta, breadcrumbLd, itemListLd } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 
@@ -20,7 +20,7 @@ export default async function ProductsPage() {
       <PageHeader
         eyebrow="Catalogue"
         title="Products"
-        description={`${restockNote("cups") ? `Cups ${restockNoteLower("cups")}, lids in stock.` : "Cups and lids, all in stock."} Packs for the house, cases for the business.`}
+        description={`${stockSentence()} Packs for the house, cases for the business.`}
         image="/atmosphere/dew.jpg"
         imageAlt="Dew on meadow grass at sunrise"
       />

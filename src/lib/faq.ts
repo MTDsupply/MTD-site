@@ -1,5 +1,5 @@
 import type { Catalog, Product } from "@/lib/catalog/types";
-import { site, restockNoteLower } from "@/lib/site";
+import { site, restockNoteLower, stockSentence } from "@/lib/site";
 import { SHIPPING } from "@/lib/shipping";
 import { money, unitMoney, count } from "@/lib/format";
 import { bulkCasesFor, BULK_MIN_UNITS } from "@/lib/pricing";
@@ -52,8 +52,8 @@ export function homeFaq(catalog: Catalog): [string, string][] {
     ...(lid
       ? ([["Does one lid fit every cup size?", `Yes. One PHA lid fits the ${list(cups.map((p) => p.size))} cups, so there is one lid SKU to stock.`]] as [string, string][])
       : []),
-    ...(restock
-      ? ([["Are the cups in stock?", `Cups are ${restock}; lids are in stock. You can order cups now and the order is filled from that stock.`]] as [string, string][])
+    ...(restock || site.restock.lids
+      ? ([["Are the cups and lids in stock?", `${stockSentence()} You can order now and the order is filled from that stock.`]] as [string, string][])
       : []),
   ];
 }

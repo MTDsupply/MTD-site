@@ -3,7 +3,7 @@ import Image from "next/image";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { getCatalog } from "@/lib/catalog/queries";
-import { site, restockNote, restockNoteLower } from "@/lib/site";
+import { site, restockNote, restockNoteLower, stockSentence } from "@/lib/site";
 import { claims } from "@/lib/copy";
 import { ProductCard } from "@/components/ProductCard";
 import { ComingSoonTile } from "@/components/ComingSoonTile";
@@ -109,7 +109,7 @@ export default async function HomePage() {
           <div className="relative mx-auto flex h-full max-w-7xl px-4 md:justify-end">
             <div className="w-full py-10 md:flex md:w-[46%] md:flex-col md:justify-center md:py-12 md:pl-6 lg:pl-10">
               <Reveal>
-                <span className="sticker -rotate-3 shadow-[0_8px_20px_-10px_rgba(46,77,52,0.5)]">{restock ? `Cups ${restockNoteLower("cups")}` : "In stock now"}</span>
+                <span className="sticker -rotate-3 shadow-[0_8px_20px_-10px_rgba(46,77,52,0.5)]">{restock ? stockSentence().replace(/\.$/, "") : "In stock now"}</span>
               </Reveal>
               <Reveal delay={0.08}>
                 <h1 className="t-hero mt-5 max-w-[11ch] text-forest">Serve it. Then it disappears.</h1>
@@ -151,7 +151,7 @@ export default async function HomePage() {
         <Reveal>
           <h2 className="t-section text-center text-forest">Shop our best sellers</h2>
           <p className="mt-3 text-center text-soil/70">
-            {restock ? `Cups ${restockNoteLower("cups")}, lids in stock.` : "Cups and lids in stock."}{" "}
+            {stockSentence()}{" "}
             <Link href="/products" className="link font-medium">
               See the full catalogue
             </Link>

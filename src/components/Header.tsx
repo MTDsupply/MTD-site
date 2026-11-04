@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getCatalog } from "@/lib/catalog/queries";
 import { money } from "@/lib/format";
-import { restockNote, restockNoteLower } from "@/lib/site";
+import { restockNote, stockSentence } from "@/lib/site";
 import { site } from "@/lib/site";
 import { BULK_MIN_UNITS } from "@/lib/pricing";
 import { count } from "@/lib/format";
@@ -60,7 +60,7 @@ export async function Header() {
               </span>
             ) : (
               <span className="truncate">
-                {restockNote("cups") ? `Cups ${restockNoteLower("cups")} · ` : ""}Volume pricing from {count(BULK_MIN_UNITS)} units, applied in the cart
+                {restockNote("cups") || restockNote("lids") ? `${stockSentence().replace(/\.$/, "")} · ` : ""}Volume pricing from {count(BULK_MIN_UNITS)} units, applied in the cart
               </span>
             )}
             <Link href="/quick-order" className="hidden hover:underline sm:inline">

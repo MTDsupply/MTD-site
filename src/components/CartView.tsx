@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { restockNote, restockNoteLower } from "@/lib/site";
+import { stockSentence } from "@/lib/site";
 import { useState, useTransition } from "react";
 import type { Product } from "@/lib/catalog/types";
 import { useCart, setQty, removeLine } from "@/lib/store/cart";
@@ -42,7 +42,7 @@ export function CartView({ products }: { products: Product[] }) {
         </div>
         <div className="text-sm">
         <p className="t-card">Nothing in your cart yet.</p>
-        <p className="mt-1 text-soil/70">{restockNote("cups") ? `Lids are in stock; cups are ${restockNoteLower("cups")}.` : "Cups and lids are in stock today."} Packs of 100, 200 or 500, or cases of 1,000.</p>
+        <p className="mt-1 text-soil/70">{stockSentence()} Packs of 100, 200 or 500, or cases of 1,000.</p>
         <div className="mt-4 flex flex-wrap gap-3">
           <Link href="/products" className="btn btn-primary btn-sm">
             Browse products

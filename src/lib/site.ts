@@ -26,13 +26,27 @@ export const site = {
    * Categories waiting on a restock, by slug, with the wording to show.
    * Remove the entry when the stock lands and every "in stock" line comes back.
    */
-  restock: { cups: "mid-December" } as Record<string, string>,
+  restock: { cups: "mid-December", lids: "mid-December" } as Record<string, string>,
 };
 
 /** "Restocking mid-December" for a category that is waiting on stock, or null. */
 export function restockNote(categorySlug: string): string | null {
   const when = site.restock[categorySlug];
   return when ? `Restocking ${when}` : null;
+}
+
+/**
+ * One sentence covering cups and lids for the places that mention both:
+ * "Cups and lids restocking mid-December." / "Cups restocking mid-December, lids in stock." /
+ * "Cups and lids in stock." (the first form when both share a date).
+ */
+export function stockSentence(): string {
+  const c = site.restock.cups;
+  const l = site.restock.lids;
+  if (c && l) return c === l ? `Cups and lids restocking ${c}.` : `Cups restocking ${c}, lids restocking ${l}.`;
+  if (c) return `Cups restocking ${c}, lids in stock.`;
+  if (l) return `Lids restocking ${l}, cups in stock.`;
+  return "Cups and lids in stock.";
 }
 
 /** The same note mid-sentence: "restocking mid-December". */
