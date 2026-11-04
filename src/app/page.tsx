@@ -235,18 +235,28 @@ export default async function HomePage() {
             <p className="font-display text-[16px] font-semibold text-forest">
               Inner Harbour, <span className="t-serif-italic font-normal">{site.city}</span>
             </p>
-            <p className="text-sm text-soil/65">Answer four questions, get a freezie.</p>
+            <p className="text-sm text-soil/65">167 coffee drinkers, summer 2026.</p>
           </div>
         </div>
         <div className="band-peach flex items-center">
           <div className="mx-auto max-w-[56ch] px-6 py-14 text-center md:px-12 md:py-20">
-            <h2 className="t-section text-forest">We asked {site.city} four questions.</h2>
+            <h2 className="t-section text-forest">98% said they&rsquo;d pay 15¢ more for this cup.</h2>
             <p className="mt-6 text-[17px] leading-7 text-forest/85">
-              Before we ordered a single case, we stood on the Inner Harbour causeway with a cooler of freezies and a clipboard. Four quick questions about takeout cups, a freezie as thanks, and a lot of honest answers from locals and visitors.
+              Before we ordered a single case, we spent a few days on the Inner Harbour with a clipboard and a cooler of freezies, asking 167 coffee drinkers whether they would pay 15¢ more per coffee for a cup with no microplastics that composts at home. 163 said yes.
             </p>
-            <p className="mt-4 text-[17px] leading-7 text-forest/85">
-              What people told us shaped the cup we make: paper, a lining that is not plastic, and a certificate you can check for yourself.
-            </p>
+            <dl className="mx-auto mt-8 grid max-w-md grid-cols-3 gap-3">
+              {[
+                ["87%", "No microplastics"],
+                ["90%", "Home compostable"],
+                ["98%", "Both"],
+              ].map(([n, label], i) => (
+                <div key={label} className={`rounded-[16px] px-3 py-4 ${i === 2 ? "bg-forest text-cream" : "bg-white/70 text-forest"}`}>
+                  <dt className="order-2 text-[12px] leading-4 opacity-80">{label}</dt>
+                  <dd className="t-serif-italic text-[34px] leading-none tnum">{n}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className="mt-3 text-xs text-forest/60">Would pay 15¢ more per coffee. Street survey, 167 respondents, Victoria Inner Harbour, summer 2026.</p>
             <Link href="/about" className="btn btn-primary btn-lg mt-8">
               Our story
             </Link>
