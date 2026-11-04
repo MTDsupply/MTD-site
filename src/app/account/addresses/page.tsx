@@ -28,11 +28,11 @@ async function Addresses() {
       <div className="mt-4 grid gap-6 lg:grid-cols-2">
         <div>
           {addresses.length === 0 ? (
-            <p className="border border-line bg-white p-5 text-sm text-soil/70">No saved addresses yet.</p>
+            <p className="rounded-[20px] bg-white p-5 text-sm text-soil/70">No saved addresses yet.</p>
           ) : (
             <ul className="space-y-3">
               {addresses.map((a) => (
-                <li key={a.id} className="border border-line bg-white p-4 text-sm">
+                <li key={a.id} className="rounded-[20px] bg-white p-4 text-sm">
                   <div className="flex items-start justify-between gap-3">
                     <address className="not-italic">
                       <span className="font-medium">{a.label}</span>

@@ -190,7 +190,7 @@ export function Nav({ categories }: { categories: Category[] }) {
             className="absolute inset-x-0 top-full z-40 rounded-b-[20px] bg-white px-4 py-3 text-soil shadow-[0_28px_48px_-24px_rgba(46,77,52,0.45)] md:hidden"
           >
             <nav aria-label="Mobile">
-              <p className="t-label px-3 pb-1 pt-2 text-sage-deep">Products</p>
+              <p className="t-label px-3 pb-1 pt-2 text-forest">Products</p>
               <ul className="grid grid-cols-2 gap-x-2">
                 {categories.map((c) => (
                   <li key={c.slug}>

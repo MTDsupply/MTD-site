@@ -27,13 +27,13 @@ export default async function CustomPrintingPage() {
 
       <div className="mt-10 grid gap-8 md:grid-cols-[1.1fr_1fr] md:items-center md:gap-12">
         <Reveal>
-          <div className="relative aspect-[4/3] overflow-hidden border border-line bg-white">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-[20px] bg-white">
             <Image src="/products/MTD-CUP-16H-front.jpg" alt="A 16 oz hot cup, plain white, ready for printing" fill priority sizes="(min-width: 768px) 50vw, 100vw" className="object-contain" />
           </div>
         </Reveal>
         <div>
           <Reveal>
-            <p className="t-label text-sage-deep">How it works</p>
+            <p className="t-label text-forest">How it works</p>
             <h2 className="t-page mt-2">Send the artwork. We send a proof.</h2>
           </Reveal>
           <RevealGroup className="mt-6 space-y-3" step={0.07}>
@@ -57,7 +57,7 @@ export default async function CustomPrintingPage() {
 
       <section id="quote" className="mt-14 scroll-mt-24">
         <Reveal>
-          <p className="t-label text-sage-deep">Start a job</p>
+          <p className="t-label text-forest">Start a job</p>
           <h2 className="t-heading mt-2">Request custom printing</h2>
           <p className="mt-1 max-w-[62ch] text-sm text-soil/70">
             Put the artwork details and the sizes you want in the notes. If you would rather see the plain cups first,{" "}

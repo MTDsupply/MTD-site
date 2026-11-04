@@ -25,7 +25,7 @@ async function Orders() {
       <h2 className="t-heading">Orders</h2>
       <p className="mt-1 text-sm text-soil/70">Every order placed with {s.user.email}. Open one for the receipt and delivery details.</p>
       {orders.length === 0 ? (
-        <div className="mt-4 border border-line bg-white p-5 text-sm text-soil/70">
+        <div className="mt-4 rounded-[20px] bg-white p-5 text-sm text-soil/70">
           No orders yet.{" "}
           <Link href="/products" className="link">
             Browse products

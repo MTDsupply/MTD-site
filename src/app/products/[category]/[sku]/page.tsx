@@ -96,7 +96,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
 
         {/* Buy box */}
         <div>
-          <p className="t-label text-sage-deep">{cat.name}</p>
+          <p className="t-label text-forest">{cat.name}</p>
           <h1 className="t-page mt-2">{product.name}</h1>
           <p className="mt-1 text-base text-soil/80">
             {product.material}. 100% certified home-compostable material. {product.caseCount.toLocaleString("en-CA")} per case.{" "}
@@ -130,7 +130,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
           <div className="mt-5">
             <Price product={product} size="lg" />
           </div>
-          <div className="mt-4 border border-line bg-white p-4">
+          <div className="mt-4 rounded-[20px] bg-white p-4">
             <AddToCart product={product} />
             {restockNote(cat.slug) ? <p className="mt-3 text-xs text-soil/70">{restockNote(cat.slug)}. Orders placed now are filled from that stock.</p> : null}
           </div>
@@ -160,7 +160,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
       <section className="mt-10 max-w-3xl">
         <div>
           <h2 className="t-heading">Specifications</h2>
-          <div className="mt-3 border border-line bg-white p-2">
+          <div className="mt-3 rounded-[20px] bg-white p-2">
             <SpecTable product={product} cert={cert} />
           </div>
         </div>
@@ -173,7 +173,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
             <details key={q} className="group py-3">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[15px] font-medium">
                 <h3 className="text-[15px] font-medium">{q}</h3>
-                <span aria-hidden="true" className="text-sage-deep transition-transform group-open:rotate-45">
+                <span aria-hidden="true" className="text-forest transition-transform group-open:rotate-45">
                   +
                 </span>
               </summary>

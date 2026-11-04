@@ -25,13 +25,13 @@ export function PairedAdd({ product, label }: { product: Product; label: string 
   };
 
   return (
-    <div className="flex items-center gap-3 border border-line bg-white p-3">
+    <div className="flex items-center gap-3 rounded-[20px] bg-white p-3">
       {product.photo ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={product.photo} alt="" className="h-14 w-14 shrink-0 border border-line bg-white object-contain" />
+        <img src={product.photo} alt="" className="h-14 w-14 shrink-0 rounded-[20px] bg-white object-contain" />
       ) : null}
       <div className="min-w-0 flex-1">
-        <p className="t-label text-sage-deep">{label}</p>
+        <p className="t-label text-forest">{label}</p>
         <p className="truncate text-sm font-medium">
           <Link href={href} className="hover:underline">
             {product.name}

@@ -18,6 +18,8 @@ const schema = z.object({
 });
 
 export async function submitQuote(_prev: QuoteState, formData: FormData): Promise<QuoteState> {
+  // Honeypot: real visitors never see or fill this field. Pretend it worked.
+  if (String(formData.get("website") ?? "").trim()) return { ok: true, message: "Thanks." };
   const parsed = schema.safeParse({
     kind: String(formData.get("kind") ?? "bulk"),
     company: String(formData.get("company") ?? "").trim(),

@@ -64,7 +64,7 @@ export function AddToCart({ product, compact = false }: { product: Product; comp
       {!compact ? (
         <p className="text-xs tnum text-soil/70">
           {count(qty * info.count)} units · {unitMoney(perUnit)} each · {money(lineTotal)}
-          {priced.bulk ? <span className="ml-2 font-medium text-sage-deep">Volume price</span> : null}
+          {priced.bulk ? <span className="ml-2 font-medium text-forest">Volume price</span> : null}
         </p>
       ) : null}
       {mode === "business" || !compact ? (

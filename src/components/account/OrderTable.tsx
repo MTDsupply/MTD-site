@@ -11,7 +11,7 @@ export function StatusChip({ order }: { order: Pick<OrderRow, "status" | "shippe
 /** Order history rows. Reorder puts the still-live lines in the cart. */
 export function OrderTable({ orders, liveSkus }: { orders: OrderRow[]; liveSkus: Set<string> }) {
   return (
-    <div className="overflow-x-auto border border-line bg-white">
+    <div className="overflow-x-auto rounded-[20px] bg-white">
       <table className="price-table w-full text-sm">
         <thead>
           <tr>

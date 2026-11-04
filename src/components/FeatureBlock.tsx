@@ -39,13 +39,13 @@ export function FeatureBlock({
         }`}
       >
         <div className="relative">
-          <div className="relative aspect-[5/4] overflow-hidden border border-line bg-white">
+          <div className="relative aspect-[5/4] overflow-hidden rounded-[20px] bg-white">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={image} alt={imageAlt} className="h-full w-full object-contain p-6 md:p-10" loading="lazy" />
           </div>
         </div>
         <div className="max-w-[50ch]">
-          <p className="t-label text-sage-deep">{eyebrow}</p>
+          <p className="t-label text-forest">{eyebrow}</p>
           <h2 className="t-page mt-3">{title}</h2>
           <div className="mt-4 space-y-3 text-[15px] leading-6 text-soil/80">{children}</div>
           {facts.length ? (

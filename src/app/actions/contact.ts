@@ -13,6 +13,8 @@ const schema = z.object({
 });
 
 export async function submitContact(_prev: ContactState, formData: FormData): Promise<ContactState> {
+  // Honeypot: real visitors never see or fill this field. Pretend it worked.
+  if (String(formData.get("website") ?? "").trim()) return { ok: true, message: "Thanks." };
   const parsed = schema.safeParse({
     name: String(formData.get("name") ?? "").trim(),
     email: String(formData.get("email") ?? "").trim(),

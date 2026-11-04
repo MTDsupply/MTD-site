@@ -47,7 +47,7 @@ export default function CompostPage() {
         </Reveal>
         <div>
           <Reveal>
-            <p className="t-label text-sage-deep">Four steps</p>
+            <p className="t-label text-forest">Four steps</p>
             <h2 className="t-page mt-2">Serve it. Compost it. Done.</h2>
           </Reveal>
           <RevealGroup className="mt-6 space-y-3" step={0.07}>
@@ -64,10 +64,10 @@ export default function CompostPage() {
         </div>
       </div>
 
-      <Reveal as="section" className="mt-14 border-y border-sage bg-white">
+      <Reveal as="section" className="mt-14 bg-cream">
         <div className="relative left-1/2 w-screen -translate-x-1/2 bg-white">
           <div className="mx-auto max-w-7xl px-4 py-10 md:py-12">
-            <p className="t-label text-sage-deep">What the certificate covers</p>
+            <p className="t-label text-forest">What the certificate covers</p>
             <p className="t-heading mt-3 max-w-[40ch] text-soil">{claims.certLine}</p>
             <p className="mt-4 max-w-[62ch] text-soil/80">{claims.whyParagraph}</p>
             <Link href="/certifications" className="link-proof mt-5 inline-block text-sm font-medium">
@@ -79,7 +79,7 @@ export default function CompostPage() {
 
       <section className="mt-14 max-w-3xl">
         <Reveal>
-          <p className="t-label text-sage-deep">Questions</p>
+          <p className="t-label text-forest">Questions</p>
           <h2 className="t-page mt-2">Asked often.</h2>
         </Reveal>
         <RevealGroup className="mt-6 divide-y divide-line border-y border-line" step={0.05}>
@@ -87,7 +87,7 @@ export default function CompostPage() {
             <details key={q} className="group py-4">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[17px] font-medium">
                 <h3 className="text-[17px] font-medium">{q}</h3>
-                <span aria-hidden="true" className="text-sage-deep transition-transform group-open:rotate-45">
+                <span aria-hidden="true" className="text-forest transition-transform group-open:rotate-45">
                   +
                 </span>
               </summary>
@@ -113,7 +113,7 @@ export default function CompostPage() {
       />
 
       <Reveal className="mt-14">
-        <div className="flex flex-wrap items-center justify-between gap-4 border border-line bg-white p-6">
+        <div className="flex flex-wrap items-center justify-between gap-4 rounded-[20px] bg-white p-6">
           <div>
             <p className="t-card">Ready to switch the café over?</p>
             <p className="mt-1 text-sm text-soil/70">Cases for the business, packs for the house.</p>

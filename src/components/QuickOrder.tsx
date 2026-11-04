@@ -78,7 +78,7 @@ export function QuickOrder({ products }: { products: Product[] }) {
 
       <div>
         <h2 className="label">Preview</h2>
-        <div className="overflow-x-auto border border-line bg-white">
+        <div className="overflow-x-auto rounded-[20px] bg-white">
           <table className="price-table w-full text-sm">
             <thead>
               <tr>
@@ -104,7 +104,7 @@ export function QuickOrder({ products }: { products: Product[] }) {
                     <td>{r.product.name}</td>
                     <td>
                       {pricedRow.get(r)?.info.label}
-                      {pricedRow.get(r)?.bulk ? <span className="ml-2 text-[11px] font-medium uppercase tracking-wide text-sage-deep">Volume price</span> : null}
+                      {pricedRow.get(r)?.bulk ? <span className="ml-2 text-[11px] font-medium uppercase tracking-wide text-forest">Volume price</span> : null}
                     </td>
                     <td className="num">{r.qty}</td>
                     <td className="num">{money(r.qty * (pricedRow.get(r)?.price ?? 0))}</td>

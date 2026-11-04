@@ -57,7 +57,7 @@ export default async function CategoryPage({ params }: PageProps<"/products/[cat
           {planned.length ? (
             <div>
               <h2 className="t-card">Planned SKUs and pricing</h2>
-              <div className="mt-3 overflow-x-auto border border-line bg-white">
+              <div className="mt-3 overflow-x-auto rounded-[20px] bg-white">
                 <table className="price-table w-full text-sm">
                   <thead>
                     <tr>
@@ -77,7 +77,7 @@ export default async function CategoryPage({ params }: PageProps<"/products/[cat
                           <div className="flex items-center gap-3">
                             {p.photo ? (
                               // eslint-disable-next-line @next/next/no-img-element
-                              <img src={p.photo} alt="" className="h-12 w-12 shrink-0 border border-line bg-white object-contain" />
+                              <img src={p.photo} alt="" className="h-12 w-12 shrink-0 rounded-[20px] bg-white object-contain" />
                             ) : null}
                             <div>
                               {p.name}

@@ -6,7 +6,7 @@ import { BUSINESS_TYPES, type ProfileRow } from "@/lib/account/types";
 export function ProfileForm({ profile, email }: { profile: ProfileRow | null; email: string }) {
   const [state, action, pending] = useActionState<ActionState, FormData>(saveProfile, null);
   return (
-    <form action={action} className="grid gap-3 border border-line bg-white p-4 text-sm sm:grid-cols-2">
+    <form action={action} className="grid gap-3 rounded-[20px] bg-white p-4 text-sm sm:grid-cols-2">
       <div className="sm:col-span-2">
         <label className="label" htmlFor="p-company">
           Business name

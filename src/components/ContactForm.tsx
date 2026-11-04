@@ -7,7 +7,7 @@ export function ContactForm() {
 
   if (state?.ok) {
     return (
-      <div className="border border-line bg-white p-6" role="status">
+      <div className="rounded-[20px] bg-white p-6" role="status">
         <h3 className="text-lg">Message sent</h3>
         <p className="mt-2 text-sm">{state.message}</p>
       </div>
@@ -15,7 +15,11 @@ export function ContactForm() {
   }
 
   return (
-    <form action={action} className="grid gap-4 border border-line bg-white p-6">
+    <form action={action} className="grid gap-4 rounded-[20px] bg-white p-6">
+      <div className="hidden" aria-hidden="true">
+        <label htmlFor="c-website">Website</label>
+        <input id="c-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+      </div>
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label className="label" htmlFor="c-name">

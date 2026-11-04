@@ -20,7 +20,7 @@ export const PRESS = [
 export function PressBand() {
   return (
     <section aria-labelledby="press-heading" className="mt-10 border-b border-line pb-10">
-      <p id="press-heading" className="t-label text-center text-sage-deep">
+      <p id="press-heading" className="t-label text-center text-forest">
         As heard on
       </p>
       <ul className="mt-6 flex flex-col items-stretch gap-4 md:flex-row md:justify-center">

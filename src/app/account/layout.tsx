@@ -38,20 +38,20 @@ async function Shell({ children }: { children: ReactNode }) {
   if (!session) {
     return (
       <div className="mt-8">
-        <div className="border-b border-sage pb-6">
-          <p className="t-label text-sage-deep">Account</p>
+        <div className="border-b border-line pb-6">
+          <p className="t-label text-forest">Account</p>
           <h1 className="t-page mt-2">Sign in</h1>
         </div>
         {children}
         <div className="mt-6 grid gap-6 md:grid-cols-2">
-          <div className="border border-line bg-white p-6">
+          <div className="rounded-[20px] bg-white p-6">
             <h2 className="t-card">Email me a sign-in link</h2>
             <p className="mt-1 text-sm text-soil/70">No password. Orders placed with this email appear automatically.</p>
             <div className="mt-4">
               <SignInForm />
             </div>
           </div>
-          <div className="border border-line bg-white p-6 text-sm text-soil/80">
+          <div className="rounded-[20px] bg-white p-6 text-sm text-soil/80">
             <h2 className="t-heading">For cafés, hotels and caterers</h2>
             <ul className="mt-3 space-y-2">
               <li>Reorder your usual in one click.</li>
@@ -68,17 +68,17 @@ async function Shell({ children }: { children: ReactNode }) {
   const profile = await getProfile(session);
   return (
     <div className="mt-8">
-      <div className="flex flex-wrap items-end justify-between gap-4 border-b border-sage pb-6">
+      <div className="flex flex-wrap items-end justify-between gap-4 border-b border-line pb-6">
         <div>
-          <p className="t-label text-sage-deep">Account</p>
+          <p className="t-label text-forest">Account</p>
           <h1 className="t-page mt-2">{profile?.company || "Your account"}</h1>
           <p className="mt-1 text-sm text-soil/70">
             {profile?.contact_name ? `${profile.contact_name} · ` : null}
             {session.user.email}
           </p>
         </div>
-        <form action={signOut}>
-          <button type="submit" className="btn btn-ghost btn-sm">
+        <form action={signOut} aria-label="Sign out">
+          <button type="submit" className="btn btn-outline btn-sm">
             Sign out
           </button>
         </form>

@@ -134,7 +134,7 @@ export function SearchForm({ entries, className = "", defaultValue = "" }: { ent
       </div>
 
       {showList ? (
-        <div className="absolute inset-x-0 top-full z-40 mt-1 overflow-hidden border border-line bg-white shadow-[0_24px_48px_-24px_rgba(43,43,43,0.45)]">
+        <div className="absolute inset-x-0 top-full z-40 mt-1 overflow-hidden rounded-[20px] bg-white shadow-[0_24px_48px_-24px_rgba(43,43,43,0.45)]">
           <ul id={listId} role="listbox" aria-label="Suggestions">
             {results.length === 0 ? (
               <li className="px-3 py-3 text-sm text-soil/70">No matches. Try a size, a SKU or “lid”.</li>
@@ -155,12 +155,12 @@ export function SearchForm({ entries, className = "", defaultValue = "" }: { ent
                   {r.kind === "product" ? (
                     r.photo ? (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img src={r.photo} alt="" className="h-10 w-10 shrink-0 border border-line bg-white object-contain" />
+                      <img src={r.photo} alt="" className="h-10 w-10 shrink-0 rounded-[20px] bg-white object-contain" />
                     ) : (
                       <span className="h-10 w-10 shrink-0 border border-line bg-paper" />
                     )
                   ) : (
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center border border-line bg-paper text-sage-deep" aria-hidden="true">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center border border-line bg-paper text-forest" aria-hidden="true">
                       {r.kind === "category" ? (
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                           <rect x="4" y="4" width="7" height="7" />
@@ -193,7 +193,7 @@ export function SearchForm({ entries, className = "", defaultValue = "" }: { ent
               ev.preventDefault();
               go(`/products?q=${encodeURIComponent(q.trim())}`);
             }}
-            className="block border-t border-line px-3 py-2 text-xs font-medium text-sage-deep hover:bg-sage-tint"
+            className="block border-t border-line px-3 py-2 text-xs font-medium text-forest hover:bg-sage-tint"
           >
             See all results for “{q.trim()}”
           </Link>

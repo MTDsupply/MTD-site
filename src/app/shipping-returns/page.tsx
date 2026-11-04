@@ -19,7 +19,7 @@ export default function ShippingReturnsPage() {
         <section>
           <h2 className="t-card">Where we ship, and what it costs</h2>
           <p>Canada and the United States, by courier. Shipping is shown in the cart and at checkout before you pay.</p>
-          <div className="mt-4 overflow-x-auto border border-line bg-white">
+          <div className="mt-4 overflow-x-auto rounded-[20px] bg-white">
             <table className="price-table w-full text-sm">
               <thead>
                 <tr>

@@ -2,7 +2,7 @@ import "server-only";
 import { Resend } from "resend";
 import { site } from "./site";
 
-type Mail = { subject: string; text: string; replyTo?: string };
+type Mail = { subject: string; text: string; html?: string; replyTo?: string };
 
 /** Sends an email to one recipient. No-ops (with a log line) until RESEND_API_KEY is set. */
 export async function sendEmail(mail: Mail & { to: string }): Promise<boolean> {
@@ -13,7 +13,7 @@ export async function sendEmail(mail: Mail & { to: string }): Promise<boolean> {
     return false;
   }
   const resend = new Resend(key);
-  const { error } = await resend.emails.send({ from, to: mail.to, subject: mail.subject, text: mail.text, replyTo: mail.replyTo ?? site.email });
+  const { error } = await resend.emails.send({ from, to: mail.to, subject: mail.subject, text: mail.text, ...(mail.html ? { html: mail.html } : {}), replyTo: mail.replyTo ?? site.email });
   if (error) {
     console.error("[email] send failed:", error);
     return false;

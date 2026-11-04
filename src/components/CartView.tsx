@@ -35,7 +35,7 @@ export function CartView({ products }: { products: Product[] }) {
 
   if (rows.length === 0) {
     return (
-      <div className="mt-8 grid gap-6 border border-line bg-white p-8 md:grid-cols-[auto_1fr] md:items-center">
+      <div className="mt-8 grid gap-6 rounded-[20px] bg-white p-8 md:grid-cols-[auto_1fr] md:items-center">
         <div className="relative h-28 w-28 overflow-hidden bg-paper">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/products/MTD-CUP-12H-front.jpg" alt="" className="h-full w-full bg-white object-contain" />
@@ -58,7 +58,7 @@ export function CartView({ products }: { products: Product[] }) {
 
   return (
     <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_320px]">
-      <div className="overflow-x-auto border border-line bg-white">
+      <div className="overflow-x-auto rounded-[20px] bg-white">
         <table className="price-table w-full text-sm">
           <thead>
             <tr>
@@ -82,7 +82,7 @@ export function CartView({ products }: { products: Product[] }) {
                   </td>
                   <td>
                     {info.label}
-                    {bulk ? <div className="mt-0.5 text-[11px] font-medium uppercase tracking-wide text-sage-deep">Volume price</div> : null}
+                    {bulk ? <div className="mt-0.5 text-[11px] font-medium uppercase tracking-wide text-forest">Volume price</div> : null}
                   </td>
                   <td className="num">
                     <input
@@ -109,13 +109,13 @@ export function CartView({ products }: { products: Product[] }) {
         </table>
       </div>
 
-      <aside className="h-fit border border-line bg-white p-5 text-sm">
+      <aside className="h-fit rounded-[20px] bg-white p-5 text-sm">
         <div className="flex justify-between">
           <span>Subtotal</span>
           <span className="tnum font-medium">{money(subtotal)}</span>
         </div>
         {order.bulk ? (
-          <p className="mt-1 text-xs text-sage-deep">
+          <p className="mt-1 text-xs text-forest">
             Volume price applied: {count(order.units)} units in this order.
             {order.listSubtotal > subtotal ? <> You save {money(order.listSubtotal - subtotal)}.</> : null}
           </p>

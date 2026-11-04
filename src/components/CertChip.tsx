@@ -12,7 +12,7 @@ export function CertChip({ cert, sku, pending, compact = false }: { cert?: Cert;
   const title = `${cert.name} · ${cert.certifier}${cert.number ? ` · No. ${cert.number}` : ""}`;
   if (compact) {
     return (
-      <Link href={`/certifications#${sku ?? cert.id}`} className="inline-flex items-center gap-1.5 text-xs font-medium text-sage-deep hover:underline" title={title}>
+      <Link href={`/certifications#${sku ?? cert.id}`} className="inline-flex items-center gap-1.5 text-xs font-medium text-forest hover:underline" title={title}>
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden="true">
           <path d="m5 12 5 5 9-10" />
         </svg>

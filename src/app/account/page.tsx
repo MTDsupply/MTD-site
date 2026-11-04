@@ -25,7 +25,7 @@ async function Overview({ searchParams }: { searchParams: PageProps<"/account">[
   if (!s) {
     const sp = await searchParams;
     return sp.error === "link" ? (
-      <p role="alert" className="mt-6 border border-clay bg-clay-tint p-4 text-sm">
+      <p role="alert" className="mt-6 rounded-[16px] bg-peach-light p-4 text-sm">
         That sign-in link has expired or was already used. Request a new one below.
       </p>
     ) : null;
@@ -44,11 +44,11 @@ async function Overview({ searchParams }: { searchParams: PageProps<"/account">[
   return (
     <div className="space-y-8">
       {/* Reorder card: the usual list first, the last order as a fallback. */}
-      <section className="border border-sage bg-white p-5 md:p-6">
+      <section className="rounded-[20px] bg-cream p-5 md:p-6">
         {usualRows.length ? (
           <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-start">
             <div>
-              <p className="t-label text-sage-deep">Your usual</p>
+              <p className="t-label text-forest">Your usual</p>
               <ul className="mt-2 space-y-0.5 text-sm text-soil/80">
                 {usualRows.map((r) => (
                   <li key={`${r.sku}-${r.unit}`} className="tnum">
@@ -68,7 +68,7 @@ async function Overview({ searchParams }: { searchParams: PageProps<"/account">[
         ) : last ? (
           <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-start">
             <div>
-              <p className="t-label text-sage-deep">Reorder your last order</p>
+              <p className="t-label text-forest">Reorder your last order</p>
               <p className="mt-1 text-sm text-soil/70">
                 {orderLabel(last)} · {formatDate(last.created_at)}
               </p>
@@ -98,7 +98,7 @@ async function Overview({ searchParams }: { searchParams: PageProps<"/account">[
         ) : (
           <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
             <div>
-              <p className="t-label text-sage-deep">First order</p>
+              <p className="t-label text-forest">First order</p>
               <p className="mt-1 text-sm text-soil/80">Orders placed with {s.user.email} show up here, and the lines you reorder can be saved as your usual.</p>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -124,7 +124,7 @@ async function Overview({ searchParams }: { searchParams: PageProps<"/account">[
           ) : null}
         </div>
         {orders.length === 0 ? (
-          <p className="mt-3 border border-line bg-white p-5 text-sm text-soil/70">No orders yet under this email.</p>
+          <p className="mt-3 rounded-[20px] bg-white p-5 text-sm text-soil/70">No orders yet under this email.</p>
         ) : (
           <div className="mt-3">
             <OrderTable orders={orders} liveSkus={liveSkus} />
@@ -134,7 +134,7 @@ async function Overview({ searchParams }: { searchParams: PageProps<"/account">[
 
       {/* Delivery, business details, help. */}
       <section className="grid gap-4 md:grid-cols-3">
-        <div className="border border-line bg-white p-5 text-sm">
+        <div className="rounded-[20px] bg-white p-5 text-sm">
           <h2 className="t-card">Delivery address</h2>
           {home ? (
             <address className="mt-2 not-italic text-soil/80">
@@ -154,7 +154,7 @@ async function Overview({ searchParams }: { searchParams: PageProps<"/account">[
             {home ? "Manage addresses" : "Add an address"}
           </Link>
         </div>
-        <div className="border border-line bg-white p-5 text-sm">
+        <div className="rounded-[20px] bg-white p-5 text-sm">
           <h2 className="t-card">Business details</h2>
           {profile?.company ? (
             <p className="mt-2 text-soil/80">
@@ -180,7 +180,7 @@ async function Overview({ searchParams }: { searchParams: PageProps<"/account">[
             {profile?.company ? "Edit details" : "Add details"}
           </Link>
         </div>
-        <div className="border border-line bg-white p-5 text-sm">
+        <div className="rounded-[20px] bg-white p-5 text-sm">
           <h2 className="t-card">Need a hand?</h2>
           <p className="mt-2 text-soil/80">
             Larger volumes, standing deliveries or invoicing:{" "}

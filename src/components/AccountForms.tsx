@@ -33,7 +33,7 @@ export function SignInForm() {
 export function AddressForm({ firstAddress = false }: { firstAddress?: boolean }) {
   const [state, action, pending] = useActionState<AuthState, FormData>(addAddress, null);
   return (
-    <form action={action} className="grid gap-3 border border-line bg-white p-4 text-sm sm:grid-cols-2">
+    <form action={action} className="grid gap-3 rounded-[20px] bg-white p-4 text-sm sm:grid-cols-2">
       <div>
         <label className="label" htmlFor="a-label">
           Label

@@ -50,7 +50,7 @@ export default async function CertificationsPage() {
         objectPosition="center 60%"
       />
 
-      <div className="mt-8 overflow-x-auto border border-line bg-white">
+      <div className="mt-8 overflow-x-auto rounded-[20px] bg-white">
         <table className="price-table w-full text-sm">
           <thead>
             <tr>
@@ -103,7 +103,7 @@ export default async function CertificationsPage() {
       <Reveal>
         <Atmosphere src="/atmosphere/moss.jpg" alt="Moss and fern on a forest floor" fade="none" parallax={30} className="aspect-[4/3] border border-line" sizes="(min-width: 768px) 40vw, 100vw" />
       </Reveal>
-      <Reveal as="section" className="max-w-2xl space-y-3 border-l-2 border-sage pl-5 text-sm text-soil/80">
+      <Reveal as="section" className="max-w-2xl space-y-3 rounded-[20px] bg-cream p-6 text-sm text-soil/80">
         <h2 className="t-heading">What the certificate means</h2>
         <p>
           Home-compostable certification from {site.certifier} covers the material each product is made from: disintegration and breakdown in a home compost pile at ambient temperature, plus checks for harmful residues. We certify per SKU, so a certificate for the 16 oz cup covers the 16 oz cup.
@@ -124,7 +124,7 @@ export default async function CertificationsPage() {
             <details key={q} className="group py-3">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[15px] font-medium">
                 <h3 className="text-[15px] font-medium">{q}</h3>
-                <span aria-hidden="true" className="text-sage-deep transition-transform group-open:rotate-45">
+                <span aria-hidden="true" className="text-forest transition-transform group-open:rotate-45">
                   +
                 </span>
               </summary>

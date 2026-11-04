@@ -12,12 +12,12 @@ export function ProductGallery({ photos, name }: { photos: GalleryPhoto[]; name:
   const current = photos[active];
 
   if (photos.length === 0) {
-    return <div className="aspect-square w-full border border-line bg-white" aria-label={name} />;
+    return <div className="aspect-square w-full rounded-[20px] bg-white" aria-label={name} />;
   }
 
   return (
     <div>
-      <div className="relative aspect-[4/3] w-full overflow-hidden border border-line bg-white">
+      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[20px] bg-white">
         <AnimatePresence initial={false} mode="popLayout">
           <motion.div
             key={current.src}
@@ -42,7 +42,7 @@ export function ProductGallery({ photos, name }: { photos: GalleryPhoto[]; name:
               aria-label={p.alt}
               onClick={() => setActive(i)}
               className={`relative aspect-square overflow-hidden border bg-white transition-colors ${
-                i === active ? "border-sage ring-2 ring-sage" : "border-line hover:border-sage"
+                i === active ? "border-forest ring-2 ring-forest" : "border-line hover:border-sage"
               }`}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}

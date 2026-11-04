@@ -3,8 +3,8 @@ import type Stripe from "stripe";
 import { getStripe } from "@/lib/stripe";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getLiveProducts } from "@/lib/catalog/queries";
-import { unitInfo } from "@/lib/units";
 import type { Unit } from "@/lib/store/cart";
+import { priceOrder } from "@/lib/pricing";
 import { notifyTeam, sendEmail } from "@/lib/email";
 import { orderConfirmation } from "@/lib/email-templates";
 import { sendPurchaseToMeta } from "@/lib/analytics/capi";
@@ -35,15 +35,20 @@ export async function POST(request: Request) {
       // Rebuild the order lines from the compact metadata and the catalogue.
       const products = await getLiveProducts();
       const bySku = new Map(products.map((p) => [p.sku, p]));
-      const items = (session.metadata?.items ?? "")
+      const lines = (session.metadata?.items ?? "")
         .split("|")
         .filter(Boolean)
         .map((part) => {
           const [sku, unit, qty] = part.split(":");
-          const p = bySku.get(sku);
-          const info = p ? unitInfo(p, unit as Unit) : null;
-          return { sku, name: p?.name ?? sku, unit, qty: Number(qty) || 1, price: info?.price ?? 0 };
+          return { sku, unit: unit as Unit, qty: Number(qty) || 1 };
         });
+      // Same pricing rule as checkout, so a volume-priced order is stored at the price charged.
+      const priced = priceOrder(lines, products);
+      const pricedBy = new Map(priced.rows.map((r) => [`${r.line.sku}:${r.line.unit}`, r]));
+      const items = lines.map((l) => {
+        const r = pricedBy.get(`${l.sku}:${l.unit}`);
+        return { sku: l.sku, name: bySku.get(l.sku)?.name ?? l.sku, unit: l.unit, qty: l.qty, price: r?.price ?? 0, volume: r?.bulk ?? false };
+      });
       const shipping = session.collected_information?.shipping_details ?? null;
       const { error } = await db.from("orders").upsert(
         {
@@ -70,7 +75,14 @@ export async function POST(request: Request) {
         ? [shipping?.name, addr.line1, addr.line2, `${addr.city ?? ""} ${addr.state ?? ""} ${addr.postal_code ?? ""}`.trim(), addr.country].filter(Boolean).join("\n")
         : null;
       if (session.customer_details?.email) {
-        const mail = orderConfirmation({ name: session.customer_details.name ?? null, items, total, shipping: shippingAmount, address: addressText });
+        const mail = orderConfirmation({
+          name: session.customer_details.name ?? null,
+          items,
+          total,
+          shipping: shippingAmount,
+          address: addressText,
+          orderUrl: session.client_reference_id ? "https://www.madetodisappear.com/account/orders" : undefined,
+        });
         await sendEmail({ to: session.customer_details.email, ...mail });
       }
       await sendPurchaseToMeta({
@@ -86,8 +98,9 @@ export async function POST(request: Request) {
         replyTo: session.customer_details?.email ?? undefined,
         text: [
           `Customer: ${session.customer_details?.name ?? ""} <${session.customer_details?.email ?? ""}>`,
-          `Mode: ${session.metadata?.mode ?? "consumer"}`,
-          ...items.map((i) => `${i.qty} × ${i.name} (${i.unit}) · ${i.sku}`),
+          `Mode: ${session.metadata?.mode ?? "consumer"}${priced.bulk ? " · volume price applied" : ""}`,
+          `Ship to: ${addressText?.replace(/\n/g, ", ") ?? "(none)"}`,
+          ...items.map((i) => `${i.qty} × ${i.name} (${i.unit}) · ${i.sku}${i.volume ? " · volume price" : ""}`),
         ].join("\n"),
       });
     }

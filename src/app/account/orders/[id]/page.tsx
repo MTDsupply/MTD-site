@@ -52,7 +52,7 @@ async function OrderDetail({ params }: { params: PageProps<"/account/orders/[id]
       </div>
 
       {order.shipped_at ? (
-        <div className="mt-4 border border-sage bg-sage-tint p-4 text-sm">
+        <div className="mt-4 rounded-[16px] bg-mint-light p-4 text-sm">
           <p className="font-medium">Shipped {formatDate(order.shipped_at)}</p>
           {order.carrier || order.tracking_number ? (
             <p className="mt-1 text-soil/80 tnum">
@@ -70,7 +70,7 @@ async function OrderDetail({ params }: { params: PageProps<"/account/orders/[id]
         </div>
       ) : null}
 
-      <div className="mt-4 overflow-x-auto border border-line bg-white">
+      <div className="mt-4 overflow-x-auto rounded-[20px] bg-white">
         <table className="price-table w-full text-sm">
           <thead>
             <tr>
@@ -117,11 +117,11 @@ async function OrderDetail({ params }: { params: PageProps<"/account/orders/[id]
       </div>
 
       <div className="mt-4 grid gap-4 md:grid-cols-2">
-        <div className="border border-line bg-white p-5 text-sm">
+        <div className="rounded-[20px] bg-white p-5 text-sm">
           <h3 className="t-card">Delivered to</h3>
           {address ? <p className="mt-2 text-soil/80">{address}</p> : <p className="mt-2 text-soil/70">No delivery address was recorded for this order.</p>}
         </div>
-        <div className="border border-line bg-white p-5 text-sm">
+        <div className="rounded-[20px] bg-white p-5 text-sm">
           <h3 className="t-card">Order again</h3>
           <div className="mt-3 flex flex-wrap items-center gap-3">
             <ReorderButton lines={lines} label="Reorder these items" className="btn btn-primary btn-sm" goToCart />

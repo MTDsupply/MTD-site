@@ -50,7 +50,7 @@ export function UsualEditor({ products, initial }: { products: Product[]; initia
   return (
     <div className="mt-4 grid gap-6 lg:grid-cols-[1fr_280px]">
       <div>
-        <div className="overflow-x-auto border border-line bg-white">
+        <div className="overflow-x-auto rounded-[20px] bg-white">
           <table className="price-table w-full text-sm">
             <thead>
               <tr>
@@ -152,7 +152,7 @@ export function UsualEditor({ products, initial }: { products: Product[]; initia
         </div>
       </div>
 
-      <aside className="h-fit space-y-3 border border-line bg-white p-5 text-sm">
+      <aside className="h-fit space-y-3 rounded-[20px] bg-white p-5 text-sm">
         <ReorderButton lines={cartLines} label="Add all to cart" className="btn btn-primary w-full" goToCart />
         <button type="button" className="btn btn-outline w-full" onClick={save} disabled={pending || !dirty}>
           {pending ? "Saving…" : dirty ? "Save list" : "List saved"}

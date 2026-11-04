@@ -37,7 +37,7 @@ async function Summary({ searchParams }: { searchParams: PageProps<"/checkout/su
     }
   }
   return (
-    <div className="border border-line bg-white p-8">
+    <div className="rounded-[20px] bg-white p-8">
       {id && amount > 0 ? <PurchaseEvent value={amount} orderId={id} /> : null}
       <h1 className="t-page">Order received</h1>
       <p className="mt-3 text-base text-soil/80">

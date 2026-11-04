@@ -12,6 +12,8 @@ const schema = z.object({
 });
 
 export async function subscribeNotify(_prev: NotifyState, formData: FormData): Promise<NotifyState> {
+  // Honeypot: real visitors never see or fill this field. Pretend it worked.
+  if (String(formData.get("website") ?? "").trim()) return { ok: true, message: "Thanks." };
   const parsed = schema.safeParse({
     email: String(formData.get("email") ?? "").trim(),
     categorySlug: String(formData.get("categorySlug") ?? "all"),

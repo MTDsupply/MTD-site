@@ -65,7 +65,7 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
       <section className="mt-12 grid gap-4 md:grid-cols-2">
         <Reveal>
           <div className="card flex h-full flex-col bg-white p-6">
-            <p className="t-label text-sage-deep">Try it first</p>
+            <p className="t-label text-forest">Try it first</p>
             <h2 className="t-heading mt-2">Sample pack</h2>
             <p className="mt-3 text-sm text-soil/80">
               A small pack of each cup size and the lid, so your team can run them on the machines before committing to a case. Ask for one with the form below and we confirm the cost with your reply.
@@ -77,7 +77,7 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
         </Reveal>
         <Reveal delay={0.08}>
           <div className="card flex h-full flex-col bg-white p-6">
-            <p className="t-label text-sage-deep">Your mark on the cup</p>
+            <p className="t-label text-forest">Your mark on the cup</p>
             <h2 className="t-heading mt-2">Custom printing</h2>
             <p className="mt-3 text-sm text-soil/80">
               Your logo on the same certified cup, from 100 cases. Send your artwork details and we reply with options, pricing and a proof.
@@ -90,9 +90,9 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
       </section>
 
       <section className="mt-12">
-        <p className="t-label text-sage-deep">Pricing</p>
+        <p className="t-label text-forest">Pricing</p>
         <h2 className="t-heading mt-2">Case prices</h2>
-        <div className="mt-3 overflow-x-auto border border-line bg-white">
+        <div className="mt-3 overflow-x-auto rounded-[20px] bg-white">
           <table className="price-table w-full text-sm">
             <thead>
               <tr>
@@ -140,7 +140,7 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
       </section>
 
       <section id="quote" className="mt-12">
-        <p className="t-label text-sage-deep">Quote</p>
+        <p className="t-label text-forest">Quote</p>
         <h2 className="t-heading mt-2">Request a quote, a sample pack or custom printing</h2>
         <p className="mt-1 text-sm text-soil/70">Tell us your monthly volume and the categories you want, including ones not yet in stock.</p>
         <div className="mt-4">
@@ -151,7 +151,7 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
       </section>
 
       <section className="mt-12">
-        <div className="max-w-2xl border-l-2 border-sage pl-5 text-sm text-soil/80">
+        <div className="max-w-2xl rounded-[20px] bg-cream p-6 text-sm text-soil/80">
           <h2 className="t-card">Cup Casa accounts</h2>
           <p className="mt-2">
             Cafés running Cup Casa OS can turn on auto-replenishment: we track your cup usage and deliver before you run out, on the same net-30 terms. Mention it in the notes above.

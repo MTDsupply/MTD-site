@@ -55,7 +55,7 @@ export default function AboutPage() {
 
       <Reveal as="section" className="mt-10 space-y-4 text-base text-soil/85">
         <h2 className="t-heading">Why the name</h2>
-        <p className="t-heading border-l-2 border-sage pl-5 text-soil">
+        <p className="t-heading rounded-[20px] bg-cream p-6 text-soil">
           A cup is used for twenty minutes. It should not need two hundred years to go away.
         </p>
         <p>
@@ -70,7 +70,7 @@ export default function AboutPage() {
         </p>
       </Reveal>
 
-      <section className="mt-10 border border-line bg-white p-5 text-sm">
+      <section className="mt-10 rounded-[20px] bg-white p-5 text-sm">
         <p>
           {site.legalName} · {site.city}, {site.province}, {site.country} ·{" "}
           <a href={`mailto:${site.email}`} className="link">

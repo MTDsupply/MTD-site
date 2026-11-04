@@ -96,7 +96,7 @@ export function CatalogGrid({ catalog, lockedCategory }: { catalog: Catalog; loc
           {liveProducts.length} products
         </p>
         {empty ? (
-          <p className="border border-line bg-white p-6 text-sm">Nothing matches. Try a different SKU or clear the filters.</p>
+          <p className="rounded-[20px] bg-white p-6 text-sm">Nothing matches. Try a different SKU or clear the filters.</p>
         ) : null}
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {liveProducts.map((p, i) => (
