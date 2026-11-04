@@ -36,7 +36,7 @@ export async function Header() {
       keywords: `${c.slug} ${c.shortName ?? ""}`,
     })),
     { kind: "page" as const, title: "Business pricing", detail: "Case prices, net-30 on approval, bulk quotes.", href: "/business", keywords: "wholesale case prices quote net 30 bulk cafe restaurant" },
-    { kind: "page" as const, title: "Sample pack", detail: "Try each size before you order a case.", href: "/business?kind=sample#quote", keywords: "samples trial try" },
+    { kind: "page" as const, title: "Sample pack", detail: "Free for verified cafés. Try each size before you order a case.", href: "/business?kind=sample#quote", keywords: "samples trial try free" },
     { kind: "page" as const, title: "Custom printing", detail: "Your logo on the cup, from 100 cases.", href: "/custom-printing", keywords: "branded logo print printed" },
     { kind: "page" as const, title: "Certifications", detail: "Every certificate, per SKU.", href: "/certifications", keywords: "tuv austria certified certificate compostable proof" },
     { kind: "page" as const, title: "What's in your cup", detail: "Paper outside, PHA inside. How the linings compare.", href: "/whats-in-your-cup", keywords: "pha pla lining material water-based plastic polymer" },

@@ -48,7 +48,7 @@ export async function GET() {
     "## Pricing and terms",
     "",
     `- Case pricing applies to any number of cases. Orders of ${count(BULK_MIN_UNITS)} units or more are charged the volume per-unit price on every case, automatically.`,
-    "- Business accounts: net-30 on approval, reorders from the account page, quotes for pallet quantities and custom printing (from 100 cases).",
+    "- Business accounts: net-30 on approval, reorders from the account page, quotes for pallet quantities and custom printing (from 100 cases). Sample packs are free for verified cafés and other foodservice businesses.",
     `- Shipping: Canada and the United States by courier. Packs ${money(SHIPPING.CA.pack)} per order in Canada (free over ${money(SHIPPING.CA.packFreeOver)}), ${money(SHIPPING.US.pack)} to the US (free over ${money(SHIPPING.US.packFreeOver)}). Cases ${money(SHIPPING.CA.perCase)} each in Canada, ${money(SHIPPING.US.perCase)} each to the US. Tax at checkout.`,
     "- Returns: unopened packs and cases within 30 days of delivery; damaged or incorrect orders replaced or refunded.",
     "",

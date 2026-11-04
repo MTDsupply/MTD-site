@@ -193,10 +193,10 @@ export default function WhatsInYourCupPage() {
         <div className="band-peach grid gap-6 rounded-[24px] px-6 py-10 md:grid-cols-[1fr_auto] md:items-center md:px-12 md:py-14">
           <div>
             <h2 className="t-page text-forest">Try them in your café.</h2>
-            <p className="mt-2 text-forest/80">We&rsquo;ll send you sample cups so you can test them on your own bar.</p>
+            <p className="mt-2 text-forest/80">We&rsquo;ll send verified cafés free sample cups so you can test them on your own bar.</p>
           </div>
           <Link href="/business?kind=sample#quote" className="btn btn-primary btn-lg">
-            Get samples
+            Get free samples
           </Link>
         </div>
       </Reveal>
