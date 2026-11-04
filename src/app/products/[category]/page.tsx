@@ -121,7 +121,7 @@ export default async function CategoryPage({ params }: PageProps<"/products/[cat
 
   return (
     <div className="mx-auto max-w-7xl px-4 pb-8">
-      <PageHeader eyebrow={restockNote(c.slug) ?? "In stock"} title={c.name} description={c.description} image="/atmosphere/dew.jpg" imageAlt="Dew on meadow grass at sunrise" />
+      <PageHeader eyebrow={restockNote(c.restockWhen) ?? "In stock"} title={c.name} description={c.description} image="/atmosphere/dew.jpg" imageAlt="Dew on meadow grass at sunrise" />
       <Suspense fallback={<p className="mt-8 text-sm text-soil/60">Loading…</p>}>
         <CatalogGrid catalog={catalog} lockedCategory={c.slug} />
       </Suspense>

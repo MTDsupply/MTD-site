@@ -2,6 +2,8 @@
 import { z } from "zod";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { notifyTeam } from "@/lib/email";
+import { rateLimited } from "@/lib/ratelimit";
+import { reportError } from "@/lib/monitoring";
 
 export type QuoteState = { ok: boolean; message: string } | null;
 
@@ -20,6 +22,7 @@ const schema = z.object({
 export async function submitQuote(_prev: QuoteState, formData: FormData): Promise<QuoteState> {
   // Honeypot: real visitors never see or fill this field. Pretend it worked.
   if (String(formData.get("website") ?? "").trim()) return { ok: true, message: "Thanks." };
+  if (await rateLimited("quote", 5)) return { ok: false, message: "Too many requests in a row. Try again in a few minutes, or email us directly." };
   const parsed = schema.safeParse({
     kind: String(formData.get("kind") ?? "bulk"),
     company: String(formData.get("company") ?? "").trim(),
@@ -49,7 +52,7 @@ export async function submitQuote(_prev: QuoteState, formData: FormData): Promis
       notes: notes || null,
     });
     if (error) {
-      console.error("[quote] insert failed:", error.message);
+      await reportError("quote.insert", error, { email: q.email, company: q.company });
       return { ok: false, message: "Something went wrong. Try again or email us." };
     }
   }

@@ -8,6 +8,7 @@ import { priceOrder } from "@/lib/pricing";
 import { notifyTeam, sendEmail } from "@/lib/email";
 import { orderConfirmation } from "@/lib/email-templates";
 import { sendPurchaseToMeta } from "@/lib/analytics/capi";
+import { reportError } from "@/lib/monitoring";
 
 /**
  * Stripe → orders table. Set STRIPE_WEBHOOK_SECRET from the Stripe dashboard
@@ -65,7 +66,7 @@ export async function POST(request: Request) {
         { onConflict: "stripe_session_id" },
       );
       if (error) {
-        console.error("[webhook] order insert failed:", error.message);
+        await reportError("stripe.webhook.orderInsert", error, { session: session.id, email: session.customer_details?.email ?? "" });
         return NextResponse.json({ error: error.message }, { status: 500 });
       }
       const total = (session.amount_total ?? 0) / 100;

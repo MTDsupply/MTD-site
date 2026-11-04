@@ -39,7 +39,7 @@ export async function GET() {
       }. ${money(p.casePrice)} per case of ${count(p.caseCount)} (${unitMoney(p.unitPrice)} per unit)${
         p.bulkUnitPrice != null ? `; ${unitMoney(p.bulkUnitPrice)} per unit on orders of ${count(BULK_MIN_UNITS)}+ units` : ""
       }. Packs: ${packs}. ${cert ? `${cert.name}, ${cert.certifier}${cert.number ? `, certificate ${cert.number}` : ""}.` : ""}${
-        restockNote(p.categorySlug) ? ` ${restockNote(p.categorySlug)}; orders are accepted now.` : " In stock."
+        restockNote(p.restockWhen) ? ` ${restockNote(p.restockWhen)}; orders are accepted now.` : " In stock."
       }${cat ? ` Category: ${cat.name}.` : ""}`,
     );
   }

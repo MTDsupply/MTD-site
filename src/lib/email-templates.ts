@@ -90,3 +90,44 @@ export function orderConfirmation(o: { name: string | null; items: Item[]; total
     html: emailLayout({ title: "Thanks for your order.", bodyHtml, cta: o.orderUrl ? { label: "View your order", href: o.orderUrl } : { label: "How to compost it", href: `${base}/compost` } }),
   };
 }
+
+/** "It's on its way": sent from /admin when an order is marked shipped. */
+export function orderShipped(o: {
+  name: string | null;
+  orderLabel: string;
+  items: Item[];
+  carrier: string | null;
+  trackingNumber: string | null;
+  trackingUrl: string | null;
+  orderUrl?: string;
+}) {
+  const first = o.name ? ` ${o.name.split(" ")[0]}` : "";
+  const tracking = [o.carrier, o.trackingNumber].filter(Boolean).join(" · ");
+  const lines = o.items.map((i) => `  ${i.qty} × ${i.name} (${unitLabel(i.unit)})`).join("\n");
+  const text = [
+    `Hi${first},`,
+    "",
+    `Your order ${o.orderLabel} is on its way.`,
+    "",
+    lines,
+    "",
+    tracking ? `Tracking: ${tracking}${o.trackingUrl ? `\n${o.trackingUrl}` : ""}` : "",
+    "",
+    "When you are done with the cups, they go in the compost with the coffee grounds.",
+    "",
+    `Questions? Reply to this email or write to ${site.email}.`,
+    "",
+    site.legalName,
+    `${site.city}, ${site.province}, ${site.country}`,
+  ]
+    .filter((l) => l !== "")
+    .join("\n");
+  const rows = o.items.map((i) => `<li style="margin:0 0 4px;">${i.qty} × ${esc(i.name)} <span style="color:#6b6b66;">(${unitLabel(i.unit)})</span></li>`).join("");
+  const bodyHtml = `
+    <p style="margin:0 0 14px;">Hi${esc(first)}, your order <strong>${esc(o.orderLabel)}</strong> is on its way.</p>
+    <ul style="margin:0 0 14px;padding-left:18px;">${rows}</ul>
+    ${tracking ? `<p style="margin:0 0 14px;"><strong>Tracking</strong><br>${esc(tracking)}${o.trackingUrl ? `<br><a href="${o.trackingUrl}" style="color:${FOREST};">${esc(o.trackingUrl)}</a>` : ""}</p>` : ""}
+    <p style="margin:0;">When you are done with the cups, they go in the compost with the coffee grounds.</p>`;
+  const cta = o.trackingUrl ? { label: "Track the parcel", href: o.trackingUrl } : o.orderUrl ? { label: "View your order", href: o.orderUrl } : { label: "How to compost it", href: `${base}/compost` };
+  return { subject: `Your order ${o.orderLabel} is on its way`, text, html: emailLayout({ title: "It's on its way.", bodyHtml, cta }) };
+}

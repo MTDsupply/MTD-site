@@ -12,6 +12,8 @@ type CategoryRow = {
   status: "live" | "coming_soon";
   line_drawing: string;
   sort_order: number;
+  /** Added in 0005_stock.sql; absent until that migration runs. */
+  restock_note?: string | null;
 };
 type ProductRow = {
   sku: string;
@@ -66,6 +68,7 @@ export async function getCatalog(): Promise<Catalog> {
     if (c.error || p.error || k.error) throw c.error ?? p.error ?? k.error;
     if (!c.data?.length) return withAssets(seedCatalog);
 
+    const seedWhen = new Map(seedCatalog.categories.map((x) => [x.slug, x.restockWhen]));
     const categories: Category[] = (c.data as CategoryRow[]).map((r) => ({
       slug: r.slug,
       name: r.name,
@@ -74,6 +77,8 @@ export async function getCatalog(): Promise<Catalog> {
       status: r.status,
       lineDrawing: r.line_drawing,
       sortOrder: r.sort_order,
+      // Until 0005_stock.sql runs the column is missing: fall back to the seed's note.
+      restockWhen: r.restock_note === undefined ? (seedWhen.get(r.slug) ?? null) : r.restock_note || null,
     }));
     // Until 0004_bulk.sql is applied the column is missing: fall back to the seed's volume price per SKU.
     const seedBulk = new Map(seedCatalog.products.map((x) => [x.sku, x.bulkUnitPrice]));

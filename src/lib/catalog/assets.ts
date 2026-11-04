@@ -23,10 +23,12 @@ export function photoFor(sku: string, angle = "front"): string | null {
 /** Resolves drawing and photo paths for every product so client components get plain data. */
 export function withAssets(catalog: Catalog): Catalog {
   const drawingByCat = new Map(catalog.categories.map((c) => [c.slug, c.lineDrawing]));
+  const whenByCat = new Map(catalog.categories.map((c) => [c.slug, c.restockWhen]));
   const products: Product[] = catalog.products.map((p) => ({
     ...p,
     drawing: drawingFor(p.sku, drawingByCat.get(p.categorySlug) ?? "/drawings/category-cups.svg"),
     photo: p.images[0] ?? photoFor(p.sku),
+    restockWhen: whenByCat.get(p.categorySlug) ?? null,
   }));
   return { ...catalog, products };
 }

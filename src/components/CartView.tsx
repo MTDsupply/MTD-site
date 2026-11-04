@@ -42,7 +42,7 @@ export function CartView({ products }: { products: Product[] }) {
         </div>
         <div className="text-sm">
         <p className="t-card">Nothing in your cart yet.</p>
-        <p className="mt-1 text-soil/70">{stockSentence()} Packs of 100, 200 or 500, or cases of 1,000.</p>
+        <p className="mt-1 text-soil/70">{stockSentence(products)} Packs of 100, 200 or 500, or cases of 1,000.</p>
         <div className="mt-4 flex flex-wrap gap-3">
           <Link href="/products" className="btn btn-primary btn-sm">
             Browse products

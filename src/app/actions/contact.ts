@@ -2,6 +2,8 @@
 import { z } from "zod";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { notifyTeam } from "@/lib/email";
+import { rateLimited } from "@/lib/ratelimit";
+import { reportError } from "@/lib/monitoring";
 
 export type ContactState = { ok: boolean; message: string } | null;
 
@@ -15,6 +17,7 @@ const schema = z.object({
 export async function submitContact(_prev: ContactState, formData: FormData): Promise<ContactState> {
   // Honeypot: real visitors never see or fill this field. Pretend it worked.
   if (String(formData.get("website") ?? "").trim()) return { ok: true, message: "Thanks." };
+  if (await rateLimited("contact", 5)) return { ok: false, message: "Too many messages in a row. Try again in a few minutes, or email us directly." };
   const parsed = schema.safeParse({
     name: String(formData.get("name") ?? "").trim(),
     email: String(formData.get("email") ?? "").trim(),
@@ -33,7 +36,7 @@ export async function submitContact(_prev: ContactState, formData: FormData): Pr
       message: m.message,
     });
     if (error) {
-      console.error("[contact] insert failed:", error.message);
+      await reportError("contact.insert", error, { email: m.email });
       return { ok: false, message: "Something went wrong. Try again or email us directly." };
     }
   }

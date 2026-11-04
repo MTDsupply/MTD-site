@@ -2,6 +2,8 @@
 import { z } from "zod";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { notifyTeam } from "@/lib/email";
+import { rateLimited } from "@/lib/ratelimit";
+import { reportError } from "@/lib/monitoring";
 import { getCategory } from "@/lib/catalog/queries";
 
 export type NotifyState = { ok: boolean; message: string } | null;
@@ -14,6 +16,7 @@ const schema = z.object({
 export async function subscribeNotify(_prev: NotifyState, formData: FormData): Promise<NotifyState> {
   // Honeypot: real visitors never see or fill this field. Pretend it worked.
   if (String(formData.get("website") ?? "").trim()) return { ok: true, message: "Thanks." };
+  if (await rateLimited("notify", 8)) return { ok: false, message: "Too many sign-ups in a row. Try again in a few minutes." };
   const parsed = schema.safeParse({
     email: String(formData.get("email") ?? "").trim(),
     categorySlug: String(formData.get("categorySlug") ?? "all"),
@@ -30,7 +33,7 @@ export async function subscribeNotify(_prev: NotifyState, formData: FormData): P
       .from("notify")
       .upsert({ email, category_slug: categorySlug }, { onConflict: "email,category_slug" });
     if (error) {
-      console.error("[notify] insert failed:", error.message);
+      await reportError("notify.insert", error, { email });
       return { ok: false, message: "Something went wrong. Try again or email us." };
     }
   } else {

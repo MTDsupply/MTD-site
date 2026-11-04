@@ -23,7 +23,7 @@ export function ProductCard({
 }) {
   const href = `/products/${product.categorySlug}/${product.sku.toLowerCase()}`;
   const photo = product.photo ?? product.images[0] ?? null;
-  const restock = restockNote(product.categorySlug);
+  const restock = restockNote(product.restockWhen);
   const sticker = restock ? { label: restock, cls: "chip chip-clay" } : product.categorySlug === "lids" ? { label: "Fits every cup", cls: "sticker" } : { label: "In stock", cls: "sticker" };
 
   return (

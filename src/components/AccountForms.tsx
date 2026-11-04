@@ -3,7 +3,7 @@ import { useActionState } from "react";
 import { sendMagicLink, addAddress, type AuthState } from "@/app/actions/auth";
 import { COUNTRIES, SHIPPING } from "@/lib/shipping";
 
-export function SignInForm() {
+export function SignInForm({ next = "/account" }: { next?: string } = {}) {
   const [state, action, pending] = useActionState<AuthState, FormData>(sendMagicLink, null);
   if (state?.ok) {
     return (
@@ -14,6 +14,7 @@ export function SignInForm() {
   }
   return (
     <form action={action} className="flex flex-wrap gap-2">
+      <input type="hidden" name="next" value={next} />
       <label htmlFor="signin-email" className="sr-only">
         Email
       </label>

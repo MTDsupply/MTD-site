@@ -22,7 +22,7 @@ export async function Header() {
       .map((p) => ({
         kind: "product" as const,
         title: p.name,
-        detail: `${p.size} · ${p.material} · from ${money(p.packPrice)} per ${p.packCount}${restockNote(p.categorySlug) ? ` · ${restockNote(p.categorySlug)}` : ""}`,
+        detail: `${p.size} · ${p.material} · from ${money(p.packPrice)} per ${p.packCount}${restockNote(p.restockWhen) ? ` · ${restockNote(p.restockWhen)}` : ""}`,
         href: `/products/${p.categorySlug}/${p.sku.toLowerCase()}`,
         sku: p.sku,
         photo: p.photo ?? null,
@@ -60,7 +60,7 @@ export async function Header() {
               </span>
             ) : (
               <span className="truncate">
-                {restockNote("cups") || restockNote("lids") ? `${stockSentence().replace(/\.$/, "")} · ` : ""}Volume pricing from {count(BULK_MIN_UNITS)} units, applied in the cart
+                {categories.some((c) => c.restockWhen) ? `${stockSentence(categories).replace(/\.$/, "")} · ` : ""}Volume pricing from {count(BULK_MIN_UNITS)} units, applied in the cart
               </span>
             )}
             <Link href="/quick-order" className="hidden hover:underline sm:inline">

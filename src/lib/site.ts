@@ -22,35 +22,42 @@ export const site = {
   certifier: "TÜV Austria",
   /** Public profiles, linked from the footer and listed as sameAs in the Organization schema. */
   social: [{ name: "Instagram", handle: "@madetodisappearltd", url: "https://www.instagram.com/madetodisappearltd/" }],
-  /**
-   * Categories waiting on a restock, by slug, with the wording to show.
-   * Remove the entry when the stock lands and every "in stock" line comes back.
-   */
-  restock: { cups: "mid-December", lids: "mid-December" } as Record<string, string>,
 };
 
-/** "Restocking mid-December" for a category that is waiting on stock, or null. */
-export function restockNote(categorySlug: string): string | null {
-  const when = site.restock[categorySlug];
+/** "Restocking mid-December" for a category or product waiting on stock, or null when in stock. */
+export function restockNote(when: string | null | undefined): string | null {
   return when ? `Restocking ${when}` : null;
+}
+
+/** The same note mid-sentence: "restocking mid-December". */
+export function restockNoteLower(when: string | null | undefined): string | null {
+  const n = restockNote(when);
+  return n ? n[0].toLowerCase() + n.slice(1) : null;
+}
+
+type Stocked = { slug?: string; categorySlug?: string; restockWhen?: string | null };
+
+/** Restock notes by category slug from a list of categories or products. */
+export function restockMap(items: Stocked[]): Record<string, string | null> {
+  const out: Record<string, string | null> = {};
+  for (const it of items) {
+    const slug = it.slug ?? it.categorySlug;
+    if (slug && !(slug in out)) out[slug] = it.restockWhen ?? null;
+  }
+  return out;
 }
 
 /**
  * One sentence covering cups and lids for the places that mention both:
- * "Cups and lids restocking mid-December." / "Cups restocking mid-December, lids in stock." /
+ * "Cups and lids restocking mid-December." / "Cups restocking X, lids in stock." /
  * "Cups and lids in stock." (the first form when both share a date).
  */
-export function stockSentence(): string {
-  const c = site.restock.cups;
-  const l = site.restock.lids;
+export function stockSentence(items: Stocked[]): string {
+  const m = restockMap(items);
+  const c = m.cups ?? null;
+  const l = m.lids ?? null;
   if (c && l) return c === l ? `Cups and lids restocking ${c}.` : `Cups restocking ${c}, lids restocking ${l}.`;
   if (c) return `Cups restocking ${c}, lids in stock.`;
   if (l) return `Lids restocking ${l}, cups in stock.`;
   return "Cups and lids in stock.";
-}
-
-/** The same note mid-sentence: "restocking mid-December". */
-export function restockNoteLower(categorySlug: string): string | null {
-  const n = restockNote(categorySlug);
-  return n ? n[0].toLowerCase() + n.slice(1) : null;
 }

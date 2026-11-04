@@ -4,12 +4,14 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { createServerSupabase } from "@/lib/supabase/server";
+import { rateLimited } from "@/lib/ratelimit";
 
 export type AuthState = { ok: boolean; message: string } | null;
 
 export async function sendMagicLink(_prev: AuthState, formData: FormData): Promise<AuthState> {
   const email = z.email().safeParse(String(formData.get("email") ?? "").trim());
   if (!email.success) return { ok: false, message: "Enter a valid email address." };
+  if (await rateLimited("signin", 5)) return { ok: false, message: "Too many sign-in links requested. Try again in a few minutes." };
 
   const supabase = await createServerSupabase();
   if (!supabase) return { ok: false, message: "Accounts are not switched on yet." };
@@ -18,9 +20,11 @@ export async function sendMagicLink(_prev: AuthState, formData: FormData): Promi
   const host = h.get("x-forwarded-host") ?? h.get("host") ?? "localhost:3000";
   const proto = h.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
 
+  const nextRaw = String(formData.get("next") ?? "/account");
+  const next = /^\/(account|admin)(\/[a-z0-9/-]*)?$/i.test(nextRaw) ? nextRaw : "/account";
   const { error } = await supabase.auth.signInWithOtp({
     email: email.data,
-    options: { emailRedirectTo: `${proto}://${host}/auth/confirm?next=/account` },
+    options: { emailRedirectTo: `${proto}://${host}/auth/confirm?next=${encodeURIComponent(next)}` },
   });
   if (error) return { ok: false, message: error.message };
   return { ok: true, message: "Check your email for a sign-in link." };

@@ -123,7 +123,7 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
                     <td className="num">{p.bulkUnitPrice != null ? <>{unitMoney(p.bulkUnitPrice)} <span className="text-soil/60">({money(bulkCasePrice(p) ?? 0)} per case)</span></> : unitMoney(p.unitPrice)}</td>
                     <td className="num text-soil/80">{(p.packs?.length ? p.packs : [{ count: p.packCount, price: p.packPrice }]).map((t) => money(t.price).replace(".00", "")).join(" / ")}</td>
                     <td className="wrap">{cert && live ? cert.certifier : "In testing"}</td>
-                    <td>{live ? <span className="chip chip-clay">{restockNote(p.categorySlug) ?? "In stock"}</span> : <span className="chip chip-fog">Coming soon</span>}</td>
+                    <td>{live ? <span className="chip chip-clay">{restockNote(p.restockWhen) ?? "In stock"}</span> : <span className="chip chip-fog">Coming soon</span>}</td>
                   </tr>
                 );
               })}

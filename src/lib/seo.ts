@@ -216,7 +216,7 @@ function shippingLd(kind: "pack" | "case") {
  */
 export function productLd(p: Product, cert: Cert | undefined, category: Category | undefined) {
   const url = abs(productPath(p));
-  const availability = restockNote(p.categorySlug) ? "https://schema.org/BackOrder" : "https://schema.org/InStock";
+  const availability = restockNote(p.restockWhen) ? "https://schema.org/BackOrder" : "https://schema.org/InStock";
   const units = unitsFor(p);
   const offers = units.map((u) => ({
     "@type": "Offer",

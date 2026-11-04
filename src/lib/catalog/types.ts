@@ -10,6 +10,12 @@ export type Category = {
   /** Path of the generic line drawing for this category. */
   lineDrawing: string;
   sortOrder: number;
+  /**
+   * When the category is waiting on stock, e.g. "mid-December"; null when in
+   * stock. Edited on /admin/stock (categories.restock_note). Ordering stays
+   * open either way.
+   */
+  restockWhen: string | null;
 };
 
 export type PackTier = { count: number; price: number };
@@ -55,6 +61,8 @@ export type Product = {
   drawing?: string;
   /** Resolved on the server: front photo path, or null for the Paper placeholder. */
   photo?: string | null;
+  /** Resolved on the server from the product's category: see Category.restockWhen. */
+  restockWhen?: string | null;
 };
 
 export type Cert = {

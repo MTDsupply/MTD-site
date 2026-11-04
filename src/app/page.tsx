@@ -3,7 +3,7 @@ import Image from "next/image";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { getCatalog } from "@/lib/catalog/queries";
-import { site, restockNote, stockSentence } from "@/lib/site";
+import { site, stockSentence } from "@/lib/site";
 import { claims } from "@/lib/copy";
 import { ProductCard } from "@/components/ProductCard";
 import { ComingSoonTile } from "@/components/ComingSoonTile";
@@ -64,7 +64,7 @@ export default async function HomePage() {
   const lid = leadFor("lids");
   const cheapestCupPack = products.filter((p) => p.categorySlug === "cups").sort((a, b) => a.packPrice - b.packPrice)[0];
   const press = PRESS[0];
-  const restock = restockNote("cups");
+  const restock = categories.some((c) => c.restockWhen);
 
   const tiles = [
     { name: "Hot cups", sub: "8, 12 and 16 oz", href: "/products/cups", photo: cup16?.photo ?? null, bg: "bg-mint", cover: false },
@@ -109,7 +109,7 @@ export default async function HomePage() {
           <div className="relative mx-auto flex h-full max-w-7xl px-4 md:justify-end">
             <div className="w-full py-10 md:flex md:w-[46%] md:flex-col md:justify-center md:py-12 md:pl-6 lg:pl-10">
               <Reveal>
-                <span className="sticker -rotate-3 shadow-[0_8px_20px_-10px_rgba(46,77,52,0.5)]">{restock ? stockSentence().replace(/\.$/, "") : "In stock now"}</span>
+                <span className="sticker -rotate-3 shadow-[0_8px_20px_-10px_rgba(46,77,52,0.5)]">{restock ? stockSentence(categories).replace(/\.$/, "") : "In stock now"}</span>
               </Reveal>
               <Reveal delay={0.08}>
                 <h1 className="t-hero mt-5 max-w-[11ch] text-forest">Serve it. Then it disappears.</h1>
@@ -151,7 +151,7 @@ export default async function HomePage() {
         <Reveal>
           <h2 className="t-section text-center text-forest">Shop our best sellers</h2>
           <p className="mt-3 text-center text-soil/70">
-            {stockSentence()}{" "}
+            {stockSentence(categories)}{" "}
             <Link href="/products" className="link font-medium">
               See the full catalogue
             </Link>

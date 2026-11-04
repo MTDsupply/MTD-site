@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/lib/site";
 
-const PRIVATE = ["/account", "/cart", "/checkout", "/api/", "/go/", "/auth/"];
+const PRIVATE = ["/account", "/admin", "/cart", "/checkout", "/api/", "/go/", "/auth/"];
 
 /**
  * Search engines and AI assistants may read every public page; carts,

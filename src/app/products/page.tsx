@@ -20,7 +20,7 @@ export default async function ProductsPage() {
       <PageHeader
         eyebrow="Catalogue"
         title="Products"
-        description={`${stockSentence()} Packs for the house, cases for the business.`}
+        description={`${stockSentence(catalog.categories)} Packs for the house, cases for the business.`}
         image="/atmosphere/dew.jpg"
         imageAlt="Dew on meadow grass at sunrise"
       />

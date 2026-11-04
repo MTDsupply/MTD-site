@@ -16,6 +16,8 @@ export async function sendEmail(mail: Mail & { to: string }): Promise<boolean> {
   const { error } = await resend.emails.send({ from, to: mail.to, subject: mail.subject, text: mail.text, ...(mail.html ? { html: mail.html } : {}), replyTo: mail.replyTo ?? site.email });
   if (error) {
     console.error("[email] send failed:", error);
+    // Tell the team directly (not via reportError, which would email through this same path).
+    void notifyTeam({ subject: `Site error: customer email failed`, text: `To: ${mail.to}\nSubject: ${mail.subject}\nError: ${JSON.stringify(error)}` });
     return false;
   }
   return true;

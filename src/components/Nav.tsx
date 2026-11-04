@@ -145,7 +145,7 @@ export function Nav({ categories }: { categories: Category[] }) {
                             {c.name}
                           </span>
                           {live ? (
-                            <span className="t-label text-clay-deep">{restockNote(c.slug) ?? "In stock"}</span>
+                            <span className="t-label text-clay-deep">{restockNote(c.restockWhen) ?? "In stock"}</span>
                           ) : (
                             <span className="chip chip-fog text-[11px]">Coming soon</span>
                           )}

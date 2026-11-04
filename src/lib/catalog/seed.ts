@@ -16,6 +16,7 @@ export const categories: Category[] = [
     status: "live",
     lineDrawing: "/drawings/category-cups.svg",
     sortOrder: 1,
+    restockWhen: "mid-December",
   },
   {
     slug: "lids",
@@ -24,6 +25,7 @@ export const categories: Category[] = [
     status: "live",
     lineDrawing: "/drawings/category-lids.svg",
     sortOrder: 2,
+    restockWhen: "mid-December",
   },
 ];
 

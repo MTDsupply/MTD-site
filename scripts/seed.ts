@@ -26,7 +26,7 @@ const db = createClient(url, key, { auth: { persistSession: false } });
 async function main() {
   const { categories, products, certs } = seedCatalog;
 
-  const c = await db.from("categories").upsert(
+  const categoryRows = (withStock: boolean) =>
     categories.map((x) => ({
       slug: x.slug,
       name: x.name,
@@ -35,9 +35,14 @@ async function main() {
       status: x.status,
       line_drawing: x.lineDrawing,
       sort_order: x.sortOrder,
+      ...(withStock ? { restock_note: x.restockWhen } : {}),
       updated_at: new Date().toISOString(),
-    })),
-  );
+    }));
+  let c = await db.from("categories").upsert(categoryRows(true));
+  if (c.error && /restock_note/.test(c.error.message)) {
+    console.warn("categories.restock_note is missing: run `npm run db:migrate` (0005_stock.sql), then seed again. Seeding the other columns now.");
+    c = await db.from("categories").upsert(categoryRows(false));
+  }
   if (c.error) throw c.error;
 
   const k = await db.from("certs").upsert(

@@ -104,7 +104,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
           </p>
           <div className="mt-3 flex flex-wrap items-center gap-2">
             <CertChip cert={cert} sku={product.sku} compact />
-            {restockNote(cat.slug) ? <span className="chip chip-clay">{restockNote(cat.slug)}</span> : null}
+            {restockNote(cat.restockWhen) ? <span className="chip chip-clay">{restockNote(cat.restockWhen)}</span> : null}
           </div>
 
           {siblings.length > 1 ? (
@@ -132,7 +132,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
           </div>
           <div className="mt-4 rounded-[20px] bg-white p-4">
             <AddToCart product={product} />
-            {restockNote(cat.slug) ? <p className="mt-3 text-xs text-soil/70">{restockNote(cat.slug)}. Orders placed now are filled from that stock.</p> : null}
+            {restockNote(cat.restockWhen) ? <p className="mt-3 text-xs text-soil/70">{restockNote(cat.restockWhen)}. Orders placed now are filled from that stock.</p> : null}
           </div>
           {pairedLid ? (
             <div className="mt-3">

@@ -1,5 +1,5 @@
 import type { Catalog, Product } from "@/lib/catalog/types";
-import { site, restockNoteLower, stockSentence } from "@/lib/site";
+import { site, stockSentence } from "@/lib/site";
 import { SHIPPING } from "@/lib/shipping";
 import { money, unitMoney, count } from "@/lib/format";
 import { bulkCasesFor, BULK_MIN_UNITS } from "@/lib/pricing";
@@ -22,7 +22,7 @@ export function homeFaq(catalog: Catalog): [string, string][] {
   const cupPrices = list(cups.map((p) => `${money(p.casePrice)} for the ${p.size}`));
   const unitRange = cups.length ? `${unitMoney(cups[0].unitPrice)} to ${unitMoney(cups[cups.length - 1].unitPrice)} per cup` : "";
   const bulkRange = bulk.length ? `${unitMoney(bulk[0].bulkUnitPrice!)} to ${unitMoney(bulk[bulk.length - 1].bulkUnitPrice!)} per cup` : "";
-  const restock = restockNoteLower("cups");
+  const restock = catalog.categories.some((c) => c.restockWhen);
 
   return [
     [
@@ -52,8 +52,8 @@ export function homeFaq(catalog: Catalog): [string, string][] {
     ...(lid
       ? ([["Does one lid fit every cup size?", `Yes. One PHA lid fits the ${list(cups.map((p) => p.size))} cups, so there is one lid SKU to stock.`]] as [string, string][])
       : []),
-    ...(restock || site.restock.lids
-      ? ([["Are the cups and lids in stock?", `${stockSentence()} You can order now and the order is filled from that stock.`]] as [string, string][])
+    ...(restock
+      ? ([["Are the cups and lids in stock?", `${stockSentence(catalog.categories)} You can order now and the order is filled from that stock.`]] as [string, string][])
       : []),
   ];
 }
