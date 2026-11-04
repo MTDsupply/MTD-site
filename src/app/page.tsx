@@ -229,7 +229,7 @@ export default async function HomePage() {
 
       {/* 6. The Inner Harbour study: the photo and a peach block. */}
       <section className="mt-16 grid md:mt-24 md:grid-cols-2">
-        <div className="relative aspect-[4/3]">
+        <div className="relative aspect-[4/3] md:aspect-auto md:min-h-[560px]">
           <Image src="/inner-harbour.jpg" alt="The founders on the Inner Harbour causeway in Victoria, asking passers-by four questions with a cooler of freezies and a hand-drawn sign" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
           <div className="absolute bottom-6 left-6 rounded-[14px] bg-white px-4 py-3 shadow-[0_12px_30px_-16px_rgba(46,77,52,0.4)]">
             <p className="font-display text-[16px] font-semibold text-forest">
