@@ -74,7 +74,7 @@ export async function submitQuote(_prev: QuoteState, formData: FormData): Promis
 
   const reply = {
     bulk: "Thanks. We'll reply with case pricing within one business day.",
-    sample: "Thanks. We'll confirm your sample pack and the cost within one business day.",
+    sample: "Thanks. We'll confirm your café details and send your free sample pack within one business day.",
     printing: "Thanks. We'll reply with printing options, pricing and next steps within one business day.",
   }[q.kind];
   return { ok: true, message: reply };

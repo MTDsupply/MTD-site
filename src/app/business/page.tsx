@@ -65,10 +65,10 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
       <section className="mt-12 grid gap-4 md:grid-cols-2">
         <Reveal>
           <div className="card flex h-full flex-col bg-white p-6">
-            <p className="t-label text-forest">Try it first</p>
+            <p className="t-label text-forest">Try it first · free for cafés</p>
             <h2 className="t-heading mt-2">Sample pack</h2>
             <p className="mt-3 text-sm text-soil/80">
-              A small pack of each cup size and the lid, so your team can run them on the machines before committing to a case. Ask for one with the form below and we confirm the cost with your reply.
+              A small pack of each cup size and the lid, so your team can run them on the machines before committing to a case. Free for cafés and other foodservice businesses: ask for one with the form below and we send it once we have confirmed the business.
             </p>
             <Link href="/business?kind=sample#quote" className="btn btn-outline mt-5 self-start">
               Request a sample pack
