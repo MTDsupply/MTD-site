@@ -16,17 +16,17 @@ export const metadata = pageMeta({
 
 const LININGS: [string, string, string, string][] = [
   ["PHA (Made to Disappear)", "Made by microorganisms from renewable feedstocks", "Home compost (certified)", `Our cup is certified home-compostable by ${site.certifier}`],
-  ["PLA", "Plant sugars (often corn or sugarcane), fermented and processed into plastic", "Industrial compost facilities", "Needs the high heat of a commercial facility, and many facilities don&rsquo;t accept cups"],
-  ["Water-based coating", "Varies. “Water-based” describes how it&rsquo;s applied, not what it&rsquo;s made of", "Depends on the polymer", "Some are certified compostable, others are plastics designed for recycling. Ask what the polymer is"],
-  ["Conventional plastic (PE)", "Petroleum", "Doesn&rsquo;t compost", "Recyclable only where facilities accept cups"],
+  ["PLA", "Plant sugars (often corn or sugarcane), fermented and processed into plastic", "Industrial compost facilities", "Needs the high heat of a commercial facility, and many facilities don’t accept cups"],
+  ["Water-based coating", "Varies. “Water-based” describes how it’s applied, not what it’s made of", "Depends on the polymer", "Some are certified compostable, others are plastics designed for recycling. Ask what the polymer is"],
+  ["Conventional plastic (PE)", "Petroleum", "Doesn’t compost", "Recyclable only where facilities accept cups"],
 ];
 
 const FAQ: [string, string][] = [
-  ["Is PHA a plastic?", "PHA is a biopolymer. It does the job of a plastic in the cup, holding hot liquid and sealing the seam, but it&rsquo;s made by microbes and broken down by them."],
+  ["Is PHA a plastic?", "PHA is a biopolymer. It does the job of a plastic in the cup, holding hot liquid and sealing the seam, but it’s made by microbes and broken down by them."],
   ["Will it hold up to hot coffee?", "Yes. These are hot cups, built for coffee and tea."],
   ["How long does it take to compost?", "Home-compost certification requires the material to break down within 12 months in home-compost conditions. A warm, active pile works fastest."],
   ["Is it the same as a PLA cup?", "No. PLA is designed for industrial composting. Our PHA-lined cup is certified for home composting. See the comparison above."],
-  ["Can I see the certificate?", "Yes. Please email us and we&rsquo;ll send them over."],
+  ["Can I see the certificate?", "Yes. Please email us and we’ll send them over."],
 ];
 
 export default function WhatsInYourCupPage() {
