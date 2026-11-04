@@ -10,7 +10,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 
 function NavLink({ href, active, children }: { href: string; active: boolean; children: React.ReactNode }) {
   return (
-    <Link href={href} aria-current={active ? "page" : undefined} className="group relative block px-3 py-2">
+    <Link href={href} aria-current={active ? "page" : undefined} className="group relative block px-3 py-2 font-display font-semibold text-forest">
       {children}
       <span
         aria-hidden="true"
@@ -91,11 +91,11 @@ export function Nav({ categories }: { categories: Category[] }) {
     <>
       {/* Desktop */}
       <nav aria-label="Primary" className="hidden md:block">
-        <ul className="flex items-center text-[15px] font-medium">
+        <ul className="flex items-center text-[16px]">
           <li ref={megaRef} className="relative" onMouseEnter={() => setMega(true)} onMouseLeave={() => setMega(false)}>
             <button
               type="button"
-              className="group relative flex items-center gap-1 px-3 py-2"
+              className="group relative flex items-center gap-1 px-3 py-2 font-display font-semibold text-forest"
               aria-expanded={mega}
               aria-controls="mega-products"
               onClick={() => setMega((v) => !v)}
@@ -128,7 +128,7 @@ export function Nav({ categories }: { categories: Category[] }) {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 6, transition: { duration: 0.15 } }}
                   transition={{ duration: 0.3, ease: EASE }}
-                  className="absolute left-0 top-full z-40 w-[600px] border border-sage bg-white p-5 text-soil shadow-[0_28px_48px_-30px_rgba(79,111,82,0.55)]"
+                  className="absolute left-0 top-full z-40 w-[600px] rounded-[20px] bg-white p-5 text-soil shadow-[0_28px_48px_-24px_rgba(46,77,52,0.45)]"
                 >
                   <div className="grid grid-cols-2 gap-x-6 gap-y-0.5">
                     {categories.map((c) => {
@@ -187,7 +187,7 @@ export function Nav({ categories }: { categories: Category[] }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6, transition: { duration: 0.15 } }}
             transition={{ duration: 0.25, ease: EASE }}
-            className="absolute inset-x-0 top-full z-40 border-b border-sage bg-white px-4 py-3 text-soil shadow-[0_28px_48px_-30px_rgba(79,111,82,0.55)] md:hidden"
+            className="absolute inset-x-0 top-full z-40 rounded-b-[20px] bg-white px-4 py-3 text-soil shadow-[0_28px_48px_-24px_rgba(46,77,52,0.45)] md:hidden"
           >
             <nav aria-label="Mobile">
               <p className="t-label px-3 pb-1 pt-2 text-sage-deep">Products</p>

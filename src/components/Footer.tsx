@@ -5,7 +5,6 @@ import { site } from "@/lib/site";
 import { claims } from "@/lib/copy";
 import { NotifyForm } from "./NotifyForm";
 import { Wordmark } from "./Wordmark";
-import { Atmosphere } from "./scene/Atmosphere";
 
 async function copyrightYear(): Promise<number> {
   "use cache";
@@ -17,12 +16,11 @@ export async function Footer() {
   const [categories, year] = await Promise.all([getCategories(), copyrightYear()]);
   return (
     <footer className="relative mt-16" data-tone="dark">
-      <Atmosphere src="/atmosphere/dusk.jpg" alt="" fade="none" tone="soil" parallax={70} drift={1.05} className="text-paper" objectPosition="center 40%">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(43,43,43,0.35)_0%,rgba(43,43,43,0.75)_40%,rgba(43,43,43,0.92)_100%)]" />
+      <div className="band-forest">
       <div className="relative">
       <div className="mx-auto max-w-7xl px-4 pt-20 md:pt-28">
         <Wordmark className="h-8" variant="white" priority={false} />
-        <p className="mt-4 max-w-md text-paper/80">Foodservice essentials. Made to disappear.</p>
+        <p className="mt-4 max-w-md text-cream/80">Foodservice essentials. Made to disappear.</p>
       </div>
 
       <div className="mx-auto grid max-w-7xl gap-8 px-4 pb-8 pt-10 md:grid-cols-4">
@@ -156,7 +154,7 @@ export async function Footer() {
         </div>
       </div>
       </div>
-      </Atmosphere>
+      </div>
     </footer>
   );
 }

@@ -116,8 +116,8 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
                     key={s.sku}
                     href={`/products/${cat.slug}/${s.sku.toLowerCase()}`}
                     aria-current={s.sku === product.sku ? "page" : undefined}
-                    className={`border px-3.5 py-2 text-[12px] uppercase tracking-[0.12em] transition-colors ${
-                      s.sku === product.sku ? "border-soil bg-soil text-paper" : "border-line text-soil hover:border-soil"
+                    className={`rounded-full border-[1.5px] px-4 py-2 font-display text-[14px] font-semibold transition-colors ${
+                      s.sku === product.sku ? "border-forest bg-forest text-cream" : "border-forest/40 text-forest hover:border-forest"
                     }`}
                   >
                     {s.size}

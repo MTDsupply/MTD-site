@@ -24,14 +24,14 @@ export function PageHeader({
   className?: string;
 }) {
   return (
-    <div className={`band-sage relative left-1/2 w-screen -translate-x-1/2 ${className}`}>
+    <div className={`band-mint relative left-1/2 w-screen -translate-x-1/2 ${className}`}>
       <div className="mx-auto max-w-7xl px-4 py-10 md:py-14">
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
             <div className="max-w-[62ch]">
-              {eyebrow ? <p className="t-label text-paper/75">{eyebrow}</p> : null}
-              <h1 className="t-section mt-2 text-white">{title}</h1>
-              {description ? <p className="mt-4 text-[16px] leading-7 text-paper/85 md:text-[17px]">{description}</p> : null}
+              {eyebrow ? <p className="t-label text-forest/70">{eyebrow}</p> : null}
+              <h1 className="t-section mt-2 text-forest">{title}</h1>
+              {description ? <p className="mt-4 text-[16px] leading-7 text-forest/80 md:text-[17px]">{description}</p> : null}
             </div>
             {actions ? <div className="shrink-0">{actions}</div> : null}
           </div>

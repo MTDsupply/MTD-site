@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { getCatalog } from "@/lib/catalog/queries";
 import { money } from "@/lib/format";
-import { restockNote } from "@/lib/site";
+import { restockNote, restockNoteLower } from "@/lib/site";
 import { site } from "@/lib/site";
+import { BULK_MIN_UNITS } from "@/lib/pricing";
+import { count } from "@/lib/format";
 import { Wordmark } from "./Wordmark";
 import { Nav } from "./Nav";
 import { ModeToggle } from "./ModeToggle";
@@ -43,20 +45,22 @@ export async function Header() {
   ];
   return (
     <>
-    <header className="site-header sticky -top-10 z-30 bg-paper">
-      {/* Top band: phone, quick order, price list, sign in. Scrolls away; the main bar stays. */}
-      <div className="band-sage h-10">
-        <div className="mx-auto flex h-10 max-w-7xl items-center justify-between gap-4 overflow-hidden px-4 text-xs whitespace-nowrap">
+    <header className="site-header sticky -top-10 z-30 bg-white">
+      {/* Top band: the offer line, quick order, price list, account. Scrolls away; the main bar stays. */}
+      <div className="band-forest h-10">
+        <div className="mx-auto flex h-10 max-w-7xl items-center justify-between gap-4 overflow-hidden px-4 font-display text-xs font-semibold whitespace-nowrap">
           <div className="flex min-w-0 items-center gap-4">
             {site.phone && site.phoneHref ? (
               <span className="truncate">
                 <span className="hidden sm:inline">Order by phone </span>
-                <a href={site.phoneHref} className="font-medium tnum hover:underline">
+                <a href={site.phoneHref} className="tnum hover:underline">
                   {site.phone}
                 </a>
               </span>
             ) : (
-              <span className="truncate">Foodservice supplies made from 100% certified home-compostable material</span>
+              <span className="truncate">
+                {restockNote("cups") ? `Cups ${restockNoteLower("cups")} · ` : ""}Volume pricing from {count(BULK_MIN_UNITS)} units, applied in the cart
+              </span>
             )}
             <Link href="/quick-order" className="hidden hover:underline sm:inline">
               Quick order by SKU
@@ -83,7 +87,10 @@ export async function Header() {
         </Link>
         <Nav categories={categories} />
         <div className="ml-auto flex items-center gap-3">
-          <SearchForm entries={entries} className="hidden w-64 lg:block" />
+          <SearchForm entries={entries} className="hidden w-56 xl:block" />
+          <Link href="/products/cups" className="btn btn-primary btn-sm hidden md:inline-flex">
+            Shop cups
+          </Link>
           <CartButton />
         </div>
       </div>

@@ -28,19 +28,19 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
-      <div className="band-sage relative left-1/2 -mt-8 w-screen -translate-x-1/2">
+      <div className="band-forest relative left-1/2 -mt-8 w-screen -translate-x-1/2">
         <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 md:grid-cols-[1.2fr_1fr] md:gap-12 md:py-16">
           <Reveal>
-            <p className="t-label text-paper/75">Business accounts</p>
-            <h1 className="t-section mt-3 text-white">Supply for cafés, restaurants, caterers and events.</h1>
+            <p className="t-label text-cream/70">Business accounts</p>
+            <h1 className="t-section mt-3 text-cream">Supply for cafés, restaurants, caterers and events.</h1>
             <p className="mt-4 max-w-[52ch] text-[17px] leading-7 text-paper/85">
               One supplier for the whole range, certified per SKU, shipping across North America. Case pricing below, and a lower volume price on every case once an order reaches {count(BULK_MIN_UNITS)} units. Approved accounts get net-30.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#quote" className="btn btn-paper px-6 py-3 font-semibold">
+              <a href="#quote" className="btn btn-paper">
                 Request a quote
               </a>
-              <Link href="/business?kind=sample#quote" className="btn border-paper/70 px-6 py-3 font-semibold text-paper hover:bg-white/10">
+              <Link href="/business?kind=sample#quote" className="btn border-cream/60 text-cream hover:bg-white/10">
                 Request a sample pack
               </Link>
             </div>

@@ -1,7 +1,7 @@
 "use client";
 import { useMode, setMode, type Mode } from "@/lib/store/mode";
 
-/** Business/Consumer toggle, persisted in a cookie. `onInk` styles it for the ink band. */
+/** Business/Consumer toggle, persisted in a cookie. `onInk` styles it for a dark band. */
 export function ModeToggle({ className = "", onInk = false }: { className?: string; onInk?: boolean }) {
   const mode = useMode();
   const opt = (m: Mode, label: string) => (
@@ -9,25 +9,21 @@ export function ModeToggle({ className = "", onInk = false }: { className?: stri
       type="button"
       onClick={() => setMode(m)}
       aria-pressed={mode === m}
-      className={`px-2.5 py-1 text-[10.5px] font-medium uppercase tracking-[0.12em] transition-colors ${
+      className={`rounded-full px-3 py-1 font-display text-xs font-semibold transition-colors ${
         mode === m
           ? onInk
-            ? "bg-paper text-sage-deep"
-            : "bg-sage text-white"
+            ? "bg-cream text-forest"
+            : "bg-forest text-cream"
           : onInk
-            ? "text-paper hover:bg-white/10"
-            : "text-soil hover:bg-sage-tint"
+            ? "text-cream hover:bg-white/10"
+            : "text-forest hover:bg-mint-light"
       }`}
     >
       {label}
     </button>
   );
   return (
-    <div
-      role="group"
-      aria-label="Pricing mode"
-      className={`inline-flex overflow-hidden border ${onInk ? "border-paper/60" : "border-soil/40"} ${className}`}
-    >
+    <div role="group" aria-label="Pricing mode" className={`inline-flex rounded-full border p-0.5 ${onInk ? "border-cream/50" : "border-forest/40"} ${className}`}>
       {opt("consumer", "Consumer")}
       {opt("business", "Business")}
     </div>

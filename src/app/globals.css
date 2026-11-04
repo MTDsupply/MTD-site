@@ -19,15 +19,24 @@
   --color-fog: #b8b8b2;
   --color-fog-light: #e3e2dc;
   --color-line: #d6d4cb;
+  /* Bloom-style blocks: deep forest on mint, cream and peach; butter for stickers. */
+  --color-forest: #2e4d34;
+  --color-forest-deep: #243d2a;
+  --color-mint: #c9e4be;
+  --color-mint-light: #e4f0dc;
+  --color-cream: #fbf4e8;
+  --color-peach: #f6d7be;
+  --color-peach-light: #fbeadb;
+  --color-butter: #f7dc8c;
 
   --font-display: var(--font-outfit), "Outfit", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-cormorant), "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+  --font-serif: var(--font-fraunces), "Fraunces", "Iowan Old Style", Georgia, serif;
   --font-sans: var(--font-inter), "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), "JetBrains Mono", ui-monospace, Menlo, monospace;
 
-  /* Square editorial layouts; 4 px corners on controls only. */
-  --radius-tile: 0px;
-  --radius-control: 4px;
+  /* Soft, rounded surfaces: big radii on tiles, pills on controls. */
+  --radius-tile: 20px;
+  --radius-control: 12px;
 }
 
 :root {
@@ -48,18 +57,18 @@ body {
 }
 
 /*
- * Type scale (restrained, editorial): display sizes set in the serif at a
- * medium weight with quiet tracking; hierarchy comes from size, colour and
- * space rather than weight. Labels are small, uppercase and widely tracked.
+ * Type scale: chunky, friendly display type (Fraunces, soft axis up) in deep
+ * forest green; Outfit for labels, buttons and card titles; Inter body.
  */
 h1,
 h2 {
   font-family: var(--font-serif);
-  font-weight: 500;
+  font-weight: 800;
+  font-variation-settings: "SOFT" 100, "WONK" 0;
 }
 h3,
 h4 {
-  font-family: var(--font-sans);
+  font-family: var(--font-display);
   font-weight: 600;
 }
 .font-display {
@@ -68,51 +77,56 @@ h4 {
 }
 .t-hero {
   font-family: var(--font-serif);
-  font-weight: 500;
-  font-size: clamp(42px, 5.4vw, 78px);
-  line-height: 1.02;
-  letter-spacing: -0.01em;
+  font-weight: 800;
+  font-variation-settings: "SOFT" 100, "WONK" 0;
+  font-size: clamp(44px, 6vw, 84px);
+  line-height: 0.98;
+  letter-spacing: -0.015em;
 }
 .t-section {
   font-family: var(--font-serif);
-  font-weight: 500;
-  font-size: clamp(34px, 3.8vw, 54px);
-  line-height: 1.05;
-  letter-spacing: -0.01em;
+  font-weight: 800;
+  font-variation-settings: "SOFT" 100, "WONK" 0;
+  font-size: clamp(36px, 4.6vw, 62px);
+  line-height: 1;
+  letter-spacing: -0.015em;
 }
 .t-page {
   font-family: var(--font-serif);
-  font-weight: 500;
-  font-size: clamp(30px, 3vw, 40px);
-  line-height: 1.1;
-  letter-spacing: -0.005em;
+  font-weight: 800;
+  font-variation-settings: "SOFT" 100, "WONK" 0;
+  font-size: clamp(32px, 3.4vw, 46px);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
 }
 .t-heading {
   font-family: var(--font-serif);
-  font-weight: 500;
+  font-weight: 700;
+  font-variation-settings: "SOFT" 100, "WONK" 0;
   font-size: 30px;
   line-height: 34px;
-  letter-spacing: 0;
+  letter-spacing: -0.01em;
 }
 .t-card {
-  font-family: var(--font-sans);
+  font-family: var(--font-display);
   font-weight: 600;
-  font-size: 17px;
+  font-size: 18px;
   line-height: 22px;
   letter-spacing: -0.005em;
 }
 .t-label {
-  font-family: var(--font-sans);
-  font-size: 11px;
+  font-family: var(--font-display);
+  font-size: 12px;
   line-height: 16px;
-  font-weight: 500;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.1em;
 }
 .t-serif-italic {
   font-family: var(--font-serif);
   font-style: italic;
-  font-weight: 500;
+  font-weight: 600;
+  font-variation-settings: "SOFT" 100, "WONK" 1;
 }
 .sku {
   font-family: var(--font-mono);
@@ -136,6 +150,18 @@ h4 {
 .band-sage {
   background: var(--color-sage);
   color: var(--color-paper);
+}
+.band-forest {
+  background: var(--color-forest);
+  color: var(--color-cream);
+}
+.band-mint {
+  background: linear-gradient(180deg, var(--color-mint) 0%, var(--color-mint-light) 100%);
+  color: var(--color-forest);
+}
+.band-peach {
+  background: linear-gradient(180deg, var(--color-peach) 0%, var(--color-peach-light) 100%);
+  color: var(--color-forest);
 }
 
 /* Dense catalogue tables. */
@@ -183,8 +209,8 @@ h4 {
     width: 100%;
     border: 1px solid var(--color-line);
     background: var(--color-card);
-    border-radius: 0;
-    padding: 0.55rem 0.7rem;
+    border-radius: var(--radius-control);
+    padding: 0.6rem 0.9rem;
     font-size: 15px;
     line-height: 20px;
     color: var(--color-ink);
@@ -196,30 +222,31 @@ h4 {
   }
   .label {
     display: block;
-    font-size: 11px;
+    font-family: var(--font-display);
+    font-size: 12px;
     line-height: 16px;
-    font-weight: 500;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.08em;
     margin-bottom: 0.4rem;
-    color: #5c5c58;
+    color: var(--color-forest);
   }
 
-  /* Buttons: square, small tracked capitals, ink or hairline. No fills that shout. */
+  /* Buttons are pills: bold Outfit, deep forest fill, generous padding. */
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.4rem;
-    border-radius: 0;
-    padding: 0.85rem 1.5rem;
-    font-size: 12px;
-    font-weight: 500;
+    border-radius: 9999px;
+    padding: 0.85rem 1.6rem;
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 600;
     line-height: 1.2;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    border: 1px solid transparent;
-    transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+    letter-spacing: 0.005em;
+    border: 1.5px solid transparent;
+    transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease, transform 160ms ease;
     cursor: pointer;
     white-space: nowrap;
   }
@@ -228,79 +255,111 @@ h4 {
     cursor: not-allowed;
   }
   .btn-primary {
-    background: var(--color-soil);
-    color: var(--color-paper);
-    border-color: var(--color-soil);
+    background: var(--color-forest);
+    color: var(--color-cream);
+    border-color: var(--color-forest);
   }
   .btn-primary:hover:not(:disabled) {
-    background: #1d1d1d;
-    border-color: #1d1d1d;
+    background: var(--color-forest-deep);
+    border-color: var(--color-forest-deep);
   }
   .btn-outline {
-    border-color: color-mix(in srgb, var(--color-soil) 45%, transparent);
-    color: var(--color-soil);
+    border-color: var(--color-forest);
+    color: var(--color-forest);
     background: transparent;
   }
   .btn-outline:hover:not(:disabled) {
-    border-color: var(--color-soil);
-    background: var(--color-soil);
-    color: var(--color-paper);
+    background: var(--color-forest);
+    color: var(--color-cream);
   }
   .btn-paper {
-    background: var(--color-paper);
-    color: var(--color-soil);
-    border-color: var(--color-paper);
+    background: var(--color-cream);
+    color: var(--color-forest);
+    border-color: var(--color-cream);
   }
   .btn-paper:hover:not(:disabled) {
-    background: var(--color-card);
-    border-color: var(--color-card);
+    background: var(--color-white);
+    border-color: var(--color-white);
+  }
+  .btn-mint {
+    background: var(--color-mint);
+    color: var(--color-forest);
+    border-color: var(--color-mint);
+  }
+  .btn-mint:hover:not(:disabled) {
+    background: var(--color-mint-light);
+    border-color: var(--color-mint-light);
   }
   .btn-ghost {
-    color: var(--color-ink);
+    color: var(--color-forest);
     background: transparent;
   }
   .btn-ghost:hover:not(:disabled) {
-    background: var(--color-paper-deep);
+    background: var(--color-mint-light);
   }
   .btn-sm {
-    padding: 0.6rem 1rem;
-    font-size: 11px;
+    padding: 0.55rem 1rem;
+    font-size: 13px;
+  }
+  .btn-lg {
+    padding: 1.05rem 2.2rem;
+    font-size: 17px;
   }
 
-  /* Chips are hairline-ruled labels, never filled pills. */
+  /* Chips are small filled pills in the block colours; stickers are louder. */
   .chip {
     display: inline-flex;
     align-items: center;
     gap: 0.3rem;
-    border-radius: 0;
-    border: 1px solid currentColor;
-    padding: 0.2rem 0.55rem;
-    font-size: 10.5px;
-    font-weight: 500;
+    border-radius: 9999px;
+    border: 0;
+    padding: 0.25rem 0.7rem;
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 600;
     line-height: 16px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    background: transparent;
+    letter-spacing: 0.02em;
+    text-transform: none;
   }
   /* Sage is reserved for supported certification information. */
   .chip-sage {
-    color: var(--color-sage-deep);
+    background: var(--color-mint);
+    color: var(--color-forest);
   }
   .chip-sage:hover {
-    background: var(--color-sage-tint);
+    background: var(--color-mint-light);
   }
-  /* Fog is decorative, not a text colour: fog hairline with ink text. */
+  /* Fog is decorative, not a text colour: fog tint with ink text. */
   .chip-fog {
-    color: #6b6b66;
-    border-color: var(--color-fog);
+    background: var(--color-fog-light);
+    color: var(--color-soil);
   }
   .chip-clay-solid {
-    color: var(--color-clay-deep);
+    background: var(--color-clay);
+    color: var(--color-white);
   }
   /* Clay marks availability or an offer. */
   .chip-clay {
+    background: var(--color-peach);
     color: var(--color-clay-deep);
-    border-color: var(--color-clay);
+  }
+  .sticker {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 9999px;
+    padding: 0.35rem 0.8rem;
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 16px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: var(--color-butter);
+    color: var(--color-forest);
+  }
+  .sticker-forest {
+    background: var(--color-forest);
+    color: var(--color-cream);
   }
 
   .link {
@@ -361,13 +420,41 @@ select.input {
   background-position: right 0.7rem center;
 }
 
-/* Cards are hairline-ruled surfaces; the rule darkens as you pass, nothing lifts. */
+/* Cards are soft cream tiles with big radii; they lift a hair on hover. */
 .card {
-  border: 1px solid var(--color-line);
-  transition: border-color 320ms ease;
+  border-radius: var(--radius-tile);
+  background: var(--color-cream);
+  transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 320ms ease;
 }
 .card:hover {
-  border-color: color-mix(in srgb, var(--color-soil) 45%, transparent);
+  transform: translateY(-3px);
+  box-shadow: 0 24px 40px -28px rgba(46, 77, 52, 0.45);
+}
+/* Product photos shot on white sit on cream tiles: multiply drops the white. */
+.on-cream img {
+  mix-blend-mode: multiply;
+}
+/* Endless band of claims, CSS only. */
+.marquee {
+  display: flex;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.marquee-track {
+  display: flex;
+  flex-shrink: 0;
+  min-width: 100%;
+  animation: marquee 38s linear infinite;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-100%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
 }
 
 /* Links underline from the left. */
@@ -461,7 +548,7 @@ html[data-scrolled] .header-surface {
   padding: 0.5rem 0.75rem;
   background: var(--color-sage);
   color: var(--color-white);
-  border-radius: 0;
+  border-radius: 9999px;
 }
 .skip-link:focus {
   top: 1rem;
@@ -508,8 +595,7 @@ html[data-scrolled] .header-surface {
     radial-gradient(50% 60% at 70% 85%, rgba(228, 235, 227, 0.95) 0%, rgba(228, 235, 227, 0) 72%),
     radial-gradient(40% 50% at 20% 90%, rgba(200, 149, 109, 0.22) 0%, rgba(200, 149, 109, 0) 70%),
     linear-gradient(180deg, #f6f3ec 0%, #eef0e8 50%, #f4f1ea 100%);
-  /* Still: a drifting background reads as a gimmick on a considered page. */
-  opacity: 0.6;
+  opacity: 0.5;
 }
 @keyframes mesh-drift {
   0% {
@@ -528,10 +614,10 @@ html[data-scrolled] .header-surface {
   }
 }
 
-/* Panels over imagery: plain white with a hairline, no frost. */
+/* Panels: white rounded tiles. */
 .glass {
   background: var(--color-card);
-  border: 1px solid var(--color-line);
+  border-radius: var(--radius-tile);
 }
 .glass-dark {
   background: rgba(43, 43, 43, 0.55);
@@ -545,8 +631,8 @@ html[data-scrolled] .header-surface {
   backdrop-filter: blur(14px);
   border: 1px solid rgba(255, 255, 255, 0.6);
 }
-.card.glass:hover {
-  border-color: color-mix(in srgb, var(--color-soil) 45%, transparent);
+.card.glass {
+  background: var(--color-card);
 }
 
 /* Fine grain so flat areas read as paper, not pixels. */
