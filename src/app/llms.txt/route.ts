@@ -68,6 +68,7 @@ export async function GET() {
     `- [Shipping and returns](${base}/shipping-returns)`,
     `- [About](${base}/about): founders Sullivan Bryan (Chief Executive Officer) and Jack Hill (President and Chief Operating Officer).`,
     `- [Contact](${base}/contact): ${site.email}${site.phone ? `, ${site.phone}` : ""}.`,
+    ...site.social.map((s) => `- [${s.name}](${s.url}): ${s.handle}`),
     `- [Price list (PDF)](${base}/price-list.pdf)`,
     "",
   );

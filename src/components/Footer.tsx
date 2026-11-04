@@ -128,6 +128,13 @@ export async function Footer() {
                 {site.email}
               </a>
             </p>
+            {site.social.map((s) => (
+              <p key={s.url}>
+                <a href={s.url} className="hover:underline" rel="me noopener" target="_blank">
+                  {s.name} {s.handle}
+                </a>
+              </p>
+            ))}
           </address>
         </div>
 

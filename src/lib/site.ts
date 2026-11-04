@@ -20,6 +20,8 @@ export const site = {
     { city: "Calgary", status: "coming_soon" as const, when: "2027" },
   ],
   certifier: "TÜV Austria",
+  /** Public profiles, linked from the footer and listed as sameAs in the Organization schema. */
+  social: [{ name: "Instagram", handle: "@madetodisappearltd", url: "https://www.instagram.com/madetodisappearltd/" }],
   /**
    * Categories waiting on a restock, by slug, with the wording to show.
    * Remove the entry when the stock lands and every "in stock" line comes back.

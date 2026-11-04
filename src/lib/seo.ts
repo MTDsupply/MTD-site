@@ -67,10 +67,13 @@ export function productPath(p: Product): string {
   return `/products/${p.categorySlug}/${p.sku.toLowerCase()}`;
 }
 
-const socialLinks = (process.env.NEXT_PUBLIC_SOCIAL_URLS ?? "")
-  .split(",")
-  .map((s) => s.trim())
-  .filter(Boolean);
+const socialLinks = [
+  ...site.social.map((s) => s.url),
+  ...(process.env.NEXT_PUBLIC_SOCIAL_URLS ?? "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean),
+];
 
 export const ORG_ID = `${BASE}/#organization`;
 
