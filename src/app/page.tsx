@@ -227,26 +227,26 @@ export default async function HomePage() {
         </RevealGroup>
       </section>
 
-      {/* 6. Founders: photo and a peach block. */}
+      {/* 6. The Inner Harbour study: the photo and a peach block. */}
       <section className="mt-16 grid md:mt-24 md:grid-cols-2">
-        <div className="relative aspect-[4/5] md:aspect-auto md:min-h-[560px]">
-          <Image src="/team/sullivan-bryan.jpg" alt="Sullivan Bryan, co-founder and Chief Executive Officer" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover object-top" />
+        <div className="relative aspect-[4/3]">
+          <Image src="/inner-harbour.jpg" alt="The founders on the Inner Harbour causeway in Victoria, asking passers-by four questions with a cooler of freezies and a hand-drawn sign" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
           <div className="absolute bottom-6 left-6 rounded-[14px] bg-white px-4 py-3 shadow-[0_12px_30px_-16px_rgba(46,77,52,0.4)]">
             <p className="font-display text-[16px] font-semibold text-forest">
-              Sullivan Bryan, <span className="t-serif-italic font-normal">co-founder</span>
+              Inner Harbour, <span className="t-serif-italic font-normal">{site.city}</span>
             </p>
-            <p className="text-sm text-soil/65">
-              Chief Executive Officer · {site.city}, {site.province}
-            </p>
+            <p className="text-sm text-soil/65">Answer four questions, get a freezie.</p>
           </div>
         </div>
         <div className="band-peach flex items-center">
           <div className="mx-auto max-w-[56ch] px-6 py-14 text-center md:px-12 md:py-20">
-            <h2 className="t-section text-forest">Made by a café. For cafés.</h2>
+            <h2 className="t-section text-forest">We asked {site.city} four questions.</h2>
             <p className="mt-6 text-[17px] leading-7 text-forest/85">
-              Our own cafés could not buy a cup made from certified home-compostable material with the certificate to show for it. So we made one: PHA-lined paper, no plastic film, certified by {site.certifier} for every SKU we sell.
+              Before we ordered a single case, we stood on the Inner Harbour causeway with a cooler of freezies and a clipboard. Four quick questions about takeout cups, a freezie as thanks, and a lot of honest answers from locals and visitors.
             </p>
-            <p className="mt-4 text-[17px] leading-7 text-forest/85">Cup Casa, the café cup brand, is a product line of {site.name}. If you have seen a Cup Casa cup, you have seen one of ours.</p>
+            <p className="mt-4 text-[17px] leading-7 text-forest/85">
+              What people told us shaped the cup we make: paper, a lining that is not plastic, and a certificate you can check for yourself.
+            </p>
             <Link href="/about" className="btn btn-primary btn-lg mt-8">
               Our story
             </Link>
