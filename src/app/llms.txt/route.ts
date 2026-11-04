@@ -64,6 +64,7 @@ export async function GET() {
     `- [Business accounts](${base}/business): case pricing table, volume pricing, net-30, quote and sample pack requests.`,
     `- [Custom printing](${base}/custom-printing): your logo on the same certified cup, from 100 cases.`,
     `- [Certifications](${base}/certifications): the certifier, the SKU covered and the certificate for every product.`,
+    `- [What's in your cup](${base}/whats-in-your-cup): paper outside, PHA inside; how PHA compares to PLA, water-based coatings and conventional plastic; the two questions to ask any cup supplier.`,
     `- [How to compost it](${base}/compost): the four steps and the questions we get asked.`,
     `- [Shipping and returns](${base}/shipping-returns)`,
     `- [About](${base}/about): founders Sullivan Bryan (Chief Executive Officer) and Jack Hill (President and Chief Operating Officer).`,

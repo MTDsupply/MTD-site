@@ -21,6 +21,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     entry("/business", 0.9, "monthly"),
     entry("/custom-printing", 0.7, "monthly"),
     entry("/compost", 0.7, "monthly"),
+    entry("/whats-in-your-cup", 0.7, "monthly"),
     entry("/certifications", 0.8, "monthly"),
     entry("/about", 0.5, "yearly"),
     entry("/contact", 0.5, "yearly"),

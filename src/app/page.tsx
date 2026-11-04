@@ -186,8 +186,8 @@ export default async function HomePage() {
               <Link href="/compost" className="btn btn-primary">
                 How it disappears
               </Link>
-              <Link href="/certifications" className="btn btn-outline">
-                See every certificate
+              <Link href="/whats-in-your-cup" className="btn btn-outline">
+                What&rsquo;s in the cup
               </Link>
             </div>
           </Reveal>

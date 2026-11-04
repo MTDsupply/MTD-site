@@ -70,6 +70,11 @@ export async function Footer() {
               </Link>
             </li>
             <li>
+              <Link href="/whats-in-your-cup" className="hover:underline">
+                What&rsquo;s in your cup
+              </Link>
+            </li>
+            <li>
               <Link href="/compost" className="hover:underline">
                 How to compost it
               </Link>
