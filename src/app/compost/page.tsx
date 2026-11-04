@@ -12,8 +12,8 @@ export const metadata = pageMeta({
   description:
     "Four steps to compost our hot cups and lids in a home pile: finish the drink, lid and cup go in together, mix it in, turn the pile as usual. Plus the questions we get asked: the lining, how long it takes, worm bins and tumblers.",
   path: "/compost",
-  image: "/hero-cups.jpg",
-  imageAlt: "Two paper hot cups on a mossy forest floor",
+  image: "/compost-cups.jpg",
+  imageAlt: "Two paper hot cups softening and breaking down on a mossy forest floor",
 });
 
 const STEPS: [string, string][] = [
@@ -38,9 +38,12 @@ export default function CompostPage() {
 
       <div className="mt-10 grid gap-8 md:grid-cols-[1fr_1.1fr] md:items-start md:gap-12">
         <Reveal>
-          <div className="relative aspect-square overflow-hidden border border-line bg-paper-deep">
-            <Image src="/hero-cups.jpg" alt="Two paper hot cups on a mossy forest floor, one showing the certification mark on its base" fill priority sizes="(min-width: 768px) 45vw, 100vw" className="object-cover" />
-          </div>
+          <figure>
+            <div className="relative aspect-[4/3] overflow-hidden border border-line bg-paper-deep">
+              <Image src="/compost-cups.jpg" alt="Two paper hot cups softening and breaking down on a mossy forest floor, the certification mark still showing on one base" fill priority sizes="(min-width: 768px) 45vw, 100vw" className="object-cover" />
+            </div>
+            <figcaption className="mt-2 text-xs text-soil/60">From our film: an illustration of the breakdown. How long it takes depends on the pile.</figcaption>
+          </figure>
         </Reveal>
         <div>
           <Reveal>
@@ -103,7 +106,7 @@ export default function CompostPage() {
             name: "How to compost a Made to Disappear cup and lid at home",
             description: "Into the home compost pile, with the food scraps, in four steps.",
             steps: STEPS,
-            image: "/hero-cups.jpg",
+            image: "/compost-cups.jpg",
           }),
           faqLd(FAQ),
         ]}
