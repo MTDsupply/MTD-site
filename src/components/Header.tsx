@@ -60,7 +60,13 @@ export async function Header() {
               </span>
             ) : (
               <span className="truncate">
-                {categories.some((c) => c.restockWhen) ? `${stockSentence(categories).replace(/\.$/, "")} · ` : ""}Volume pricing from {count(BULK_MIN_UNITS)} units, applied in the cart
+                {categories.some((c) => c.restockWhen) ? (
+                  <>
+                    {stockSentence(categories).replace(/\.$/, "")}
+                    <span className="hidden sm:inline"> · </span>
+                  </>
+                ) : null}
+                <span className={categories.some((c) => c.restockWhen) ? "hidden sm:inline" : ""}>Volume pricing from {count(BULK_MIN_UNITS)} units, applied in the cart</span>
               </span>
             )}
             <Link href="/quick-order" className="hidden hover:underline sm:inline">

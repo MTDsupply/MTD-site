@@ -35,10 +35,10 @@ export function AddToCart({ product, compact = false }: { product: Product; comp
 
   return (
     <div className="space-y-2">
-      <div className={`flex flex-wrap ${compact ? "gap-1.5" : "gap-2"}`}>
+      <div className={`grid grid-cols-[auto_1fr] sm:flex sm:flex-wrap ${compact ? "gap-1.5" : "gap-2"}`}>
         <select
           aria-label="Pack or case"
-          className="input min-w-[7.5rem] flex-1"
+          className="input col-span-2 min-w-0 sm:col-span-1 sm:min-w-[7.5rem] sm:flex-1"
           value={unit}
           onChange={(e) => setChosen(e.target.value as Unit)}
         >
@@ -57,7 +57,7 @@ export function AddToCart({ product, compact = false }: { product: Product; comp
           onChange={(e) => setQty(Math.max(1, Math.min(500, Number(e.target.value) || 1)))}
           className="input tnum w-16 shrink-0"
         />
-        <button type="button" onClick={submit} className="btn btn-primary min-w-[7.5rem] flex-1" disabled={added}>
+        <button type="button" onClick={submit} className="btn btn-primary min-w-0 sm:min-w-[7.5rem] sm:flex-1" disabled={added}>
           {added ? "Added" : "Add to cart"}
         </button>
       </div>

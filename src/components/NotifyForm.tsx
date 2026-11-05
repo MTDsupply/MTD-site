@@ -29,7 +29,7 @@ export function NotifyForm({
   }
 
   return (
-    <form action={action} className={compact ? "flex gap-2" : "space-y-2"}>
+    <form action={action} className={compact ? "flex flex-col gap-2 sm:flex-row" : "space-y-2"}>
       <input type="hidden" name="categorySlug" value={categorySlug} />
       <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
       <label htmlFor={id} className="sr-only">

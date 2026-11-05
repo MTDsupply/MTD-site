@@ -80,7 +80,28 @@ export default function WhatsInYourCupPage() {
           <h2 className="t-section text-forest">How PHA compares</h2>
           <p className="mt-3 text-soil/75">The four linings you&rsquo;ll see on paper cups today:</p>
         </Reveal>
-        <div className="mt-6 overflow-x-auto rounded-[20px] bg-cream">
+        <div className="mt-6 space-y-3 md:hidden">
+          {LININGS.map(([lining, from, where, note], i) => (
+            <div key={lining} className={`rounded-[18px] p-5 text-sm ${i === 0 ? "bg-mint-light" : "bg-cream"}`}>
+              <p className="font-display text-[17px] font-semibold text-forest">{lining}</p>
+              <dl className="mt-3 space-y-2">
+                <div>
+                  <dt className="t-label text-soil/55">Made from</dt>
+                  <dd className="mt-0.5">{from}</dd>
+                </div>
+                <div>
+                  <dt className="t-label text-soil/55">Where it breaks down</dt>
+                  <dd className="mt-0.5">{where}</dd>
+                </div>
+                <div>
+                  <dt className="t-label text-soil/55">Good to know</dt>
+                  <dd className="mt-0.5">{note}</dd>
+                </div>
+              </dl>
+            </div>
+          ))}
+        </div>
+        <div className="mt-6 hidden overflow-x-auto rounded-[20px] bg-cream md:block">
           <table className="price-table w-full text-sm">
             <thead>
               <tr>

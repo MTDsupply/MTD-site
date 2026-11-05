@@ -13,12 +13,12 @@ export function SignInForm({ next = "/account" }: { next?: string } = {}) {
     );
   }
   return (
-    <form action={action} className="flex flex-wrap gap-2">
+    <form action={action} className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
       <input type="hidden" name="next" value={next} />
       <label htmlFor="signin-email" className="sr-only">
         Email
       </label>
-      <input id="signin-email" name="email" type="email" required className="input min-w-0 flex-1" placeholder="you@company.com" autoComplete="email" />
+      <input id="signin-email" name="email" type="email" required className="input min-w-0 sm:flex-1" placeholder="you@company.com" autoComplete="email" />
       <button type="submit" className="btn btn-primary shrink-0" disabled={pending}>
         {pending ? "Sending…" : "Email me a link"}
       </button>

@@ -157,7 +157,7 @@ export default async function HomePage() {
             </Link>
           </p>
         </Reveal>
-        <RevealGroup className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5" itemClassName="h-full" step={0.05} base={0.1}>
+        <RevealGroup className="mt-10 -mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-4 md:gap-5 md:overflow-visible md:px-0 md:pb-0" itemClassName="h-full w-[78%] shrink-0 snap-start sm:w-[48%] md:w-auto" step={0.05} base={0.1}>
           {[
             ...live.map((p, i) => <ProductCard key={p.sku} product={p} cert={certById.get(p.certId ?? "")} priority={i < 2} />),
             ...sorted.filter((c) => c.status !== "live").map((c) => <ComingSoonTile key={c.slug} category={c} compact photo={leadFor(c.slug)?.photo ?? null} />),
@@ -171,7 +171,7 @@ export default async function HomePage() {
           <Reveal>
             <h2 className="t-section text-forest">Certified to disappear.</h2>
             <p className="mt-4 max-w-[48ch] text-[17px] leading-7 text-forest/85">{claims.whyParagraph}</p>
-            <ul className="mt-9 grid grid-cols-2 gap-x-6 gap-y-8">
+            <ul className="mt-9 grid gap-x-6 gap-y-6 sm:grid-cols-2 sm:gap-y-8">
               {facts.map(([icon, title, text]) => (
                 <li key={title} className="flex items-center gap-4">
                   <Circle>{icon}</Circle>
