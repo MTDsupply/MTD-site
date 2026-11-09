@@ -102,10 +102,10 @@ export default async function HomePage() {
       {/* 1. Hero: the cups on a mint backdrop, copy in the clear right half. */}
       <section className="relative isolate overflow-hidden bg-[#b9e2b4] text-forest">
         <div className="relative aspect-[4/3] w-full sm:aspect-[16/10] md:hidden">
-          <Image src="/hero-banner.jpg" alt={heroAlt} fill priority sizes="100vw" className="object-cover object-left" />
+          <Image src="/hero-banner.jpg" alt={heroAlt} fill priority fetchPriority="high" sizes="100vw" className="object-cover object-left" />
         </div>
         <div className="relative md:aspect-[2688/1520] md:max-h-[720px] md:min-h-[540px] md:w-full">
-          <Image src="/hero-banner.jpg" alt={heroAlt} fill priority sizes="100vw" className="hidden object-cover object-left md:block" />
+          <Image src="/hero-banner.jpg" alt={heroAlt} fill priority fetchPriority="high" sizes="100vw" className="hidden object-cover object-left md:block" />
           <div className="relative mx-auto flex h-full max-w-7xl px-4 md:justify-end">
             <div className="w-full py-10 md:flex md:w-[46%] md:flex-col md:justify-center md:py-12 md:pl-6 lg:pl-10">
               <Reveal>
@@ -159,7 +159,7 @@ export default async function HomePage() {
         </Reveal>
         <RevealGroup className="mt-10 -mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-4 md:gap-5 md:overflow-visible md:px-0 md:pb-0" itemClassName="h-full w-[78%] shrink-0 snap-start sm:w-[48%] md:w-auto" step={0.05} base={0.1}>
           {[
-            ...live.map((p, i) => <ProductCard key={p.sku} product={p} cert={certById.get(p.certId ?? "")} priority={i < 2} />),
+            ...live.map((p) => <ProductCard key={p.sku} product={p} cert={certById.get(p.certId ?? "")} />),
             ...sorted.filter((c) => c.status !== "live").map((c) => <ComingSoonTile key={c.slug} category={c} compact photo={leadFor(c.slug)?.photo ?? null} />),
           ]}
         </RevealGroup>

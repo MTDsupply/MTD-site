@@ -1,17 +1,18 @@
 "use client";
-import { motion, useReducedMotion } from "motion/react";
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 
-/** Soft page transition: content fades and settles on every navigation. */
+/*
+ * Soft page transition on client-side navigations only. The first load renders
+ * fully visible on the server, so nothing waits for JavaScript before it paints;
+ * later navigations mount a fresh Template (Next remounts it per route) and get
+ * the CSS fade. `navigated` lives on the client module, so the server never sets it.
+ */
+let navigated = false;
+
 export default function Template({ children }: { children: ReactNode }) {
-  const reduced = useReducedMotion();
-  return (
-    <motion.div
-      initial={reduced ? false : { opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-    >
-      {children}
-    </motion.div>
-  );
+  const animate = navigated;
+  useEffect(() => {
+    navigated = true;
+  }, []);
+  return <div className={animate ? "page-in" : undefined}>{children}</div>;
 }

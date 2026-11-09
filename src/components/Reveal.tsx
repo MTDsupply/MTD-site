@@ -1,10 +1,12 @@
 "use client";
-import { motion, useReducedMotion } from "motion/react";
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode, type RefObject } from "react";
 
-const EASE = [0.16, 1, 0.3, 1] as const;
-
-/** Fades and rises content into view once, as the hiker reaches it. */
+/*
+ * Fades and rises content into view once, with no JavaScript in the critical
+ * path: the server renders everything visible, and only elements that are below
+ * the first screen when the page hydrates are hidden and then revealed by an
+ * IntersectionObserver through two CSS classes (see .reveal-hidden in globals.css).
+ */
 export function Reveal({
   children,
   delay = 0,
@@ -18,16 +20,31 @@ export function Reveal({
   y?: number;
   as?: "div" | "section" | "li" | "article";
 }) {
-  const reduced = useReducedMotion();
-  const Tag = motion[as];
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Already on screen: leave it exactly as painted.
+    if (el.getBoundingClientRect().top < window.innerHeight * 0.92) return;
+    el.style.setProperty("--reveal-y", `${y}px`);
+    el.style.setProperty("--reveal-delay", `${delay}s`);
+    el.classList.add("reveal-hidden");
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          el.classList.add("reveal-in");
+          io.disconnect();
+        }
+      },
+      { rootMargin: "0px 0px -12% 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [delay, y]);
+  const Tag = as as "div";
   return (
-    <Tag
-      className={className}
-      initial={reduced ? false : { opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "0px 0px -12% 0px" }}
-      transition={{ duration: 0.8, ease: EASE, delay }}
-    >
+    <Tag ref={ref as RefObject<HTMLDivElement>} className={className || undefined}>
       {children}
     </Tag>
   );

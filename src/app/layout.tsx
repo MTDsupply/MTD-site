@@ -33,6 +33,7 @@ const jetbrains = JetBrains_Mono({
   weight: ["400", "500"],
   variable: "--font-jetbrains",
   display: "swap",
+  preload: false, // SKUs only, below the fold; keeps it out of the critical font set
 });
 
 const inter = Inter({

@@ -2,11 +2,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import type { Category } from "@/lib/catalog/types";
 import { restockNote } from "@/lib/site";
 
-const EASE = [0.16, 1, 0.3, 1] as const;
 
 function NavLink({ href, active, children }: { href: string; active: boolean; children: React.ReactNode }) {
   return (
@@ -32,7 +30,6 @@ export function Nav({ categories }: { categories: Category[] }) {
   const [mega, setMega] = useState(false);
   const megaRef = useRef<HTMLLIElement>(null);
   const pathname = usePathname();
-  const reduced = useReducedMotion();
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -120,15 +117,10 @@ export function Nav({ categories }: { categories: Category[] }) {
                 }`}
               />
             </button>
-            <AnimatePresence>
-              {mega ? (
-                <motion.div
+            {mega ? (
+                <div
                   id="mega-products"
-                  initial={reduced ? false : { opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 6, transition: { duration: 0.15 } }}
-                  transition={{ duration: 0.3, ease: EASE }}
-                  className="absolute left-0 top-full z-40 w-[600px] rounded-[20px] bg-white p-5 text-soil shadow-[0_28px_48px_-24px_rgba(46,77,52,0.45)]"
+                  className="menu-in absolute left-0 top-full z-40 w-[600px] rounded-[20px] bg-white p-5 text-soil shadow-[0_28px_48px_-24px_rgba(46,77,52,0.45)]"
                 >
                   <div className="grid grid-cols-2 gap-x-6 gap-y-0.5">
                     {categories.map((c) => {
@@ -161,9 +153,8 @@ export function Nav({ categories }: { categories: Category[] }) {
                       Quick order by SKU
                     </Link>
                   </div>
-                </motion.div>
+                </div>
               ) : null}
-            </AnimatePresence>
           </li>
           {items}
         </ul>
@@ -179,15 +170,10 @@ export function Nav({ categories }: { categories: Category[] }) {
       >
         {open ? "Close" : "Menu"}
       </button>
-      <AnimatePresence>
-        {open ? (
-          <motion.div
+      {open ? (
+          <div
             id="mobile-nav"
-            initial={reduced ? false : { opacity: 0, y: -6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6, transition: { duration: 0.15 } }}
-            transition={{ duration: 0.25, ease: EASE }}
-            className="absolute inset-x-0 top-full z-40 rounded-b-[20px] bg-white px-4 py-3 text-soil shadow-[0_28px_48px_-24px_rgba(46,77,52,0.45)] md:hidden"
+            className="menu-in absolute inset-x-0 top-full z-40 rounded-b-[20px] bg-white px-4 py-3 text-soil shadow-[0_28px_48px_-24px_rgba(46,77,52,0.45)] md:hidden"
           >
             <nav aria-label="Mobile">
               <p className="t-label px-3 pb-1 pt-2 text-forest">Products</p>
@@ -239,9 +225,8 @@ export function Nav({ categories }: { categories: Category[] }) {
                 </li>
               </ul>
             </nav>
-          </motion.div>
+          </div>
         ) : null}
-      </AnimatePresence>
     </>
   );
 }
