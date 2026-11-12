@@ -25,7 +25,7 @@ export default function TermsPage() {
         </section>
         <section>
           <h2 className="t-card">Product claims</h2>
-          <p>Our products are made from 100% certified home-compostable material, certified by TÜV Austria for each specific SKU. Certificates are listed on our <Link className="link" href="/certifications">certifications page</Link>. Composting times depend on your compost conditions.</p>
+          <p>Our products are made from 100% certified home-compostable material, certified by TÜV Austria. Certificates are listed on our <Link className="link" href="/certifications">certifications page</Link>. Composting times depend on your compost conditions.</p>
         </section>
         <section>
           <h2 className="t-card">Liability</h2>

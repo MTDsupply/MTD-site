@@ -8,9 +8,9 @@ import { pageMeta, breadcrumbLd, faqLd } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 
 export const metadata = pageMeta({
-  title: "Certifications · TÜV Austria home-compostable, per SKU",
+  title: "Certifications · TÜV Austria home-compostable",
   description:
-    "Every certificate behind the claim: the certifier, the SKU it covers and the certificate itself, for each hot cup and lid. What home-compostable certification tests, and why we certify per product rather than per range.",
+    "Every certificate behind the claim: the certifier and the certificate itself, for each hot cup and lid. What home-compostable certification tests.",
   path: "/certifications",
 });
 
@@ -22,10 +22,6 @@ const FAQ: [string, string][] = [
   [
     "Is home-compostable the same as compostable?",
     "No. Most compostable certifications assume an industrial facility running hot. Home-compostable certification tests at the lower temperatures of a backyard pile, which is the only kind of composting most people have. Our products are certified home-compostable.",
-  ],
-  [
-    "Why certify per SKU?",
-    "A certificate for the 16 oz cup covers the 16 oz cup. Certifying each product separately means every claim on this site points to a specific row on this page, not to a range or a material in general.",
   ],
 ];
 
@@ -106,7 +102,7 @@ export default async function CertificationsPage() {
       <Reveal as="section" className="max-w-2xl space-y-3 rounded-[20px] bg-cream p-6 text-sm text-soil/80">
         <h2 className="t-heading">What the certificate means</h2>
         <p>
-          Home-compostable certification from {site.certifier} covers the material each product is made from: disintegration and breakdown in a home compost pile at ambient temperature, plus checks for harmful residues. We certify per SKU, so a certificate for the 16 oz cup covers the 16 oz cup.
+          Home-compostable certification from {site.certifier} covers the material each product is made from: disintegration and breakdown in a home compost pile at ambient temperature, plus checks for harmful residues.
         </p>
         <p>
           Our cups have no plastic lining. The lining is PHA, a material made by fermentation, and the certified material includes that lining.

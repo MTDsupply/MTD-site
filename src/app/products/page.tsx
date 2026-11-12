@@ -9,7 +9,7 @@ import { JsonLd } from "@/components/JsonLd";
 export const metadata = pageMeta({
   title: "Compostable hot cups and lids · the catalogue",
   description:
-    "Every hot cup and lid we make: 8, 12 and 16 oz PHA-lined paper cups and the one lid that fits all three, all 100% certified home-compostable material (TÜV Austria, per SKU). Packs of 100 to 500 or cases of 1,000, CAD pricing shown.",
+    "Every hot cup and lid we make: 8, 12 and 16 oz PHA-lined paper cups and the one lid that fits all three, all 100% certified home-compostable material (TÜV Austria). Packs of 100 to 500 or cases of 1,000, CAD pricing shown.",
   path: "/products",
 });
 

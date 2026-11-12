@@ -23,7 +23,7 @@ export async function GET() {
   const lines: string[] = [
     `# ${site.name}`,
     "",
-    `> ${site.name} is a foodservice disposables supplier in ${site.city}, ${site.province}, ${site.country}. It sells hot cups and lids made from 100% certified home-compostable material, certified by ${site.certifier} per SKU, by the case to cafés and other businesses and in packs of 100 to 500 to anyone. Cup Casa, the café cup brand, is a product line of ${site.name}.`,
+    `> ${site.name} is a foodservice disposables supplier in ${site.city}, ${site.province}, ${site.country}. It sells hot cups and lids made from 100% certified home-compostable material, certified by ${site.certifier}, by the case to cafés and other businesses and in packs of 100 to 500 to anyone. Cup Casa, the café cup brand, is a product line of ${site.name}.`,
     "",
     claims.certLine,
     "",
@@ -64,7 +64,7 @@ export async function GET() {
     `- [Products](${base}/products): the full catalogue with search and filters.`,
     `- [Business accounts](${base}/business): case pricing table, volume pricing, net-30, quote and sample pack requests.`,
     `- [Custom printing](${base}/custom-printing): your logo on the same certified cup, from 100 cases.`,
-    `- [Certifications](${base}/certifications): the certifier, the SKU covered and the certificate for every product.`,
+    `- [Certifications](${base}/certifications): the certifier and the certificate for every product.`,
     `- [What's in your cup](${base}/whats-in-your-cup): paper outside, PHA inside; how PHA compares to PLA, water-based coatings and conventional plastic; the two questions to ask any cup supplier.`,
     `- [How to compost it](${base}/compost): the four steps and the questions we get asked.`,
     `- [Learn](${base}/learn): sourced explainers on cup linings.`,

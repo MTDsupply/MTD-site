@@ -20,7 +20,7 @@ export function abs(path: string): string {
 
 /** The default description used on the home page and as the site-wide fallback. */
 export const SITE_DESCRIPTION =
-  "Hot cups and lids made from 100% certified home-compostable material, certified by TÜV Austria per SKU. PHA-lined paper, no microplastics. Cases of 1,000 for cafés, packs of 100 to 500 for everyone. Ships from Victoria, BC across Canada and the US.";
+  "Hot cups and lids made from 100% certified home-compostable material, certified by TÜV Austria. PHA-lined paper, no microplastics. Cases of 1,000 for cafés, packs of 100 to 500 for everyone. Ships from Victoria, BC across Canada and the US.";
 
 /**
  * Per-page metadata with a canonical URL and a complete Open Graph block.
@@ -296,7 +296,7 @@ export function productLd(p: Product, cert: Cert | undefined, category: Category
     mpn: p.sku,
     url,
     ...(images.length ? { image: images } : {}),
-    description: `${p.name}, ${p.material}. ${p.size}. Made from 100% certified home-compostable material, certified by ${site.certifier} for this SKU. Sold in packs of ${units
+    description: `${p.name}, ${p.material}. ${p.size}. Made from 100% certified home-compostable material, certified by ${site.certifier}. Sold in packs of ${units
       .filter((u) => u.kind === "pack")
       .map((u) => u.count)
       .join(", ")} and cases of ${p.caseCount.toLocaleString("en-CA")}.`,

@@ -193,7 +193,7 @@ export default async function LearnArticlePage({ params }: { params: Promise<{ s
           <div className="band-mint mt-14 grid gap-6 rounded-[24px] px-6 py-8 md:grid-cols-[1fr_auto] md:items-center md:px-10">
             <div>
               <h2 className="t-page text-forest">See the certificate, not the logo.</h2>
-              <p className="mt-2 text-forest/80">Every SKU we sell is PHA lined and certified home compostable by {site.certifier}, as the finished cup.</p>
+              <p className="mt-2 text-forest/80">Everything we sell is PHA lined and certified home compostable by {site.certifier}, as the finished cup.</p>
             </div>
             <div className="flex flex-wrap gap-3">
               <Link href="/certifications" className="btn btn-primary">

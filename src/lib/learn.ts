@@ -125,7 +125,7 @@ export const ARTICLES: Article[] = [
           rows: [
             ["Made by", "Bacteria, inside the cell; used as made", "Fermented lactic acid, then polymerised in a reactor"],
             ["Industrial compost (58 °C)", "Yes", "Yes"],
-            ["Home compost (garden temperature)", "Yes, certified per SKU", "No. Did not break down in the 2018 comparison"],
+            ["Home compost (garden temperature)", "Yes, certified", "No. Did not break down in the 2018 comparison"],
             ["Soil and water", "PHB broke down in every condition tested", "Did not meet the soil or water standards"],
             ["What it needs", "Microbes, air, moisture", "Sustained heat first, then microbes"],
             ["If it misses the facility", "Composts anyway", "Persists"],
@@ -155,7 +155,7 @@ export const ARTICLES: Article[] = [
       ["Is PHA better than PLA?", "For a cup that may not reach an industrial facility, yes. PHA is certified to break down in a home compost pile and breaks down in soil and water; PLA needs sustained industrial heat. PLA is cheaper and stiffer, which is why it is common."],
       ["Do PLA cups release microplastics?", "Yes. Peer-reviewed studies in 2023 and 2026 measured more plastic particles released from PLA-lined cups into hot drinks than from polyethylene-lined cups."],
       ["Are PHA and PLA both bioplastics?", "Both are made from renewable feedstocks and both are polymers, so both are bioplastics in the loose sense. They are different materials with different end-of-life behaviour, and the word bioplastic tells you nothing about where either one composts."],
-      [`Are Made to Disappear cups PHA or PLA?`, `PHA. The paper cup is lined with PHA and the lid is PHA. Each SKU is certified home compostable by ${site.certifier}.`],
+      [`Are Made to Disappear cups PHA or PLA?`, `PHA. The paper cup is lined with PHA and the lid is PHA. Certified home compostable by ${site.certifier}.`],
     ],
     sources: ["tuvCompare", "tuvHome", "narancic", "meereboer", "yang", "shi", "ranjan"],
     related: ["what-is-pha", "what-is-pla", "home-compostable-vs-industrial-compostable"],
@@ -212,7 +212,7 @@ export const ARTICLES: Article[] = [
             ["Polymer", "Polyhydroxyalkanoate, made by bacteria", "Acrylic, styrene-acrylic or polyolefin latex"],
             ["How it is applied", "Extrusion coated or dispersion coated", "Dispersion coated from water"],
             ["Plastic under EU rules", "Yes (industrially fermented polymer)", "Yes (synthetic polymer coating)"],
-            ["Breaks down in home compost", "Yes, certified per SKU", "Only if the polymer itself was tested and passed; often excused as <1%"],
+            ["Breaks down in home compost", "Yes, certified", "Only if the polymer itself was tested and passed; often excused as <1%"],
             ["What is left after composting", "Carbon dioxide, water, biomass", "Polymer flakes if the film does not biodegrade"],
             ["Honest label", "PHA lined, home compostable, no microplastics", "Water-based coating; ask for the polymer"],
           ],
@@ -223,9 +223,9 @@ export const ARTICLES: Article[] = [
         list: [
           "**What polymer is the coating?** If the supplier cannot name it, or says water-based or proprietary, treat it as acrylic until shown otherwise.",
           "**Was the coating polymer itself tested for biodegradation, or excused as a minor constituent?** Ask for the certificate and the test scope, not the logo.",
-          "**Does the certificate cover the finished cup, home composting and this exact SKU?** A material certificate for the board is not a certificate for the cup.",
+          "**Does the certificate cover the finished cup and home composting?** A material certificate for the board is not a certificate for the cup.",
         ],
-        p: [`We answer all three for every SKU on our [certifications page](/certifications): PHA, tested as the finished cup, certified home compostable by ${site.certifier}.`],
+        p: [`We answer all three on our [certifications page](/certifications): PHA, tested as the finished cup, certified home compostable by ${site.certifier}.`],
       },
     ],
     faq: [
@@ -279,13 +279,13 @@ export const ARTICLES: Article[] = [
         p: [
           "A lining has three jobs: keep liquid out of the board, survive the drink's temperature, and heat-seal the side seam and base. PHA does all three. The grades used for cups soften at a higher temperature than a hot coffee, and they seal on standard cup-forming machines.",
           "It is more expensive than PE or PLA, both per kilogram and because volumes are smaller. That is the honest reason most cups are not lined with it, and the reason a PHA cup costs a few cents more.",
-          `Our cups are paper with a PHA lining and the lid is PHA. Each SKU is certified home compostable by ${site.certifier}, as the finished item. The certificates are on the [certifications page](/certifications).`,
+          `Our cups are paper with a PHA lining and the lid is PHA. Certified home compostable by ${site.certifier}, as the finished item. The certificates are on the [certifications page](/certifications).`,
         ],
       },
     ],
     faq: [
       ["What does PHA stand for?", "Polyhydroxyalkanoate: a family of polyesters that bacteria make inside their cells as an energy store. PHB and PHBV are the most common members."],
-      ["Is PHA home compostable?", "PHA as a material breaks down in soil, water and compost at ambient temperatures. Whether a specific cup is home compostable depends on the whole cup being tested; ours are certified per SKU."],
+      ["Is PHA home compostable?", "PHA as a material breaks down in soil, water and compost at ambient temperatures. Whether a specific cup is home compostable depends on the whole cup being tested; ours are certified."],
       ["Is PHA made from petroleum?", "No. It is grown by fermentation from carbon sources such as sugars, plant oils or methane, depending on the producer, and is the polymer as the cell made it."],
       ["Does PHA release microplastics?", "Any lining can shed particles. A PHA particle is digested by the same microbes that break down the cup; a PE or PLA particle persists. That is the difference the microplastics question turns on."],
       ["Why don't all cups use PHA?", "Cost and supply. PHA is newer at scale and costs more per kilogram than PE or PLA."],
@@ -395,7 +395,7 @@ export const ARTICLES: Article[] = [
           "**Ask whether the coating was tested or excused.** The certificate scope will say whether the finished cup was tested and which constituents were exempt.",
           "**Match the claim to the stream your cups actually enter.** A recyclable cup in a city with no cup recycling is waste. A home compostable cup composts wherever the customer takes it.",
         ],
-        p: [`Our answer is on every SKU: paper with a PHA lining, tested as the finished cup, certified home compostable by ${site.certifier}. See the [comparison with PHA](/learn/pha-vs-water-based-coatings) for the side-by-side.`],
+        p: [`Our answer: paper with a PHA lining, tested as the finished cup, certified home compostable by ${site.certifier}. See the [comparison with PHA](/learn/pha-vs-water-based-coatings) for the side-by-side.`],
       },
     ],
     faq: [
@@ -456,8 +456,8 @@ export const ARTICLES: Article[] = [
       {
         h: "Material certificate versus product certificate",
         p: [
-          "A second gap: a certificate can cover a raw material (a resin, a board) or a finished item (this cup, this lid). Converting board into a cup adds a seam, an adhesive, print and sometimes a different coating weight. A material certificate does not travel to the cup automatically. Ask whether the certificate names the finished SKU.",
-          `Ours do. Each Made to Disappear SKU is certified home compostable by ${site.certifier} as the finished item, and the certificates are listed on the [certifications page](/certifications). [How to compost it](/compost) covers what to do with the cup at home.`,
+          "A second gap: a certificate can cover a raw material (a resin, a board) or a finished item (this cup, this lid). Converting board into a cup adds a seam, an adhesive, print and sometimes a different coating weight. A material certificate does not travel to the cup automatically. Ask whether the certificate names the finished item.",
+          `Ours do. Our cups and lids are certified home compostable by ${site.certifier} as the finished item, and the certificates are listed on the [certifications page](/certifications). [How to compost it](/compost) covers what to do with the cup at home.`,
         ],
       },
     ],

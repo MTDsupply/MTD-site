@@ -7,7 +7,7 @@ import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
   title: `About us · ${site.city}, ${site.province}`,
-  description: `${site.name} is a foodservice disposables supplier in ${site.city}, ${site.province}, founded by Sullivan Bryan and Jack Hill. We make hot cups and lids from 100% certified home-compostable material, certified by TÜV Austria per SKU, and Cup Casa is our café cup brand.`,
+  description: `${site.name} is a foodservice disposables supplier in ${site.city}, ${site.province}, founded by Sullivan Bryan and Jack Hill. We make hot cups and lids from 100% certified home-compostable material, certified by TÜV Austria, and Cup Casa is our café cup brand.`,
   path: "/about",
 });
 
@@ -24,7 +24,7 @@ export default function AboutPage() {
       <Reveal as="section" className="mt-10 space-y-4 text-base text-soil/85">
         <h2 className="t-heading">Who</h2>
         <p>
-          Made to Disappear is a foodservice disposables supplier based in {site.city}, {site.province}. We make cups and lids from 100% certified home-compostable material, certified by TÜV Austria per SKU, and sell them by the case to businesses and in smaller packs to anyone else.
+          Made to Disappear is a foodservice disposables supplier based in {site.city}, {site.province}. We make cups and lids from 100% certified home-compostable material, certified by TÜV Austria, and sell them by the case to businesses and in smaller packs to anyone else.
         </p>
         <p>
           Cup Casa, the café cup brand, is a product line of Made to Disappear. If you have seen a Cup Casa cup, you have seen one of ours.

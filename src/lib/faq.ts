@@ -27,7 +27,7 @@ export function homeFaq(catalog: Catalog): [string, string][] {
   return [
     [
       "Are these cups compostable at home?",
-      `Yes. The cups and the lid are made from 100% certified home-compostable material, certified by ${site.certifier} for each SKU. Home-compostable material breaks down in a home compost pile at ambient temperature, so the whole cup, lining included, goes in with the food scraps.`,
+      `Yes. The cups and the lid are made from 100% certified home-compostable material, certified by ${site.certifier}. Home-compostable material breaks down in a home compost pile at ambient temperature, so the whole cup, lining included, goes in with the food scraps.`,
     ],
     [
       "What is the cup lined with?",
@@ -83,7 +83,7 @@ export function productFaq(p: Product, catalog: Catalog): [string, string][] {
   out.push([`How much does the ${p.name} cost?`, price]);
   out.push([
     `Can the ${p.name} go in a home compost pile?`,
-    `Yes. It is made from 100% certified home-compostable material, certified by ${site.certifier} for ${p.sku}. Tear it up, bury it in the pile with food scraps and turn the pile as usual.`,
+    `Yes. It is made from 100% certified home-compostable material, certified by ${site.certifier}. Tear it up, bury it in the pile with food scraps and turn the pile as usual.`,
   ]);
   if (cat) out.push([`What is the ${p.name} made of?`, `${p.material}.${p.specs.lining ? ` The lining is ${p.specs.lining}, made by fermentation, not a plastic film.` : ""} No microplastics.`]);
   return out;

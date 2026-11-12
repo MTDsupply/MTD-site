@@ -12,7 +12,7 @@ import { bulkCasePrice, BULK_MIN_UNITS } from "@/lib/pricing";
 export const metadata = pageMeta({
   title: "Wholesale compostable cups for cafés · case pricing and net-30",
   description:
-    "Case pricing on every hot cup and lid, a lower volume price from 10,000 units, net-30 on approval, sample packs and custom printing. 100% certified home-compostable material (TÜV Austria, per SKU), shipped from Victoria, BC across Canada and the US.",
+    "Case pricing on every hot cup and lid, a lower volume price from 10,000 units, net-30 on approval, sample packs and custom printing. 100% certified home-compostable material (TÜV Austria), shipped from Victoria, BC across Canada and the US.",
   path: "/business",
 });
 
@@ -34,7 +34,7 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
             <p className="t-label text-cream/70">Business accounts</p>
             <h1 className="t-section mt-3 text-cream">Supply for cafés, restaurants, caterers and events.</h1>
             <p className="mt-4 max-w-[52ch] text-[17px] leading-7 text-paper/85">
-              One supplier for the whole range, certified per SKU, shipping across North America. Case pricing below, and a lower volume price on every case once an order reaches {count(BULK_MIN_UNITS)} units. Approved accounts get net-30.
+              One supplier for the whole range, certified, shipping across North America. Case pricing below, and a lower volume price on every case once an order reaches {count(BULK_MIN_UNITS)} units. Approved accounts get net-30.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a href="#quote" className="btn btn-paper">

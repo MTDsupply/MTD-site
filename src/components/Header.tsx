@@ -38,7 +38,7 @@ export async function Header() {
     { kind: "page" as const, title: "Business pricing", detail: "Case prices, net-30 on approval, bulk quotes.", href: "/business", keywords: "wholesale case prices quote net 30 bulk cafe restaurant" },
     { kind: "page" as const, title: "Sample pack", detail: "Free for verified cafés. Try each size before you order a case.", href: "/business?kind=sample#quote", keywords: "samples trial try free" },
     { kind: "page" as const, title: "Custom printing", detail: "Your logo on the cup, from 100 cases.", href: "/custom-printing", keywords: "branded logo print printed" },
-    { kind: "page" as const, title: "Certifications", detail: "Every certificate, per SKU.", href: "/certifications", keywords: "tuv austria certified certificate compostable proof" },
+    { kind: "page" as const, title: "Certifications", detail: "Every certificate.", href: "/certifications", keywords: "tuv austria certified certificate compostable proof" },
     { kind: "page" as const, title: "What's in your cup", detail: "Paper outside, PHA inside. How the linings compare.", href: "/whats-in-your-cup", keywords: "pha pla lining material water-based plastic polymer" },
     { kind: "page" as const, title: "PHA vs PLA", detail: "Which lining composts at home, and the microplastics studies.", href: "/learn/pha-vs-pla", keywords: "pla pha compare lining compostable microplastics learn" },
     { kind: "page" as const, title: "PHA vs water-based coatings", detail: "Why plastic-free is not what it sounds like.", href: "/learn/pha-vs-water-based-coatings", keywords: "water-based aqueous dispersion coating plastic-free acrylic learn" },

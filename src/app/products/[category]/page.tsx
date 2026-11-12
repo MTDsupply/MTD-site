@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: PageProps<"/products/[categor
   const seo: Record<string, { title: string; description: string }> = {
     cups: {
       title: `Compostable hot cups · ${sizes.length ? sizes.join(", ").replace(/, ([^,]*)$/, " and $1") : "8, 12 and 16 oz"}, PHA-lined paper`,
-      description: `Paper hot cups lined with PHA instead of plastic, 100% certified home-compostable material (TÜV Austria, per SKU). ${
+      description: `Paper hot cups lined with PHA instead of plastic, 100% certified home-compostable material (TÜV Austria). ${
         live.length ? `From ${money(Math.min(...live.map((p) => p.casePrice)))} per case of 1,000 (${unitMoney(Math.min(...live.map((p) => p.unitPrice)))} a cup) or packs of 100.` : ""
       } Ships from Victoria, BC to Canada and the US.`,
     },

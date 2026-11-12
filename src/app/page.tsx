@@ -74,7 +74,7 @@ export default async function HomePage() {
   ];
 
   const facts: [React.ReactNode, string, string][] = [
-    [<path key="a" d="m5 12 5 5 9-10" />, `Certified by ${site.certifier}`, "Per SKU, not per range"],
+    [<path key="a" d="m5 12 5 5 9-10" />, `Certified by ${site.certifier}`, ""],
     [<path key="b" d="M12 3c4 4 6 7 6 10a6 6 0 0 1-12 0c0-3 2-6 6-10z" />, "No microplastics", "PHA lining made by fermentation"],
     [
       <g key="c">
@@ -143,7 +143,7 @@ export default async function HomePage() {
 
       {/* 2. Claims marquee. */}
       <div className="band-forest">
-        <Marquee items={["100% certified home-compostable material", `Certified by ${site.certifier}, per SKU`, "No microplastics", "PHA lined, not plastic", "Packs of 100 · cases of 1,000", "Ships across Canada and the US"]} />
+        <Marquee items={["100% certified home-compostable material", `Certified by ${site.certifier}`, "No microplastics", "PHA lined, not plastic", "Packs of 100 · cases of 1,000", "Ships across Canada and the US"]} />
       </div>
 
       {/* 3. Shop: every live SKU. */}
@@ -177,7 +177,7 @@ export default async function HomePage() {
                   <Circle>{icon}</Circle>
                   <div>
                     <p className="font-display text-[16px] font-semibold leading-5 text-forest">{title}</p>
-                    <p className="mt-0.5 text-sm text-forest/70">{text}</p>
+                    {text ? <p className="mt-0.5 text-sm text-forest/70">{text}</p> : null}
                   </div>
                 </li>
               ))}
@@ -297,7 +297,7 @@ export default async function HomePage() {
             {[
               ["Serve", "Same cup, same coffee. Hot cups in 8, 12 and 16 oz, and one lid that fits all three."],
               ["Drop it in the home compost", "The PHA lining is made by fermentation, not from plastic, so the whole cup goes in. No sorting, no special bin."],
-              ["It breaks down", `Home-compostable material breaks down in a home compost pile at ambient temperature. Certified by ${site.certifier}, per SKU.`],
+              ["It breaks down", `Home-compostable material breaks down in a home compost pile at ambient temperature. Certified by ${site.certifier}.`],
             ].map(([title, text], i) => (
               <div key={title} className="flex flex-col items-center text-center">
                 <span className="flex h-16 w-16 items-center justify-center rounded-full bg-forest font-display text-[22px] font-bold text-cream tnum">{i + 1}</span>

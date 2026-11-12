@@ -35,7 +35,7 @@ export function emailLayout({ title, bodyHtml, cta }: { title: string; bodyHtml:
     ${cta ? `<p style="margin:22px 0 6px;"><a href="${cta.href}" style="display:inline-block;background:${FOREST};color:${CREAM};text-decoration:none;font-weight:600;font-size:15px;padding:13px 24px;border-radius:999px;">${esc(cta.label)}</a></p>` : ""}
   </td></tr>
   <tr><td style="background:${CREAM};border-radius:0 0 20px 20px;padding:16px 28px 26px;font-size:12px;line-height:18px;color:#6b6b66;">
-    Every product we sell is made from 100% certified home-compostable material, certified by ${esc(site.certifier)} per SKU.<br>
+    Every product we sell is made from 100% certified home-compostable material, certified by ${esc(site.certifier)}.<br>
     ${esc(site.legalName)} · ${esc(site.city)}, ${esc(site.province)}, ${esc(site.country)} · <a href="mailto:${site.email}" style="color:${FOREST};">${site.email}</a>
   </td></tr>
 </table>
