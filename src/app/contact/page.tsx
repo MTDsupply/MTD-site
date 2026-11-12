@@ -5,7 +5,7 @@ import { PageHeader } from "@/components/PageHeader";
 
 export const metadata = pageMeta({
   title: "Contact",
-  description: `Questions about compostable cups, case pricing or an order: email ${site.email} or use the form. Monday to Friday, 8 am to 5 pm Pacific. We reply within one business day.`,
+  description: `Questions about compostable cups, case pricing or an order: email ${site.email} or use the form. Monday to Friday, 8 am to 8 pm Pacific. We reply within one business day.`,
   path: "/contact",
 });
 
@@ -23,7 +23,7 @@ export default function ContactPage() {
                 {site.phone}
               </a>
             ) : (
-              <p className="mt-2 font-display text-2xl font-bold text-white">8 am to 5 pm</p>
+              <p className="mt-2 font-display text-2xl font-bold text-white">8 am to 8 pm</p>
             )}
             <p className="mt-1 text-paper/75">Monday to Friday, Pacific time.</p>
           </div>
