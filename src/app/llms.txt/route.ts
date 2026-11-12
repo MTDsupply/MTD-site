@@ -1,4 +1,5 @@
 import { getCatalog } from "@/lib/catalog/queries";
+import { ARTICLES } from "@/lib/learn";
 import { site, restockNote } from "@/lib/site";
 import { claims } from "@/lib/copy";
 import { SHIPPING } from "@/lib/shipping";
@@ -66,6 +67,8 @@ export async function GET() {
     `- [Certifications](${base}/certifications): the certifier, the SKU covered and the certificate for every product.`,
     `- [What's in your cup](${base}/whats-in-your-cup): paper outside, PHA inside; how PHA compares to PLA, water-based coatings and conventional plastic; the two questions to ask any cup supplier.`,
     `- [How to compost it](${base}/compost): the four steps and the questions we get asked.`,
+    `- [Learn](${base}/learn): sourced explainers on cup linings.`,
+    ...ARTICLES.map((a) => `  - [${a.title}](${base}/learn/${a.slug}): ${a.description}`),
     `- [Shipping and returns](${base}/shipping-returns)`,
     `- [About](${base}/about): founders Sullivan Bryan (Chief Executive Officer) and Jack Hill (President and Chief Operating Officer).`,
     `- [Contact](${base}/contact): ${site.email}${site.phone ? `, ${site.phone}` : ""}.`,

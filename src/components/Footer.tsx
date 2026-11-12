@@ -5,6 +5,7 @@ import { site } from "@/lib/site";
 import { claims } from "@/lib/copy";
 import { NotifyForm } from "./NotifyForm";
 import { Wordmark } from "./Wordmark";
+import { ARTICLES } from "@/lib/learn";
 
 async function copyrightYear(): Promise<number> {
   "use cache";
@@ -23,7 +24,7 @@ export async function Footer() {
         <p className="mt-4 max-w-md text-cream/80">Foodservice essentials. Made to disappear.</p>
       </div>
 
-      <div className="mx-auto grid max-w-7xl gap-8 px-4 pb-8 pt-10 md:grid-cols-4">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 pb-8 pt-10 md:grid-cols-3 lg:grid-cols-5">
         <div>
           <h2 className="t-label">Products</h2>
           <ul className="mt-3 space-y-1.5 text-sm">
@@ -107,6 +108,24 @@ export async function Footer() {
             <li>
               <Link href="/terms" className="hover:underline">
                 Terms of sale
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 className="t-label">Learn</h2>
+          <ul className="mt-3 space-y-1.5 text-sm">
+            {ARTICLES.map((a) => (
+              <li key={a.slug}>
+                <Link href={`/learn/${a.slug}`} className="hover:underline">
+                  {a.slug === "home-compostable-vs-industrial-compostable" ? "Home vs industrial compostable" : a.slug === "pha-vs-water-based-coatings" ? "PHA vs water-based coatings" : a.slug === "pha-vs-pla" ? "PHA vs PLA" : a.slug === "what-is-pha" ? "What is PHA?" : a.slug === "what-is-pla" ? "What is PLA?" : "Water-based coatings"}
+                </Link>
+              </li>
+            ))}
+            <li className="pt-1">
+              <Link href="/learn" className="hover:underline">
+                All explainers
               </Link>
             </li>
           </ul>

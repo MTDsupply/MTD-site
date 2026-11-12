@@ -130,11 +130,21 @@ export default function WhatsInYourCupPage() {
             <p className="mt-4">Both are made from renewable sources, and both get called &ldquo;compostable.&rdquo; The difference is where.</p>
             <p className="mt-3">PLA is made by fermenting plant sugars into lactic acid, then turning that into a plastic. It&rsquo;s designed to break down in industrial composting, where piles run hot for weeks. In a backyard bin, or anywhere cooler, it breaks down very slowly. If your local facility doesn&rsquo;t take compostable cups, a PLA cup usually isn&rsquo;t composted at all.</p>
             <p className="mt-3">PHA is made directly by microbes, and microbes break it down. Our cups are certified to compost at home, so they don&rsquo;t depend on a facility accepting them.</p>
+            <p className="mt-4">
+              <Link href="/learn/pha-vs-pla" className="link font-medium text-forest">
+                Read the full PHA vs PLA comparison, with sources
+              </Link>
+            </p>
           </Reveal>
           <Reveal as="section" className="text-[16px] leading-7 text-soil/85">
             <h3 className="t-heading text-forest">PHA vs water-based coatings</h3>
             <p className="mt-4">&ldquo;Water-based&rdquo; sounds like it should mean natural, but it only describes the method. The polymer is dispersed in water, painted onto the paper, and dried. That polymer could be a compostable material or a conventional plastic.</p>
             <p className="mt-3">Some water-based cups are certified compostable, and some aren&rsquo;t. The only way to know is to ask what the lining is made of and check the certificate. With us, the answer is simple: PHA, certified home-compostable.</p>
+            <p className="mt-4">
+              <Link href="/learn/pha-vs-water-based-coatings" className="link font-medium text-forest">
+                Read the full PHA vs water-based comparison, with sources
+              </Link>
+            </p>
           </Reveal>
         </div>
       </section>

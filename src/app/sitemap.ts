@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getCatalog } from "@/lib/catalog/queries";
 import { site } from "@/lib/site";
+import { ARTICLES } from "@/lib/learn";
 
 type Entry = MetadataRoute.Sitemap[number];
 
@@ -22,6 +23,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     entry("/custom-printing", 0.7, "monthly"),
     entry("/compost", 0.7, "monthly"),
     entry("/whats-in-your-cup", 0.7, "monthly"),
+    entry("/learn", 0.7, "monthly"),
+    ...ARTICLES.map((a) => ({ ...entry(`/learn/${a.slug}`, 0.7, "monthly"), lastModified: new Date(a.updated) })),
     entry("/certifications", 0.8, "monthly"),
     entry("/about", 0.5, "yearly"),
     entry("/contact", 0.5, "yearly"),

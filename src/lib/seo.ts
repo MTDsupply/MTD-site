@@ -153,6 +153,25 @@ export function breadcrumbLd(items: { name: string; path: string }[]) {
   };
 }
 
+/** Article schema for the Learn library: organisation as author and publisher, dates, canonical URL. */
+export function articleLd({ title, description, path, updated, image }: { title: string; description: string; path: string; updated: string; image?: string }) {
+  const org = { "@type": "Organization", name: site.name, url: abs("/") };
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: title,
+    description,
+    url: abs(path),
+    mainEntityOfPage: abs(path),
+    datePublished: updated,
+    dateModified: updated,
+    inLanguage: "en-CA",
+    author: org,
+    publisher: { ...org, logo: { "@type": "ImageObject", url: abs("/logo-wordmark.png") } },
+    ...(image ? { image: abs(image) } : {}),
+  };
+}
+
 export function faqLd(pairs: [string, string][]) {
   return {
     "@context": "https://schema.org",
