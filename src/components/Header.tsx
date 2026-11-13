@@ -92,8 +92,8 @@ export async function Header() {
       <div className="header-surface">
       <div className="mx-auto flex max-w-7xl items-center gap-2 px-4 py-4 md:gap-8">
         <Link href="/" className="shrink-0" aria-label="Made to Disappear home">
-          <Wordmark className="wm-dark h-5" />
-          <Wordmark className="wm-light h-5" variant="white" priority={false} />
+          <Wordmark className="wm-dark h-5 sm:h-6 md:h-7" />
+          <Wordmark className="wm-light h-5 sm:h-6 md:h-7" variant="white" priority={false} />
         </Link>
         <Nav categories={categories} />
         <div className="ml-auto flex items-center gap-2 md:gap-3">
