@@ -82,7 +82,7 @@ export default async function HomePage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4">
-      {/* hero: the headline in its own column, the lineup in the other. Same bone, so it reads as one surface. */}
+      {/* hero: the headline in its own column, the lineup in the other. The lineup is a cut-out (PNG with alpha, shadows kept), so the cups stand on the page itself with no photo plate. */}
       <section className="bleed grid md:min-h-[680px] md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:min-h-[760px]">
         <div className="hero-in order-2 flex flex-col justify-center px-4 py-10 md:order-1 md:py-16 md:pl-[max(16px,calc((100vw-1120px)/2+28px))] md:pr-10">
           <p className="t-label">hot cups and lids · {site.city}, {site.province}</p>
@@ -102,8 +102,8 @@ export default async function HomePage() {
           </div>
           {fromCup != null ? <p className="mt-8 text-[14px] text-stone tnum">from {unitMoney(fromCup)} a cup by the case · packs of 100 for home</p> : null}
         </div>
-        <div className="hero-photo relative order-1 aspect-[4/3] overflow-hidden md:order-2 md:aspect-auto md:min-h-[680px] lg:min-h-[760px] md:pr-[max(16px,calc((100vw-1120px)/2))]">
-          <Image src={v("/hero-lineup.jpg")} alt="The three cup sizes and the lid on a bone backdrop, a fourth cup on its side showing the made to disappear mark on its base" fill priority fetchPriority="high" sizes="(min-width: 768px) 50vw, 100vw" className="object-contain" />
+        <div className="hero-photo relative order-1 aspect-[8/5] overflow-hidden md:order-2 md:aspect-auto md:min-h-[680px] lg:min-h-[760px] md:pr-[max(16px,calc((100vw-1120px)/2))]">
+          <Image src={v("/hero-lineup.png")} alt="The three cup sizes and the lid, with a fourth cup on its side showing the made to disappear mark on its base" fill priority fetchPriority="high" sizes="(min-width: 768px) 50vw, 100vw" className="object-contain" />
         </div>
       </section>
 
