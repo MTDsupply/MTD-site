@@ -8,7 +8,7 @@ export const metadata = pageMeta({ title: "Privacy policy", description: "What w
 export default function PrivacyPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 pb-16">
-      <PageHeader eyebrow="Legal" title="Privacy policy" description="Last updated October 2026." />
+      <PageHeader eyebrow="Legal" title="privacy policy." description="Last updated October 2026." />
       <div className="prose-mtd mt-8 space-y-6 text-[15px] leading-6 text-soil/85">
         <section>
           <h2 className="t-card">What we collect</h2>

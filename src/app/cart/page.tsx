@@ -9,7 +9,7 @@ export default async function CartPage() {
   const products = await getLiveProducts();
   return (
     <div className="mx-auto max-w-7xl px-4 pb-8">
-      <PageHeader eyebrow="Checkout" title="Cart" description="Shipping is shown below. Tax is added at checkout." image="/atmosphere/mist.jpg" />
+      <PageHeader eyebrow="Checkout" title="cart." description="Shipping is shown below. Tax is added at checkout." image="/atmosphere/mist.jpg" />
       <CartView products={products} />
     </div>
   );

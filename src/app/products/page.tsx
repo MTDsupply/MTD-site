@@ -19,7 +19,7 @@ export default async function ProductsPage() {
     <div className="mx-auto max-w-7xl px-4 pb-8">
       <PageHeader
         eyebrow="Catalogue"
-        title="Products"
+        title="products."
         description={`${stockSentence(catalog.categories)} Packs for the house, cases for the business.`}
         image="/atmosphere/dew.jpg"
         imageAlt="Dew on meadow grass at sunrise"

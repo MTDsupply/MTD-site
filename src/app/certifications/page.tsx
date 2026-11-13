@@ -39,7 +39,7 @@ export default async function CertificationsPage() {
     <div className="mx-auto max-w-7xl px-4 pb-8">
       <PageHeader
         eyebrow="Proof"
-        title="Certifications"
+        title="certifications."
         description={`${claims.certLine} Every claim on this site points to a row on this page.`}
         image="/atmosphere/moss.jpg"
         imageAlt="Moss and fern on a forest floor"
@@ -100,7 +100,7 @@ export default async function CertificationsPage() {
         <Atmosphere src="/atmosphere/moss.jpg" alt="Moss and fern on a forest floor" fade="none" parallax={30} className="aspect-[4/3] border border-line" sizes="(min-width: 768px) 40vw, 100vw" />
       </Reveal>
       <Reveal as="section" className="max-w-2xl space-y-3 rounded-[20px] bg-cream p-6 text-sm text-soil/80">
-        <h2 className="t-heading">What the certificate means</h2>
+        <h2 className="t-heading">what the certificate means.</h2>
         <p>
           Home-compostable certification from {site.certifier} covers the material each product is made from: disintegration and breakdown in a home compost pile at ambient temperature, plus checks for harmful residues.
         </p>
@@ -114,7 +114,7 @@ export default async function CertificationsPage() {
       </div>
 
       <section className="mt-12 max-w-3xl">
-        <h2 className="t-heading">Questions about the certification</h2>
+        <h2 className="t-heading">questions about the certification.</h2>
         <div className="mt-3 divide-y divide-line border-y border-line">
           {FAQ.map(([q, a]) => (
             <details key={q} className="group py-3">

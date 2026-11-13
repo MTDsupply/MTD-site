@@ -152,7 +152,7 @@ export default async function LearnArticlePage({ params }: { params: Promise<{ s
         ))}
 
         <Reveal as="section" className="mt-14">
-          <h2 className="t-heading text-forest">Questions</h2>
+          <h2 className="t-heading text-forest">questions.</h2>
           <RevealGroup className="mt-6 space-y-3" step={0.05}>
             {a.faq.map(([q, ans]) => (
               <details key={q} className="group rounded-[18px] bg-cream px-6 py-4">
@@ -169,7 +169,7 @@ export default async function LearnArticlePage({ params }: { params: Promise<{ s
         </Reveal>
 
         <Reveal as="section" className="mt-14">
-          <h2 className="t-heading text-forest">Sources</h2>
+          <h2 className="t-heading text-forest">sources.</h2>
           <ol className="mt-5 list-decimal space-y-3 pl-5 text-[14px] leading-6 text-soil/80">
             {sources.map((s) => (
               <li key={s.id}>
@@ -192,7 +192,7 @@ export default async function LearnArticlePage({ params }: { params: Promise<{ s
         <Reveal>
           <div className="band-mint mt-14 grid gap-6 rounded-[24px] px-6 py-8 md:grid-cols-[1fr_auto] md:items-center md:px-10">
             <div>
-              <h2 className="t-page text-forest">See the certificate, not the logo.</h2>
+              <h2 className="t-page text-forest">see the certificate, not the logo.</h2>
               <p className="mt-2 text-forest/80">Everything we sell is PHA lined and certified home compostable by {site.certifier}, as the finished cup.</p>
             </div>
             <div className="flex flex-wrap gap-3">
@@ -209,7 +209,7 @@ export default async function LearnArticlePage({ params }: { params: Promise<{ s
 
       {related.length ? (
         <section className="mx-auto mt-16 max-w-5xl md:mt-20">
-          <h2 className="t-page text-center text-forest">Keep reading</h2>
+          <h2 className="t-page text-center text-forest">keep reading.</h2>
           <RevealGroup className="mt-8 grid gap-4 md:grid-cols-3" itemClassName="h-full" step={0.06}>
             {related.map((r) => (
               <Link key={r.slug} href={`/learn/${r.slug}`} className="card flex h-full flex-col p-6">

@@ -1,19 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
-import { existsSync } from "node:fs";
-import path from "node:path";
 import { getCatalog } from "@/lib/catalog/queries";
-import { site, stockSentence } from "@/lib/site";
-import { claims } from "@/lib/copy";
-import { ProductCard } from "@/components/ProductCard";
-import { ComingSoonTile } from "@/components/ComingSoonTile";
-import { Reveal, RevealGroup } from "@/components/Reveal";
-import { HeroVideo } from "@/components/scene/HeroVideo";
-import { NotifyForm } from "@/components/NotifyForm";
-import { Marquee } from "@/components/Marquee";
+import { site, stockSentence, restockNoteLower } from "@/lib/site";
+import { CostCalculator } from "@/components/CostCalculator";
 import { PRESS } from "@/components/PressBand";
 import { money, unitMoney, count } from "@/lib/format";
-import { hasVolumeTier, BULK_MIN_UNITS } from "@/lib/pricing";
 import { pageMeta, faqLd, SITE_DESCRIPTION } from "@/lib/seo";
 import { homeFaq } from "@/lib/faq";
 import { JsonLd } from "@/components/JsonLd";
@@ -22,390 +13,219 @@ export const metadata = pageMeta({
   title: `${site.name} · Home-compostable coffee cups and lids`,
   description: SITE_DESCRIPTION,
   path: "/",
+  image: "/hero-bone.jpg",
+  imageAlt: "A paper hot cup and lid on a bone backdrop, a second cup on its side showing the made to disappear mark on its base",
 });
 
-/** Drop `public/hero.mp4` (and optionally `public/film-poster.jpg`) and the film section picks them up. */
-function filmMedia() {
-  const pub = path.join(process.cwd(), "public");
-  const video = existsSync(path.join(pub, "hero.mp4")) ? "/hero.mp4" : "/atmosphere/peaks.mp4";
-  const poster = existsSync(path.join(pub, "film-poster.jpg"))
-    ? "/film-poster.jpg"
-    : existsSync(path.join(pub, "hero-poster.jpg"))
-      ? "/hero-poster.jpg"
-      : "/atmosphere/peaks.jpg";
-  const mobileVideo = existsSync(path.join(pub, "hero-mobile.mp4")) ? "/hero-mobile.mp4" : undefined;
-  return { video, poster, mobileVideo };
-}
+/*
+ * Home page built from the brand card (docs/brand/brand-card-2026-11-12.pdf):
+ * bone ground, ink type in the system Helvetica stack, hairlines between
+ * everything, square images, round buttons only, one primary action per
+ * screen, no shadows, no gradients, nothing that slides. Every section opens
+ * with a small number, a lowercase heading and one line of intro. The only
+ * dark band on the page is the footer.
+ */
 
-/** Outline icon in a forest circle, Bloom-style. */
-function Circle({ children }: { children: React.ReactNode }) {
+function Section({ n, title, intro, children, className = "" }: { n: string; title: string; intro?: string; children: React.ReactNode; className?: string }) {
   return (
-    <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border-[2.5px] border-forest text-forest">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        {children}
-      </svg>
-    </span>
+    <section className={`border-t border-line py-16 md:py-16 ${className}`}>
+      <div className="grid gap-8 md:grid-cols-[160px_1fr] md:gap-12">
+        <p className="t-label pt-2">{n}</p>
+        <div>
+          <h2 className="t-section text-ink">{title}</h2>
+          {intro ? <p className="t-lead mt-4 max-w-[58ch] text-stone">{intro}</p> : null}
+          <div className="mt-10">{children}</div>
+        </div>
+      </div>
+    </section>
   );
 }
 
 export default async function HomePage() {
   const catalog = await getCatalog();
-  const { categories, products, certs } = catalog;
+  const { categories, products } = catalog;
   const faq = homeFaq(catalog);
-  const { video, poster, mobileVideo } = filmMedia();
-  const sorted = [...categories].sort((a, b) => a.sortOrder - b.sortOrder);
-  const certById = new Map(certs.map((c) => [c.id, c]));
   const catBySlug = new Map(categories.map((c) => [c.slug, c]));
-  const live = products
-    .filter((p) => p.status === "live" && catBySlug.get(p.categorySlug)?.status === "live")
-    .sort((a, b) => (catBySlug.get(a.categorySlug)?.sortOrder ?? 9) - (catBySlug.get(b.categorySlug)?.sortOrder ?? 9) || a.sortOrder - b.sortOrder);
-  const leadFor = (slug: string) => products.filter((p) => p.categorySlug === slug).sort((a, b) => a.sortOrder - b.sortOrder)[0];
-  const cup16 = products.find((p) => p.sku === "MTD-CUP-16H");
-  const lid = leadFor("lids");
-  const cheapestCupPack = products.filter((p) => p.categorySlug === "cups").sort((a, b) => a.packPrice - b.packPrice)[0];
+  const live = products.filter((p) => p.status === "live" && catBySlug.get(p.categorySlug)?.status === "live");
+  const cups = live.filter((p) => p.categorySlug === "cups").sort((a, b) => a.sortOrder - b.sortOrder);
+  const lid = live.find((p) => p.categorySlug === "lids") ?? null;
   const press = PRESS[0];
   const restock = categories.some((c) => c.restockWhen);
-  const volume = hasVolumeTier(products);
 
-  const tiles = [
-    { name: "Hot cups", sub: "8, 12 and 16 oz", href: "/products/cups", photo: cup16?.photo ?? null, bg: "bg-mint", cover: false },
-    { name: "Lids", sub: "One lid fits all three", href: "/products/lids", photo: lid?.photo ?? null, bg: "bg-peach", cover: false },
-    { name: "For the café", sub: "Cases, net-30, free samples", href: "/business", photo: "/hero-banner-peach.jpg", bg: "bg-peach-light", cover: true },
-    { name: "Custom printing", sub: "Your logo, from 100 cases", href: "/custom-printing", photo: cup16?.photo ?? null, bg: "bg-butter", cover: false },
+  const range = [
+    ...cups.map((p) => ({ p, use: { "MTD-CUP-8H": "cortado, flat white, a short americano.", "MTD-CUP-12H": "the everyday latte and the house drip.", "MTD-CUP-16H": "large lattes, chai, tea with room." }[p.sku] ?? "" })),
+    ...(lid ? [{ p: lid, use: "one lid for all three sizes." }] : []),
   ];
 
-  const facts: [React.ReactNode, string, string][] = [
-    [<path key="a" d="m5 12 5 5 9-10" />, `Certified by ${site.certifier}`, ""],
-    [<path key="b" d="M12 3c4 4 6 7 6 10a6 6 0 0 1-12 0c0-3 2-6 6-10z" />, "No microplastics", "PHA lining made by fermentation"],
-    [
-      <g key="c">
-        <rect x="3" y="7" width="18" height="13" rx="2" />
-        <path d="M3 11h18M9 7v4" />
-      </g>,
-      "Packs or cases",
-      "100, 200, 500 or 1,000",
-    ],
-    [
-      <g key="d">
-        <path d="M3 13h13l3-5h2v9H3z" />
-        <circle cx="7" cy="18" r="1.5" />
-        <circle cx="17" cy="18" r="1.5" />
-      </g>,
-      "Canada and the US",
-      "By courier, shown before you pay",
-    ],
+  const places: [string, string][] = [
+    ["home compost pile.", "Tear it, bury it with the food scraps, turn the pile as usual. This is what the certificate tests."],
+    ["worm bin or community garden.", "Same material, same microbes. Smaller pieces go faster."],
+    ["industrial facility.", "Anything that composts cold composts hot. Where cups are collected, it goes in the same stream."],
   ];
-
-  const heroAlt = "Three sizes of white paper hot cup and a lid on a mint backdrop, with a latte splash, coffee beans and a fern";
 
   return (
-    <div>
-      {/* 1. Hero: the cups on a mint backdrop, copy in the clear right half. */}
-      <section className="relative isolate overflow-hidden bg-[#b9e2b4] text-forest">
-        <div className="relative aspect-[4/3] w-full sm:aspect-[16/10] md:hidden">
-          <Image src="/hero-banner.jpg" alt={heroAlt} fill priority fetchPriority="high" sizes="100vw" className="object-cover object-left" />
+    <div className="mx-auto max-w-7xl px-4">
+      {/* hero: one object, hard light, the headline beside it. */}
+      <section className="grid items-center gap-10 py-12 md:grid-cols-[1.15fr_1fr] md:gap-16 md:py-24">
+        <div className="relative aspect-[16/10] overflow-hidden bg-card">
+          <Image src="/hero-bone.jpg" alt="A paper hot cup and lid on a bone backdrop, a second cup on its side showing the made to disappear mark on its base" fill priority fetchPriority="high" sizes="(min-width: 768px) 60vw, 100vw" className="object-cover object-left" />
         </div>
-        <div className="relative md:aspect-[2688/1520] md:max-h-[720px] md:min-h-[540px] md:w-full">
-          <Image src="/hero-banner.jpg" alt={heroAlt} fill priority fetchPriority="high" sizes="100vw" className="hidden object-cover object-left md:block" />
-          <div className="relative mx-auto flex h-full max-w-7xl px-4 md:justify-end">
-            <div className="w-full py-10 md:flex md:w-[46%] md:flex-col md:justify-center md:py-12 md:pl-6 lg:pl-10">
-              <Reveal>
-                <span className="sticker -rotate-3 shadow-[0_8px_20px_-10px_rgba(46,77,52,0.5)]">{restock ? stockSentence(categories).replace(/\.$/, "") : "In stock now"}</span>
-              </Reveal>
-              <Reveal delay={0.08}>
-                <h1 className="t-hero mt-5 max-w-[11ch] text-forest">Serve it. Then it disappears.</h1>
-              </Reveal>
-              <Reveal delay={0.16}>
-                <p className="mt-5 max-w-[40ch] text-[17px] leading-7 text-forest/85 md:text-[18px]">
-                  Hot cups and lids made from 100% certified home-compostable material. Cases for the café, packs for the house.
-                </p>
-              </Reveal>
-              <Reveal delay={0.24}>
-                <div className="mt-7 flex flex-wrap items-center gap-3">
-                  <Link href="/products/cups" className="btn btn-primary btn-lg">
-                    Shop cups
-                  </Link>
-                  <Link href="/products/lids" className="btn btn-outline btn-lg">
-                    Shop lids
-                  </Link>
-                </div>
-              </Reveal>
-              <Reveal delay={0.32}>
-                <ul className="mt-7 flex flex-wrap gap-x-5 gap-y-2 font-display text-[13px] font-semibold text-forest/80">
-                  <li>Certified by {site.certifier}</li>
-                  <li>No microplastics</li>
-                  <li className="tnum">From {money(cheapestCupPack?.packPrice ?? 0)} per 100</li>
-                </ul>
-              </Reveal>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. Claims marquee. */}
-      <div className="band-forest">
-        <Marquee items={["100% certified home-compostable material", `Certified by ${site.certifier}`, "No microplastics", "PHA lined, not plastic", "Packs of 100 · cases of 1,000", "Ships across Canada and the US"]} />
-      </div>
-
-      {/* 3. Shop: every live SKU. */}
-      <section className="mx-auto max-w-7xl px-4 pt-16 md:pt-20">
-        <Reveal>
-          <h2 className="t-section text-center text-forest">Shop our best sellers</h2>
-          <p className="mt-3 text-center text-soil/70">
-            {stockSentence(categories)}{" "}
-            <Link href="/products" className="link font-medium">
-              See the full catalogue
+        <div>
+          <p className="t-label">{restock ? stockSentence(categories).replace(/\.$/, "").toLowerCase() : "hot cups and lids, in stock"}</p>
+          <h1 className="t-hero mt-4 text-ink">serve it. then let it go.</h1>
+          <p className="t-lead mt-6 max-w-[40ch] text-ink">Hot cups and lids made from 100% certified home-compostable material. The mark on the base is the whole promise: it goes in the garden pile with the grounds.</p>
+          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <Link href="/products/cups" className="btn btn-primary">
+              order cups
             </Link>
-          </p>
-        </Reveal>
-        <RevealGroup className="mt-10 -mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-4 md:gap-5 md:overflow-visible md:px-0 md:pb-0" itemClassName="h-full w-[78%] shrink-0 snap-start sm:w-[48%] md:w-auto" step={0.05} base={0.1}>
-          {[
-            ...live.map((p) => <ProductCard key={p.sku} product={p} cert={certById.get(p.certId ?? "")} />),
-            ...sorted.filter((c) => c.status !== "live").map((c) => <ComingSoonTile key={c.slug} category={c} compact photo={leadFor(c.slug)?.photo ?? null} />),
-          ]}
-        </RevealGroup>
-      </section>
-
-      {/* 4. Why it disappears: mint block with circled facts and the toast photo. */}
-      <section className="band-mint mt-16 md:mt-24">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-[1.05fr_1fr] md:items-center md:gap-14 md:py-20">
-          <Reveal>
-            <h2 className="t-section text-forest">Certified to disappear.</h2>
-            <p className="mt-4 max-w-[48ch] text-[17px] leading-7 text-forest/85">{claims.whyParagraph}</p>
-            <ul className="mt-9 grid gap-x-6 gap-y-6 sm:grid-cols-2 sm:gap-y-8">
-              {facts.map(([icon, title, text]) => (
-                <li key={title} className="flex items-center gap-4">
-                  <Circle>{icon}</Circle>
-                  <div>
-                    <p className="font-display text-[16px] font-semibold leading-5 text-forest">{title}</p>
-                    {text ? <p className="mt-0.5 text-sm text-forest/70">{text}</p> : null}
-                  </div>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <Link href="/compost" className="btn btn-primary">
-                How it disappears
-              </Link>
-              <Link href="/whats-in-your-cup" className="btn btn-outline">
-                What&rsquo;s in the cup
-              </Link>
-            </div>
-          </Reveal>
-          <Reveal delay={0.12} y={30}>
-            <div className="relative aspect-[4/5] max-h-[640px] overflow-hidden rounded-[24px]">
-              <Image src="/lifestyle-toast.jpg" alt="Two hands toasting with lidded paper hot cups, a third cup on a cream block showing the certification mark on its base" fill sizes="(min-width: 768px) 45vw, 100vw" className="object-cover" />
-            </div>
-          </Reveal>
+            <Link href="/business" className="link text-[15px] font-medium text-ink">
+              wholesale pricing
+            </Link>
+          </div>
+          <dl className="hairline mt-10 max-w-sm border-y border-line text-[14px]">
+            {[
+              ["certified", `${site.certifier}, home compostable`],
+              ["lining", "PHA. No plastic film, no microplastics"],
+              ["heard on", `${press.outlet}, ${press.show}`],
+            ].map(([k, v]) => (
+              <div key={k} className="flex gap-6 py-2.5">
+                <dt className="w-20 shrink-0 text-stone">{k}</dt>
+                <dd className="text-ink">{v}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </section>
 
-      {/* 5. Category tiles. */}
-      <section className="mx-auto max-w-7xl px-4 pt-16 md:pt-24">
-        <Reveal>
-          <h2 className="t-section text-center text-forest">Find your cup.</h2>
-        </Reveal>
-        <RevealGroup className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5" itemClassName="h-full" step={0.06}>
-          {tiles.map((t) => (
-            <Link key={t.name} href={t.href} className="card group flex h-full flex-col overflow-hidden">
-              <div className={`relative aspect-square overflow-hidden ${t.bg} ${t.cover ? "" : "on-cream"}`}>
-                {t.photo ? (
-                  <Image
-                    src={t.photo}
-                    alt=""
-                    fill
-                    sizes="(min-width: 768px) 25vw, 50vw"
-                    className={`${t.cover ? "object-cover object-left" : "object-contain p-4"} transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]`}
-                  />
-                ) : null}
+      {/* 01 the range */}
+      <Section n="01" title="the range." intro="Three hot cups and the one lid that fits all of them. Packs for the house, cases for the business.">
+        <div className="grid grid-cols-2 border-l border-t border-line md:grid-cols-4">
+          {range.map(({ p, use }) => (
+            <Link key={p.sku} href={`/products/${p.categorySlug}/${p.sku.toLowerCase()}`} className="group border-b border-r border-line bg-card transition-colors hover:bg-[#f9f6f0]">
+              <div className="relative aspect-[4/5] overflow-hidden">
+                <Image src={p.photo ?? "/products/MTD-CUP-12H-front.jpg"} alt={p.name} fill sizes="(min-width: 768px) 25vw, 50vw" className="object-cover" />
               </div>
-              <div className="px-4 py-4 text-center">
-                <p className="font-display text-[18px] font-semibold text-forest">{t.name}</p>
-                <p className="mt-0.5 text-sm text-soil/65">{t.sub}</p>
+              <div className="p-4 md:p-5">
+                <div className="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-1">
+                  <h3 className="t-card text-ink">{p.name.toLowerCase()}.</h3>
+                  <span className="sku whitespace-nowrap text-ash">{p.sku}</span>
+                </div>
+                <p className="mt-1 text-[14px] text-stone">{use}</p>
+                <p className="mt-3 text-[14px] text-ink tnum">
+                  {money(p.casePrice)} per {count(p.caseCount)} · {unitMoney(p.unitPrice)} each
+                </p>
+                <span className="chip chip-fog mt-3">{restockNoteLower(p.restockWhen) ?? "in stock"}</span>
               </div>
             </Link>
           ))}
-        </RevealGroup>
-      </section>
-
-      {/* 6. The Inner Harbour study: the photo and a peach block. */}
-      <section className="mt-16 grid md:mt-24 md:grid-cols-2">
-        <div className="relative aspect-[4/3] md:aspect-auto md:min-h-[560px]">
-          <Image src="/inner-harbour.jpg" alt="The founders on the Inner Harbour causeway in Victoria, asking passers-by four questions with a cooler of freezies and a hand-drawn sign" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
-          <div className="absolute bottom-6 left-6 rounded-[14px] bg-white px-4 py-3 shadow-[0_12px_30px_-16px_rgba(46,77,52,0.4)]">
-            <p className="font-display text-[16px] font-semibold text-forest">
-              Inner Harbour, <span className="t-serif-italic font-normal">{site.city}</span>
-            </p>
-            <p className="text-sm text-soil/65">167 coffee drinkers, summer 2026.</p>
-          </div>
         </div>
-        <div className="band-peach flex items-center">
-          <div className="mx-auto max-w-[56ch] px-6 py-14 text-center md:px-12 md:py-20">
-            <h2 className="t-section text-forest">98% said they&rsquo;d pay 15¢ more for this cup.</h2>
-            <p className="mt-6 text-[17px] leading-7 text-forest/85">
-              Before we ordered a single case, we spent a few days on the Inner Harbour with a clipboard and a cooler of freezies, asking 167 coffee drinkers whether they would pay 15¢ more per coffee for a cup with no microplastics that composts at home. 163 said yes.
-            </p>
-            <dl className="mx-auto mt-8 grid max-w-md grid-cols-3 gap-3">
+      </Section>
+
+      {/* 02 what it is made of */}
+      <Section n="02" title="paper outside. PHA inside." intro="Every paper cup has a lining. Ours is PHA, a material microbes make and microbes eat, so the whole cup is certified to break down in a home compost pile.">
+        <div className="grid gap-10 md:grid-cols-[1fr_1fr] md:gap-16">
+          <div className="relative aspect-[16/10] overflow-hidden bg-card">
+            <Image src="/soil-mark.jpg" alt="A paper hot cup half-sunk in dark compost, softened and browning, the made to disappear mark still legible on its base" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover object-right" />
+          </div>
+          <dl className="hairline border-y border-line text-[15px]">
+            {[
+              ["material", "100% certified home-compostable material"],
+              ["certifier", site.certifier],
+              ["lining", "PHA, made by fermentation. Not PLA, not a water-based plastic coating"],
+              ["left behind", "Nothing. No film, no flakes, no microplastics"],
+              ["read more", <Link key="l" href="/whats-in-your-cup" className="link">what&rsquo;s in your cup</Link>],
+            ].map(([k, v]) => (
+              <div key={String(k)} className="flex gap-6 py-3">
+                <dt className="w-28 shrink-0 text-stone">{k}</dt>
+                <dd className="text-ink">{v}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </Section>
+
+      {/* 03 after the coffee */}
+      <Section n="03" title="after the coffee." intro="Serve it. Compost it. Done. An illustration of the sequence, not a timed photograph: how fast it goes depends on the pile.">
+        <figure>
+          <div className="relative aspect-[21/9] overflow-hidden bg-card">
+            <Image src="/breakdown-strip-upright.jpg" alt="Four panels of the same paper cup in a compost pile: standing new, slumped and stained, collapsed to its marked base, and almost gone" fill sizes="(min-width: 1120px) 960px, 100vw" className="object-cover" />
+          </div>
+        </figure>
+        <div className="mt-8 grid border-t border-line md:grid-cols-3">
+          {places.map(([h, t], i) => (
+            <div key={h} className="border-b border-line py-5 md:border-b-0 md:border-r md:pr-6 md:last:border-r-0 md:[&:not(:first-child)]:pl-6">
+              <p className="t-label">0{i + 1}</p>
+              <h3 className="t-card mt-2 text-ink">{h}</h3>
+              <p className="mt-2 text-[15px] text-stone">{t}</p>
+            </div>
+          ))}
+        </div>
+        <p className="mt-6">
+          <Link href="/compost" className="link text-[15px] font-medium text-ink">
+            how to compost it
+          </Link>
+        </p>
+      </Section>
+
+      {/* 04 what it costs */}
+      <Section n="04" title="what it costs." intro="One case price for everyone, whether you order one case or fifty. Put in your numbers.">
+        <CostCalculator cups={cups} lid={lid} />
+      </Section>
+
+      {/* 05 the inner harbour */}
+      <Section n="05" title="98% said they'd pay 15¢ more." intro="Before we ordered a single case we spent a few days on the Inner Harbour with a clipboard and a cooler of freezies, asking 167 coffee drinkers one question.">
+        <div className="grid gap-10 md:grid-cols-[1fr_1fr] md:gap-16">
+          <figure>
+            <div className="relative aspect-[4/3] overflow-hidden bg-card">
+              <Image src="/inner-harbour.jpg" alt="The founders on the Inner Harbour causeway in Victoria, asking passers-by four questions with a cooler of freezies and a hand-drawn sign" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" style={{ filter: "saturate(0.7) contrast(1.02)" }} />
+            </div>
+            <figcaption className="mt-3 text-[13px] text-stone">Inner Harbour, {site.city}. 167 coffee drinkers, summer 2026.</figcaption>
+          </figure>
+          <div>
+            <p className="text-[16px] leading-[1.55] text-ink">Would you pay 15¢ more per coffee for a cup with no microplastics that composts at home? 163 said yes.</p>
+            <dl className="hairline mt-6 border-y border-line">
               {[
-                ["87%", "No microplastics"],
-                ["90%", "Home compostable"],
-                ["98%", "Both"],
-              ].map(([n, label], i) => (
-                <div key={label} className={`rounded-[16px] px-3 py-4 ${i === 2 ? "bg-forest text-cream" : "bg-white/70 text-forest"}`}>
-                  <dt className="order-2 text-[12px] leading-4 opacity-80">{label}</dt>
-                  <dd className="t-serif-italic text-[34px] leading-none tnum">{n}</dd>
+                ["87%", "would pay more for no microplastics"],
+                ["90%", "would pay more for home compostable"],
+                ["98%", "would pay more for both"],
+              ].map(([n, label]) => (
+                <div key={label} className="flex items-baseline gap-6 py-3">
+                  <dd className="w-[4ch] text-[32px] font-bold leading-none tracking-[-0.02em] text-ink tnum">{n}</dd>
+                  <dt className="text-[15px] text-stone">{label}</dt>
                 </div>
               ))}
             </dl>
-            <p className="mt-3 text-xs text-forest/60">Would pay 15¢ more per coffee. Street survey, 167 respondents, Victoria Inner Harbour, summer 2026.</p>
-            <Link href="/about" className="btn btn-primary btn-lg mt-8">
-              Our story
-            </Link>
+            <p className="mt-6">
+              <Link href="/about" className="link text-[15px] font-medium text-ink">
+                our story
+              </Link>
+            </p>
           </div>
         </div>
-      </section>
+      </Section>
 
-      {/* 7. Press band. */}
-      <section className="band-forest">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-10 gap-y-4 px-4 py-7">
-          <p className="t-label text-cream/70">As heard on</p>
-          <p className="flex flex-wrap items-center gap-3 font-display text-[20px] font-semibold text-cream">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={press.logo} alt="" width={30} height={30} className="h-[30px] w-[30px]" />
-            {press.outlet}
-            <span className="font-normal text-cream/80">
-              ·{" "}
-              {press.href ? (
-                <Link href={press.href} className="underline">
-                  {press.show}
-                </Link>
-              ) : (
-                press.show
-              )}{" "}
-              with {press.host}
-            </span>
-          </p>
-        </div>
-      </section>
-
-      {/* 8. How it disappears + the film. */}
-      <section className="bg-cream">
-        <div className="mx-auto max-w-7xl px-4 py-16 md:py-24">
-          <Reveal>
-            <h2 className="t-section text-center text-forest">Serve it. Compost it. Done.</h2>
-          </Reveal>
-          <RevealGroup className="mx-auto mt-10 grid max-w-5xl gap-6 md:grid-cols-3 md:gap-8" itemClassName="h-full" step={0.08}>
-            {[
-              ["Serve", "Same cup, same coffee. Hot cups in 8, 12 and 16 oz, and one lid that fits all three."],
-              ["Drop it in the home compost", "The PHA lining is made by fermentation, not from plastic, so the whole cup goes in. No sorting, no special bin."],
-              ["It breaks down", `Home-compostable material breaks down in a home compost pile at ambient temperature. Certified by ${site.certifier}.`],
-            ].map(([title, text], i) => (
-              <div key={title} className="flex flex-col items-center text-center">
-                <span className="flex h-16 w-16 items-center justify-center rounded-full bg-forest font-display text-[22px] font-bold text-cream tnum">{i + 1}</span>
-                <h3 className="t-card mt-5 text-forest">{title}</h3>
-                <p className="mt-2 max-w-[34ch] text-sm leading-6 text-soil/70">{text}</p>
-              </div>
-            ))}
-          </RevealGroup>
-          <Reveal delay={0.1}>
-            <div id="film" className="mx-auto mt-12 max-w-5xl scroll-mt-24 overflow-hidden rounded-[24px] shadow-[0_40px_80px_-48px_rgba(46,77,52,0.55)]" data-tone="dark">
-              <HeroVideo poster={poster} video={video} mobileVideo={mobileVideo} />
-            </div>
-            <p className="mt-6 text-center">
-              <Link href="/compost" className="btn btn-outline">
-                The full composting guide
-              </Link>
-            </p>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 9. Business: forest band with the price table. */}
-      <section className="band-forest">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-[1.1fr_1fr] md:items-center md:gap-16 md:py-20">
-          <Reveal>
-            <p className="t-label text-cream/70">Business accounts</p>
-            <h2 className="t-section mt-3 text-cream">Order by the case.</h2>
-            <p className="mt-4 max-w-[48ch] text-[17px] leading-7 text-cream/80">
-              Cafés, restaurants, hotels, caterers and events. Case pricing on every SKU{volume ? <>, a lower volume price from {count(BULK_MIN_UNITS)} units</> : null}, net-30 on approval and one-click reorders from your account.
-            </p>
-            <div className="mt-7 overflow-hidden rounded-[18px] bg-white/10">
-              <table className="w-full text-sm text-cream">
-                <thead>
-                  <tr className="font-display text-[12px] font-semibold uppercase tracking-[0.08em] text-cream/70">
-                    <th className="px-4 py-3 text-left">Product</th>
-                    <th className="px-4 py-3 text-right">Per case</th>
-                    <th className="px-4 py-3 text-right">Per unit</th>
-                    {volume ? <th className="px-4 py-3 text-right">{count(BULK_MIN_UNITS)}+ units</th> : null}
-                  </tr>
-                </thead>
-                <tbody className="tnum">
-                  {live.map((p) => (
-                    <tr key={p.sku} className="border-t border-cream/15">
-                      <td className="px-4 py-3">
-                        {p.name} <span className="sku text-cream/50">{p.sku}</span>
-                      </td>
-                      <td className="px-4 py-3 text-right">{money(p.casePrice)}</td>
-                      <td className="px-4 py-3 text-right">{unitMoney(p.unitPrice)}</td>
-                      {volume ? <td className="px-4 py-3 text-right font-semibold text-butter">{unitMoney(p.bulkUnitPrice ?? p.unitPrice)}</td> : null}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <p className="mt-2 text-xs text-cream/60">Per unit, CAD before tax.{volume ? <> The volume column applies automatically to every case once an order reaches {count(BULK_MIN_UNITS)} units.</> : null}</p>
-            <div className="mt-7 flex flex-wrap gap-3">
-              <Link href="/business#quote" className="btn btn-paper btn-lg">
-                Open a business account
-              </Link>
-              <Link href="/quick-order" className="btn btn-lg border-cream/60 text-cream hover:bg-white/10">
-                Quick order by SKU
-              </Link>
-            </div>
-          </Reveal>
-          <Reveal delay={0.12} y={30}>
-            <div className="relative aspect-[4/5] max-h-[620px] overflow-hidden rounded-[24px]">
-              <Image src="/hero-banner-peach.jpg" alt="Hot cups and a lid on a peach backdrop with a latte pour, a croissant and coffee beans" fill sizes="(min-width: 768px) 45vw, 100vw" className="object-cover object-left" />
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 10. Questions. */}
-      <section className="mx-auto max-w-3xl px-4 pt-16 md:pt-24">
-        <Reveal>
-          <h2 className="t-section text-center text-forest">Asked often.</h2>
-        </Reveal>
-        <RevealGroup className="mt-8 space-y-3" step={0.05}>
+      {/* 06 asked often */}
+      <Section n="06" title="asked often." className="pb-24">
+        <div className="hairline max-w-3xl border-y border-line">
           {faq.map(([q, a]) => (
-            <details key={q} className="group rounded-[18px] bg-cream px-6 py-4">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-[17px] font-semibold text-forest">
-                <h3 className="font-display text-[17px] font-semibold">{q}</h3>
-                <span aria-hidden="true" className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-forest text-cream transition-transform group-open:rotate-45">
-                  +
-                </span>
+            <details key={q} className="group py-4">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[17px] font-medium text-ink">
+                <h3 className="text-[17px] font-medium">{q}</h3>
+                <span aria-hidden="true" className="text-[20px] leading-none text-stone transition-transform group-open:rotate-45">+</span>
               </summary>
-              <p className="mt-3 max-w-[62ch] text-[15px] leading-6 text-soil/80">{a}</p>
+              <p className="mt-3 max-w-[62ch] text-[15px] leading-[1.55] text-stone">{a}</p>
             </details>
           ))}
-        </RevealGroup>
-      </section>
+        </div>
+        <p className="mt-6 text-[15px] text-stone">
+          More on the material in{" "}
+          <Link href="/learn" className="link text-ink">
+            learn
+          </Link>
+          , with sources.
+        </p>
+      </Section>
       <JsonLd data={faqLd(faq)} />
-
-      {/* 11. Keep in touch. */}
-      <section className="mx-auto max-w-7xl px-4 py-16 md:py-24">
-        <Reveal>
-          <div className="band-mint grid gap-6 rounded-[24px] px-6 py-10 md:grid-cols-[1fr_auto] md:items-center md:px-12 md:py-14">
-            <div>
-              <h2 className="t-page text-forest">New products, the day they land.</h2>
-              <p className="mt-2 text-forest/75">One email when something new goes live. Nothing else.</p>
-            </div>
-            <div className="w-full md:w-96">
-              <NotifyForm categorySlug="all" compact buttonLabel="Sign up" />
-            </div>
-          </div>
-        </Reveal>
-      </section>
     </div>
   );
 }

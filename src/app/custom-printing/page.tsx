@@ -23,7 +23,7 @@ export default async function CustomPrintingPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 pb-8">
-      <PageHeader eyebrow="Your mark on the cup" title="Custom printing" description="The same cup, the same certified material, with your logo on the side. From 100 cases." />
+      <PageHeader eyebrow="Your mark on the cup" title="custom printing." description="The same cup, the same certified material, with your logo on the side. From 100 cases." />
 
       <div className="mt-10 grid gap-8 md:grid-cols-[1.1fr_1fr] md:items-center md:gap-12">
         <Reveal>
@@ -34,7 +34,7 @@ export default async function CustomPrintingPage() {
         <div>
           <Reveal>
             <p className="t-label text-forest">How it works</p>
-            <h2 className="t-page mt-2">Send the artwork. We send a proof.</h2>
+            <h2 className="t-page mt-2">send the artwork. we send a proof.</h2>
           </Reveal>
           <RevealGroup className="mt-6 space-y-3" step={0.07}>
             {[
@@ -58,7 +58,7 @@ export default async function CustomPrintingPage() {
       <section id="quote" className="mt-14 scroll-mt-24">
         <Reveal>
           <p className="t-label text-forest">Start a job</p>
-          <h2 className="t-heading mt-2">Request custom printing</h2>
+          <h2 className="t-heading mt-2">request custom printing.</h2>
           <p className="mt-1 max-w-[62ch] text-sm text-soil/70">
             Put the artwork details and the sizes you want in the notes. If you would rather see the plain cups first,{" "}
             <Link href="/business?kind=sample#quote" className="link font-medium">

@@ -20,13 +20,13 @@ export default function LearnIndexPage() {
     <div className="mx-auto max-w-7xl px-4 pb-8">
       <PageHeader
         eyebrow="Learn"
-        title="What your cup is lined with, and what the words mean."
+        title="what your cup is lined with, and what the words mean."
         description={`Short, sourced explainers for café owners and anyone who has wondered what compostable, plant-based and water-based mean on a cup. Written by ${site.name}; every number is cited.`}
       />
 
       <section className="mt-12 md:mt-16">
         <Reveal>
-          <h2 className="t-page text-forest">Comparisons</h2>
+          <h2 className="t-page text-forest">comparisons.</h2>
         </Reveal>
         <RevealGroup className="mt-6 grid gap-4 md:grid-cols-2" itemClassName="h-full" step={0.06}>
           {compare.map((a) => (
@@ -42,7 +42,7 @@ export default function LearnIndexPage() {
 
       <section className="mt-12 md:mt-16">
         <Reveal>
-          <h2 className="t-page text-forest">Deep dives</h2>
+          <h2 className="t-page text-forest">deep dives.</h2>
         </Reveal>
         <RevealGroup className="mt-6 grid gap-4 md:grid-cols-2" itemClassName="h-full" step={0.06}>
           {deep.map((a) => (
@@ -60,7 +60,7 @@ export default function LearnIndexPage() {
         <Reveal>
           <div className="band-mint grid gap-6 rounded-[24px] px-6 py-8 md:grid-cols-[1fr_auto] md:items-center md:px-10">
             <div>
-              <h2 className="t-page text-forest">Two questions to ask any cup supplier.</h2>
+              <h2 className="t-page text-forest">two questions to ask any cup supplier.</h2>
               <p className="mt-2 text-forest/80">What polymer is the lining, and does the certificate cover the finished cup for home composting? Our answers are on the certifications page.</p>
             </div>
             <div className="flex flex-wrap gap-3">

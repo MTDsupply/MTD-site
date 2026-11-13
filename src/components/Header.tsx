@@ -49,7 +49,7 @@ export async function Header() {
   ];
   return (
     <>
-    <header className="site-header sticky -top-10 z-30 bg-white">
+    <header className="site-header sticky -top-10 z-30">
       {/* Top band: the offer line, quick order, price list, account. Scrolls away; the main bar stays. */}
       <div className="band-forest h-10">
         <div className="mx-auto flex h-10 max-w-7xl items-center justify-between gap-4 overflow-hidden px-4 font-display text-xs font-semibold whitespace-nowrap">
@@ -90,16 +90,16 @@ export async function Header() {
 
       {/* Main bar: logo, nav, search, cart. Sticks as you climb. */}
       <div className="header-surface">
-      <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-4 md:gap-8">
+      <div className="mx-auto flex max-w-7xl items-center gap-2 px-4 py-4 md:gap-8">
         <Link href="/" className="shrink-0" aria-label="Made to Disappear home">
-          <Wordmark className="wm-dark h-6 md:h-7" />
-          <Wordmark className="wm-light h-6 md:h-7" variant="white" priority={false} />
+          <Wordmark className="wm-dark h-5" />
+          <Wordmark className="wm-light h-5" variant="white" priority={false} />
         </Link>
         <Nav categories={categories} />
-        <div className="ml-auto flex items-center gap-3">
+        <div className="ml-auto flex items-center gap-2 md:gap-3">
           <SearchForm entries={entries} className="hidden w-56 xl:block" />
-          <Link href="/products/cups" className="btn btn-primary btn-sm hidden md:inline-flex">
-            Shop cups
+          <Link href="/products/cups" className="btn btn-outline btn-sm hidden md:inline-flex">
+            order cups
           </Link>
           <CartButton />
         </div>

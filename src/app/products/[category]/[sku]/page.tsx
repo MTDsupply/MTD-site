@@ -159,7 +159,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
 
       <section className="mt-10 max-w-3xl">
         <div>
-          <h2 className="t-heading">Specifications</h2>
+          <h2 className="t-heading">specifications.</h2>
           <div className="mt-3 rounded-[20px] bg-white p-2">
             <SpecTable product={product} cert={cert} />
           </div>
@@ -184,7 +184,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
       </section>
 
       <section className="mt-10">
-        <h2 className="t-heading">Goes with</h2>
+        <h2 className="t-heading">goes with.</h2>
         <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {goesWithProducts.map((p) => (
             <ProductCard

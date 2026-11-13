@@ -19,10 +19,10 @@ const TEAM = [
 export default function AboutPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 pb-8">
-      <PageHeader eyebrow="Our story" title="About" description="Who we are, where the stock sits, and why the name." image="/atmosphere/meadow.jpg" imageAlt="Meadow grasses in late light below a sage hillside" />
+      <PageHeader eyebrow="Our story" title="about." description="Who we are, where the stock sits, and why the name." image="/atmosphere/meadow.jpg" imageAlt="Meadow grasses in late light below a sage hillside" />
 
       <Reveal as="section" className="mt-10 space-y-4 text-base text-soil/85">
-        <h2 className="t-heading">Who</h2>
+        <h2 className="t-heading">who.</h2>
         <p>
           Made to Disappear is a foodservice disposables supplier based in {site.city}, {site.province}. We make cups and lids from 100% certified home-compostable material, certified by TÜV Austria, and sell them by the case to businesses and in smaller packs to anyone else.
         </p>
@@ -32,7 +32,7 @@ export default function AboutPage() {
       </Reveal>
 
       <Reveal as="section" className="mt-10">
-        <h2 className="t-heading">Our founders</h2>
+        <h2 className="t-heading">our founders.</h2>
         <ul className="mt-5 grid gap-6 sm:grid-cols-2">
           {TEAM.map((m) => (
             <li key={m.name} className="card bg-white p-3">
@@ -47,14 +47,14 @@ export default function AboutPage() {
       </Reveal>
 
       <Reveal as="section" className="mt-10 space-y-4 text-base text-soil/85">
-        <h2 className="t-heading">Where the stock sits</h2>
+        <h2 className="t-heading">where the stock sits.</h2>
         <p>
           Stock ships from Victoria, BC, by courier and by pallet across Canada and the United States.
         </p>
       </Reveal>
 
       <Reveal as="section" className="mt-10 space-y-4 text-base text-soil/85">
-        <h2 className="t-heading">Why the name</h2>
+        <h2 className="t-heading">why the name.</h2>
         <p className="t-heading rounded-[20px] bg-cream p-6 text-soil">
           A cup is used for twenty minutes. It should not need two hundred years to go away.
         </p>

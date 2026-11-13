@@ -40,19 +40,19 @@ async function Shell({ children }: { children: ReactNode }) {
       <div className="mt-8">
         <div className="border-b border-line pb-6">
           <p className="t-label text-forest">Account</p>
-          <h1 className="t-page mt-2">Sign in</h1>
+          <h1 className="t-page mt-2">sign in.</h1>
         </div>
         {children}
         <div className="mt-6 grid gap-6 md:grid-cols-2">
           <div className="rounded-[20px] bg-white p-6">
-            <h2 className="t-card">Email me a sign-in link</h2>
+            <h2 className="t-card">email me a sign-in link.</h2>
             <p className="mt-1 text-sm text-soil/70">No password. Orders placed with this email appear automatically.</p>
             <div className="mt-4">
               <SignInForm />
             </div>
           </div>
           <div className="rounded-[20px] bg-white p-6 text-sm text-soil/80">
-            <h2 className="t-heading">For cafés, hotels and caterers</h2>
+            <h2 className="t-heading">for cafés, hotels and caterers.</h2>
             <ul className="mt-3 space-y-2">
               <li>Reorder your usual in one click.</li>
               <li>Every past order with its receipt, ready to reorder.</li>

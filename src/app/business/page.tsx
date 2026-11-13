@@ -29,25 +29,25 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
-      <div className="band-forest relative left-1/2 -mt-8 w-screen -translate-x-1/2">
+      <div className="-mt-8 border-b border-line">
         <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 md:grid-cols-[1.2fr_1fr] md:gap-12 md:py-16">
           <Reveal>
-            <p className="t-label text-cream/70">Business accounts</p>
-            <h1 className="t-section mt-3 text-cream">Supply for cafés, restaurants, caterers and events.</h1>
-            <p className="mt-4 max-w-[52ch] text-[17px] leading-7 text-paper/85">
+            <p className="t-label">Business accounts</p>
+            <h1 className="t-section mt-3 text-ink">for cafés, restaurants, caterers and events.</h1>
+            <p className="mt-4 max-w-[52ch] t-lead text-stone">
               One supplier for the whole range, certified, shipping across North America. Case pricing below{volume ? <>, and a lower volume price on every case once an order reaches {count(BULK_MIN_UNITS)} units</> : null}. Approved accounts get net-30.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#quote" className="btn btn-paper">
+              <a href="#quote" className="btn btn-primary">
                 Request a quote
               </a>
-              <Link href="/business?kind=sample#quote" className="btn border-cream/60 text-cream hover:bg-white/10">
+              <Link href="/business?kind=sample#quote" className="btn btn-outline">
                 Request a sample pack
               </Link>
             </div>
           </Reveal>
           <Reveal delay={0.1}>
-            <dl className="grid gap-5 border-t border-paper/30 pt-5 md:border-l md:border-t-0 md:pl-8 md:pt-0">
+            <dl className="grid gap-5 border-t border-line pt-5 md:border-l md:border-line md:border-t-0 md:pl-8 md:pt-0">
               {[
                 ["Case pricing", "Every price below is per case. Switch the header toggle to Business and the whole site shows case prices."],
                 ["Net-30 on approval", "Send a quote request with your company details. Approved accounts order on terms and reorder from their account page."],
@@ -55,8 +55,8 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
                 ["Pallets and printing", "For pallet quantities or custom printing, send a quote request and we reply within one business day."],
               ].map(([h, t]) => (
                 <div key={h}>
-                  <dt className="t-card text-[17px] leading-[22px] text-white">{h}</dt>
-                  <dd className="mt-1 text-sm text-paper/75">{t}</dd>
+                  <dt className="t-card text-[17px] leading-[22px] text-ink">{h}</dt>
+                  <dd className="mt-1 text-sm text-stone">{t}</dd>
                 </div>
               ))}
             </dl>
@@ -68,7 +68,7 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
         <Reveal>
           <div className="card flex h-full flex-col bg-white p-6">
             <p className="t-label text-forest">Try it first · free for cafés</p>
-            <h2 className="t-heading mt-2">Sample pack</h2>
+            <h2 className="t-heading mt-2">sample pack.</h2>
             <p className="mt-3 text-sm text-soil/80">
               A small pack of each cup size and the lid, so your team can run them on the machines before committing to a case. Free for cafés and other foodservice businesses: ask for one with the form below and we send it once we have confirmed the business.
             </p>
@@ -80,7 +80,7 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
         <Reveal delay={0.08}>
           <div className="card flex h-full flex-col bg-white p-6">
             <p className="t-label text-forest">Your mark on the cup</p>
-            <h2 className="t-heading mt-2">Custom printing</h2>
+            <h2 className="t-heading mt-2">custom printing.</h2>
             <p className="mt-3 text-sm text-soil/80">
               Your logo on the same certified cup, from 100 cases. Send your artwork details and we reply with options, pricing and a proof.
             </p>
@@ -93,7 +93,7 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
 
       <section className="mt-12">
         <p className="t-label text-forest">Pricing</p>
-        <h2 className="t-heading mt-2">Case prices</h2>
+        <h2 className="t-heading mt-2">case prices.</h2>
         <div className="mt-3 overflow-x-auto rounded-[20px] bg-white">
           <table className="price-table w-full text-sm">
             <thead>
@@ -143,7 +143,7 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
 
       <section id="quote" className="mt-12">
         <p className="t-label text-forest">Quote</p>
-        <h2 className="t-heading mt-2">Request a quote, a sample pack or custom printing</h2>
+        <h2 className="t-heading mt-2">request a quote, a sample pack or custom printing.</h2>
         <p className="mt-1 text-sm text-soil/70">Tell us your monthly volume and the categories you want, including ones not yet in stock.</p>
         <div className="mt-4">
           <Suspense fallback={<QuoteForm categories={categories} />}>

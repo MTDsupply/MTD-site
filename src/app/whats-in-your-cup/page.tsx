@@ -32,7 +32,7 @@ const FAQ: [string, string][] = [
 export default function WhatsInYourCupPage() {
   return (
     <div className="mx-auto max-w-7xl px-4 pb-8">
-      <PageHeader eyebrow="What's actually in your cup" title="Paper on the outside. PHA on the inside. Nothing to hide." description={`Every Made to Disappear cup is a paper cup with a PHA lining, certified home-compostable by ${site.certifier}. Here's what that means, and how it compares to the other cups on the market.`} />
+      <PageHeader eyebrow="What's actually in your cup" title="paper outside. PHA inside. nothing to hide." description={`Every Made to Disappear cup is a paper cup with a PHA lining, certified home-compostable by ${site.certifier}. Here's what that means, and how it compares to the other cups on the market.`} />
 
       <div className="mx-auto mt-12 grid max-w-6xl gap-10 md:grid-cols-[1fr_1.1fr] md:items-start md:gap-14">
         <Reveal>
@@ -42,12 +42,12 @@ export default function WhatsInYourCupPage() {
         </Reveal>
         <div className="space-y-10 text-[16px] leading-7 text-soil/85">
           <Reveal as="section">
-            <h2 className="t-page text-forest">Every paper cup has a lining</h2>
+            <h2 className="t-page text-forest">every paper cup has a lining.</h2>
             <p className="mt-4">Paper on its own soaks up liquid, so every hot cup needs a thin barrier on the inside to hold your coffee. That lining decides what the cup is really made of, and what happens to it after.</p>
             <p className="mt-3">Most cups use conventional plastic. Some use PLA. Some use a water-based coating. Ours uses PHA.</p>
           </Reveal>
           <Reveal as="section">
-            <h2 className="t-page text-forest">What is PHA?</h2>
+            <h2 className="t-page text-forest">what is PHA?</h2>
             <p className="mt-4">PHA (polyhydroxyalkanoate) is a material made by microorganisms. They produce it naturally, as a way to store energy, when they&rsquo;re fed renewable feedstocks.</p>
             <p className="mt-3">The same kinds of microbes that make PHA can break it down. That&rsquo;s why it works as a cup lining: it holds hot coffee like a plastic does, then goes back to nature when you&rsquo;re done with it.</p>
             <p className="mt-3">
@@ -55,7 +55,7 @@ export default function WhatsInYourCupPage() {
             </p>
           </Reveal>
           <Reveal as="section" className="rounded-[20px] bg-cream p-6">
-            <h2 className="t-heading text-forest">What you&rsquo;re getting</h2>
+            <h2 className="t-heading text-forest">what you&rsquo;re getting.</h2>
             <ul className="mt-4 space-y-3">
               {[
                 ["Paper cup with a PHA lining.", "That's the full material list for the cup."],
@@ -77,7 +77,7 @@ export default function WhatsInYourCupPage() {
 
       <section className="mx-auto mt-16 max-w-6xl md:mt-24">
         <Reveal>
-          <h2 className="t-section text-forest">How PHA compares</h2>
+          <h2 className="t-section text-forest">how PHA compares.</h2>
           <p className="mt-3 text-soil/75">The four linings you&rsquo;ll see on paper cups today:</p>
         </Reveal>
         <div className="mt-6 space-y-3 md:hidden">
@@ -152,7 +152,7 @@ export default function WhatsInYourCupPage() {
       <section className="band-mint relative left-1/2 mt-16 w-screen -translate-x-1/2 md:mt-24">
         <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 md:grid-cols-2 md:gap-14 md:py-20">
           <Reveal>
-            <h2 className="t-page text-forest">After your coffee</h2>
+            <h2 className="t-page text-forest">after your coffee.</h2>
             <ol className="mt-6 space-y-4">
               {[
                 ["Home compost", "Tear the cup into pieces and add it to your backyard compost with your food scraps. Smaller pieces break down faster."],
@@ -174,7 +174,7 @@ export default function WhatsInYourCupPage() {
           </Reveal>
           <Reveal delay={0.1}>
             <div className="rounded-[24px] bg-forest p-7 text-cream md:p-9">
-              <h2 className="t-page text-cream">Two questions to ask any cup supplier</h2>
+              <h2 className="t-page text-cream">two questions to ask any cup supplier.</h2>
               <p className="mt-4 text-cream/80">
                 Words like <em>compostable</em>, <em>plant-based</em> and <em>water-based</em> get used loosely. Two questions cut through it:
               </p>
@@ -203,7 +203,7 @@ export default function WhatsInYourCupPage() {
 
       <section className="mx-auto mt-16 max-w-3xl md:mt-24">
         <Reveal>
-          <h2 className="t-section text-center text-forest">Questions</h2>
+          <h2 className="t-section text-center text-forest">questions.</h2>
         </Reveal>
         <RevealGroup className="mt-8 space-y-3" step={0.05}>
           {FAQ.map(([q, a]) => (
@@ -223,7 +223,7 @@ export default function WhatsInYourCupPage() {
       <Reveal className="mt-16 md:mt-24">
         <div className="band-peach grid gap-6 rounded-[24px] px-6 py-10 md:grid-cols-[1fr_auto] md:items-center md:px-12 md:py-14">
           <div>
-            <h2 className="t-page text-forest">Try them in your café.</h2>
+            <h2 className="t-page text-forest">try them in your café.</h2>
             <p className="mt-2 text-forest/80">We&rsquo;ll send verified cafés free sample cups so you can test them on your own bar.</p>
           </div>
           <Link href="/business?kind=sample#quote" className="btn btn-primary btn-lg">

@@ -2,41 +2,48 @@
 
 /* Tokens from the Made to Disappear brand kit v1.0 (October 2026). */
 @theme {
-  --color-paper: #f4f1ea;
-  --color-paper-deep: #ece9e1;
-  --color-ink: #2b2b2b; /* Soil: body text, footer, the dissolve dots */
-  --color-ink-soft: #3a3a3a;
-  --color-soil: #2b2b2b;
-  --color-sage-tint: #e4ebe3;
-  --color-sage-mist: #c9d6c9;
-  --color-card: #ffffff;
-  --color-white: #ffffff;
-  --color-sage: #4f6f52;
-  --color-sage-deep: #3f5a42;
-  --color-clay: #c8956d;
-  --color-clay-deep: #8a5c38;
-  --color-clay-tint: #f3e6d8;
-  --color-fog: #b8b8b2;
-  --color-fog-light: #e3e2dc;
-  --color-line: #d6d4cb;
-  /* Bloom-style blocks: deep forest on mint, cream and peach; butter for stickers. */
-  --color-forest: #2e4d34;
-  --color-forest-deep: #243d2a;
-  --color-mint: #c9e4be;
-  --color-mint-light: #e4f0dc;
-  --color-cream: #fbf4e8;
-  --color-peach: #f6d7be;
-  --color-peach-light: #fbeadb;
-  --color-butter: #f7dc8c;
+  /* Brand card (docs/brand/brand-card-2026-11-12.pdf): bone, paper, ink, soil, stone, ash, raw bamboo.
+     The old token names stay so every utility keeps working; each now points at a card colour. */
+  --color-bone: #ede8df;
+  --color-paper: #ede8df; /* page ground = bone */
+  --color-paper-deep: #e4dfd5;
+  --color-card: #f6f2eb; /* paper: cards, inputs, image wells */
+  --color-cream: #f6f2eb;
+  --color-white: #f6f2eb;
+  --color-ink: #111111;
+  --color-ink-soft: #2a2420;
+  --color-soil: #111111; /* body text */
+  --color-soil-band: #2a2420; /* the one dark band */
+  --color-stone: #6b675f;
+  --color-ash: #8b877f;
+  --color-bamboo: #c4a672;
+  --color-sage: #6b675f;
+  --color-sage-deep: #111111;
+  --color-sage-tint: #f6f2eb;
+  --color-sage-mist: #e4dfd5;
+  --color-clay: #c4a672;
+  --color-clay-deep: #6b675f;
+  --color-clay-tint: #f6f2eb;
+  --color-fog: #8b877f;
+  --color-fog-light: #e4dfd5;
+  --color-line: rgba(17, 17, 17, 0.14);
+  --color-forest: #111111;
+  --color-forest-deep: #2a2420;
+  --color-mint: #e4dfd5;
+  --color-mint-light: #ede8df;
+  --color-peach: #e4dfd5;
+  --color-peach-light: #ede8df;
+  --color-butter: #f6f2eb;
 
-  --font-display: var(--font-outfit), "Outfit", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-fraunces), "Fraunces", "Iowan Old Style", Georgia, serif;
-  --font-sans: var(--font-inter), "Inter", ui-sans-serif, system-ui, sans-serif;
+  /* One family, four weights: Helvetica Neue where the device has it, Arial where it does not. */
+  --font-display: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  --font-serif: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  --font-sans: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), "JetBrains Mono", ui-monospace, Menlo, monospace;
 
-  /* Soft, rounded surfaces: big radii on tiles, pills on controls. */
-  --radius-tile: 20px;
-  --radius-control: 12px;
+  /* Square on cards, inputs, images and tables. Round on buttons and chips only. */
+  --radius-tile: 0px;
+  --radius-control: 0px;
 }
 
 :root {
@@ -44,89 +51,92 @@
 }
 
 html {
-  background: #f1f0e8;
+  background: #ede8df;
 }
 
 body {
   background: transparent;
   color: var(--color-ink);
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: 16px;
+  line-height: 1.55;
   line-height: 24px;
   -webkit-font-smoothing: antialiased;
 }
 
 /*
- * Type scale: chunky, friendly display type (Fraunces, soft axis up) in deep
- * forest green; Outfit for labels, buttons and card titles; Inter body.
+ * Type scale from the brand card. One family, four weights. Headings are
+ * lowercase in the copy itself (acronyms stay), 700; leads and buttons 500;
+ * body 400. Nothing italic, nothing centred, nothing in capitals except labels.
  */
 h1,
 h2 {
-  font-family: var(--font-serif);
-  font-weight: 800;
-  font-variation-settings: "SOFT" 100, "WONK" 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 h3,
 h4 {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 700;
 }
 .font-display {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 500;
 }
 .t-hero {
-  font-family: var(--font-serif);
-  font-weight: 800;
-  font-variation-settings: "SOFT" 100, "WONK" 0;
-  font-size: clamp(44px, 6vw, 84px);
-  line-height: 0.98;
-  letter-spacing: -0.015em;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(40px, 5.6vw, 72px);
+  line-height: 1;
+  letter-spacing: -0.04em;
 }
 .t-section {
-  font-family: var(--font-serif);
-  font-weight: 800;
-  font-variation-settings: "SOFT" 100, "WONK" 0;
-  font-size: clamp(36px, 4.6vw, 62px);
-  line-height: 1;
-  letter-spacing: -0.015em;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(30px, 3.2vw, 40px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 .t-page {
-  font-family: var(--font-serif);
-  font-weight: 800;
-  font-variation-settings: "SOFT" 100, "WONK" 0;
-  font-size: clamp(32px, 3.4vw, 46px);
-  line-height: 1.05;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 1.2;
   letter-spacing: -0.01em;
 }
 .t-heading {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-weight: 700;
-  font-variation-settings: "SOFT" 100, "WONK" 0;
-  font-size: 30px;
-  line-height: 34px;
+  font-size: 26px;
+  line-height: 1.2;
   letter-spacing: -0.01em;
 }
 .t-card {
   font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 22px;
-  letter-spacing: -0.005em;
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 1.25;
+}
+.t-lead {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.35;
 }
 .t-label {
   font-family: var(--font-display);
-  font-size: 12px;
+  font-size: 11.5px;
   line-height: 16px;
-  font-weight: 600;
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
+  color: var(--color-stone);
 }
 .t-serif-italic {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 600;
-  font-variation-settings: "SOFT" 100, "WONK" 1;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 .sku {
   font-family: var(--font-mono);
@@ -693,3 +703,85 @@ html[data-scrolled] .header-surface {
     transform: none;
   }
 }
+
+
+/* ---- Brand card layer (2026-11-12) ------------------------------------------
+   Hairlines, not boxes. Square, not rounded (buttons and chips excepted).
+   No shadows, gradients, glass or glow. One soil band per page at most.
+   Hover is a colour change only; images fade in; nothing slides. */
+.card { border-radius: 0; background: var(--color-card); border: 1px solid var(--color-line); transition: background-color 160ms ease; }
+.card:hover { transform: none; box-shadow: none; background: #f9f6f0; }
+[class*="rounded-["]:not(.btn):not(.chip):not(.pill-claim), .rounded-xl, .rounded-2xl, .rounded-lg, .rounded-md { border-radius: 0 !important; }
+[class*="shadow-"] { box-shadow: none !important; }
+.glass, .glass-soft, .glass-dark { background: var(--color-card); border: 1px solid var(--color-line); backdrop-filter: none; box-shadow: none; color: inherit; }
+.mesh, .grain { display: none; }
+.band-mint, .band-peach, .band-sage { background: var(--color-bone); color: var(--color-ink); border-top: 1px solid var(--color-line); border-bottom: 1px solid var(--color-line); }
+.band-forest, .band-ink, .band-night, .band-forest-deep, .band-graphite { background: var(--color-soil-band); color: var(--color-bone); }
+.band-forest .text-cream, .band-forest .text-cream\/80, .band-forest .text-cream\/70, .band-forest .text-paper, .band-forest .text-white { color: var(--color-bone); }
+.input { border-radius: 0; background: var(--color-card); border: 1px solid var(--color-line); color: var(--color-ink); }
+.input:focus { border-color: var(--color-ink); box-shadow: none; outline: none; }
+.btn { border-radius: 9999px; font-weight: 500; font-size: 15px; letter-spacing: 0; border-width: 1px; padding: 0.75rem 1.4rem; transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease; }
+.btn:active:not(:disabled) { transform: none; }
+.btn-primary { background: var(--color-ink); color: var(--color-bone); border-color: var(--color-ink); }
+.btn-primary:hover:not(:disabled) { background: var(--color-soil-band); border-color: var(--color-soil-band); }
+.btn-outline { background: transparent; color: var(--color-ink); border-color: var(--color-ink); }
+.btn-outline:hover:not(:disabled) { background: var(--color-card); color: var(--color-ink); }
+.btn-paper, .btn-butter { background: var(--color-bone); color: var(--color-ink); border-color: var(--color-bone); }
+.btn-paper:hover:not(:disabled), .btn-butter:hover:not(:disabled) { background: var(--color-card); border-color: var(--color-card); }
+.btn-mint { background: transparent; color: var(--color-ink); border-color: var(--color-ink); }
+.btn-ghost { color: var(--color-ink); background: transparent; }
+.btn-ghost:hover:not(:disabled) { background: var(--color-card); }
+.band-forest .btn-outline, .band-forest .btn-ghost { color: var(--color-bone); border-color: rgba(237, 232, 223, 0.6); }
+.band-forest .btn-outline:hover:not(:disabled) { background: rgba(237, 232, 223, 0.1); color: var(--color-bone); }
+.chip, .chip-sage, .chip-clay, .chip-fog, .chip-clay-solid, .sticker, .sticker-forest, .pill-claim {
+  border-radius: 9999px; background: transparent; border: 1px solid var(--color-line); color: var(--color-ink);
+  font-weight: 400; font-size: 12px; letter-spacing: 0; text-transform: none; padding: 0.2rem 0.65rem; backdrop-filter: none;
+}
+.chip-fog, .sticker-forest { color: var(--color-ash); border-color: var(--color-line); }
+.chip-clay { color: var(--color-stone); }
+.price-table th, .spec-table th { font-family: var(--font-display); font-size: 11.5px; letter-spacing: 0.05em; font-weight: 400; color: var(--color-stone); border-bottom: 1px solid var(--color-line); }
+.price-table thead th, .spec-table thead th { border-bottom: 1px solid var(--color-ink); }
+.spec-table tbody th { text-transform: none; font-size: 15px; letter-spacing: 0; }
+.price-table td, .spec-table td { border-bottom: 1px solid var(--color-line); }
+.price-table thead tr, .spec-table thead tr { background: transparent !important; }
+.on-cream { background: var(--color-card); }
+.on-cream img { mix-blend-mode: normal; }
+.link { background-image: linear-gradient(currentColor, currentColor); background-size: 100% 1px; }
+.header-surface { background: var(--color-bone); color: var(--color-ink); backdrop-filter: none; border-bottom: 1px solid var(--color-line); }
+html[data-scrolled] .header-surface, html[data-scrolled] .site-header { background: var(--color-bone); backdrop-filter: none; }
+html[data-header-tone="dark"] .header-surface { color: var(--color-ink); }
+html[data-header-tone="dark"] .site-header .wm-dark { display: block; }
+html[data-header-tone="dark"] .site-header .wm-light { display: none; }
+.site-header { background: var(--color-bone); }
+.site-header .band-forest { background: var(--color-bone); color: var(--color-stone); border-bottom: 1px solid var(--color-line); }
+.site-header .band-forest .bg-forest, .site-header .band-forest .bg-soil { background: var(--color-ink); color: var(--color-bone); }
+.soil-line { display: none; }
+.header-surface nav a, .header-surface nav button { font-weight: 400; color: var(--color-ink); }
+.header-surface nav .bg-sage { background: var(--color-ink); }
+.cart-badge { border-radius: 9999px; background: transparent !important; color: var(--color-ink) !important; border: 1px solid var(--color-line); }
+.menu-in { border-radius: 0 !important; box-shadow: none !important; border: 1px solid var(--color-line); background: var(--color-card) !important; animation: fade-in 200ms ease both; }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+.cart-pop { animation: none; }
+.page-in { animation: fade-in 200ms ease both; }
+.reveal-hidden { opacity: 0; transform: none; }
+.reveal-hidden.reveal-in { opacity: 1; transform: none; transition: opacity 200ms ease var(--reveal-delay, 0s); }
+.marquee-track { animation: none; }
+.hairline > * + * { border-top: 1px solid var(--color-line); }
+.hairline-dark > * + * { border-top: 1px solid rgba(237, 232, 223, 0.18); }
+.note { border-left: 2px solid var(--color-bamboo); padding-left: 1rem; color: var(--color-stone); }
+.text-forest, .text-sage, .text-sage-deep { color: var(--color-ink); }
+.text-soil\/55, .text-soil\/60, .text-soil\/65, .text-soil\/70, .text-soil\/75, .text-soil\/80, .text-soil\/85, .text-forest\/60, .text-forest\/70, .text-forest\/75, .text-forest\/80, .text-forest\/85 { color: var(--color-stone); }
+.text-stone { color: var(--color-stone); }
+.text-ash { color: var(--color-ash); }
+.bg-forest { background: var(--color-ink); color: var(--color-bone); }
+.bg-sage { background: var(--color-ink); }
+/* Content column: 1120 max, 28px gutters on desktop, 16 on phones. */
+.max-w-7xl { max-width: 1120px; }
+@media (min-width: 768px) { .mx-auto.max-w-7xl.px-4 { padding-left: 28px; padding-right: 28px; } }
+::selection { background: var(--color-ink); color: var(--color-bone); }
+
+/* Headings are always ink, whatever opacity utility they came with; nav and buttons lowercase per the card. */
+h1[class*="text-"], h2[class*="text-"], h3[class*="text-"] { color: var(--color-ink); }
+.band-forest h1, .band-forest h2, .band-forest h3, footer h2, footer h3 { color: var(--color-bone); }
+.btn, .header-surface nav a, .header-surface nav button { text-transform: lowercase; }
+.btn .tnum, .btn abbr { text-transform: none; }

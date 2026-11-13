@@ -7,9 +7,9 @@ import { AddToCart } from "./AddToCart";
 import { restockNote } from "@/lib/site";
 
 /**
- * Catalogue tile: cream rounded card, product photo multiplied onto the cream,
- * a sticker in the corner, name, size, certification link, price and a pill
- * Add to cart. Four across on desktop.
+ * Catalogue tile (brand card): square paper cell with a hairline, the product
+ * photo on bone, name, size, an outlined status chip, certification link, price
+ * and one button. Four across on desktop.
  */
 export function ProductCard({
   product,
@@ -24,7 +24,7 @@ export function ProductCard({
   const href = `/products/${product.categorySlug}/${product.sku.toLowerCase()}`;
   const photo = product.photo ?? product.images[0] ?? null;
   const restock = restockNote(product.restockWhen);
-  const sticker = restock ? { label: restock, cls: "chip chip-clay" } : product.categorySlug === "lids" ? { label: "Fits every cup", cls: "sticker" } : { label: "In stock", cls: "sticker" };
+  const status = restock ?? "in stock";
 
   return (
     <article className="card flex h-full flex-col p-3 md:p-4" data-sku={product.sku}>
@@ -32,9 +32,9 @@ export function ProductCard({
         <Link href={href} className="block" aria-label={product.name}>
           <ProductImage src={photo} name={product.name} sku={product.sku} priority={priority} tone="cream" />
         </Link>
-        <span className={`absolute left-2 top-2 ${sticker.cls}`}>{sticker.label}</span>
       </div>
       <div className="mt-4 flex flex-wrap items-baseline justify-between gap-x-2 gap-y-0.5">
+        <span className="chip chip-fog order-last basis-full self-start">{status.toLowerCase()}</span>
         <h3 className="t-card text-forest">
           <Link href={href} className="hover:underline">
             {product.name}

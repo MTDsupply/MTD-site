@@ -14,7 +14,7 @@ export const metadata = pageMeta({
 export default function ShippingReturnsPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 pb-16">
-      <PageHeader eyebrow="Help" title="Shipping and returns" description="Last updated October 2026." />
+      <PageHeader eyebrow="Help" title="shipping and returns." description="Last updated October 2026." />
       <div className="mt-8 space-y-6 text-[15px] leading-6 text-soil/85">
         <section>
           <h2 className="t-card">Where we ship, and what it costs</h2>

@@ -27,7 +27,7 @@ async function Usual() {
     <div>
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h2 className="t-heading">Your usual</h2>
+          <h2 className="t-heading">your usual.</h2>
           <p className="mt-1 text-sm text-soil/70">The lines you reorder. Change units or quantities any time; one click puts the whole list in your cart.</p>
         </div>
         {initial.length === 0 && last ? (

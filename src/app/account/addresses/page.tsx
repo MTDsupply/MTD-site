@@ -23,7 +23,7 @@ async function Addresses() {
 
   return (
     <div>
-      <h2 className="t-heading">Delivery addresses</h2>
+      <h2 className="t-heading">delivery addresses.</h2>
       <p className="mt-1 text-sm text-soil/70">Keep the places your parcels go. Delivery notes travel with the address so the courier knows where to leave the boxes.</p>
       <div className="mt-4 grid gap-6 lg:grid-cols-2">
         <div>

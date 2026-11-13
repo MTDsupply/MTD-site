@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { Fraunces, Inter, JetBrains_Mono, Outfit } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -13,34 +13,12 @@ import { site } from "@/lib/site";
 import { SITE_DESCRIPTION, organizationLd, websiteLd } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 
-const outfit = Outfit({
-  subsets: ["latin"],
-  weight: ["500", "700", "800"],
-  variable: "--font-outfit",
-  display: "swap",
-});
-
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  weight: "variable",
-  axes: ["SOFT", "WONK", "opsz"],
-  variable: "--font-fraunces",
-  display: "swap",
-});
-
 const jetbrains = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["400", "500"],
   variable: "--font-jetbrains",
   display: "swap",
   preload: false, // SKUs only, below the fold; keeps it out of the critical font set
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-inter",
-  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -73,14 +51,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-CA" className={`${outfit.variable} ${inter.variable} ${jetbrains.variable} ${fraunces.variable} h-full`}>
+    <html lang="en-CA" className={`${jetbrains.variable} h-full`}>
       <body className="flex min-h-full flex-col">
         <JsonLd data={[organizationLd(), websiteLd()]} />
         <a href="#main" className="skip-link">
           Skip to content
         </a>
-        <div className="mesh" aria-hidden="true" />
-        <div className="grain" aria-hidden="true" />
         <ScrollState />
         <Suspense fallback={null}>
           <MetaPixel />

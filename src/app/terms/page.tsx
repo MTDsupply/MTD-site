@@ -9,7 +9,7 @@ export const metadata = pageMeta({ title: "Terms of sale", description: "The ter
 export default function TermsPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 pb-16">
-      <PageHeader eyebrow="Legal" title="Terms of sale" description="Last updated October 2026." />
+      <PageHeader eyebrow="Legal" title="terms of sale." description="Last updated October 2026." />
       <div className="mt-8 space-y-6 text-[15px] leading-6 text-soil/85">
         <section>
           <h2 className="t-card">Orders and pricing</h2>

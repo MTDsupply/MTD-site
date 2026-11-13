@@ -16,7 +16,7 @@ export default async function QuickOrderPage() {
       <PageHeader
         image="/atmosphere/mist.jpg"
         eyebrow="For repeat orders"
-        title="Quick order by SKU"
+        title="quick order by SKU."
         description="One line per item: SKU, then quantity. Add “case”, “pack100”, “pack200” or “pack500” to choose the unit; otherwise cases for business, the smallest pack for consumers."
       />
       <QuickOrder products={products} />

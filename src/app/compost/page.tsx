@@ -34,7 +34,7 @@ const FAQ: [string, string][] = [
 export default function CompostPage() {
   return (
     <div className="mx-auto max-w-7xl px-4 pb-8">
-      <PageHeader eyebrow="After the coffee" title="How to compost it" description="Into the home compost pile, with the food scraps. Here is the whole method, and the questions we get asked." />
+      <PageHeader eyebrow="After the coffee" title="how to compost it." description="Into the home compost pile, with the food scraps. Here is the whole method, and the questions we get asked." />
 
       <div className="mt-10 grid gap-8 md:grid-cols-[1fr_1.1fr] md:items-start md:gap-12">
         <Reveal>
@@ -48,7 +48,7 @@ export default function CompostPage() {
         <div>
           <Reveal>
             <p className="t-label text-forest">Four steps</p>
-            <h2 className="t-page mt-2">Serve it. Compost it. Done.</h2>
+            <h2 className="t-page mt-2">serve it. compost it. done.</h2>
           </Reveal>
           <RevealGroup className="mt-6 space-y-3" step={0.07}>
             {STEPS.map(([title, text], i) => (
@@ -80,7 +80,7 @@ export default function CompostPage() {
       <section className="mt-14 max-w-3xl">
         <Reveal>
           <p className="t-label text-forest">Questions</p>
-          <h2 className="t-page mt-2">Asked often.</h2>
+          <h2 className="t-page mt-2">asked often.</h2>
         </Reveal>
         <RevealGroup className="mt-6 divide-y divide-line border-y border-line" step={0.05}>
           {FAQ.map(([q, a]) => (

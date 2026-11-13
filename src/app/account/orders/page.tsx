@@ -22,7 +22,7 @@ async function Orders() {
   const liveSkus = new Set(products.map((p) => p.sku));
   return (
     <div>
-      <h2 className="t-heading">Orders</h2>
+      <h2 className="t-heading">orders.</h2>
       <p className="mt-1 text-sm text-soil/70">Every order placed with {s.user.email}. Open one for the receipt and delivery details.</p>
       {orders.length === 0 ? (
         <div className="mt-4 rounded-[20px] bg-white p-5 text-sm text-soil/70">

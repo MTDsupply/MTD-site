@@ -116,7 +116,7 @@ async function Overview({ searchParams }: { searchParams: PageProps<"/account">[
       {/* Recent orders. */}
       <section>
         <div className="flex items-end justify-between gap-3">
-          <h2 className="t-heading">Recent orders</h2>
+          <h2 className="t-heading">recent orders.</h2>
           {orders.length ? (
             <Link href="/account/orders" className="link text-sm">
               All orders

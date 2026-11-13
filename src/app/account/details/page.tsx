@@ -19,7 +19,7 @@ async function Details() {
   const profile = await getProfile(s);
   return (
     <div>
-      <h2 className="t-heading">Business details</h2>
+      <h2 className="t-heading">business details.</h2>
       <p className="mt-1 text-sm text-soil/70">Who we are supplying and who to call if a delivery needs a hand. The name here appears at the top of your account.</p>
       <div className="mt-4 max-w-2xl">
         <ProfileForm profile={profile} email={s.user.email ?? ""} />
