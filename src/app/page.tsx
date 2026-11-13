@@ -11,6 +11,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { HoverSwap } from "@/components/HoverSwap";
 import { BreakdownScrubber } from "@/components/BreakdownScrubber";
 import { CountUp } from "@/components/CountUp";
+import { Reveal, RevealGroup } from "@/components/Reveal";
 import { v } from "@/lib/asset-version";
 
 export const metadata = pageMeta({
@@ -87,28 +88,30 @@ export default async function HomePage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4">
-      {/* hero: text left, the lineup right, edge to edge. */}
-      <section className="bleed grid md:min-h-[640px] md:grid-cols-[1.05fr_1fr] lg:min-h-[720px]">
-        <div className="order-2 flex flex-col justify-center px-4 py-10 md:order-1 md:py-16 md:pl-[max(16px,calc((100vw-1120px)/2+28px))] md:pr-12">
-          <p className="t-label">{restock ? stockSentence(categories).replace(/\.$/, "").toLowerCase() : "hot cups and lids, in stock"}</p>
-          <h1 className="t-hero mt-4 text-ink md:!text-[clamp(44px,4.3vw,64px)]">
-            serve it.
-            <br />
-            then let it go.
-          </h1>
-          <p className="t-lead mt-6 max-w-[38ch] text-ink">Hot cups and lids made from 100% certified home-compostable material. The mark on the base is the whole promise: it goes in the garden pile with the grounds.</p>
-          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
-            <Link href="/products/cups" className="btn btn-primary btn-lg">
-              order cups
-            </Link>
-            <Link href="/business" className="link text-[15px] font-medium text-ink">
-              wholesale pricing
-            </Link>
-          </div>
-          {fromCup != null ? <p className="mt-8 text-[14px] text-stone tnum">from {unitMoney(fromCup)} a cup by the case · packs of 100 for the house</p> : null}
+      {/* hero: the lineup edge to edge, weighted right; the headline over the empty bone at the left. */}
+      <section className="bleed relative">
+        <div className="hero-photo relative aspect-[4/3] overflow-hidden sm:aspect-[16/10] md:absolute md:inset-0 md:aspect-auto">
+          <Image src={v("/hero-wide.jpg")} alt="The three cup sizes and the lid on a bone backdrop, a fourth cup on its side showing the made to disappear mark on its base" fill priority fetchPriority="high" sizes="100vw" className="object-cover object-[72%_center] md:object-[68%_center]" />
         </div>
-        <div className="relative order-1 aspect-[4/3] md:order-2 md:aspect-auto md:min-h-[640px] lg:min-h-[720px]">
-          <Image src={v("/hero-bone.jpg")} alt="The three cup sizes and the lid on a bone backdrop, a fourth cup on its side showing the made to disappear mark on its base" fill priority fetchPriority="high" sizes="(min-width: 768px) 58vw, 100vw" className="object-cover" />
+        <div className="relative mx-auto flex max-w-7xl flex-col justify-center px-4 py-10 md:min-h-[680px] md:py-20 lg:min-h-[760px]">
+          <div className="hero-in max-w-[34rem]">
+            <p className="t-label">{restock ? stockSentence(categories).replace(/\.$/, "").toLowerCase() : "hot cups and lids, in stock"}</p>
+            <h1 className="t-hero mt-4 text-ink md:!text-[clamp(44px,4.6vw,68px)]">
+              serve it.
+              <br />
+              then let it go.
+            </h1>
+            <p className="t-lead mt-6 max-w-[36ch] text-ink">Hot cups and lids made from 100% certified home-compostable material. The mark on the base is the whole promise: it goes in the garden pile with the grounds.</p>
+            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+              <Link href="/products/cups" className="btn btn-primary btn-lg">
+                order cups
+              </Link>
+              <Link href="/business" className="link text-[15px] font-medium text-ink">
+                wholesale pricing
+              </Link>
+            </div>
+            {fromCup != null ? <p className="mt-8 text-[14px] text-stone tnum">from {unitMoney(fromCup)} a cup by the case · packs of 100 for the house</p> : null}
+          </div>
         </div>
       </section>
 
@@ -129,9 +132,9 @@ export default async function HomePage() {
       </section>
 
       {/* two split cards */}
-      <section className="mt-6 grid gap-4 md:grid-cols-2">
+      <RevealGroup className="mt-6 grid gap-4 md:grid-cols-2" itemClassName="flex flex-col" step={0.1}>
         {cards.map((c) => (
-          <article key={c.title} className="card flex flex-col bg-card">
+          <article key={c.title} className="card flex flex-1 flex-col bg-card">
             <div className="p-6 pb-5 md:p-8 md:pb-6">
               <h2 className="t-page text-ink">{c.title}</h2>
               <p className="mt-2 max-w-[40ch] text-[15px] text-ink">{c.sub}</p>
@@ -143,7 +146,7 @@ export default async function HomePage() {
                 ))}
               </div>
             </div>
-            <Link href={c.href} aria-label={c.cta} className="relative block aspect-square overflow-hidden">
+            <Link href={c.href} aria-label={c.cta} className="zoom-on-hover relative block aspect-square overflow-hidden">
               <Image src={v(c.img)} alt={c.alt} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
             </Link>
             <div className="p-6 pt-5 md:p-8 md:pt-6">
@@ -153,11 +156,11 @@ export default async function HomePage() {
             </div>
           </article>
         ))}
-      </section>
+      </RevealGroup>
 
       {/* statement band: the one soil panel, beside the soil photo. */}
       <section className="bleed mt-16 grid md:mt-24 md:grid-cols-[1fr_1.3fr]">
-        <div className="flex flex-col justify-center bg-soil-band px-4 py-14 md:py-20 md:pl-[max(16px,calc((100vw-1120px)/2+28px))] md:pr-12">
+        <Reveal className="flex flex-col justify-center bg-soil-band px-4 py-14 md:py-20 md:pl-[max(16px,calc((100vw-1120px)/2+28px))] md:pr-12">
           <p className="t-label !text-bone/60">the material</p>
           <h2 className="t-section mt-3 text-bone">paper outside. PHA inside.</h2>
           <p className="t-lead mt-4 max-w-[36ch] text-bone/85">Every paper cup has a lining. Ours is PHA, a material microbes make and microbes eat, so the whole cup is certified to break down in a home compost pile. Nothing left behind.</p>
@@ -166,14 +169,15 @@ export default async function HomePage() {
               what&rsquo;s in your cup
             </Link>
           </p>
-        </div>
-        <div className="relative aspect-[4/3] md:aspect-auto md:min-h-[560px]">
+        </Reveal>
+        <div className="drift relative aspect-[4/3] overflow-hidden md:aspect-auto md:min-h-[560px]">
           <Image src={v("/soil-mark.jpg")} alt="A paper hot cup half-sunk in dark compost, softened and browning, the made to disappear mark still legible on its base" fill sizes="(min-width: 768px) 57vw, 100vw" className="object-cover" />
         </div>
       </section>
 
       {/* after the coffee */}
       <section className="mt-16 md:mt-24">
+        <Reveal>
         <SectionHead
           title="after the coffee."
           intro="Serve it. Compost it. Done. Drag across the photo or pick a stage. An illustration of the sequence, not a timed photograph: how fast it goes depends on the pile."
@@ -183,13 +187,14 @@ export default async function HomePage() {
             </Link>
           }
         />
+        </Reveal>
         <div className="mt-10">
           <BreakdownScrubber stages={stages} />
         </div>
       </section>
 
       {/* stat band */}
-      <section className="mt-16 border-y border-line md:mt-24">
+      <Reveal as="section" className="mt-16 border-y border-line md:mt-24">
         <div className="grid md:grid-cols-[1.3fr_1fr_1fr_1fr]">
           <div className="py-8 md:pr-10">
             <p className="t-label">the Inner Harbour, {site.city}</p>
@@ -209,10 +214,11 @@ export default async function HomePage() {
             </div>
           ))}
         </div>
-      </section>
+      </Reveal>
 
       {/* the range */}
       <section className="mt-16 md:mt-24">
+        <Reveal>
         <SectionHead
           title="the range."
           intro="Three hot cups and the one lid that fits all of them. Packs of 100 for the house, cases of 1,000 for the business."
@@ -222,9 +228,10 @@ export default async function HomePage() {
             </Link>
           }
         />
-        <div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
+        </Reveal>
+        <RevealGroup className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4" itemClassName="flex flex-col" step={0.08}>
           {range.map(({ p, use }) => (
-            <article key={p.sku} className="card flex flex-col">
+            <article key={p.sku} className="card flex flex-1 flex-col">
               <Link href={`/products/${p.categorySlug}/${p.sku.toLowerCase()}`} aria-label={p.name} className="block">
                 <HoverSwap front={p.photo ?? "/products/MTD-CUP-12H-front.jpg"} hover={p.hover} alt={p.name} sizes="(min-width: 1024px) 25vw, 50vw" />
               </Link>
@@ -246,11 +253,12 @@ export default async function HomePage() {
               </div>
             </article>
           ))}
-        </div>
+        </RevealGroup>
       </section>
 
       {/* what it costs */}
       <section className="mt-16 md:mt-24">
+        <Reveal>
         <SectionHead
           title="what it costs."
           intro="One case price for everyone, whether you order one case or fifty. Put in your numbers."
@@ -260,6 +268,7 @@ export default async function HomePage() {
             </a>
           }
         />
+        </Reveal>
         <div className="mt-10">
           <CostCalculator cups={cups} lid={lid} />
         </div>
@@ -267,8 +276,10 @@ export default async function HomePage() {
 
       {/* asked often */}
       <section className="mt-16 pb-8 md:mt-24">
+        <Reveal>
         <SectionHead title="asked often." intro="The questions cafés ask before the first case, answered in a sentence or two." />
-        <div className="hairline mt-8 border-y border-line">
+        </Reveal>
+        <Reveal className="hairline mt-8 border-y border-line">
           {faq.map(([q, a]) => (
             <details key={q} className="group py-5">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[18px] font-medium text-ink">
@@ -278,7 +289,7 @@ export default async function HomePage() {
               <p className="mt-3 max-w-[70ch] text-[15px] leading-[1.55] text-stone">{a}</p>
             </details>
           ))}
-        </div>
+        </Reveal>
         <p className="mt-6 text-[15px] text-stone">
           More questions?{" "}
           <Link href="/learn" className="link text-ink">
