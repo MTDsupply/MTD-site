@@ -799,3 +799,32 @@ footer a .keep-case, .btn .keep-case { text-transform: none; }
 /* The search field and its submit are one control: a square field with a text button inside its right edge. */
 .search-submit { border: 1px solid var(--color-line); border-left: 0; background: var(--color-card); color: var(--color-ink); padding: 0 14px; font-size: 14px; text-transform: lowercase; }
 .search-submit:hover { color: var(--color-stone); }
+
+/* ---- Interaction layer (2026-11-13): the header clears over the hero, section
+   numbers pin while their section scrolls, a section index sits in the left
+   gutter, product tiles swap to the standing shot on hover, and the breakdown
+   well is scrubbed. All fades; nothing slides. ------------------------------ */
+.header-surface { background: transparent; border-bottom-color: transparent; transition: background-color 250ms ease, border-color 250ms ease; }
+.site-header { background: transparent; }
+.site-header .band-forest { background: var(--color-bone); }
+html[data-scrolled] .header-surface, html[data-scrolled] .site-header { background: var(--color-bone); }
+html[data-scrolled] .header-surface { border-bottom-color: var(--color-line); }
+@media (max-width: 1023px) { .header-surface { background: var(--color-bone); border-bottom-color: var(--color-line); } }
+
+.section-num { position: sticky; top: 112px; align-self: start; }
+
+.section-rail { position: fixed; left: 28px; top: 50%; transform: translateY(-50%); z-index: 20; display: none; opacity: 0; transition: opacity 250ms ease; pointer-events: none; }
+.section-rail.is-visible { opacity: 1; pointer-events: auto; }
+@media (min-width: 1360px) { .section-rail { display: block; } }
+.section-rail ol { display: grid; gap: 10px; }
+.section-rail a { display: flex; align-items: baseline; gap: 10px; font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ash); text-decoration: none; transition: color 200ms ease; }
+.section-rail a:hover, .section-rail a.is-active { color: var(--color-ink); }
+.section-rail-title { opacity: 0; transition: opacity 200ms ease; white-space: nowrap; }
+.section-rail:hover .section-rail-title { opacity: 1; }
+
+.hover-swap .hover-swap-back { opacity: 0; transition: opacity 320ms ease; }
+.hover-swap:hover .hover-swap-back, a:focus-visible .hover-swap .hover-swap-back { opacity: 1; }
+@media (hover: none) { .hover-swap .hover-swap-back { display: none; } }
+
+.scrub-well { touch-action: pan-y; }
+.scrub-track span { transition: background-color 250ms ease; }

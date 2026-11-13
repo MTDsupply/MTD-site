@@ -28,6 +28,7 @@ export function withAssets(catalog: Catalog): Catalog {
     ...p,
     drawing: drawingFor(p.sku, drawingByCat.get(p.categorySlug) ?? "/drawings/category-cups.svg"),
     photo: p.images[0] ?? photoFor(p.sku),
+    hover: photoFor(p.sku, "3q"),
     restockWhen: whenByCat.get(p.categorySlug) ?? null,
   }));
   return { ...catalog, products };

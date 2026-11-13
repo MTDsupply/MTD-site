@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Cert, Product } from "@/lib/catalog/types";
 import { CertChip } from "./CertChip";
-import { ProductImage } from "./ProductImage";
+import { HoverSwap } from "./HoverSwap";
 import { Price } from "./Price";
 import { AddToCart } from "./AddToCart";
 import { restockNoteLower } from "@/lib/site";
@@ -29,7 +29,11 @@ export function ProductCard({
     <article className="card flex h-full flex-col p-3 md:p-4" data-sku={product.sku}>
       <div className="relative">
         <Link href={href} className="block" aria-label={product.name}>
-          <ProductImage src={photo} name={product.name} sku={product.sku} priority={priority} tone="cream" />
+          {photo ? (
+            <HoverSwap front={photo} hover={product.hover} alt={product.name} priority={priority} sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw" />
+          ) : (
+            <div className="aspect-[4/5] w-full bg-card" />
+          )}
         </Link>
       </div>
       <div className="mt-4 flex flex-wrap items-baseline justify-between gap-x-2 gap-y-0.5">

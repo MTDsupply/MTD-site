@@ -61,6 +61,8 @@ export type Product = {
   drawing?: string;
   /** Resolved on the server: front photo path, or null for the Paper placeholder. */
   photo?: string | null;
+  /** Resolved on the server: the standing three-quarter photo, shown on hover where one exists. */
+  hover?: string | null;
   /** Resolved on the server from the product's category: see Category.restockWhen. */
   restockWhen?: string | null;
 };
