@@ -63,16 +63,16 @@ export default async function HomePage() {
   ];
 
   const stages = [
-    { label: "served.", text: "A paper cup with a PHA lining. Holds a hot coffee like any other.", src: v("/breakdown/1.jpg"), alt: "A new paper cup standing on compost" },
-    { label: "torn and buried.", text: "Into the pile with the grounds and the food scraps. Smaller pieces go faster.", src: v("/breakdown/2.jpg"), alt: "The cup slumped and stained in the pile" },
-    { label: "softening.", text: "Moisture, warmth and the same microbes that made the lining take it apart.", src: v("/breakdown/3.jpg"), alt: "The cup collapsed to its marked base" },
-    { label: "gone.", text: "Nothing left to pick out. No film, no flakes, no microplastics.", src: v("/breakdown/4.jpg"), alt: "Dark compost where the cup was" },
+    { label: "new.", text: "A paper cup with a PHA lining. It works like any other hot cup.", src: v("/breakdown/1.jpg"), alt: "A new paper cup standing on compost" },
+    { label: "in the pile.", text: "Tear it up and bury it with the food scraps. Smaller pieces go faster.", src: v("/breakdown/2.jpg"), alt: "The cup slumped and stained in the pile" },
+    { label: "breaking down.", text: "Heat, moisture and the same bacteria that made the lining take it apart.", src: v("/breakdown/3.jpg"), alt: "The cup collapsed to its marked base" },
+    { label: "gone.", text: "Nothing to pick out afterwards. No film, no flakes, no microplastics.", src: v("/breakdown/4.jpg"), alt: "Dark compost where the cup was" },
   ];
 
   const stats: [number, string][] = [
-    [98, "would pay 15¢ more for a cup that does both"],
-    [90, "would pay more for home compostable"],
-    [87, "would pay more for no microplastics"],
+    [98, "said yes when the cup did both"],
+    [90, "said yes for a cup that composts at home"],
+    [87, "said yes for a cup with no microplastics"],
   ];
 
   const trust: { k: string; v: string; logo?: string }[] = [
@@ -83,8 +83,8 @@ export default async function HomePage() {
   ];
 
   const cards = [
-    { title: "hot cups.", sub: "8, 12 and 16 oz. One lining, one certificate, three sizes.", chips: ["home compostable", "no microplastics", "PHA lined"], img: "/card-cups.jpg", alt: "The three cup sizes with one cup on its side showing the mark on its base", href: "/products/cups", cta: "shop cups", primary: true },
-    { title: "lids.", sub: "One lid that fits all three cups, from the same certified material.", chips: ["fits 8, 12 and 16 oz", "home compostable"], img: "/card-lids.jpg", alt: "A cup wearing the lid, with a second lid lying in front", href: "/products/lids", cta: "shop lids", primary: false },
+    { title: "hot cups.", sub: "8, 12 and 16 oz. All three are the same paper and the same lining.", chips: ["home compostable", "no microplastics", "PHA lined"], img: "/card-cups.jpg", alt: "The three cup sizes with one cup on its side showing the mark on its base", href: "/products/cups", cta: "shop cups", primary: true },
+    { title: "lids.", sub: "One lid fits all three cups. Same material, same certificate.", chips: ["fits 8, 12 and 16 oz", "home compostable"], img: "/card-lids.jpg", alt: "A cup wearing the lid, with a second lid lying in front", href: "/products/lids", cta: "shop lids", primary: false },
   ];
 
   return (
@@ -98,11 +98,11 @@ export default async function HomePage() {
           <div className="hero-in max-w-[34rem]">
             <p className="t-label">{restock ? stockSentence(categories).replace(/\.$/, "").toLowerCase() : "hot cups and lids, in stock"}</p>
             <h1 className="t-hero mt-4 text-ink md:!text-[clamp(44px,4.6vw,68px)]">
-              serve it.
+              a hot cup you can
               <br />
-              then let it go.
+              compost at home.
             </h1>
-            <p className="t-lead mt-6 max-w-[36ch] text-ink">Hot cups and lids made from 100% certified home-compostable material. The mark on the base is the whole promise: it goes in the garden pile with the grounds.</p>
+            <p className="t-lead mt-6 max-w-[36ch] text-ink">Our cups and lids are paper with a PHA lining instead of plastic, certified home compostable by TÜV Austria. When you are done, the whole thing goes in the compost with the grounds.</p>
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
               <Link href="/products/cups" className="btn btn-primary btn-lg">
                 order cups
@@ -111,7 +111,7 @@ export default async function HomePage() {
                 wholesale pricing
               </Link>
             </div>
-            {fromCup != null ? <p className="mt-8 text-[14px] text-stone tnum">from {unitMoney(fromCup)} a cup by the case · packs of 100 for the house</p> : null}
+            {fromCup != null ? <p className="mt-8 text-[14px] text-stone tnum">from {unitMoney(fromCup)} a cup by the case · packs of 100 for home</p> : null}
           </div>
         </div>
       </section>
@@ -162,9 +162,9 @@ export default async function HomePage() {
       {/* statement band: the one soil panel, beside the soil photo. */}
       <section className="bleed mt-16 grid md:mt-24 md:grid-cols-[1fr_1.3fr]">
         <Reveal className="flex flex-col justify-center bg-soil-band px-4 py-14 md:py-20 md:pl-[max(16px,calc((100vw-1120px)/2+28px))] md:pr-12">
-          <p className="t-label !text-bone/60">the material</p>
-          <h2 className="t-section mt-3 text-bone">paper outside. PHA inside.</h2>
-          <p className="t-lead mt-4 max-w-[36ch] text-bone/85">Every paper cup has a lining. Ours is PHA, a material microbes make and microbes eat, so the whole cup is certified to break down in a home compost pile. Nothing left behind.</p>
+          <p className="t-label !text-bone/60">the lining</p>
+          <h2 className="t-section mt-3 text-bone">why ours composts and most don&rsquo;t.</h2>
+          <p className="t-lead mt-4 max-w-[36ch] text-bone/85">Every paper cup has a thin lining so it holds liquid. In most cups that lining is plastic, which is why they never really break down. Ours is PHA. Bacteria make it, and bacteria eat it, so the cup goes in the compost pile and disappears.</p>
           <p className="mt-6">
             <Link href="/whats-in-your-cup" className="link text-[15px] font-medium text-bone">
               what&rsquo;s in your cup
@@ -180,8 +180,8 @@ export default async function HomePage() {
       <section className="mt-16 md:mt-24">
         <Reveal>
         <SectionHead
-          title="after the coffee."
-          intro="Serve it. Compost it. Done. Drag across the photo or pick a stage. An illustration of the sequence, not a timed photograph: how fast it goes depends on the pile."
+          title="what happens after."
+          intro="Drag across the photo to see the sequence. It is an illustration, not a timed test. How fast a cup breaks down depends on your pile."
           action={
             <Link href="/compost" className="btn btn-outline">
               how to compost it
@@ -199,7 +199,7 @@ export default async function HomePage() {
         <div className="grid md:grid-cols-[1.3fr_1fr_1fr_1fr]">
           <div className="py-8 md:pr-10">
             <p className="t-label">the Inner Harbour, {site.city}</p>
-            <p className="mt-3 text-[17px] leading-[1.5] text-ink">Before we ordered a single case we asked 167 coffee drinkers one question: would you pay 15¢ more for a cup with no microplastics that composts at home?</p>
+            <p className="mt-3 text-[17px] leading-[1.5] text-ink">Before we ordered our first case, we stood on the Inner Harbour with a clipboard and asked 167 people one question: would you pay 15¢ more for your coffee if the cup had no microplastics and could go in your compost?</p>
             <p className="mt-4">
               <Link href="/about" className="link text-[15px] font-medium text-ink">
                 our story
@@ -222,7 +222,7 @@ export default async function HomePage() {
         <Reveal>
         <SectionHead
           title="the range."
-          intro="Three hot cups and the one lid that fits all of them. Packs of 100 for the house, cases of 1,000 for the business."
+          intro="Three cups and one lid. Packs of 100 if you are buying for home, cases of 1,000 if you are buying for a café."
           action={
             <Link href="/products" className="btn btn-outline">
               shop all
@@ -262,7 +262,7 @@ export default async function HomePage() {
         <Reveal>
         <SectionHead
           title="what it costs."
-          intro="One case price for everyone, whether you order one case or fifty. Put in your numbers."
+          intro="One price whether you buy one case or fifty. Put in roughly how many cups you go through and see what a month costs."
           action={
             <a href="/price-list.pdf" className="btn btn-outline">
               price list (<span className="keep-case">PDF</span>)
@@ -278,7 +278,7 @@ export default async function HomePage() {
       {/* asked often */}
       <section className="mt-16 pb-8 md:mt-24">
         <Reveal>
-        <SectionHead title="asked often." intro="The questions cafés ask before the first case, answered in a sentence or two." />
+        <SectionHead title="questions we get asked." intro="Mostly from café owners before their first order." />
         </Reveal>
         <Reveal className="hairline mt-8 border-y border-line">
           {faq.map(([q, a]) => (
@@ -292,11 +292,11 @@ export default async function HomePage() {
           ))}
         </Reveal>
         <p className="mt-6 text-[15px] text-stone">
-          More questions?{" "}
+          More detail, with sources, in{" "}
           <Link href="/learn" className="link text-ink">
             the explainers
-          </Link>{" "}
-          have the sources.
+          </Link>
+          .
         </p>
       </section>
       <JsonLd data={faqLd(faq)} />

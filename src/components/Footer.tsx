@@ -23,7 +23,7 @@ export async function Footer() {
       <div className="relative">
       <div className="mx-auto max-w-7xl px-4 pt-14 md:pt-16">
         <Wordmark className="h-6" variant="white" priority={false} />
-        <p className="mt-4 max-w-md text-paper/80">keep it. then let it go.</p>
+        <p className="mt-4 max-w-md text-paper/80">hot cups and lids that compost at home. Victoria, BC.</p>
       </div>
 
       <div className="mx-auto grid max-w-7xl gap-8 px-4 pb-8 pt-10 md:grid-cols-3 lg:grid-cols-5">

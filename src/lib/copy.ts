@@ -9,8 +9,8 @@ export const claims = {
 
 /** One line per SKU on what it is for; used on the home tiles and the catalogue cards. */
 export const taglines: Record<string, string> = {
-  "MTD-CUP-8H": "cortado, flat white, a short americano.",
-  "MTD-CUP-12H": "the everyday latte and the house drip.",
-  "MTD-CUP-16H": "large lattes, chai, tea with room.",
-  "MTD-LID-HOT": "one lid for all three sizes.",
+  "MTD-CUP-8H": "for cortados, flat whites and short americanos.",
+  "MTD-CUP-12H": "the standard latte and drip size.",
+  "MTD-CUP-16H": "the large, with room for milk.",
+  "MTD-LID-HOT": "fits all three cups.",
 };

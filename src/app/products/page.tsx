@@ -35,7 +35,7 @@ export default async function ProductsPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 pb-8">
-      <PageHeader eyebrow="Catalogue" title="products." description={`${stockSentence(catalog.categories)} Three hot cups, one lid. Packs of 100 for the house, cases of 1,000 for the business.`} />
+      <PageHeader eyebrow="Catalogue" title="products." description={`${stockSentence(catalog.categories)} Three cups and one lid. Packs of 100 for home, cases of 1,000 for cafés.`} />
       <Suspense fallback={<p className="mt-8 text-sm text-stone">Loading catalogue…</p>}>
         <CatalogGrid catalog={catalog} />
       </Suspense>
@@ -43,7 +43,7 @@ export default async function ProductsPage() {
       {cups.length > 1 ? (
         <Reveal as="section" className="mt-16 md:mt-24">
           <h2 className="t-section text-ink">compare the sizes.</h2>
-          <p className="t-lead mt-3 max-w-[58ch] text-stone">Same paper, same PHA lining, same certificate. Only the volume and the price change.</p>
+          <p className="t-lead mt-3 max-w-[58ch] text-stone">All three are the same paper and the same lining. The only differences are the size and the price.</p>
           <div className="mt-8 overflow-x-auto">
             <table className="spec-table w-full text-[15px]">
               <colgroup>
@@ -85,18 +85,18 @@ export default async function ProductsPage() {
 
       <Reveal as="section" className="mt-16 grid gap-4 md:mt-24 md:grid-cols-2">
         <div className="note">
-          <h2 className="t-heading text-ink">try them first.</h2>
+          <h2 className="t-heading text-ink">want to try them first?</h2>
           <p className="mt-2 text-stone">
-            Sample packs are free for verified cafés and foodservice businesses.{" "}
+            We send free sample packs to cafés and food businesses once we have verified them.{" "}
             <Link href="/business?kind=sample#quote" className="link text-ink">
               request a sample pack
             </Link>
           </p>
         </div>
         <div className="note">
-          <h2 className="t-heading text-ink">know your SKUs?</h2>
+          <h2 className="t-heading text-ink">ordering again?</h2>
           <p className="mt-2 text-stone">
-            Type them in with quantities and add the lot at once.{" "}
+            Type in the SKUs and quantities and add them all at once.{" "}
             <Link href="/quick-order" className="link text-ink">
               quick order by <span className="keep-case">SKU</span>
             </Link>
