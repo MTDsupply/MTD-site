@@ -830,6 +830,5 @@ html[data-scrolled] .header-surface { border-bottom-color: var(--color-line); }
 
 /* ---- Home layout (2026-11-13): Nothing / Bloom skeleton in the card's palette. */
 .bleed { position: relative; left: 50%; width: 100vw; margin-left: -50vw; }
-.feature-card .chip { background: color-mix(in srgb, var(--color-bone) 70%, transparent); color: var(--color-ink); border-color: var(--color-line); }
 .footer-mark { display: block; width: 100%; height: auto; opacity: 0.18; }
 .bg-soil-band h1, .bg-soil-band h2, .bg-soil-band h3 { color: var(--color-bone); }

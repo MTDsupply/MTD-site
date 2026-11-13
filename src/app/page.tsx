@@ -131,25 +131,25 @@ export default async function HomePage() {
       {/* two split cards */}
       <section className="mt-6 grid gap-4 md:grid-cols-2">
         {cards.map((c) => (
-          <article key={c.title} className="feature-card relative aspect-[4/5] overflow-hidden bg-card sm:aspect-square">
-            <Image src={v(c.img)} alt={c.alt} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
-            <div className="relative flex h-full flex-col justify-between p-6 md:p-8">
-              <div>
-                <h2 className="t-page text-ink">{c.title}</h2>
-                <p className="mt-2 max-w-[34ch] text-[15px] text-ink">{c.sub}</p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {c.chips.map((ch) => (
-                    <span key={ch} className="chip chip-fog">
-                      {ch}
-                    </span>
-                  ))}
-                </div>
+          <article key={c.title} className="card flex flex-col bg-card">
+            <div className="p-6 pb-5 md:p-8 md:pb-6">
+              <h2 className="t-page text-ink">{c.title}</h2>
+              <p className="mt-2 max-w-[40ch] text-[15px] text-ink">{c.sub}</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {c.chips.map((ch) => (
+                  <span key={ch} className="chip chip-fog">
+                    {ch}
+                  </span>
+                ))}
               </div>
-              <div>
-                <Link href={c.href} className={`btn ${c.primary ? "btn-primary" : "btn-outline"}`}>
-                  {c.cta}
-                </Link>
-              </div>
+            </div>
+            <Link href={c.href} aria-label={c.cta} className="relative block aspect-square overflow-hidden">
+              <Image src={v(c.img)} alt={c.alt} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+            </Link>
+            <div className="p-6 pt-5 md:p-8 md:pt-6">
+              <Link href={c.href} className={`btn ${c.primary ? "btn-primary" : "btn-outline"}`}>
+                {c.cta}
+              </Link>
             </div>
           </article>
         ))}
