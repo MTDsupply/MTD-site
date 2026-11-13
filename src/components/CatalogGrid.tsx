@@ -1,20 +1,20 @@
 "use client";
 import { useMemo } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { motion, useReducedMotion } from "motion/react";
 import type { Catalog } from "@/lib/catalog/types";
 import { ProductCard } from "./ProductCard";
 import { ComingSoonTile } from "./ComingSoonTile";
+import { RevealGroup } from "./Reveal";
 
 /**
- * /products: filter rail (category, size, case/pack, in stock) on the left,
- * dense 4-across grid on the right. Filters live in the URL.
+ * /products and the category pages: a toolbar of category pills with the
+ * search field at the right, then the catalogue two across as wide paper
+ * cards. Filters live in the URL so a filtered view can be shared.
  */
 export function CatalogGrid({ catalog, lockedCategory }: { catalog: Catalog; lockedCategory?: string }) {
   const params = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const reduced = useReducedMotion();
 
   const q = (params.get("q") ?? "").trim().toLowerCase();
   const qs = q.replace(/[^a-z0-9]+/g, "");
@@ -25,7 +25,8 @@ export function CatalogGrid({ catalog, lockedCategory }: { catalog: Catalog; loc
     const next = new URLSearchParams(params.toString());
     if (value) next.set(key, value);
     else next.delete(key);
-    router.replace(`${pathname}?${next.toString()}`, { scroll: false });
+    const qsOut = next.toString();
+    router.replace(qsOut ? `${pathname}?${qsOut}` : pathname, { scroll: false });
   };
 
   const categories = useMemo(() => [...catalog.categories].sort((a, b) => a.sortOrder - b.sortOrder), [catalog]);
@@ -43,93 +44,69 @@ export function CatalogGrid({ catalog, lockedCategory }: { catalog: Catalog; loc
     );
 
   const comingSoon = categories
-        .filter((c) => c.status !== "live")
-        .filter((c) => !cat || c.slug === cat)
-        .filter((c) => has(c.name, c.description, c.slug));
+    .filter((c) => c.status !== "live")
+    .filter((c) => !cat || c.slug === cat)
+    .filter((c) => has(c.name, c.description, c.slug));
 
   const empty = liveProducts.length === 0 && comingSoon.length === 0;
+  const total = liveProducts.length + comingSoon.length;
 
   return (
-    <div className="mt-6 grid gap-6 lg:grid-cols-[220px_1fr]">
-      <aside aria-label="Filters" className="space-y-5 text-sm">
-        <div>
-          <label className="label" htmlFor="f-q">
+    <div className="mt-8">
+      <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-4 border-b border-line pb-5">
+        {!lockedCategory ? (
+          <div role="group" aria-label="Category" className="flex flex-wrap gap-2">
+            <button type="button" onClick={() => set("category", "")} aria-pressed={!cat} className={`chip ${!cat ? "!border-ink !bg-ink !text-bone" : "chip-fog"}`}>
+              all
+            </button>
+            {categories.map((c) => (
+              <button
+                key={c.slug}
+                type="button"
+                onClick={() => set("category", c.slug)}
+                aria-pressed={cat === c.slug}
+                className={`chip ${cat === c.slug ? "!border-ink !bg-ink !text-bone" : "chip-fog"}`}
+              >
+                {c.name.toLowerCase()}
+                {c.status !== "live" ? " · soon" : ""}
+              </button>
+            ))}
+          </div>
+        ) : (
+          <p className="text-[14px] text-stone tnum">
+            {total} {total === 1 ? "product" : "products"}
+          </p>
+        )}
+        <div className="flex items-center gap-4">
+          {!lockedCategory ? (
+            <p className="hidden text-[14px] text-stone tnum sm:block">
+              {total} {total === 1 ? "product" : "products"}
+            </p>
+          ) : null}
+          <label className="sr-only" htmlFor="f-q">
             Search
           </label>
           <input
             id="f-q"
             type="search"
-            className="input"
+            className="input w-56 py-2 text-sm"
             defaultValue={params.get("q") ?? ""}
-            placeholder="Name or SKU"
+            placeholder="Search by name or SKU"
             onChange={(e) => set("q", e.target.value)}
           />
         </div>
-        {!lockedCategory ? (
-          <fieldset>
-            <legend className="label">Category</legend>
-            <ul className="space-y-1">
-              <li>
-                <button type="button" onClick={() => set("category", "")} className={`hover:underline ${!cat ? "font-medium text-ink" : ""}`}>
-                  All
-                </button>
-              </li>
-              {categories.map((c) => (
-                <li key={c.slug}>
-                  <button
-                    type="button"
-                    onClick={() => set("category", c.slug)}
-                    className={`hover:underline ${cat === c.slug ? "font-medium text-ink" : c.status === "live" ? "" : "text-ink/45"}`}
-                  >
-                    {c.name}
-                    {c.status !== "live" ? " · soon" : ""}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </fieldset>
-        ) : null}
-      </aside>
-
-      <div>
-        <p className="mb-3 text-xs text-soil/60 tnum">
-          {liveProducts.length} products
-        </p>
-        {empty ? (
-          <p className="rounded-[20px] bg-white p-6 text-sm">Nothing matches. Try a different SKU or clear the filters.</p>
-        ) : null}
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {liveProducts.map((p, i) => (
-            <motion.div
-              key={p.sku}
-              className="h-full"
-              initial={reduced ? false : { opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true, margin: "0px 0px -8% 0px" }}
-              transition={{ duration: 0.2, ease: "easeOut", delay: (i % 4) * 0.04 }}
-            >
-              <ProductCard
-                product={p}
-                cert={certById.get(p.certId ?? "")}
-                categoryDrawing={catBySlug.get(p.categorySlug)?.lineDrawing ?? "/drawings/category-cups.svg"}
-                priority={i < 4}
-              />
-            </motion.div>
-          ))}
-          {comingSoon.map((c, i) => (
-            <motion.div
-              key={c.slug}
-              className="h-full"
-              initial={reduced ? false : { opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true, margin: "0px 0px -8% 0px" }}
-              transition={{ duration: 0.2, ease: "easeOut", delay: ((liveProducts.length + i) % 4) * 0.04 }}
-            >
-              <ComingSoonTile category={c} compact photo={catalog.products.find((p) => p.categorySlug === c.slug)?.photo ?? null} />
-            </motion.div>
-          ))}
-        </div>
       </div>
+
+      {empty ? <p className="mt-8 text-[15px] text-stone">Nothing matches. Try a different SKU or clear the filters.</p> : null}
+
+      <RevealGroup className="mt-6 grid gap-4 md:grid-cols-2" itemClassName="h-full" step={0.08}>
+        {[
+          ...liveProducts.map((p, i) => (
+            <ProductCard key={p.sku} product={p} cert={certById.get(p.certId ?? "")} categoryName={catBySlug.get(p.categorySlug)?.name.toLowerCase()} priority={i < 2} />
+          )),
+          ...comingSoon.map((c) => <ComingSoonTile key={c.slug} category={c} compact photo={catalog.products.find((p) => p.categorySlug === c.slug)?.photo ?? null} />),
+        ]}
+      </RevealGroup>
     </div>
   );
 }

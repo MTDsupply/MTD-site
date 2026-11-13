@@ -1,8 +1,11 @@
 import { Suspense } from "react";
+import Link from "next/link";
 import { getCatalog } from "@/lib/catalog/queries";
 import { CatalogGrid } from "@/components/CatalogGrid";
 import { PageHeader } from "@/components/PageHeader";
+import { Reveal } from "@/components/Reveal";
 import { stockSentence } from "@/lib/site";
+import { money, unitMoney, count } from "@/lib/format";
 import { pageMeta, breadcrumbLd, itemListLd } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 
@@ -15,25 +18,99 @@ export const metadata = pageMeta({
 
 export default async function ProductsPage() {
   const catalog = await getCatalog();
+  const live = catalog.products.filter((p) => p.status === "live");
+  const cups = live.filter((p) => p.categorySlug === "cups").sort((a, b) => a.sortOrder - b.sortOrder);
+  const lid = live.find((p) => p.categorySlug === "lids") ?? null;
+
+  const rows: [string, (p: (typeof cups)[number]) => string][] = [
+    ["capacity", (p) => p.specs.capacity ?? p.size],
+    ["rim", (p) => p.specs.rimDiameter ?? ""],
+    ["lid", () => (lid ? lid.name.toLowerCase() : "")],
+    ["pack", (p) => `${count(p.packCount)} · ${money(p.packPrice)}`],
+    ["case", (p) => `${count(p.caseCount)} · ${money(p.casePrice)}`],
+    ["per cup by the case", (p) => unitMoney(p.unitPrice)],
+    ["case size", (p) => p.specs.caseDimensions ?? ""],
+    ["case weight", (p) => p.specs.caseWeight ?? ""],
+  ];
+
   return (
     <div className="mx-auto max-w-7xl px-4 pb-8">
-      <PageHeader
-        eyebrow="Catalogue"
-        title="products."
-        description={`${stockSentence(catalog.categories)} Packs for the house, cases for the business.`}
-        image="/atmosphere/dew.jpg"
-        imageAlt="Dew on meadow grass at sunrise"
-      />
-      <Suspense fallback={<p className="mt-8 text-sm text-soil/60">Loading catalogue…</p>}>
+      <PageHeader eyebrow="Catalogue" title="products." description={`${stockSentence(catalog.categories)} Three hot cups, one lid. Packs of 100 for the house, cases of 1,000 for the business.`} />
+      <Suspense fallback={<p className="mt-8 text-sm text-stone">Loading catalogue…</p>}>
         <CatalogGrid catalog={catalog} />
       </Suspense>
+
+      {cups.length > 1 ? (
+        <Reveal as="section" className="mt-16 md:mt-24">
+          <h2 className="t-section text-ink">compare the sizes.</h2>
+          <p className="t-lead mt-3 max-w-[58ch] text-stone">Same paper, same PHA lining, same certificate. Only the volume and the price change.</p>
+          <div className="mt-8 overflow-x-auto">
+            <table className="spec-table w-full text-[15px]">
+              <colgroup>
+                <col style={{ width: "28%" }} />
+                {cups.map((p) => (
+                  <col key={p.sku} style={{ width: `${72 / cups.length}%` }} />
+                ))}
+              </colgroup>
+              <thead>
+                <tr>
+                  <th />
+                  {cups.map((p) => (
+                    <th key={p.sku}>
+                      <Link href={`/products/${p.categorySlug}/${p.sku.toLowerCase()}`} className="hover:underline">
+                        {p.size}
+                      </Link>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map(([label, get]) => (
+                  <tr key={label}>
+                    <th scope="row" className="text-left font-normal text-stone">
+                      {label}
+                    </th>
+                    {cups.map((p) => (
+                      <td key={p.sku} className="text-ink tnum">
+                        {get(p)}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Reveal>
+      ) : null}
+
+      <Reveal as="section" className="mt-16 grid gap-4 md:mt-24 md:grid-cols-2">
+        <div className="note">
+          <h2 className="t-heading text-ink">try them first.</h2>
+          <p className="mt-2 text-stone">
+            Sample packs are free for verified cafés and foodservice businesses.{" "}
+            <Link href="/business?kind=sample#quote" className="link text-ink">
+              request a sample pack
+            </Link>
+          </p>
+        </div>
+        <div className="note">
+          <h2 className="t-heading text-ink">know your SKUs?</h2>
+          <p className="mt-2 text-stone">
+            Type them in with quantities and add the lot at once.{" "}
+            <Link href="/quick-order" className="link text-ink">
+              quick order by <span className="keep-case">SKU</span>
+            </Link>
+          </p>
+        </div>
+      </Reveal>
+
       <JsonLd
         data={[
           breadcrumbLd([
             { name: "Home", path: "/" },
             { name: "Products", path: "/products" },
           ]),
-          itemListLd("Hot cups and lids", catalog.products.filter((p) => p.status === "live")),
+          itemListLd("Hot cups and lids", live),
         ]}
       />
     </div>

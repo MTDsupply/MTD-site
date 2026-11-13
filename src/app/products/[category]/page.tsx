@@ -51,7 +51,7 @@ export default async function CategoryPage({ params }: PageProps<"/products/[cat
     const planned = catalog.products.filter((p) => p.categorySlug === c.slug).sort((a, b) => a.sortOrder - b.sortOrder);
     return (
       <div className="mx-auto max-w-7xl px-4 pb-8">
-        <PageHeader eyebrow="Coming soon" title={c.name} description={c.description} image="/atmosphere/mist.jpg" />
+        <PageHeader eyebrow="Coming soon" title={`${c.name.toLowerCase()}.`} description={c.description} />
         <div className="mt-8 grid gap-6 lg:grid-cols-[320px_1fr]">
           <ComingSoonTile category={c} photo={planned[0]?.photo ?? null} />
           {planned.length ? (
@@ -121,7 +121,7 @@ export default async function CategoryPage({ params }: PageProps<"/products/[cat
 
   return (
     <div className="mx-auto max-w-7xl px-4 pb-8">
-      <PageHeader eyebrow={restockNote(c.restockWhen) ?? "In stock"} title={c.name} description={c.description} image="/atmosphere/dew.jpg" imageAlt="Dew on meadow grass at sunrise" />
+      <PageHeader eyebrow={restockNote(c.restockWhen) ?? "In stock"} title={`${c.name.toLowerCase()}.`} description={c.description} />
       <Suspense fallback={<p className="mt-8 text-sm text-soil/60">Loading…</p>}>
         <CatalogGrid catalog={catalog} lockedCategory={c.slug} />
       </Suspense>

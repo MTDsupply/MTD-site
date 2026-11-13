@@ -13,6 +13,7 @@ import { BreakdownScrubber } from "@/components/BreakdownScrubber";
 import { CountUp } from "@/components/CountUp";
 import { Reveal, RevealGroup } from "@/components/Reveal";
 import { v } from "@/lib/asset-version";
+import { taglines } from "@/lib/copy";
 
 export const metadata = pageMeta({
   title: `${site.name} · Home-compostable coffee cups and lids`,
@@ -57,8 +58,8 @@ export default async function HomePage() {
   const fromCup = cups.length ? Math.min(...cups.map((p) => p.unitPrice)) : null;
 
   const range = [
-    ...cups.map((p) => ({ p, use: { "MTD-CUP-8H": "cortado, flat white, a short americano.", "MTD-CUP-12H": "the everyday latte and the house drip.", "MTD-CUP-16H": "large lattes, chai, tea with room." }[p.sku] ?? "" })),
-    ...(lid ? [{ p: lid, use: "one lid for all three sizes." }] : []),
+    ...cups.map((p) => ({ p, use: taglines[p.sku] ?? "" })),
+    ...(lid ? [{ p: lid, use: taglines[lid.sku] ?? "" }] : []),
   ];
 
   const stages = [
