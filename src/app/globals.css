@@ -793,4 +793,9 @@ details.group { border-radius: 0 !important; background: transparent !important;
 details.group summary span[aria-hidden] { background: transparent !important; color: var(--color-stone) !important; border: 0 !important; font-size: 20px; width: auto; height: auto; }
 footer a { text-transform: lowercase; }
 footer a .keep-case, .btn .keep-case { text-transform: none; }
-.overflow-x-auto table th:first-child, .overflow-x-auto table td:first-child { position: sticky; left: 0; background: var(--color-bone); }
+@media (max-width: 767px) { .overflow-x-auto table th:first-child, .overflow-x-auto table td:first-child { position: sticky; left: 0; background: var(--color-card); } }
+/* Form and filter labels take the small stone label style, like every other label on the site. */
+.label { font-weight: 400; font-size: 11.5px; letter-spacing: 0.08em; color: var(--color-stone); }
+/* The search field and its submit are one control: a square field with a text button inside its right edge. */
+.search-submit { border: 1px solid var(--color-line); border-left: 0; background: var(--color-card); color: var(--color-ink); padding: 0 14px; font-size: 14px; text-transform: lowercase; }
+.search-submit:hover { color: var(--color-stone); }

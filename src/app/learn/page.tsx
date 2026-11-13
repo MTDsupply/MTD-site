@@ -28,13 +28,13 @@ export default function LearnIndexPage() {
         <Reveal>
           <h2 className="t-page text-forest">comparisons.</h2>
         </Reveal>
-        <RevealGroup className="mt-6 grid gap-4 md:grid-cols-2" itemClassName="h-full" step={0.06}>
+        <RevealGroup className="mt-6 grid gap-4 md:grid-cols-3" itemClassName="h-full" step={0.06}>
           {compare.map((a) => (
-            <Link key={a.slug} href={`/learn/${a.slug}`} className="card flex h-full flex-col p-6 md:p-8">
+            <Link key={a.slug} href={`/learn/${a.slug}`} className="card flex h-full flex-col p-6">
               <p className="t-label text-soil/55">{a.eyebrow}</p>
-              <h3 className="t-heading mt-2 text-ink">{a.heading}</h3>
-              <p className="mt-3 text-[15px] leading-6 text-soil/75">{a.description}</p>
-              <span className="link mt-5 text-sm font-medium text-forest">Read the comparison</span>
+              <h3 className="t-card mt-2 text-ink">{a.heading}</h3>
+              <p className="mt-2 text-sm leading-6 text-soil/70">{a.description}</p>
+              <span className="link mt-auto self-start pt-5 text-sm font-medium text-ink">read the comparison</span>
             </Link>
           ))}
         </RevealGroup>
@@ -44,13 +44,13 @@ export default function LearnIndexPage() {
         <Reveal>
           <h2 className="t-page text-forest">deep dives.</h2>
         </Reveal>
-        <RevealGroup className="mt-6 grid gap-4 md:grid-cols-2" itemClassName="h-full" step={0.06}>
+        <RevealGroup className="mt-6 grid gap-4 md:grid-cols-3" itemClassName="h-full" step={0.06}>
           {deep.map((a) => (
             <Link key={a.slug} href={`/learn/${a.slug}`} className="card flex h-full flex-col p-6">
               <p className="t-label text-soil/55">{a.eyebrow}</p>
               <h3 className="t-card mt-2 text-ink">{a.heading}</h3>
               <p className="mt-2 text-sm leading-6 text-soil/70">{a.description}</p>
-              <span className="link mt-4 text-sm font-medium text-forest">Read</span>
+              <span className="link mt-auto self-start pt-4 text-sm font-medium text-ink">read</span>
             </Link>
           ))}
         </RevealGroup>

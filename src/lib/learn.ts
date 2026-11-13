@@ -229,7 +229,7 @@ export const ARTICLES: Article[] = [
           "**Was the coating polymer itself tested for biodegradation, or excused as a minor constituent?** Ask for the certificate and the test scope, not the logo.",
           "**Does the certificate cover the finished cup and home composting?** A material certificate for the board is not a certificate for the cup.",
         ],
-        p: [`We answer all three on our [certifications page](/certifications): PHA, tested as the finished cup, certified home compostable by ${site.certifier}.`],
+        p: [`We answer all three on our [certifications page](/certifications): PHA, 100% certified home-compostable material, certified by ${site.certifier}.`],
       },
     ],
     faq: [
@@ -276,7 +276,7 @@ export const ARTICLES: Article[] = [
         h: "Is PHA a plastic?",
         p: [
           "By the European Union's legal definition, yes. The Commission's Single-Use Plastics guidelines state that polymers produced by industrial fermentation, giving PHA as the example, are not natural polymers, because the polymerisation did not take place in nature. We think that is a fair line to draw and we do not argue with it.",
-          "What the definition does not capture is the ending. A PHA film in a compost pile is consumed. A polyethylene or acrylic film in the same pile is not. For a cup, the question that matters is not whether the lining is called a plastic but whether anything is left of it in the finished compost. For PHA, certified as the finished cup, the answer is no.",
+          "What the definition does not capture is the ending. A PHA film in a compost pile is consumed. A polyethylene or acrylic film in the same pile is not. For a cup, the question that matters is not whether the lining is called a plastic but whether anything is left of it in the finished compost. For PHA, certified home compostable by TÜV Austria, the answer is no.",
         ],
       },
       {
@@ -402,7 +402,7 @@ export const ARTICLES: Article[] = [
           "**Ask whether the coating was tested or excused.** The certificate scope will say whether the finished cup was tested and which constituents were exempt.",
           "**Match the claim to the stream your cups actually enter.** A recyclable cup in a city with no cup recycling is waste. A home compostable cup composts wherever the customer takes it.",
         ],
-        p: [`Our answer: paper with a PHA lining, tested as the finished cup, certified home compostable by ${site.certifier}. See the [comparison with PHA](/learn/pha-vs-water-based-coatings) for the side-by-side.`],
+        p: [`Our answer: paper with a PHA lining, 100% certified home-compostable material, certified by ${site.certifier}. See the [comparison with PHA](/learn/pha-vs-water-based-coatings) for the side-by-side.`],
       },
     ],
     faq: [

@@ -176,7 +176,7 @@ export default async function HomePage() {
         <div className="grid gap-10 md:grid-cols-[1fr_1fr] md:gap-16">
           <figure>
             <div className="relative aspect-[4/3] overflow-hidden bg-card">
-              <Image src="/inner-harbour.jpg" alt="The founders on the Inner Harbour causeway in Victoria, asking passers-by four questions with a cooler of freezies and a hand-drawn sign" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" style={{ filter: "saturate(0.7) contrast(1.02)" }} />
+              <Image src="/inner-harbour.jpg" alt="The founders on the Inner Harbour causeway in Victoria, asking passers-by four questions with a cooler of freezies and a hand-drawn sign" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" style={{ filter: "grayscale(1) contrast(1.05)" }} />
             </div>
             <figcaption className="mt-3 text-[13px] text-stone">Inner Harbour, {site.city}. 167 coffee drinkers, summer 2026.</figcaption>
           </figure>

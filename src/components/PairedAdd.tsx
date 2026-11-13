@@ -34,7 +34,7 @@ export function PairedAdd({ product, label }: { product: Product; label: string 
         <p className="t-label text-forest">{label}</p>
         <p className="truncate text-sm font-medium">
           <Link href={href} className="hover:underline">
-            {product.name}
+            {product.name.charAt(0).toLowerCase() + product.name.slice(1)}
           </Link>
         </p>
         <p className="tnum text-xs text-soil/70">

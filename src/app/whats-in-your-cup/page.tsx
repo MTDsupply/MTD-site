@@ -32,12 +32,12 @@ const FAQ: [string, string][] = [
 export default function WhatsInYourCupPage() {
   return (
     <div className="mx-auto max-w-7xl px-4 pb-8">
-      <PageHeader eyebrow="What's actually in your cup" title="paper outside. PHA inside. nothing to hide." description={`Every Made to Disappear cup is a paper cup with a PHA lining, certified home-compostable by ${site.certifier}. Here's what that means, and how it compares to the other cups on the market.`} />
+      <PageHeader eyebrow="What's actually in your cup" title="what your cup is lined with." description={`Every Made to Disappear cup is a paper cup with a PHA lining, certified home-compostable by ${site.certifier}. Here's what that means, and how it compares to the other cups on the market.`} />
 
       <div className="mx-auto mt-12 grid max-w-6xl gap-10 md:grid-cols-[1fr_1.1fr] md:items-start md:gap-14">
         <Reveal>
-          <div className="relative aspect-square overflow-hidden rounded-[24px] bg-mint on-cream">
-            <Image src="/products/MTD-CUP-16H-front.jpg" alt="A 16 oz paper hot cup, one on its side showing the certification mark on its base" fill priority sizes="(min-width: 768px) 45vw, 100vw" className="object-contain p-6" />
+          <div className="relative aspect-[4/5] overflow-hidden bg-card">
+            <Image src="/products/MTD-CUP-16H-front.jpg" alt="A 16 oz paper hot cup, one on its side showing the mark on its base" fill priority sizes="(min-width: 768px) 45vw, 100vw" className="object-cover" />
           </div>
         </Reveal>
         <div className="space-y-10 text-[16px] leading-7 text-soil/85">
@@ -49,10 +49,7 @@ export default function WhatsInYourCupPage() {
           <Reveal as="section">
             <h2 className="t-page text-forest">what is PHA?</h2>
             <p className="mt-4">PHA (polyhydroxyalkanoate) is a material made by microorganisms. They produce it naturally, as a way to store energy, when they&rsquo;re fed renewable feedstocks.</p>
-            <p className="mt-3">The same kinds of microbes that make PHA can break it down. That&rsquo;s why it works as a cup lining: it holds hot coffee like a plastic does, then goes back to nature when you&rsquo;re done with it.</p>
-            <p className="mt-3">
-              In short: made by nature, unmade by nature. <strong className="font-semibold text-forest">Made to disappear.</strong>
-            </p>
+            <p className="mt-3">The same kinds of microbes that make PHA can break it down. That&rsquo;s why it works as a cup lining: it holds hot coffee like a plastic does, then composts in a garden pile when you&rsquo;re done with it.</p>
           </Reveal>
           <Reveal as="section" className="rounded-[20px] bg-cream p-6">
             <h2 className="t-heading text-forest">what you&rsquo;re getting.</h2>
@@ -126,23 +123,23 @@ export default function WhatsInYourCupPage() {
 
         <div className="mt-10 grid gap-8 md:grid-cols-2 md:gap-12">
           <Reveal as="section" className="text-[16px] leading-7 text-soil/85">
-            <h3 className="t-heading text-forest">PHA vs PLA</h3>
+            <h3 className="t-heading text-forest">PHA vs PLA.</h3>
             <p className="mt-4">Both are made from renewable sources, and both get called &ldquo;compostable.&rdquo; The difference is where.</p>
             <p className="mt-3">PLA is made by fermenting plant sugars into lactic acid, then turning that into a plastic. It&rsquo;s designed to break down in industrial composting, where piles run hot for weeks. In a backyard bin, or anywhere cooler, it breaks down very slowly. If your local facility doesn&rsquo;t take compostable cups, a PLA cup usually isn&rsquo;t composted at all.</p>
             <p className="mt-3">PHA is made directly by microbes, and microbes break it down. Our cups are certified to compost at home, so they don&rsquo;t depend on a facility accepting them.</p>
             <p className="mt-4">
               <Link href="/learn/pha-vs-pla" className="link font-medium text-forest">
-                Read the full PHA vs PLA comparison, with sources
+                the full PHA vs PLA comparison, with sources
               </Link>
             </p>
           </Reveal>
           <Reveal as="section" className="text-[16px] leading-7 text-soil/85">
-            <h3 className="t-heading text-forest">PHA vs water-based coatings</h3>
+            <h3 className="t-heading text-forest">PHA vs water-based coatings.</h3>
             <p className="mt-4">&ldquo;Water-based&rdquo; sounds like it should mean natural, but it only describes the method. The polymer is dispersed in water, painted onto the paper, and dried. That polymer could be a compostable material or a conventional plastic.</p>
             <p className="mt-3">Some water-based cups are certified compostable, and some aren&rsquo;t. The only way to know is to ask what the lining is made of and check the certificate. With us, the answer is simple: PHA, certified home-compostable.</p>
             <p className="mt-4">
               <Link href="/learn/pha-vs-water-based-coatings" className="link font-medium text-forest">
-                Read the full PHA vs water-based comparison, with sources
+                the full PHA vs water-based comparison, with sources
               </Link>
             </p>
           </Reveal>
@@ -157,7 +154,7 @@ export default function WhatsInYourCupPage() {
               {[
                 ["Home compost", "Tear the cup into pieces and add it to your backyard compost with your food scraps. Smaller pieces break down faster."],
                 ["Curbside food-scraps collection", "Programs vary by city. Check what yours accepts before putting cups in."],
-                ["Lids and sleeves", "These are separate items. Check their own labels for disposal."],
+                ["Lids", "Same material, same pile. The lid goes in with the cup."],
               ].map(([h, t], i) => (
                 <li key={h} className="flex gap-4">
                   <span className="t-label shrink-0 pt-1 tnum">0{i + 1}</span>
@@ -168,12 +165,14 @@ export default function WhatsInYourCupPage() {
                 </li>
               ))}
             </ol>
-            <Link href="/compost" className="btn btn-outline mt-7">
-              The full composting guide
-            </Link>
+            <p className="mt-7">
+              <Link href="/compost" className="link text-[15px] font-medium text-ink">
+                how to compost it
+              </Link>
+            </p>
           </Reveal>
           <Reveal delay={0.1}>
-            <div className="note">
+            <div>
               <h2 className="t-page text-ink">two questions to ask any cup supplier.</h2>
               <p className="mt-4 text-stone">
                 Words like <em>compostable</em>, <em>plant-based</em> and <em>water-based</em> get used loosely. Two questions cut through it:
@@ -192,10 +191,12 @@ export default function WhatsInYourCupPage() {
                   </li>
                 ))}
               </ol>
-              <p className="mt-6 font-display font-semibold">We&rsquo;ll answer both for you, every time.</p>
-              <Link href="/certifications" className="btn btn-paper mt-5">
-                See every certificate
-              </Link>
+              <p className="mt-6 text-ink">We answer both for you, every time.</p>
+              <p className="mt-2">
+                <Link href="/certifications" className="link text-[15px] font-medium text-ink">
+                  see every certificate
+                </Link>
+              </p>
             </div>
           </Reveal>
         </div>
@@ -203,14 +204,14 @@ export default function WhatsInYourCupPage() {
 
       <section className="mx-auto mt-16 max-w-3xl md:mt-24">
         <Reveal>
-          <h2 className="t-section text-center text-forest">questions.</h2>
+          <h2 className="t-page text-ink">questions.</h2>
         </Reveal>
-        <RevealGroup className="mt-8 space-y-3" step={0.05}>
+        <RevealGroup className="mt-6 divide-y divide-line border-y border-line" step={0.05}>
           {FAQ.map(([q, a]) => (
-            <details key={q} className="group rounded-[18px] bg-cream px-6 py-4">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-[17px] font-semibold text-forest">
+            <details key={q} className="group py-4">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-[17px] font-semibold text-ink">
                 <h3 className="font-display text-[17px] font-semibold">{q}</h3>
-                <span aria-hidden="true" className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-forest text-cream transition-transform group-open:rotate-45">
+                <span aria-hidden="true" className="shrink-0 text-stone transition-transform group-open:rotate-45">
                   +
                 </span>
               </summary>

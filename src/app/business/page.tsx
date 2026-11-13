@@ -6,7 +6,7 @@ import { QuoteForm } from "@/components/QuoteForm";
 import { Reveal } from "@/components/Reveal";
 import Link from "next/link";
 import { QUOTE_KINDS } from "@/lib/quote-kinds";
-import { restockNoteLower } from "@/lib/site";
+import { stockSentence } from "@/lib/site";
 import { bulkCasePrice, hasVolumeTier, BULK_MIN_UNITS } from "@/lib/pricing";
 
 export const metadata = pageMeta({
@@ -37,11 +37,11 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
             <p className="mt-4 max-w-[52ch] t-lead text-stone">
               One supplier for the whole range, certified, shipping across North America. Case pricing below{volume ? <>, and a lower volume price on every case once an order reaches {count(BULK_MIN_UNITS)} units</> : null}. Approved accounts get net-30.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-8 flex flex-wrap items-center gap-3">
               <a href="#quote" className="btn btn-primary">
                 request a quote
               </a>
-              <Link href="/business?kind=sample#quote" className="link text-[15px] font-medium text-ink">
+              <Link href="/business?kind=sample#quote" className="link self-center text-[15px] font-medium text-ink">
                 request a sample pack
               </Link>
             </div>
@@ -97,7 +97,7 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
                     <td className="sku">{p.sku}</td>
                     <td>
                       {p.name}
-                      <span className="block text-[12px] text-stone">{live ? restockNoteLower(p.restockWhen) ?? "in stock" : "coming soon"}</span>
+                      {live ? null : <span className="block text-[12px] text-stone">coming soon</span>}
                     </td>
                     <td>{p.material}</td>
                     <td className="num">{count(p.caseCount)}</td>
@@ -105,7 +105,7 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
                     <td className="num">{unitMoney(p.unitPrice)}</td>
                     {volume ? <td className="num">{p.bulkUnitPrice != null ? <>{unitMoney(p.bulkUnitPrice)} <span className="text-soil/60">({money(bulkCasePrice(p) ?? 0)} per case)</span></> : unitMoney(p.unitPrice)}</td> : null}
                     <td className="num text-soil/80">{(p.packs?.length ? p.packs : [{ count: p.packCount, price: p.packPrice }]).map((t) => money(t.price).replace(".00", "")).join(" / ")}</td>
-                    <td className="wrap">{cert && live ? cert.certifier : "In testing"}</td>
+                    <td className="wrap">{cert && live ? cert.certifier : ""}</td>
                   </tr>
                 );
               })}
@@ -113,7 +113,7 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
           </table>
         </div>
         <p className="mt-2 text-xs text-soil/60">
-          Prices in CAD before tax. Coming-soon rows show planned pricing; add them to a quote and we will confirm availability. Download the{" "}
+          {stockSentence(categories)} Prices in CAD before tax.{rows.some((p) => p.status !== "live") ? " Coming-soon rows show planned pricing; add them to a quote and we will confirm availability." : ""} Download the{" "}
           <a href="/price-list.pdf" className="link">
             one-page price list (PDF)
           </a>
@@ -133,8 +133,8 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
       </section>
 
       <section className="mt-12">
-        <div className="max-w-2xl rounded-[20px] bg-cream p-6 text-sm text-soil/80">
-          <h2 className="t-card">Cup Casa accounts</h2>
+        <div className="max-w-2xl border-y border-line py-5 text-sm text-ink">
+          <h2 className="t-card">Cup Casa accounts.</h2>
           <p className="mt-2">
             Cafés running Cup Casa OS can turn on auto-replenishment: we track your cup usage and deliver before you run out, on the same net-30 terms. Mention it in the notes above.
           </p>

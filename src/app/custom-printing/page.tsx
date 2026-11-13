@@ -27,27 +27,27 @@ export default async function CustomPrintingPage() {
 
       <div className="mt-10 grid gap-8 md:grid-cols-[1.1fr_1fr] md:items-center md:gap-12">
         <Reveal>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-[20px] bg-white">
-            <Image src="/products/MTD-CUP-16H-front.jpg" alt="A 16 oz hot cup, plain white, ready for printing" fill priority sizes="(min-width: 768px) 50vw, 100vw" className="object-contain" />
+          <div className="relative aspect-[4/5] overflow-hidden bg-card">
+            <Image src="/products/MTD-CUP-16H-front.jpg" alt="A 16 oz hot cup, plain white, ready for printing" fill priority sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
           </div>
         </Reveal>
         <div>
           <Reveal>
-            <p className="t-label text-forest">How it works</p>
+            <p className="t-label">how it works</p>
             <h2 className="t-page mt-2">send the artwork. we send a proof.</h2>
           </Reveal>
-          <RevealGroup className="mt-6 space-y-3" step={0.07}>
+          <RevealGroup className="mt-6 divide-y divide-line border-y border-line" step={0.07}>
             {[
-              ["Tell us what you need", "Cup sizes, roughly how many cases a year, and what the artwork is: a logo, a wordmark, a pattern."],
-              ["We reply with options and pricing", "Within one business day. Pricing depends on the sizes, the artwork and the run, so we quote each job rather than publish one number."],
-              ["Approve the proof", "You see the print on the cup before anything is made. Nothing runs until you sign it off."],
-              ["Same material, same certificate", `Printed cups are made from the same 100% certified home-compostable material, certified by ${site.certifier}, as the plain ones.`],
+              ["tell us what you need", "Cup sizes, roughly how many cases a year, and what the artwork is: a logo, a wordmark, a pattern."],
+              ["we reply with options and pricing", "Within one business day. Pricing depends on the sizes, the artwork and the run, so we quote each job rather than publish one number."],
+              ["approve the proof", "You see the print on the cup before anything is made. Nothing runs until you sign it off."],
+              ["same material, same certificate", `Printed cups are made from the same 100% certified home-compostable material, certified by ${site.certifier}, as the plain ones.`],
             ].map(([title, text], i) => (
-              <div key={title} className="card flex gap-4 p-5">
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-forest font-display text-[17px] font-bold text-cream tnum">{i + 1}</span>
+              <div key={title} className="grid grid-cols-[48px_1fr] py-4">
+                <p className="t-label pt-1 tnum">0{i + 1}</p>
                 <div>
-                  <h3 className="t-card">{title}</h3>
-                  <p className="mt-1 text-sm text-soil/75">{text}</p>
+                  <h3 className="t-card">{title}.</h3>
+                  <p className="mt-1 text-[15px] text-ink">{text}</p>
                 </div>
               </div>
             ))}
@@ -57,7 +57,7 @@ export default async function CustomPrintingPage() {
 
       <section id="quote" className="mt-14 scroll-mt-24">
         <Reveal>
-          <p className="t-label text-forest">Start a job</p>
+          <p className="t-label">start a job</p>
           <h2 className="t-heading mt-2">request custom printing.</h2>
           <p className="mt-1 max-w-[62ch] text-sm text-soil/70">
             Put the artwork details and the sizes you want in the notes. If you would rather see the plain cups first,{" "}

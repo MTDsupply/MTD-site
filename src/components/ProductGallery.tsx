@@ -12,12 +12,12 @@ export function ProductGallery({ photos, name }: { photos: GalleryPhoto[]; name:
   const current = photos[active];
 
   if (photos.length === 0) {
-    return <div className="aspect-square w-full rounded-[20px] bg-white" aria-label={name} />;
+    return <div className="aspect-[4/5] w-full bg-card" aria-label={name} />;
   }
 
   return (
     <div>
-      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[20px] bg-white">
+      <div className="relative aspect-[4/5] w-full overflow-hidden bg-card">
         <AnimatePresence initial={false} mode="popLayout">
           <motion.div
             key={current.src}
@@ -27,7 +27,7 @@ export function ProductGallery({ photos, name }: { photos: GalleryPhoto[]; name:
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
           >
-            <Image src={current.src} alt={current.alt} fill priority sizes="(min-width: 1024px) 50vw, 100vw" className="object-contain" />
+            <Image src={current.src} alt={current.alt} fill priority sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
           </motion.div>
         </AnimatePresence>
       </div>
@@ -41,12 +41,12 @@ export function ProductGallery({ photos, name }: { photos: GalleryPhoto[]; name:
               aria-selected={i === active}
               aria-label={p.alt}
               onClick={() => setActive(i)}
-              className={`relative aspect-square overflow-hidden border bg-white transition-colors ${
+              className={`relative aspect-[4/5] overflow-hidden border bg-card transition-colors ${
                 i === active ? "border-forest ring-2 ring-forest" : "border-line hover:border-sage"
               }`}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={p.src} alt="" className="h-full w-full object-contain" />
+              <img src={p.src} alt="" className="h-full w-full object-cover" />
             </button>
           ))}
         </div>

@@ -103,10 +103,10 @@ export function CatalogGrid({ catalog, lockedCategory }: { catalog: Catalog; loc
             <motion.div
               key={p.sku}
               className="h-full"
-              initial={reduced ? false : { opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={reduced ? false : { opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true, margin: "0px 0px -8% 0px" }}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: (i % 4) * 0.06 }}
+              transition={{ duration: 0.2, ease: "easeOut", delay: (i % 4) * 0.04 }}
             >
               <ProductCard
                 product={p}
@@ -120,10 +120,10 @@ export function CatalogGrid({ catalog, lockedCategory }: { catalog: Catalog; loc
             <motion.div
               key={c.slug}
               className="h-full"
-              initial={reduced ? false : { opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={reduced ? false : { opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true, margin: "0px 0px -8% 0px" }}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: ((liveProducts.length + i) % 4) * 0.06 }}
+              transition={{ duration: 0.2, ease: "easeOut", delay: ((liveProducts.length + i) % 4) * 0.04 }}
             >
               <ComingSoonTile category={c} compact photo={catalog.products.find((p) => p.categorySlug === c.slug)?.photo ?? null} />
             </motion.div>

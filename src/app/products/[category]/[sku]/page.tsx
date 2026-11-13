@@ -10,7 +10,7 @@ import { SpecTable } from "@/components/SpecTable";
 import { PairedAdd } from "@/components/PairedAdd";
 import { StickyBuyBar } from "@/components/StickyBuyBar";
 import { photoFor } from "@/lib/catalog/assets";
-import { restockNote } from "@/lib/site";
+import { restockNote, restockNoteLower } from "@/lib/site";
 import { money, unitMoney, count } from "@/lib/format";
 import { BULK_MIN_UNITS } from "@/lib/pricing";
 import { pageMeta, productLd, breadcrumbLd, faqLd, productPath } from "@/lib/seo";
@@ -94,14 +94,14 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
         {/* Buy box */}
         <div>
           <p className="t-label text-forest">{cat.name}</p>
-          <h1 className="t-page mt-2">{product.name}</h1>
+          <h1 className="t-page mt-2">{product.name.charAt(0).toLowerCase() + product.name.slice(1)}</h1>
           <p className="mt-1 text-base text-soil/80">
             {product.material}. 100% certified home-compostable material. {product.caseCount.toLocaleString("en-CA")} per case.{" "}
             <span className="sku text-soil/60">{product.sku}</span>
           </p>
           <div className="mt-3 flex flex-wrap items-center gap-2">
             <CertChip cert={cert} sku={product.sku} compact />
-            {restockNote(cat.restockWhen) ? <span className="chip chip-clay">{restockNote(cat.restockWhen)}</span> : null}
+            {restockNoteLower(cat.restockWhen) ? <span className="chip chip-clay">{restockNoteLower(cat.restockWhen)}</span> : null}
           </div>
 
           {siblings.length > 1 ? (

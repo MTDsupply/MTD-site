@@ -58,6 +58,11 @@ export function homeFaq(catalog: Catalog): [string, string][] {
   ];
 }
 
+/** "Hot cup lid" reads as "hot cup lid" mid-sentence; sizes like "12 oz hot cup" are unchanged. */
+function lc(name: string) {
+  return name.charAt(0).toLowerCase() + name.slice(1);
+}
+
 export function productFaq(p: Product, catalog: Catalog): [string, string][] {
   const cat = catalog.categories.find((c) => c.slug === p.categorySlug);
   const partners = p.goesWith
@@ -70,21 +75,21 @@ export function productFaq(p: Product, catalog: Catalog): [string, string][] {
   const out: [string, string][] = [];
   if (p.categorySlug === "cups") {
     out.push([
-      `What size is the ${p.name}?`,
+      `What size is the ${lc(p.name)}?`,
       `${p.specs.capacity ?? p.size}${p.specs.rimDiameter ? `, with a ${p.specs.rimDiameter} rim` : ""}. It is a paper hot cup in ${p.material}.`,
     ]);
     if (partners.length) {
       const lid = partners.find((x) => x.categorySlug === "lids");
-      if (lid) out.push([`Which lid fits the ${p.name}?`, `The ${lid.name} (${lid.sku}). One lid fits the 8, 12 and 16 oz cups, and it is made from the same certified material.`]);
+      if (lid) out.push([`Which lid fits the ${lc(p.name)}?`, `The ${lc(lid.name)} (${lid.sku}). One lid fits the 8, 12 and 16 oz cups, and it is made from the same certified material.`]);
     }
   } else if (partners.length) {
-    out.push([`Which cups does the ${p.name} fit?`, `The ${list(partners.map((x) => x.size))} hot cups. ${p.specs.rimDiameter ? `Rim: ${p.specs.rimDiameter}.` : ""}`.trim()]);
+    out.push([`Which cups does the ${lc(p.name)} fit?`, `The ${list(partners.map((x) => x.size))} hot cups. ${p.specs.rimDiameter ? `Rim: ${p.specs.rimDiameter}.` : ""}`.trim()]);
   }
-  out.push([`How much does the ${p.name} cost?`, price]);
+  out.push([`How much does the ${lc(p.name)} cost?`, price]);
   out.push([
-    `Can the ${p.name} go in a home compost pile?`,
+    `Can the ${lc(p.name)} go in a home compost pile?`,
     `Yes. It is made from 100% certified home-compostable material, certified by ${site.certifier}. Tear it up, bury it in the pile with food scraps and turn the pile as usual.`,
   ]);
-  if (cat) out.push([`What is the ${p.name} made of?`, `${p.material}.${p.specs.lining ? ` The lining is ${p.specs.lining}, made by fermentation, not a plastic film.` : ""} No microplastics.`]);
+  if (cat) out.push([`What is the ${lc(p.name)} made of?`, `${p.material}.${p.specs.lining ? ` The lining is ${p.specs.lining}, made by fermentation, not a plastic film.` : ""} No microplastics.`]);
   return out;
 }

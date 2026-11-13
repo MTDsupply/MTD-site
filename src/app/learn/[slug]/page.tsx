@@ -125,10 +125,15 @@ export default async function LearnArticlePage({ params }: { params: Promise<{ s
             {s.table ? (
               <div className="mt-6 overflow-x-auto rounded-[20px] bg-white">
                 <table className="spec-table w-full text-sm">
+                  <colgroup>
+                    {s.table.head.map((_, i) => (
+                      <col key={i} style={{ width: i === 0 ? "30%" : `${70 / (s.table!.head.length - 1)}%` }} />
+                    ))}
+                  </colgroup>
                   <thead>
-                    <tr className="bg-mint-light">
+                    <tr>
                       {s.table.head.map((h, i) => (
-                        <th key={i} className="font-display text-[12px] font-semibold uppercase tracking-[0.08em] text-forest">
+                        <th key={i}>
                           {h}
                         </th>
                       ))}
@@ -190,7 +195,7 @@ export default async function LearnArticlePage({ params }: { params: Promise<{ s
         </Reveal>
 
         <p className="note mt-14 max-w-[62ch] text-[15px] text-ink">
-          Everything we sell is PHA lined and certified home compostable by {site.certifier}, as the finished cup.{" "}
+          Everything we sell is made from 100% certified home-compostable material, certified by {site.certifier}.{" "}
           <Link href="/certifications" className="link text-ink">
             see the certificates
           </Link>

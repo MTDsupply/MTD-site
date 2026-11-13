@@ -38,7 +38,7 @@ export default function AboutPage() {
           {TEAM.map((m) => (
             <li key={m.name} className="card bg-white p-3">
               <div className="relative aspect-[4/5] overflow-hidden bg-paper-deep">
-                <Image src={m.photo} alt={m.alt} fill quality={90} sizes="(min-width: 640px) 360px, 100vw" className="object-cover" style={{ filter: "saturate(0.55) contrast(1.03)" }} />
+                <Image src={m.photo} alt={m.alt} fill quality={90} sizes="(min-width: 640px) 360px, 100vw" className="object-cover" style={{ filter: "grayscale(1) contrast(1.05)" }} />
               </div>
               <p className="t-card mt-3">{m.name}</p>
               <p className="mt-0.5 text-sm text-soil/70">{m.role}</p>

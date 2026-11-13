@@ -50,9 +50,9 @@ export default function CompostPage() {
             <p className="t-label">four steps</p>
             <h2 className="t-page mt-2">serve it. compost it. done.</h2>
           </Reveal>
-          <RevealGroup className="mt-6 space-y-3" step={0.07}>
+          <RevealGroup className="mt-6 divide-y divide-line border-y border-line" step={0.07}>
             {STEPS.map(([title, text], i) => (
-              <div key={title} className="grid grid-cols-[48px_1fr] border-t border-line py-4 last:border-b">
+              <div key={title} className="grid grid-cols-[48px_1fr] py-4">
                 <p className="t-label pt-1">0{i + 1}</p>
                 <div>
                   <h3 className="t-card">{title.charAt(0).toLowerCase() + title.slice(1)}.</h3>

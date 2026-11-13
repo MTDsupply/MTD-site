@@ -62,7 +62,7 @@ export async function Header() {
                 </a>
               </span>
             ) : (
-              <span className="truncate">
+              <span className="hidden truncate sm:inline">
                 {categories.some((c) => c.restockWhen) ? (
                   <>
                     {stockSentence(categories).replace(/\.$/, "")}
@@ -73,15 +73,15 @@ export async function Header() {
               </span>
             )}
             <Link href="/quick-order" className="hidden hover:underline sm:inline">
-              Quick order by SKU
+              quick order by <span className="keep-case">SKU</span>
             </Link>
             <a href="/price-list.pdf" className="hidden hover:underline sm:inline">
-              Price list (PDF)
+              price list (<span className="keep-case">PDF</span>)
             </a>
           </div>
           <div className="flex shrink-0 items-center gap-4">
             <Link href="/account" className="hidden hover:underline sm:inline">
-              Account
+              account
             </Link>
             <ModeToggle onInk />
           </div>

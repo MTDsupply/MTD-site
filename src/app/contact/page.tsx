@@ -15,9 +15,9 @@ export default function ContactPage() {
       <PageHeader eyebrow="Get in touch" title="contact." description="Email, or use the form. We reply within one business day." image="/atmosphere/peaks-alt.jpg" imageAlt="Morning light on a mountain range" objectPosition="center 35%" />
       <div className="mt-8 grid gap-8 md:grid-cols-[1fr_320px]">
         <ContactForm />
-        <aside className="space-y-4 text-sm">
-          <div className="band-sage p-5">
-            <h2 className="t-label">{site.phone ? "Order by phone" : "Hours"}</h2>
+        <aside className="hairline self-start border-y border-line text-sm">
+          <div className="py-5">
+            <h2 className="t-label">{site.phone ? "order by phone" : "hours"}</h2>
             {site.phone && site.phoneHref ? (
               <a href={site.phoneHref} className="mt-2 block text-2xl font-bold tnum text-ink">
                 {site.phone}
@@ -27,15 +27,15 @@ export default function ContactPage() {
             )}
             <p className="mt-1 text-stone">Monday to Friday, Pacific time.</p>
           </div>
-          <div className="rounded-[20px] bg-white p-5">
-            <h2 className="t-card text-[17px] leading-[22px]">email.</h2>
-            <a href={`mailto:${site.email}`} className="mt-1 block link">
+          <div className="py-5">
+            <h2 className="t-label">email</h2>
+            <a href={`mailto:${site.email}`} className="link mt-2 inline-block text-ink">
               {site.email}
             </a>
           </div>
-          <div className="rounded-[20px] bg-white p-5">
-            <h2 className="t-card text-[17px] leading-[22px]">where.</h2>
-            <p className="mt-1">
+          <div className="py-5">
+            <h2 className="t-label">where</h2>
+            <p className="mt-2 text-ink">
               {site.legalName}
               <br />
               {site.city}, {site.province}, {site.country}

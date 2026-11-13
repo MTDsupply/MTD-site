@@ -128,7 +128,7 @@ export function SearchForm({ entries, className = "", defaultValue = "" }: { ent
           aria-activedescendant={showList && active >= 0 ? `${listId}-${active}` : undefined}
           className="input min-w-0 flex-1 rounded-r-none py-1.5 text-sm"
         />
-        <button type="submit" className="btn btn-outline btn-sm rounded-l-none border-l-0">
+        <button type="submit" className="search-submit">
           Search
         </button>
       </div>
