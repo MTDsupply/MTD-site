@@ -7,6 +7,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { QuoteForm } from "@/components/QuoteForm";
 import { Reveal, RevealGroup } from "@/components/Reveal";
 import { pageMeta } from "@/lib/seo";
+import { v } from "@/lib/asset-version";
 
 export const metadata = pageMeta({
   title: "Custom printed compostable cups · your logo, from 100 cases",
@@ -28,7 +29,7 @@ export default async function CustomPrintingPage() {
       <div className="mt-10 grid gap-8 md:grid-cols-[1.1fr_1fr] md:items-center md:gap-12">
         <Reveal>
           <div className="relative aspect-[4/5] overflow-hidden bg-card">
-            <Image src="/products/MTD-CUP-16H-front.jpg" alt="A 16 oz hot cup, plain white, ready for printing" fill priority sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+            <Image src={v("/products/MTD-CUP-16H-front.jpg")} alt="A 16 oz hot cup, plain white, ready for printing" fill priority sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
           </div>
         </Reveal>
         <div>

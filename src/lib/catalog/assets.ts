@@ -2,6 +2,7 @@ import "server-only";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import type { Catalog, Product } from "./types";
+import { v } from "@/lib/asset-version";
 
 const PUBLIC = path.join(process.cwd(), "public");
 
@@ -15,7 +16,7 @@ export function drawingFor(sku: string, categoryDrawing: string): string {
 export function photoFor(sku: string, angle = "front"): string | null {
   for (const ext of ["jpg", "jpeg", "png", "webp"]) {
     const f = `${sku}-${angle}.${ext}`;
-    if (existsSync(path.join(PUBLIC, "products", f))) return `/products/${f}`;
+    if (existsSync(path.join(PUBLIC, "products", f))) return v(`/products/${f}`);
   }
   return null;
 }

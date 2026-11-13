@@ -6,6 +6,7 @@ import { Reveal } from "@/components/Reveal";
 import Image from "next/image";
 import { pageMeta, breadcrumbLd, faqLd } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
+import { v } from "@/lib/asset-version";
 
 export const metadata = pageMeta({
   title: "Certifications · TÜV Austria home-compostable",
@@ -98,7 +99,7 @@ export default async function CertificationsPage() {
       <div className="mt-10 grid gap-8 md:grid-cols-[1fr_minmax(0,1.2fr)] md:items-start">
       <Reveal>
         <div className="relative aspect-[16/10] overflow-hidden bg-card">
-          <Image src="/soil-mark.jpg" alt="A paper hot cup half-sunk in dark compost, softened and browning, the made to disappear mark still legible on its base" fill sizes="(min-width: 768px) 40vw, 100vw" className="object-cover object-right" />
+          <Image src={v("/soil-mark.jpg")} alt="A paper hot cup half-sunk in dark compost, softened and browning, the made to disappear mark still legible on its base" fill sizes="(min-width: 768px) 40vw, 100vw" className="object-cover object-right" />
         </div>
       </Reveal>
       <Reveal as="section" className="max-w-2xl space-y-3 rounded-[20px] bg-cream p-6 text-sm text-soil/80">

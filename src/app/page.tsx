@@ -12,6 +12,7 @@ import { HoverSwap } from "@/components/HoverSwap";
 import { BreakdownScrubber } from "@/components/BreakdownScrubber";
 import { CountUp } from "@/components/CountUp";
 import { SectionRail } from "@/components/SectionRail";
+import { v } from "@/lib/asset-version";
 
 export const metadata = pageMeta({
   title: `${site.name} · Home-compostable coffee cups and lids`,
@@ -73,10 +74,10 @@ export default async function HomePage() {
   ];
 
   const stages = [
-    { label: "served.", text: "A paper cup with a PHA lining. Holds a hot coffee like any other.", src: "/breakdown/1.jpg", alt: "A new paper cup standing on compost" },
-    { label: "torn and buried.", text: "Into the pile with the grounds and the food scraps. Smaller pieces go faster.", src: "/breakdown/2.jpg", alt: "The cup slumped and stained in the pile" },
-    { label: "softening.", text: "Moisture, warmth and the same microbes that made the lining take it apart.", src: "/breakdown/3.jpg", alt: "The cup collapsed to its marked base" },
-    { label: "gone.", text: "Nothing left to pick out. No film, no flakes, no microplastics.", src: "/breakdown/4.jpg", alt: "Dark compost where the cup was" },
+    { label: "served.", text: "A paper cup with a PHA lining. Holds a hot coffee like any other.", src: v("/breakdown/1.jpg"), alt: "A new paper cup standing on compost" },
+    { label: "torn and buried.", text: "Into the pile with the grounds and the food scraps. Smaller pieces go faster.", src: v("/breakdown/2.jpg"), alt: "The cup slumped and stained in the pile" },
+    { label: "softening.", text: "Moisture, warmth and the same microbes that made the lining take it apart.", src: v("/breakdown/3.jpg"), alt: "The cup collapsed to its marked base" },
+    { label: "gone.", text: "Nothing left to pick out. No film, no flakes, no microplastics.", src: v("/breakdown/4.jpg"), alt: "Dark compost where the cup was" },
   ];
 
   const places: [string, string][] = [
@@ -119,7 +120,7 @@ export default async function HomePage() {
           </div>
         </div>
         <div className="relative mt-10 aspect-[16/9] overflow-hidden bg-card md:mt-14">
-          <Image src="/hero-bone.jpg" alt="The three cup sizes and the lid on a bone backdrop, a fourth cup on its side showing the made to disappear mark on its base" fill priority fetchPriority="high" sizes="(min-width: 1120px) 1064px, 100vw" className="object-cover" />
+          <Image src={v("/hero-bone.jpg")} alt="The three cup sizes and the lid on a bone backdrop, a fourth cup on its side showing the made to disappear mark on its base" fill priority fetchPriority="high" sizes="(min-width: 1120px) 1064px, 100vw" className="object-cover" />
         </div>
         <dl className="mt-6 grid border-y border-line text-[14px] sm:grid-cols-3">
           {[
@@ -161,7 +162,7 @@ export default async function HomePage() {
       <Section id="material" intro="Every paper cup has a lining. Ours is PHA, a material microbes make and microbes eat, so the whole cup is certified to break down in a home compost pile.">
         <div className="grid gap-10 md:grid-cols-[1.25fr_1fr] md:items-center md:gap-16">
           <div className="relative aspect-[16/10] overflow-hidden bg-card">
-            <Image src="/soil-mark.jpg" alt="A paper hot cup half-sunk in dark compost, softened and browning, the made to disappear mark still legible on its base" fill sizes="(min-width: 768px) 55vw, 100vw" className="object-cover" />
+            <Image src={v("/soil-mark.jpg")} alt="A paper hot cup half-sunk in dark compost, softened and browning, the made to disappear mark still legible on its base" fill sizes="(min-width: 768px) 55vw, 100vw" className="object-cover" />
           </div>
           <dl className="hairline border-y border-line text-[15px]">
             {[
@@ -226,7 +227,7 @@ export default async function HomePage() {
           </div>
           <figure>
             <div className="relative aspect-[4/3] overflow-hidden bg-card">
-              <Image src="/inner-harbour.jpg" alt="The founders on the Inner Harbour causeway in Victoria, asking passers-by four questions with a cooler of freezies and a hand-drawn sign" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" style={{ filter: "grayscale(1) contrast(1.05)" }} />
+              <Image src={v("/inner-harbour.jpg")} alt="The founders on the Inner Harbour causeway in Victoria, asking passers-by four questions with a cooler of freezies and a hand-drawn sign" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" style={{ filter: "grayscale(1) contrast(1.05)" }} />
             </div>
             <figcaption className="mt-3 text-[13px] text-stone">Inner Harbour, {site.city}. 167 coffee drinkers, summer 2026.</figcaption>
           </figure>

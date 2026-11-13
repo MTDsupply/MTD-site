@@ -5,6 +5,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { Reveal, RevealGroup } from "@/components/Reveal";
 import { pageMeta, breadcrumbLd, faqLd } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
+import { v } from "@/lib/asset-version";
 
 export const metadata = pageMeta({
   title: "What's in your cup · paper outside, PHA inside",
@@ -37,7 +38,7 @@ export default function WhatsInYourCupPage() {
       <div className="mx-auto mt-12 grid max-w-6xl gap-10 md:grid-cols-[1fr_1.1fr] md:items-start md:gap-14">
         <Reveal>
           <div className="relative aspect-[4/5] overflow-hidden bg-card">
-            <Image src="/products/MTD-CUP-16H-front.jpg" alt="A 16 oz paper hot cup, one on its side showing the mark on its base" fill priority sizes="(min-width: 768px) 45vw, 100vw" className="object-cover" />
+            <Image src={v("/products/MTD-CUP-16H-front.jpg")} alt="A 16 oz paper hot cup, one on its side showing the mark on its base" fill priority sizes="(min-width: 768px) 45vw, 100vw" className="object-cover" />
           </div>
         </Reveal>
         <div className="space-y-10 text-[16px] leading-7 text-soil/85">

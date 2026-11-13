@@ -6,6 +6,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { Reveal, RevealGroup } from "@/components/Reveal";
 import { pageMeta, breadcrumbLd, faqLd, howToLd } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
+import { v } from "@/lib/asset-version";
 
 export const metadata = pageMeta({
   title: "How to compost a PHA-lined paper cup at home",
@@ -40,7 +41,7 @@ export default function CompostPage() {
         <Reveal>
           <figure>
             <div className="relative aspect-[16/10] overflow-hidden bg-card">
-              <Image src="/soil-mark.jpg" alt="A paper hot cup half-sunk in dark compost, softened and browning, the made to disappear mark still legible on its base" fill priority sizes="(min-width: 768px) 45vw, 100vw" className="object-cover" />
+              <Image src={v("/soil-mark.jpg")} alt="A paper hot cup half-sunk in dark compost, softened and browning, the made to disappear mark still legible on its base" fill priority sizes="(min-width: 768px) 45vw, 100vw" className="object-cover" />
             </div>
             <figcaption className="mt-2 text-xs text-soil/60">An illustration of the breakdown, not a timed photograph. How long it takes depends on the pile.</figcaption>
           </figure>
