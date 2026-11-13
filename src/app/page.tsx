@@ -75,8 +75,8 @@ export default async function HomePage() {
     [87, "said yes for a cup with no microplastics"],
   ];
 
-  const trust: { k: string; v: string; logo?: string }[] = [
-    { k: "as heard on", v: press.outlet, logo: press.logo },
+  const trust: { k: string; v: string; logo?: string; sub?: string }[] = [
+    { k: "as heard on", v: press.outlet, logo: press.logo, sub: `${press.show} with ${press.host}` },
     { k: "certified by", v: site.certifier },
     { k: "lining", v: "PHA, no microplastics" },
     { k: "ships from", v: `${site.city}, ${site.province}` },
@@ -117,7 +117,7 @@ export default async function HomePage() {
       </section>
 
       {/* trust strip: four short facts on one baseline. */}
-      <section className="grid grid-cols-2 gap-x-6 gap-y-5 border-y border-line py-5 md:py-6 lg:grid-cols-4">
+      <section className="grid grid-cols-2 gap-x-6 gap-y-5 border-y border-line py-5 md:py-6 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
         {trust.map((t) => (
           <div key={t.k}>
             <p className="t-label">{t.k}</p>
@@ -128,6 +128,7 @@ export default async function HomePage() {
               ) : null}
               {t.v}
             </p>
+            {t.sub ? <p className="mt-0.5 text-[13px] text-stone">{t.sub}</p> : null}
           </div>
         ))}
       </section>
