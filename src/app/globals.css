@@ -182,11 +182,12 @@ h4 {
   text-align: left;
   vertical-align: top;
 }
-.spec-table th {
+.spec-table tbody th:first-child {
   font-weight: 500;
   color: var(--color-ink);
   width: 40%;
 }
+.spec-table.table-fixed tbody th:first-child { width: auto; }
 
 .price-table th,
 .price-table td {
@@ -864,3 +865,6 @@ html[data-scrolled] .header-surface { border-bottom-color: var(--color-line); }
   .btn-sm { min-height: 44px; }
   .search-submit { min-height: 44px; }
 }
+
+/* A spec table inside a bordered wrapper: no second line under the last row. */
+.spec-wrap .spec-table tr:last-child > * { border-bottom: 0; }

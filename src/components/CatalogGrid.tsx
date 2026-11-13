@@ -11,7 +11,7 @@ import { RevealGroup } from "./Reveal";
  * search field at the right, then the catalogue two across as wide paper
  * cards. Filters live in the URL so a filtered view can be shared.
  */
-export function CatalogGrid({ catalog, lockedCategory }: { catalog: Catalog; lockedCategory?: string }) {
+export function CatalogGrid({ catalog, lockedCategory, columns = 2 }: { catalog: Catalog; lockedCategory?: string; columns?: 2 | 3 }) {
   const params = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -99,7 +99,7 @@ export function CatalogGrid({ catalog, lockedCategory }: { catalog: Catalog; loc
 
       {empty ? <p className="mt-8 text-[15px] text-stone">Nothing matches. Try a different SKU or clear the filters.</p> : null}
 
-      <RevealGroup className="mt-6 grid gap-4 md:grid-cols-2" itemClassName="h-full" step={0.08}>
+      <RevealGroup className={`mt-6 grid gap-4 md:grid-cols-2 ${columns === 3 ? "lg:grid-cols-3" : ""}`} itemClassName="h-full" step={0.08}>
         {[
           ...liveProducts.map((p, i) => (
             <ProductCard key={p.sku} product={p} cert={certById.get(p.certId ?? "")} categoryName={catBySlug.get(p.categorySlug)?.name.toLowerCase()} priority={i < 2} />

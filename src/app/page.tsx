@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getCatalog } from "@/lib/catalog/queries";
-import { site, stockSentence, restockNoteLower } from "@/lib/site";
+import { site, restockNoteLower } from "@/lib/site";
 import { CostCalculator } from "@/components/CostCalculator";
 import { PRESS } from "@/components/PressBand";
 import { money, unitMoney, count } from "@/lib/format";
@@ -89,13 +89,13 @@ export default async function HomePage() {
         </div>
         <div className="relative mx-auto flex max-w-7xl flex-col justify-center px-4 py-10 md:min-h-[680px] md:py-20 lg:min-h-[760px]">
           <div className="hero-in max-w-[34rem]">
-            <p className="t-label">{restock ? stockSentence(categories).replace(/\.$/, "").toLowerCase() : "hot cups and lids, in stock"}</p>
+            <p className="t-label">hot cups and lids · {site.city}, {site.province}</p>
             <h1 className="t-hero mt-4 text-ink md:!text-[clamp(44px,4.6vw,68px)]">
               a hot cup you can
               <br />
               compost at home.
             </h1>
-            <p className="t-lead mt-6 max-w-[36ch] text-ink">Our cups and lids are paper with a PHA lining instead of plastic, certified home compostable by TÜV Austria. When you are done, the whole thing goes in the compost with the grounds.</p>
+            <p className="t-lead mt-6 max-w-[36ch] text-ink">Our cups and lids are paper with a PHA lining, made from 100% certified home-compostable material, certified by TÜV Austria. When you are done, the whole thing goes in the compost with the grounds.</p>
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
               <Link href="/products/cups" className="btn btn-primary btn-lg">
                 order cups
@@ -111,14 +111,14 @@ export default async function HomePage() {
 
       {/* press band: the CBC segment, on its own. */}
       <section className="border-y border-line py-5 md:py-6">
-        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-center">
+        <div className="flex flex-col items-center gap-y-2 text-center sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-4">
           <p className="t-label">as heard on</p>
-          <p className="flex items-center gap-2.5 text-[16px] text-ink md:text-[17px]">
+          <p className="flex flex-col items-center gap-1 text-[16px] text-ink sm:flex-row sm:gap-2.5 md:text-[17px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={press.logo} alt="" width="22" height="22" className="h-[22px] w-[22px] shrink-0" />
             <span className="font-medium">{press.outlet}</span>
-            <span className="text-stone">·</span>
-            <span>
+            <span className="hidden text-stone sm:inline">·</span>
+            <span className="text-stone sm:text-ink">
               {press.show} with {press.host}
             </span>
           </p>

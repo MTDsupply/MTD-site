@@ -63,14 +63,14 @@ export default async function LearnArticlePage({ params }: { params: Promise<{ s
     <div className="mx-auto max-w-7xl px-4 pb-8">
       <PageHeader eyebrow={a.eyebrow} title={a.heading} description={a.description} />
 
-      <article className="mx-auto mt-10 max-w-3xl md:mt-14">
+      <article className="mt-10 max-w-3xl md:mt-14">
         <Reveal>
           <p className="t-label text-soil/55">
             Updated {updated} · By {site.name}
           </p>
           <section aria-labelledby="in-short" className="mt-6 rounded-[20px] bg-cream p-6 md:p-8">
             <h2 id="in-short" className="t-card text-forest">
-              In short
+              in short.
             </h2>
             <ul className="mt-4 space-y-3 text-[15px] leading-6 text-soil/85">
               {a.summary.map((s) => (
@@ -204,7 +204,7 @@ export default async function LearnArticlePage({ params }: { params: Promise<{ s
       </article>
 
       {related.length ? (
-        <section className="mx-auto mt-16 max-w-3xl md:mt-20">
+        <section className="mt-16 max-w-3xl md:mt-20">
           <h2 className="t-heading text-ink">keep reading.</h2>
           <ul className="mt-5 border-t border-line">
             {related.map((r) => (

@@ -41,7 +41,7 @@ export function BreakdownScrubber({ stages }: { stages: Stage[] }) {
         let k = 0;
         timer = window.setInterval(() => {
           k += 1;
-          if (k >= stages.length) {
+          if (k >= stages.length - 1) {
             window.clearInterval(timer);
             return;
           }

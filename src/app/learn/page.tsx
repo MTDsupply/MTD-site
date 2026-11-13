@@ -20,7 +20,7 @@ export default function LearnIndexPage() {
     <div className="mx-auto max-w-7xl px-4 pb-8">
       <PageHeader
         eyebrow="Learn"
-        title="what your cup is lined with, and what the words mean."
+        title="what the words on a cup mean."
         description={`Short, sourced explainers for café owners and anyone who has wondered what compostable, plant-based and water-based mean on a cup. Written by ${site.name}; every number is cited.`}
       />
 
@@ -54,15 +54,6 @@ export default function LearnIndexPage() {
             </Link>
           ))}
         </RevealGroup>
-      </section>
-
-      <section className="mt-12 md:mt-16">
-        <Reveal>
-          <div className="note max-w-2xl">
-            <p className="t-heading text-ink">two questions to ask any cup supplier.</p>
-            <p className="mt-2 text-stone">What polymer is the lining, and does the certificate cover the finished cup for home composting? Our answers are on the <Link href="/certifications" className="link text-ink">certifications page</Link> and in <Link href="/whats-in-your-cup" className="link text-ink">what&rsquo;s in your cup</Link>.</p>
-          </div>
-        </Reveal>
       </section>
 
       <JsonLd

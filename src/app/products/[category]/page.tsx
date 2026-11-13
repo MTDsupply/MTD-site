@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Suspense } from "react";
 import { pageMeta, breadcrumbLd, itemListLd } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
@@ -123,8 +124,28 @@ export default async function CategoryPage({ params }: PageProps<"/products/[cat
     <div className="mx-auto max-w-7xl px-4 pb-8">
       <PageHeader eyebrow={restockNote(c.restockWhen) ?? "In stock"} title={`${c.name.toLowerCase()}.`} description={c.description} />
       <Suspense fallback={<p className="mt-8 text-sm text-soil/60">Loading…</p>}>
-        <CatalogGrid catalog={catalog} lockedCategory={c.slug} />
+        <CatalogGrid catalog={catalog} lockedCategory={c.slug} columns={c.slug === "cups" ? 3 : 2} />
       </Suspense>
+      <section className="mt-16 grid gap-4 md:mt-24 md:grid-cols-2">
+        <div className="note">
+          <h2 className="t-heading text-ink">want to try them first?</h2>
+          <p className="mt-2 text-stone">
+            We send free sample packs to cafés and food businesses once we have verified them.{" "}
+            <Link href="/business?kind=sample#quote" className="link text-ink">
+              request a sample pack
+            </Link>
+          </p>
+        </div>
+        <div className="note">
+          <h2 className="t-heading text-ink">ordering again?</h2>
+          <p className="mt-2 text-stone">
+            Type in the SKUs and quantities and add them all at once.{" "}
+            <Link href="/quick-order" className="link text-ink">
+              quick order by <span className="keep-case">SKU</span>
+            </Link>
+          </p>
+        </div>
+      </section>
       <JsonLd
         data={[
           breadcrumbLd([

@@ -101,7 +101,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
           </p>
           <div className="mt-3 flex flex-wrap items-center gap-2">
             <CertChip cert={cert} sku={product.sku} compact />
-            {restockNoteLower(cat.restockWhen) ? <span className="chip chip-clay">{restockNoteLower(cat.restockWhen)}</span> : null}
+            
           </div>
 
           {siblings.length > 1 ? (
@@ -154,16 +154,16 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
         </div>
       </div>
 
-      <section className="mt-10 max-w-3xl">
+      <section className="mt-12">
         <div>
           <h2 className="t-heading">specifications.</h2>
-          <div className="mt-3 rounded-[20px] bg-white p-2">
+          <div className="spec-wrap mt-3 rounded-[20px] bg-white p-2">
             <SpecTable product={product} cert={cert} />
           </div>
         </div>
       </section>
 
-      <section className="mt-10 max-w-3xl">
+      <section className="mt-12">
         <h2 className="t-heading">questions about the {product.name.toLowerCase()}.</h2>
         <div className="mt-3 divide-y divide-line border-y border-line">
           {faq.map(([q, a]) => (

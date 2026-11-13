@@ -4,6 +4,7 @@ import { getProfile, getSession } from "@/lib/account/queries";
 import { signOut } from "@/app/actions/auth";
 import { SignInForm } from "@/components/AccountForms";
 import { AccountNav } from "@/components/account/AccountNav";
+import { PageHeader } from "@/components/PageHeader";
 
 export const metadata: Metadata = {
   title: { default: "Account", template: "%s · Account · Made to Disappear" },
@@ -37,11 +38,8 @@ async function Shell({ children }: { children: ReactNode }) {
 
   if (!session) {
     return (
-      <div className="mt-8">
-        <div className="border-b border-line pb-6">
-          <p className="t-label text-forest">Account</p>
-          <h1 className="t-page mt-2">sign in.</h1>
-        </div>
+      <div className="-mt-8">
+        <PageHeader eyebrow="Account" title="sign in." description="No password. We email you a link." />
         {children}
         <div className="mt-6 grid gap-6 md:grid-cols-2">
           <div className="rounded-[20px] bg-white p-6">

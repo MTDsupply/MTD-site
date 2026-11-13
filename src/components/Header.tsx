@@ -51,7 +51,7 @@ export async function Header() {
     <>
     <header className="site-header sticky -top-10 z-30">
       {/* Top band: the offer line, quick order, price list, account. Scrolls away; the main bar stays. */}
-      <div className="band-forest h-10">
+      <div className="band-forest hidden h-10 sm:block">
         <div className="mx-auto flex h-10 max-w-7xl items-center justify-between gap-4 overflow-hidden px-4 font-display text-xs font-semibold whitespace-nowrap">
           <div className="flex min-w-0 items-center gap-4">
             {site.phone && site.phoneHref ? (
@@ -104,8 +104,9 @@ export async function Header() {
           <CartButton />
         </div>
       </div>
-      <div className="px-4 pb-3 lg:hidden">
-        <SearchForm entries={entries} />
+      <div className="flex items-center gap-3 px-4 pb-3 lg:hidden">
+        <SearchForm entries={entries} className="min-w-0 flex-1" />
+        <ModeToggle className="sm:hidden" />
       </div>
       </div>
       <div className="soil-line" aria-hidden="true" />

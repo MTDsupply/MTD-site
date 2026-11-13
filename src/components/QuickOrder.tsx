@@ -60,7 +60,7 @@ export function QuickOrder({ products }: { products: Product[] }) {
           id="qo"
           rows={10}
           className="input font-mono text-sm"
-          placeholder={"MTD-CUP-16H 4 case\nMTD-STR-200 1 pack500"}
+          placeholder={"MTD-CUP-16H 4 case\nMTD-LID-HOT 2 pack100"}
           value={text}
           onChange={(e) => setText(e.target.value)}
         />

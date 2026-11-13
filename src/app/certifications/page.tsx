@@ -24,6 +24,14 @@ const FAQ: [string, string][] = [
     "Is home-compostable the same as compostable?",
     "No. Most compostable certifications assume an industrial facility running hot. Home-compostable certification tests at the lower temperatures of a backyard pile, which is the only kind of composting most people have. Our products are certified home-compostable.",
   ],
+  [
+    "Is the lid covered too?",
+    `Yes. The lid is PHA and is also made from 100% certified home-compostable material, certified by ${site.certifier}.`,
+  ],
+  [
+    "Can I see the certificate itself?",
+    `Email ${site.email} and we will send the current certificate for any SKU.`,
+  ],
 ];
 
 export default async function CertificationsPage() {
@@ -53,6 +61,7 @@ export default async function CertificationsPage() {
             <tr>
               <th>SKU</th>
               <th>Product</th>
+              <th>Covers</th>
               <th>Certification</th>
               <th>Certifier</th>
               {hasNumbers ? <th>Certificate number</th> : null}
@@ -67,7 +76,8 @@ export default async function CertificationsPage() {
                 <tr key={p.sku} id={p.sku} className="target:bg-sage-tint">
                   <td className="sku">{p.sku}</td>
                   <td>{p.name}</td>
-                  <td>{cert && live ? cert.name : "In testing"}</td>
+                  <td>{p.categorySlug === "lids" ? "the lid" : "cup body and lining"}</td>
+                  <td>{cert && live ? cert.name : ""}</td>
                   <td>{cert && live ? cert.certifier : "TÜV Austria"}</td>
                   {hasNumbers ? <td className="tnum">{cert && live ? (cert.number ?? "") : ""}</td> : null}
                   {hasPdfs ? (
@@ -86,7 +96,8 @@ export default async function CertificationsPage() {
               <tr key={c.slug} id={c.slug} className="text-soil/50">
                 <td></td>
                 <td>{c.name}</td>
-                <td>In testing</td>
+                <td></td>
+                <td></td>
                 <td>TÜV Austria</td>
                 {hasNumbers ? <td></td> : null}
                 {hasPdfs ? <td></td> : null}

@@ -4,7 +4,6 @@ import { getCatalog } from "@/lib/catalog/queries";
 import { CatalogGrid } from "@/components/CatalogGrid";
 import { PageHeader } from "@/components/PageHeader";
 import { Reveal } from "@/components/Reveal";
-import { stockSentence } from "@/lib/site";
 import { money, unitMoney, count } from "@/lib/format";
 import { pageMeta, breadcrumbLd, itemListLd } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
@@ -35,7 +34,7 @@ export default async function ProductsPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 pb-8">
-      <PageHeader eyebrow="Catalogue" title="products." description={`${stockSentence(catalog.categories)} Three cups and one lid. Packs of 100 for home, cases of 1,000 for cafés.`} />
+      <PageHeader eyebrow="Catalogue" title="products." description="Three cups and one lid. Packs of 100 for home, cases of 1,000 for cafés." />
       <Suspense fallback={<p className="mt-8 text-sm text-stone">Loading catalogue…</p>}>
         <CatalogGrid catalog={catalog} />
       </Suspense>
@@ -45,7 +44,7 @@ export default async function ProductsPage() {
           <h2 className="t-section text-ink">compare the sizes.</h2>
           <p className="t-lead mt-3 max-w-[58ch] text-stone">All three are the same paper and the same lining. The only differences are the size and the price.</p>
           <div className="mt-8 overflow-x-auto">
-            <table className="spec-table w-full text-[15px]">
+            <table className="spec-table table-fixed w-full text-[15px]">
               <colgroup>
                 <col style={{ width: "28%" }} />
                 {cups.map((p) => (

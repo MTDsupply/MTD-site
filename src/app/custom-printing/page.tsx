@@ -34,15 +34,14 @@ export default async function CustomPrintingPage() {
         </Reveal>
         <div>
           <Reveal>
-            <p className="t-label">how it works</p>
-            <h2 className="t-page mt-2">send the artwork. we send a proof.</h2>
+            <p className="t-label">three steps</p>
+            <h2 className="t-page mt-2">how it works.</h2>
           </Reveal>
           <RevealGroup className="mt-6 divide-y divide-line border-y border-line" step={0.07}>
             {[
               ["tell us what you need", "Cup sizes, roughly how many cases a year, and what the artwork is: a logo, a wordmark, a pattern."],
               ["we reply with options and pricing", "Within one business day. Pricing depends on the sizes, the artwork and the run, so we quote each job rather than publish one number."],
               ["approve the proof", "You see the print on the cup before anything is made. Nothing runs until you sign it off."],
-              ["same material, same certificate", `Printed cups are made from the same 100% certified home-compostable material, certified by ${site.certifier}, as the plain ones.`],
             ].map(([title, text], i) => (
               <div key={title} className="grid grid-cols-[48px_1fr] py-4">
                 <p className="t-label pt-1 tnum">0{i + 1}</p>
@@ -53,6 +52,7 @@ export default async function CustomPrintingPage() {
               </div>
             ))}
           </RevealGroup>
+          <p className="note mt-6 text-[15px]">Printed cups are the same cup: made from the same 100% certified home-compostable material, certified by {site.certifier}.</p>
         </div>
       </div>
 

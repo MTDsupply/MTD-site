@@ -65,23 +65,21 @@ export default function CompostPage() {
         </div>
       </div>
 
-      <Reveal as="section" className="mt-14 bg-cream">
-        <div className="relative left-1/2 w-screen -translate-x-1/2 bg-white">
-          <div className="mx-auto max-w-7xl px-4 py-10 md:py-12">
-            <p className="t-label">the certificate</p>
-            <p className="t-heading mt-3 max-w-[40ch] text-ink">{claims.certLine.charAt(0).toLowerCase() + claims.certLine.slice(1)}</p>
-            <p className="mt-4 max-w-[62ch] text-soil/80">{claims.whyParagraph}</p>
-            <Link href="/certifications" className="link-proof mt-5 inline-block text-sm font-medium">
-              see every certificate
+      <Reveal as="section" className="mt-14">
+        <div className="note max-w-2xl">
+          <p className="t-heading text-ink">the certificate.</p>
+          <p className="mt-2 text-stone">
+            Our cups are PHA-lined paper and the lids are PHA. The material is certified home compostable by TÜV Austria, which means it breaks down at garden temperature.{" "}
+            <Link href="/certifications" className="link text-ink">
+              see the certificates
             </Link>
-          </div>
+          </p>
         </div>
       </Reveal>
 
-      <section className="mt-14 max-w-3xl">
+      <section className="mt-14">
         <Reveal>
-          <p className="t-label text-forest">Questions</p>
-          <h2 className="t-page mt-2">asked often.</h2>
+          <h2 className="t-page">questions.</h2>
         </Reveal>
         <RevealGroup className="mt-6 divide-y divide-line border-y border-line" step={0.05}>
           {FAQ.map(([q, a]) => (

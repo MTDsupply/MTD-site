@@ -68,7 +68,7 @@ export const products: Product[] = [
       caseDimensions: "41 × 41 × 46 cm",
       caseWeight: "9.5 kg",
     },
-    goesWith: ["MTD-LID-HOT", "MTD-STR-200"],
+    goesWith: ["MTD-LID-HOT"],
     sortOrder: 1,
   },
   {
@@ -94,7 +94,7 @@ export const products: Product[] = [
       caseDimensions: "46 × 46 × 48 cm",
       caseWeight: "12 kg",
     },
-    goesWith: ["MTD-LID-HOT", "MTD-STR-200"],
+    goesWith: ["MTD-LID-HOT"],
     sortOrder: 2,
   },
   {
@@ -120,7 +120,7 @@ export const products: Product[] = [
       caseDimensions: "46 × 46 × 56 cm",
       caseWeight: "14 kg",
     },
-    goesWith: ["MTD-LID-HOT", "MTD-STR-200"],
+    goesWith: ["MTD-LID-HOT"],
     sortOrder: 3,
   },
   {

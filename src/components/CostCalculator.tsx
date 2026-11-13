@@ -12,7 +12,7 @@ import { money, unitMoney, count } from "@/lib/format";
  * and the volume price on every case once one order reaches BULK_MIN_UNITS,
  * lids counted. Same rule the cart and checkout use.
  */
-const PRESETS = [50, 100, 150, 250, 400, 600];
+const PRESETS = [50, 100, 150, 250, 400];
 
 export function CostCalculator({ cups, lid }: { cups: Product[]; lid: Product | null }) {
   const sizes = cups.filter((c) => c.status === "live").sort((a, b) => a.sortOrder - b.sortOrder);

@@ -35,7 +35,7 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
             <p className="t-label">Business accounts</p>
             <h1 className="t-section mt-3 text-ink">for cafés, restaurants, caterers and events.</h1>
             <p className="mt-4 max-w-[52ch] t-lead text-stone">
-              One supplier for the whole range, certified, shipping across North America. Case pricing below{volume ? <>, and a lower volume price on every case once an order reaches {count(BULK_MIN_UNITS)} units</> : null}. Approved accounts get net-30.
+              Case prices below{volume ? <>, with a lower price on every case once an order reaches {count(BULK_MIN_UNITS)} units</> : null}. Approved accounts get net-30. Ask for a free sample pack first if you want to run them on your machines.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <a href="#quote" className="btn btn-primary">
@@ -56,7 +56,7 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
         <div className="mt-6 grid border-t border-line md:grid-cols-3">
           {[
             ["sample pack.", "A small pack of each cup size and the lid, so your team can run them on the machines before committing to a case. Free for cafés and other foodservice businesses; ask with the form below.", "/business?kind=sample#quote", "request a sample pack"],
-            ["net-30 on approval.", "Send a quote request with your company details. Approved accounts order on terms and reorder from their account page.", "#quote", "request a quote"],
+            ["net-30 on approval.", "Send a quote request with your company details. Approved accounts order on terms and reorder from their account page. Cafés on Cup Casa can have us reorder before they run out; say so in the notes.", "#quote", "request a quote"],
             ["custom printing.", "Your logo on the same certified cup, from 100 cases. Send your artwork details and we reply with options, pricing and a proof.", "/custom-printing", "about custom printing"],
           ].map(([h, t, href, label]) => (
             <div key={h} className="border-b border-line py-5 md:border-b-0 md:border-r md:pr-6 md:last:border-r-0 md:[&:not(:first-child)]:pl-6">
@@ -79,13 +79,13 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
               <tr>
                 <th>SKU</th>
                 <th>Product</th>
-                <th>Material</th>
+                <th className="hidden md:table-cell">Material</th>
                 <th className="num">Case count</th>
                 <th className="num">Per case</th>
                 <th className="num">Per unit</th>
                 {volume ? <th className="num">Per unit, {count(BULK_MIN_UNITS)}+ units</th> : null}
                 <th className="num">Packs 100 / 200 / 500</th>
-                <th>Certification</th>
+                <th className="hidden md:table-cell">Certification</th>
               </tr>
             </thead>
             <tbody>
@@ -99,13 +99,13 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
                       {p.name}
                       {live ? null : <span className="block text-[12px] text-stone">coming soon</span>}
                     </td>
-                    <td>{p.material}</td>
+                    <td className="hidden md:table-cell">{p.material}</td>
                     <td className="num">{count(p.caseCount)}</td>
                     <td className="num">{money(p.casePrice)}</td>
                     <td className="num">{unitMoney(p.unitPrice)}</td>
                     {volume ? <td className="num">{p.bulkUnitPrice != null ? <>{unitMoney(p.bulkUnitPrice)} <span className="text-soil/60">({money(bulkCasePrice(p) ?? 0)} per case)</span></> : unitMoney(p.unitPrice)}</td> : null}
                     <td className="num text-soil/80">{(p.packs?.length ? p.packs : [{ count: p.packCount, price: p.packPrice }]).map((t) => money(t.price).replace(".00", "")).join(" / ")}</td>
-                    <td className="wrap">{cert && live ? cert.certifier : ""}</td>
+                    <td className="wrap hidden md:table-cell">{cert && live ? cert.certifier : ""}</td>
                   </tr>
                 );
               })}
@@ -132,14 +132,6 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
         </div>
       </section>
 
-      <section className="mt-12">
-        <div className="max-w-2xl border-y border-line py-5 text-sm text-ink">
-          <h2 className="t-card">Cup Casa accounts.</h2>
-          <p className="mt-2">
-            Cafés running Cup Casa OS can turn on auto-replenishment: we track your cup usage and deliver before you run out, on the same net-30 terms. Mention it in the notes above.
-          </p>
-        </div>
-      </section>
     </div>
   );
 }

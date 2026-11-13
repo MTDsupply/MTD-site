@@ -19,8 +19,8 @@ const TEAM = [
 export default function AboutPage() {
   return (
     <div className="mx-auto max-w-7xl px-4 pb-8">
-      <PageHeader eyebrow="Our story" title="about." description="Who we are, where the stock sits, and why the name." image="/atmosphere/meadow.jpg" imageAlt="Meadow grasses in late light below a sage hillside" />
-      <div className="mx-auto max-w-2xl">
+      <PageHeader eyebrow="Our story" title="about." description="Who we are, where we ship from, and why the name." image="/atmosphere/meadow.jpg" imageAlt="Meadow grasses in late light below a sage hillside" />
+      <div className="max-w-2xl">
 
       <Reveal as="section" className="mt-10 space-y-4 text-base text-soil/85">
         <h2 className="t-heading">who.</h2>
@@ -48,7 +48,7 @@ export default function AboutPage() {
       </Reveal>
 
       <Reveal as="section" className="mt-10 space-y-4 text-base text-soil/85">
-        <h2 className="t-heading">where the stock sits.</h2>
+        <h2 className="t-heading">where we ship from.</h2>
         <p>
           Stock ships from Victoria, BC, by courier and by pallet across Canada and the United States.
         </p>
@@ -56,11 +56,9 @@ export default function AboutPage() {
 
       <Reveal as="section" className="mt-10 space-y-4 text-base text-soil/85">
         <h2 className="t-heading">why the name.</h2>
-        <p className="t-heading rounded-[20px] bg-cream p-6 text-soil">
-          A cup is used for twenty minutes. It should not need two hundred years to go away.
-        </p>
+        <p>We named it for what we wanted: a cup you use for twenty minutes should be gone a few months later, not sitting around for two hundred years.</p>
         <p>
-          Every product we sell is designed and certified to break down in a home compost pile, which is the only kind of composting most people actually have.
+          Everything we sell is made from material certified to break down in a home compost pile, which is the only kind of composting most people actually have.
         </p>
         <p>
           We say what each product is made of and what it is certified for, and nothing more. The{" "}

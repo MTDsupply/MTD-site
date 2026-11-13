@@ -284,7 +284,7 @@ export const ARTICLES: Article[] = [
         p: [
           "A lining has three jobs: keep liquid out of the board, survive the drink's temperature, and heat-seal the side seam and base. PHA does all three. The grades used for cups soften at a higher temperature than a hot coffee, and they seal on standard cup-forming machines.",
           "It is more expensive than PE or PLA, both per kilogram and because volumes are smaller. That is the honest reason most cups are not lined with it, and the reason a PHA cup costs a few cents more.",
-          `Our cups are paper with a PHA lining and the lid is PHA. Certified home compostable by ${site.certifier}, as the finished item. The certificates are on the [certifications page](/certifications).`,
+          `Our cups are paper with a PHA lining and the lid is PHA, all made from 100% certified home-compostable material, certified by ${site.certifier}. The certificates are on the [certifications page](/certifications).`,
         ],
       },
     ],
@@ -465,7 +465,7 @@ export const ARTICLES: Article[] = [
         h: "Material certificate versus product certificate",
         p: [
           "A second gap: a certificate can cover a raw material (a resin, a board) or a finished item (this cup, this lid). Converting board into a cup adds a seam, an adhesive, print and sometimes a different coating weight. A material certificate does not travel to the cup automatically. Ask whether the certificate names the finished item.",
-          `Ours do. Our cups and lids are certified home compostable by ${site.certifier} as the finished item, and the certificates are listed on the [certifications page](/certifications). [How to compost it](/compost) covers what to do with the cup at home.`,
+          `Ours do. Our cups and lids are made from 100% certified home-compostable material, certified by ${site.certifier}, and the certificates are listed on the [certifications page](/certifications). [How to compost it](/compost) covers what to do with the cup at home.`,
         ],
       },
     ],
