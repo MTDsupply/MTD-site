@@ -92,7 +92,7 @@ export default async function HomePage() {
       {/* hero: the lineup edge to edge, weighted right; the headline over the empty bone at the left. */}
       <section className="bleed relative">
         <div className="hero-photo relative aspect-[4/3] overflow-hidden sm:aspect-[16/10] md:absolute md:inset-0 md:aspect-auto">
-          <Image src={v("/hero-wide.jpg")} alt="The three cup sizes and the lid on a bone backdrop, a fourth cup on its side showing the made to disappear mark on its base" fill priority fetchPriority="high" sizes="100vw" className="object-cover object-[72%_center] md:object-[68%_center]" />
+          <Image src={v("/hero-wide.jpg")} alt="The three cup sizes and the lid on a bone backdrop, a fourth cup on its side showing the made to disappear mark on its base" fill priority fetchPriority="high" sizes="100vw" className="object-cover object-[58%_center] md:object-[68%_center]" />
         </div>
         <div className="relative mx-auto flex max-w-7xl flex-col justify-center px-4 py-10 md:min-h-[680px] md:py-20 lg:min-h-[760px]">
           <div className="hero-in max-w-[34rem]">
@@ -117,16 +117,16 @@ export default async function HomePage() {
       </section>
 
       {/* trust strip */}
-      <section className="grid border-y border-line sm:grid-cols-2 lg:grid-cols-4">
+      <section className="grid grid-cols-2 border-y border-line lg:grid-cols-4">
         {trust.map((t, i) => (
-          <div key={t.k} className={`flex items-center gap-4 py-5 ${i % 2 === 1 ? "sm:border-l sm:border-line sm:pl-6" : ""} ${i >= 2 ? "border-t border-line lg:border-t-0" : ""} ${i === 1 || i === 2 || i === 3 ? "border-t border-line sm:border-t-0" : ""} ${i === 2 ? "sm:border-t sm:border-line" : ""} ${i === 3 ? "sm:border-t sm:border-line" : ""} ${i >= 2 ? "lg:border-l lg:border-line lg:pl-6" : ""}`}>
+          <div key={t.k} className={`flex items-center gap-3 py-4 pr-3 lg:py-5 ${i % 2 === 1 ? "border-l border-line pl-4 lg:pl-6" : ""} ${i >= 2 ? "border-t border-line lg:border-t-0 lg:border-l lg:pl-6" : ""}`}>
             {t.logo ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={t.logo} alt="" width="28" height="28" className="h-7 w-7 shrink-0" />
+              <img src={t.logo} alt="" width="28" height="28" className="hidden h-7 w-7 shrink-0 sm:block" />
             ) : null}
-            <div>
+            <div className="min-w-0">
               <p className="t-label">{t.k}</p>
-              <p className="mt-0.5 text-[15px] text-ink">{t.v}</p>
+              <p className="mt-0.5 text-[13px] text-ink sm:text-[15px]">{t.v}</p>
             </div>
           </div>
         ))}
