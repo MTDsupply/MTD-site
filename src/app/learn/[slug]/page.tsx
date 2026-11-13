@@ -87,7 +87,7 @@ export default async function LearnArticlePage({ params }: { params: Promise<{ s
 
         {a.sections.map((s) => (
           <Reveal key={s.h} as="section" className="mt-12 md:mt-14">
-            <h2 className="t-heading text-forest">{s.h}</h2>
+            <h2 className="t-heading text-ink">{s.h.charAt(0).toLowerCase() + s.h.slice(1)}.</h2>
             {s.p && !s.list ? (
               <div className="mt-4">
                 <Prose>
@@ -153,12 +153,12 @@ export default async function LearnArticlePage({ params }: { params: Promise<{ s
 
         <Reveal as="section" className="mt-14">
           <h2 className="t-heading text-forest">questions.</h2>
-          <RevealGroup className="mt-6 space-y-3" step={0.05}>
+          <RevealGroup className="mt-6" step={0.05}>
             {a.faq.map(([q, ans]) => (
-              <details key={q} className="group rounded-[18px] bg-cream px-6 py-4">
+              <details key={q} className="group border-t border-line py-4 last:border-b">
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-[17px] font-semibold text-forest">
                   <h3 className="font-display text-[17px] font-semibold">{q}</h3>
-                  <span aria-hidden="true" className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-forest text-cream transition-transform group-open:rotate-45">
+                  <span aria-hidden="true" className="text-[20px] leading-none text-stone transition-transform group-open:rotate-45">
                     +
                   </span>
                 </summary>
@@ -189,37 +189,28 @@ export default async function LearnArticlePage({ params }: { params: Promise<{ s
           </p>
         </Reveal>
 
-        <Reveal>
-          <div className="band-mint mt-14 grid gap-6 rounded-[24px] px-6 py-8 md:grid-cols-[1fr_auto] md:items-center md:px-10">
-            <div>
-              <h2 className="t-page text-forest">see the certificate, not the logo.</h2>
-              <p className="mt-2 text-forest/80">Everything we sell is PHA lined and certified home compostable by {site.certifier}, as the finished cup.</p>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <Link href="/certifications" className="btn btn-primary">
-                Certifications
-              </Link>
-              <Link href="/business?kind=sample#quote" className="btn btn-outline">
-                Get free samples
-              </Link>
-            </div>
-          </div>
-        </Reveal>
+        <p className="note mt-14 max-w-[62ch] text-[15px] text-ink">
+          Everything we sell is PHA lined and certified home compostable by {site.certifier}, as the finished cup.{" "}
+          <Link href="/certifications" className="link text-ink">
+            see the certificates
+          </Link>
+          .
+        </p>
       </article>
 
       {related.length ? (
-        <section className="mx-auto mt-16 max-w-5xl md:mt-20">
-          <h2 className="t-page text-center text-forest">keep reading.</h2>
-          <RevealGroup className="mt-8 grid gap-4 md:grid-cols-3" itemClassName="h-full" step={0.06}>
+        <section className="mx-auto mt-16 max-w-3xl md:mt-20">
+          <h2 className="t-heading text-ink">keep reading.</h2>
+          <ul className="mt-5 border-t border-line">
             {related.map((r) => (
-              <Link key={r.slug} href={`/learn/${r.slug}`} className="card flex h-full flex-col p-6">
-                <p className="t-label text-soil/55">{r.eyebrow}</p>
-                <h3 className="t-card mt-2 text-forest">{r.title}</h3>
-                <p className="mt-2 line-clamp-3 text-sm leading-6 text-soil/70">{r.description}</p>
-                <span className="link mt-4 text-sm font-medium text-forest">Read</span>
-              </Link>
+              <li key={r.slug} className="border-b border-line">
+                <Link href={`/learn/${r.slug}`} className="flex items-baseline justify-between gap-6 py-3 text-[16px] text-ink hover:text-stone">
+                  <span>{r.title}</span>
+                  <span className="t-label shrink-0">{r.eyebrow}</span>
+                </Link>
+              </li>
             ))}
-          </RevealGroup>
+          </ul>
         </section>
       ) : null}
 

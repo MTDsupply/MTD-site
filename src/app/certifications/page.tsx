@@ -3,7 +3,7 @@ import { claims } from "@/lib/copy";
 import { site } from "@/lib/site";
 import { PageHeader } from "@/components/PageHeader";
 import { Reveal } from "@/components/Reveal";
-import { Atmosphere } from "@/components/scene/Atmosphere";
+import Image from "next/image";
 import { pageMeta, breadcrumbLd, faqLd } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 
@@ -97,7 +97,9 @@ export default async function CertificationsPage() {
 
       <div className="mt-10 grid gap-8 md:grid-cols-[1fr_minmax(0,1.2fr)] md:items-start">
       <Reveal>
-        <Atmosphere src="/atmosphere/moss.jpg" alt="Moss and fern on a forest floor" fade="none" parallax={30} className="aspect-[4/3] border border-line" sizes="(min-width: 768px) 40vw, 100vw" />
+        <div className="relative aspect-[16/10] overflow-hidden bg-card">
+          <Image src="/soil-mark.jpg" alt="A paper hot cup half-sunk in dark compost, softened and browning, the made to disappear mark still legible on its base" fill sizes="(min-width: 768px) 40vw, 100vw" className="object-cover object-right" />
+        </div>
       </Reveal>
       <Reveal as="section" className="max-w-2xl space-y-3 rounded-[20px] bg-cream p-6 text-sm text-soil/80">
         <h2 className="t-heading">what the certificate means.</h2>
@@ -106,9 +108,6 @@ export default async function CertificationsPage() {
         </p>
         <p>
           Our cups have no plastic lining. The lining is PHA, a material made by fermentation, and the certified material includes that lining.
-        </p>
-        <p>
-          Products marked “In testing” are in development and go through the same certification before they are sold.
         </p>
       </Reveal>
       </div>

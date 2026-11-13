@@ -4,7 +4,7 @@ import { CertChip } from "./CertChip";
 import { ProductImage } from "./ProductImage";
 import { Price } from "./Price";
 import { AddToCart } from "./AddToCart";
-import { restockNote } from "@/lib/site";
+import { restockNoteLower } from "@/lib/site";
 
 /**
  * Catalogue tile (brand card): square paper cell with a hairline, the product
@@ -23,8 +23,7 @@ export function ProductCard({
 }) {
   const href = `/products/${product.categorySlug}/${product.sku.toLowerCase()}`;
   const photo = product.photo ?? product.images[0] ?? null;
-  const restock = restockNote(product.restockWhen);
-  const status = restock ?? "in stock";
+  const status = restockNoteLower(product.restockWhen) ?? "in stock";
 
   return (
     <article className="card flex h-full flex-col p-3 md:p-4" data-sku={product.sku}>
@@ -34,10 +33,10 @@ export function ProductCard({
         </Link>
       </div>
       <div className="mt-4 flex flex-wrap items-baseline justify-between gap-x-2 gap-y-0.5">
-        <span className="chip chip-fog order-last basis-full self-start">{status.toLowerCase()}</span>
+        <span className="order-last basis-full text-[13px] text-stone">{status}</span>
         <h3 className="t-card text-forest">
           <Link href={href} className="hover:underline">
-            {product.name}
+            {product.name.toLowerCase()}
           </Link>
         </h3>
         <span className="sku text-soil/50">{product.sku}</span>

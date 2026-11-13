@@ -134,7 +134,7 @@ export async function Footer() {
         <div>
           <h2 className="t-label">Contact</h2>
           <address className="mt-3 space-y-1.5 text-sm not-italic">
-            <p>{site.legalName}</p>
+            <p>{site.legalName.toLowerCase()}</p>
             <p>
               {site.city}, {site.province}
             </p>
@@ -153,7 +153,7 @@ export async function Footer() {
             {site.social.map((s) => (
               <p key={s.url}>
                 <a href={s.url} className="hover:underline" rel="me noopener" target="_blank">
-                  {s.name} {s.handle}
+                  <span className="whitespace-nowrap">{s.name} {s.handle}</span>
                 </a>
               </p>
             ))}

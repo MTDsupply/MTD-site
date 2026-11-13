@@ -28,13 +28,13 @@ export default function ContactPage() {
             <p className="mt-1 text-stone">Monday to Friday, Pacific time.</p>
           </div>
           <div className="rounded-[20px] bg-white p-5">
-            <h2 className="t-card text-[17px] leading-[22px]">Email</h2>
+            <h2 className="t-card text-[17px] leading-[22px]">email.</h2>
             <a href={`mailto:${site.email}`} className="mt-1 block link">
               {site.email}
             </a>
           </div>
           <div className="rounded-[20px] bg-white p-5">
-            <h2 className="t-card text-[17px] leading-[22px]">Where</h2>
+            <h2 className="t-card text-[17px] leading-[22px]">where.</h2>
             <p className="mt-1">
               {site.legalName}
               <br />

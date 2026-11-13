@@ -45,10 +45,10 @@ export function CartView({ products }: { products: Product[] }) {
         <p className="mt-1 text-soil/70">{stockSentence(products)} Packs of 100, 200 or 500, or cases of 1,000.</p>
         <div className="mt-4 flex flex-wrap gap-3">
           <Link href="/products" className="btn btn-primary btn-sm">
-            Browse products
+            order cups
           </Link>
           <Link href="/quick-order" className="btn btn-outline btn-sm">
-            Quick order by SKU
+            quick order by <span className="keep-case">SKU</span>
           </Link>
         </div>
         </div>

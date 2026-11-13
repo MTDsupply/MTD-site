@@ -44,7 +44,7 @@ export function AddToCart({ product, compact = false }: { product: Product; comp
         >
           {units.map((u) => (
             <option key={u.unit} value={u.unit}>
-              {u.label} · {money(u.price)}
+              {compact ? u.label : `${u.label} · ${money(u.price)}`}
             </option>
           ))}
         </select>
@@ -57,8 +57,8 @@ export function AddToCart({ product, compact = false }: { product: Product; comp
           onChange={(e) => setQty(Math.max(1, Math.min(500, Number(e.target.value) || 1)))}
           className="input tnum w-16 shrink-0"
         />
-        <button type="button" onClick={submit} className="btn btn-primary min-w-0 sm:min-w-[7.5rem] sm:flex-1" disabled={added}>
-          {added ? "Added" : "Add to cart"}
+        <button type="button" onClick={submit} className={`btn min-w-0 sm:min-w-[7.5rem] sm:flex-1 ${compact ? "btn-outline" : "btn-primary"}`} disabled={added}>
+          {added ? "added" : compact ? "add" : "add to cart"}
         </button>
       </div>
       {!compact ? (

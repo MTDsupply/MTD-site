@@ -6,7 +6,7 @@ import { QuoteForm } from "@/components/QuoteForm";
 import { Reveal } from "@/components/Reveal";
 import Link from "next/link";
 import { QUOTE_KINDS } from "@/lib/quote-kinds";
-import { restockNote } from "@/lib/site";
+import { restockNoteLower } from "@/lib/site";
 import { bulkCasePrice, hasVolumeTier, BULK_MIN_UNITS } from "@/lib/pricing";
 
 export const metadata = pageMeta({
@@ -30,7 +30,7 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
       <div className="-mt-8 border-b border-line">
-        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 md:grid-cols-[1.2fr_1fr] md:gap-12 md:py-16">
+        <div className="py-12 md:py-16">
           <Reveal>
             <p className="t-label">Business accounts</p>
             <h1 className="t-section mt-3 text-ink">for cafés, restaurants, caterers and events.</h1>
@@ -39,60 +39,39 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a href="#quote" className="btn btn-primary">
-                Request a quote
+                request a quote
               </a>
-              <Link href="/business?kind=sample#quote" className="btn btn-outline">
-                Request a sample pack
+              <Link href="/business?kind=sample#quote" className="link text-[15px] font-medium text-ink">
+                request a sample pack
               </Link>
             </div>
           </Reveal>
-          <Reveal delay={0.1}>
-            <dl className="grid gap-5 border-t border-line pt-5 md:border-l md:border-line md:border-t-0 md:pl-8 md:pt-0">
-              {[
-                ["Case pricing", "Every price below is per case. Switch the header toggle to Business and the whole site shows case prices."],
-                ["Net-30 on approval", "Send a quote request with your company details. Approved accounts order on terms and reorder from their account page."],
-                ...(hasVolumeTier(catalog.products) ? [["Volume pricing", `Order ${count(BULK_MIN_UNITS)} units or more (ten cases) and every case is charged at the volume rate in the cart. No quote needed.`]] : []),
-                ["Pallets and printing", "For pallet quantities or custom printing, send a quote request and we reply within one business day."],
-              ].map(([h, t]) => (
-                <div key={h}>
-                  <dt className="t-card text-[17px] leading-[22px] text-ink">{h}</dt>
-                  <dd className="mt-1 text-sm text-stone">{t}</dd>
-                </div>
-              ))}
-            </dl>
-          </Reveal>
+
         </div>
       </div>
 
-      <section className="mt-12 grid gap-4 md:grid-cols-2">
-        <Reveal>
-          <div className="card flex h-full flex-col bg-white p-6">
-            <p className="t-label text-forest">Try it first · free for cafés</p>
-            <h2 className="t-heading mt-2">sample pack.</h2>
-            <p className="mt-3 text-sm text-soil/80">
-              A small pack of each cup size and the lid, so your team can run them on the machines before committing to a case. Free for cafés and other foodservice businesses: ask for one with the form below and we send it once we have confirmed the business.
-            </p>
-            <Link href="/business?kind=sample#quote" className="btn btn-outline mt-5 self-start">
-              Request a sample pack
-            </Link>
-          </div>
-        </Reveal>
-        <Reveal delay={0.08}>
-          <div className="card flex h-full flex-col bg-white p-6">
-            <p className="t-label text-forest">Your mark on the cup</p>
-            <h2 className="t-heading mt-2">custom printing.</h2>
-            <p className="mt-3 text-sm text-soil/80">
-              Your logo on the same certified cup, from 100 cases. Send your artwork details and we reply with options, pricing and a proof.
-            </p>
-            <Link href="/custom-printing" className="btn btn-outline mt-5 self-start">
-              About custom printing
-            </Link>
-          </div>
-        </Reveal>
+      <section className="mt-12">
+        <p className="t-label">01</p>
+        <h2 className="t-heading mt-2">how it works.</h2>
+        <div className="mt-6 grid border-t border-line md:grid-cols-3">
+          {[
+            ["sample pack.", "A small pack of each cup size and the lid, so your team can run them on the machines before committing to a case. Free for cafés and other foodservice businesses; ask with the form below.", "/business?kind=sample#quote", "request a sample pack"],
+            ["net-30 on approval.", "Send a quote request with your company details. Approved accounts order on terms and reorder from their account page.", "#quote", "request a quote"],
+            ["custom printing.", "Your logo on the same certified cup, from 100 cases. Send your artwork details and we reply with options, pricing and a proof.", "/custom-printing", "about custom printing"],
+          ].map(([h, t, href, label]) => (
+            <div key={h} className="border-b border-line py-5 md:border-b-0 md:border-r md:pr-6 md:last:border-r-0 md:[&:not(:first-child)]:pl-6">
+              <h3 className="t-card">{h}</h3>
+              <p className="mt-2 text-[15px] text-ink">{t}</p>
+              <Link href={href} className="link mt-3 inline-block text-[14px] text-ink">
+                {label}
+              </Link>
+            </div>
+          ))}
+        </div>
       </section>
 
       <section className="mt-12">
-        <p className="t-label text-forest">Pricing</p>
+        <p className="t-label">02</p>
         <h2 className="t-heading mt-2">case prices.</h2>
         <div className="mt-3 overflow-x-auto rounded-[20px] bg-white">
           <table className="price-table w-full text-sm">
@@ -107,7 +86,6 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
                 {volume ? <th className="num">Per unit, {count(BULK_MIN_UNITS)}+ units</th> : null}
                 <th className="num">Packs 100 / 200 / 500</th>
                 <th>Certification</th>
-                <th>Status</th>
               </tr>
             </thead>
             <tbody>
@@ -117,7 +95,10 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
                 return (
                   <tr key={p.sku} className={live ? "" : "text-soil/50"}>
                     <td className="sku">{p.sku}</td>
-                    <td>{p.name}</td>
+                    <td>
+                      {p.name}
+                      <span className="block text-[12px] text-stone">{live ? restockNoteLower(p.restockWhen) ?? "in stock" : "coming soon"}</span>
+                    </td>
                     <td>{p.material}</td>
                     <td className="num">{count(p.caseCount)}</td>
                     <td className="num">{money(p.casePrice)}</td>
@@ -125,7 +106,6 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
                     {volume ? <td className="num">{p.bulkUnitPrice != null ? <>{unitMoney(p.bulkUnitPrice)} <span className="text-soil/60">({money(bulkCasePrice(p) ?? 0)} per case)</span></> : unitMoney(p.unitPrice)}</td> : null}
                     <td className="num text-soil/80">{(p.packs?.length ? p.packs : [{ count: p.packCount, price: p.packPrice }]).map((t) => money(t.price).replace(".00", "")).join(" / ")}</td>
                     <td className="wrap">{cert && live ? cert.certifier : "In testing"}</td>
-                    <td>{live ? <span className="chip chip-clay">{restockNote(p.restockWhen) ?? "In stock"}</span> : <span className="chip chip-fog">Coming soon</span>}</td>
                   </tr>
                 );
               })}
@@ -142,7 +122,7 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
       </section>
 
       <section id="quote" className="mt-12">
-        <p className="t-label text-forest">Quote</p>
+        <p className="t-label">03</p>
         <h2 className="t-heading mt-2">request a quote, a sample pack or custom printing.</h2>
         <p className="mt-1 text-sm text-soil/70">Tell us your monthly volume and the categories you want, including ones not yet in stock.</p>
         <div className="mt-4">

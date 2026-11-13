@@ -1,5 +1,5 @@
 import Image from "next/image";
-import wordmark from "../../public/logo-wordmark.png";
+import wordmark from "../../public/logo-wordmark-ink.png";
 import wordmarkWhite from "../../public/logo-wordmark-white.png";
 
 /**

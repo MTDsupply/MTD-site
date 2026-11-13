@@ -7,8 +7,6 @@ import { CertChip } from "@/components/CertChip";
 import { Price } from "@/components/Price";
 import { AddToCart } from "@/components/AddToCart";
 import { SpecTable } from "@/components/SpecTable";
-import { ProductCard } from "@/components/ProductCard";
-import { ComingSoonTile } from "@/components/ComingSoonTile";
 import { PairedAdd } from "@/components/PairedAdd";
 import { StickyBuyBar } from "@/components/StickyBuyBar";
 import { photoFor } from "@/lib/catalog/assets";
@@ -64,7 +62,6 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
     .map((s) => catalog.products.find((p) => p.sku === s))
     .filter((p): p is NonNullable<typeof p> => !!p && p.status === "live");
   const pairedLid = cat.slug === "cups" ? goesWithProducts.find((p) => p.categorySlug === "lids") ?? null : null;
-  const pairedComingSoon = catalog.categories.filter((c) => c.status !== "live" && c.slug === "lids" && cat.slug === "cups");
   const faq = productFaq(product, catalog);
 
   return (
@@ -167,7 +164,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
       </section>
 
       <section className="mt-10 max-w-3xl">
-        <h2 className="t-heading">Questions about the {product.name}</h2>
+        <h2 className="t-heading">questions about the {product.name.toLowerCase()}.</h2>
         <div className="mt-3 divide-y divide-line border-y border-line">
           {faq.map(([q, a]) => (
             <details key={q} className="group py-3">
@@ -183,22 +180,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
         </div>
       </section>
 
-      <section className="mt-10">
-        <h2 className="t-heading">goes with.</h2>
-        <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {goesWithProducts.map((p) => (
-            <ProductCard
-              key={p.sku}
-              product={p}
-              cert={catalog.certs.find((c) => c.id === p.certId)}
-              categoryDrawing={catalog.categories.find((c) => c.slug === p.categorySlug)?.lineDrawing ?? cat.lineDrawing}
-            />
-          ))}
-          {pairedComingSoon.map((c) => (
-            <ComingSoonTile key={c.slug} category={c} compact photo={catalog.products.find((p) => p.categorySlug === c.slug)?.photo ?? null} />
-          ))}
-        </div>
-      </section>
+
       <JsonLd
         data={[
           productLd(product, cert, cat),

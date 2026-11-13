@@ -12,7 +12,7 @@ export const metadata = pageMeta({
   description:
     "Four steps to compost our hot cups and lids in a home pile: finish the drink, lid and cup go in together, mix it in, turn the pile as usual. Plus the questions we get asked: the lining, how long it takes, worm bins and tumblers.",
   path: "/compost",
-  image: "/compost-cups.jpg",
+  image: "/soil-mark.jpg",
   imageAlt: "Two paper hot cups softening and breaking down on a mossy forest floor",
 });
 
@@ -39,24 +39,24 @@ export default function CompostPage() {
       <div className="mt-10 grid gap-8 md:grid-cols-[1fr_1.1fr] md:items-start md:gap-12">
         <Reveal>
           <figure>
-            <div className="relative aspect-[4/3] overflow-hidden border border-line bg-paper-deep">
-              <Image src="/compost-cups.jpg" alt="Two paper hot cups softening and breaking down on a mossy forest floor, the certification mark still showing on one base" fill priority sizes="(min-width: 768px) 45vw, 100vw" className="object-cover" />
+            <div className="relative aspect-[16/10] overflow-hidden bg-card">
+              <Image src="/soil-mark.jpg" alt="A paper hot cup half-sunk in dark compost, softened and browning, the made to disappear mark still legible on its base" fill priority sizes="(min-width: 768px) 45vw, 100vw" className="object-cover" />
             </div>
             <figcaption className="mt-2 text-xs text-soil/60">An illustration of the breakdown, not a timed photograph. How long it takes depends on the pile.</figcaption>
           </figure>
         </Reveal>
         <div>
           <Reveal>
-            <p className="t-label text-forest">Four steps</p>
+            <p className="t-label">four steps</p>
             <h2 className="t-page mt-2">serve it. compost it. done.</h2>
           </Reveal>
           <RevealGroup className="mt-6 space-y-3" step={0.07}>
             {STEPS.map(([title, text], i) => (
-              <div key={title} className="card flex gap-4 p-5">
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-forest font-display text-[17px] font-bold text-cream tnum">{i + 1}</span>
+              <div key={title} className="grid grid-cols-[48px_1fr] border-t border-line py-4 last:border-b">
+                <p className="t-label pt-1">0{i + 1}</p>
                 <div>
-                  <h3 className="t-card">{title}</h3>
-                  <p className="mt-1 text-sm text-soil/75">{text}</p>
+                  <h3 className="t-card">{title.charAt(0).toLowerCase() + title.slice(1)}.</h3>
+                  <p className="mt-1 text-[15px] text-ink">{text}</p>
                 </div>
               </div>
             ))}
@@ -67,11 +67,11 @@ export default function CompostPage() {
       <Reveal as="section" className="mt-14 bg-cream">
         <div className="relative left-1/2 w-screen -translate-x-1/2 bg-white">
           <div className="mx-auto max-w-7xl px-4 py-10 md:py-12">
-            <p className="t-label text-forest">What the certificate covers</p>
-            <p className="t-heading mt-3 max-w-[40ch] text-soil">{claims.certLine}</p>
+            <p className="t-label">the certificate</p>
+            <p className="t-heading mt-3 max-w-[40ch] text-ink">{claims.certLine.charAt(0).toLowerCase() + claims.certLine.slice(1)}</p>
             <p className="mt-4 max-w-[62ch] text-soil/80">{claims.whyParagraph}</p>
             <Link href="/certifications" className="link-proof mt-5 inline-block text-sm font-medium">
-              See every certificate
+              see every certificate
             </Link>
           </div>
         </div>
@@ -106,28 +106,19 @@ export default function CompostPage() {
             name: "How to compost a Made to Disappear cup and lid at home",
             description: "Into the home compost pile, with the food scraps, in four steps.",
             steps: STEPS,
-            image: "/compost-cups.jpg",
+            image: "/soil-mark.jpg",
           }),
           faqLd(FAQ),
         ]}
       />
 
-      <Reveal className="mt-14">
-        <div className="flex flex-wrap items-center justify-between gap-4 rounded-[20px] bg-white p-6">
-          <div>
-            <p className="t-card">Ready to switch the café over?</p>
-            <p className="mt-1 text-sm text-soil/70">Cases for the business, packs for the house.</p>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/products/cups" className="btn btn-primary">
-              Shop cups
-            </Link>
-            <Link href="/business" className="btn btn-outline">
-              Business pricing
-            </Link>
-          </div>
-        </div>
-      </Reveal>
+      <p className="note mt-14 max-w-[62ch] text-[15px] text-ink">
+        Ready to try them in the café?{" "}
+        <Link href="/business?kind=sample#quote" className="link text-ink">
+          request a sample pack
+        </Link>
+        , free for verified cafés.
+      </p>
     </div>
   );
 }

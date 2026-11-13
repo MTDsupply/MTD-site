@@ -14,7 +14,7 @@ export const metadata = pageMeta({
   description: SITE_DESCRIPTION,
   path: "/",
   image: "/hero-bone.jpg",
-  imageAlt: "A paper hot cup and lid on a bone backdrop, a second cup on its side showing the made to disappear mark on its base",
+  imageAlt: "The three cup sizes and the lid on a bone backdrop, a fourth cup on its side showing the made to disappear mark on its base",
 });
 
 /*
@@ -59,7 +59,7 @@ export default async function HomePage() {
 
   const places: [string, string][] = [
     ["home compost pile.", "Tear it, bury it with the food scraps, turn the pile as usual. This is what the certificate tests."],
-    ["worm bin or community garden.", "Same material, same microbes. Smaller pieces go faster."],
+    ["worm bin or garden.", "Same material, same microbes. Smaller pieces go faster."],
     ["industrial facility.", "Anything that composts cold composts hot. Where cups are collected, it goes in the same stream."],
   ];
 
@@ -68,11 +68,11 @@ export default async function HomePage() {
       {/* hero: one object, hard light, the headline beside it. */}
       <section className="grid items-center gap-10 py-12 md:grid-cols-[1.15fr_1fr] md:gap-16 md:py-24">
         <div className="relative aspect-[16/10] overflow-hidden bg-card">
-          <Image src="/hero-bone.jpg" alt="A paper hot cup and lid on a bone backdrop, a second cup on its side showing the made to disappear mark on its base" fill priority fetchPriority="high" sizes="(min-width: 768px) 60vw, 100vw" className="object-cover object-left" />
+          <Image src="/hero-bone.jpg" alt="The three cup sizes and the lid on a bone backdrop, a fourth cup on its side showing the made to disappear mark on its base" fill priority fetchPriority="high" sizes="(min-width: 768px) 60vw, 100vw" className="object-cover object-left" />
         </div>
         <div>
           <p className="t-label">{restock ? stockSentence(categories).replace(/\.$/, "").toLowerCase() : "hot cups and lids, in stock"}</p>
-          <h1 className="t-hero mt-4 text-ink">serve it. then let it go.</h1>
+          <h1 className="t-hero mt-4 text-ink">serve it.<br />then let it go.</h1>
           <p className="t-lead mt-6 max-w-[40ch] text-ink">Hot cups and lids made from 100% certified home-compostable material. The mark on the base is the whole promise: it goes in the garden pile with the grounds.</p>
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
             <Link href="/products/cups" className="btn btn-primary">
@@ -107,7 +107,7 @@ export default async function HomePage() {
               </div>
               <div className="p-4 md:p-5">
                 <div className="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-1">
-                  <h3 className="t-card text-ink">{p.name.toLowerCase()}.</h3>
+                  <h3 className="t-card text-ink">{p.name.toLowerCase()}</h3>
                   <span className="sku whitespace-nowrap text-ash">{p.sku}</span>
                 </div>
                 <p className="mt-1 text-[14px] text-stone">{use}</p>
@@ -152,10 +152,9 @@ export default async function HomePage() {
           </div>
         </figure>
         <div className="mt-8 grid border-t border-line md:grid-cols-3">
-          {places.map(([h, t], i) => (
+          {places.map(([h, t]) => (
             <div key={h} className="border-b border-line py-5 md:border-b-0 md:border-r md:pr-6 md:last:border-r-0 md:[&:not(:first-child)]:pl-6">
-              <p className="t-label">0{i + 1}</p>
-              <h3 className="t-card mt-2 text-ink">{h}</h3>
+              <h3 className="t-card text-ink">{h}</h3>
               <p className="mt-2 text-[15px] text-stone">{t}</p>
             </div>
           ))}
@@ -173,7 +172,7 @@ export default async function HomePage() {
       </Section>
 
       {/* 05 the inner harbour */}
-      <Section n="05" title="98% said they'd pay 15¢ more." intro="Before we ordered a single case we spent a few days on the Inner Harbour with a clipboard and a cooler of freezies, asking 167 coffee drinkers one question.">
+      <Section n="05" title="98% said they’d pay 15¢ more." intro="Before we ordered a single case we spent a few days on the Inner Harbour with a clipboard and a cooler of freezies, asking 167 coffee drinkers one question.">
         <div className="grid gap-10 md:grid-cols-[1fr_1fr] md:gap-16">
           <figure>
             <div className="relative aspect-[4/3] overflow-hidden bg-card">
@@ -205,7 +204,7 @@ export default async function HomePage() {
       </Section>
 
       {/* 06 asked often */}
-      <Section n="06" title="asked often." className="pb-24">
+      <Section n="06" title="asked often." intro="The questions cafés ask before the first case, answered in a sentence or two." className="pb-24">
         <div className="hairline max-w-3xl border-y border-line">
           {faq.map(([q, a]) => (
             <details key={q} className="group py-4">
