@@ -76,9 +76,9 @@ export default async function HomePage() {
   ];
 
   const trust: { k: string; v: string; logo?: string }[] = [
-    { k: "heard on", v: `${press.outlet}, ${press.show}`, logo: press.logo },
-    { k: "certified by", v: `${site.certifier}, home compostable` },
-    { k: "lining", v: "PHA. No plastic film, no microplastics" },
+    { k: "as heard on", v: press.outlet, logo: press.logo },
+    { k: "certified by", v: site.certifier },
+    { k: "lining", v: "PHA, no microplastics" },
     { k: "ships from", v: `${site.city}, ${site.province}` },
   ];
 
@@ -116,18 +116,18 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* trust strip */}
-      <section className="grid grid-cols-2 border-y border-line lg:grid-cols-4">
-        {trust.map((t, i) => (
-          <div key={t.k} className={`flex items-center gap-3 py-4 pr-3 lg:py-5 ${i % 2 === 1 ? "border-l border-line pl-4 lg:pl-6" : ""} ${i >= 2 ? "border-t border-line lg:border-t-0 lg:border-l lg:pl-6" : ""}`}>
-            {t.logo ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={t.logo} alt="" width="28" height="28" className="hidden h-7 w-7 shrink-0 sm:block" />
-            ) : null}
-            <div className="min-w-0">
-              <p className="t-label">{t.k}</p>
-              <p className="mt-0.5 text-[13px] text-ink sm:text-[15px]">{t.v}</p>
-            </div>
+      {/* trust strip: four short facts on one baseline. */}
+      <section className="grid grid-cols-2 gap-x-6 gap-y-5 border-y border-line py-5 md:py-6 lg:grid-cols-4">
+        {trust.map((t) => (
+          <div key={t.k}>
+            <p className="t-label">{t.k}</p>
+            <p className="mt-1.5 flex items-center gap-2 whitespace-nowrap text-[15px] text-ink">
+              {t.logo ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={t.logo} alt="" width="20" height="20" className="h-5 w-5 shrink-0" />
+              ) : null}
+              {t.v}
+            </p>
           </div>
         ))}
       </section>

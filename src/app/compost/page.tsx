@@ -49,7 +49,7 @@ export default function CompostPage() {
         <div>
           <Reveal>
             <p className="t-label">four steps</p>
-            <h2 className="t-page mt-2">serve it. compost it. done.</h2>
+            <h2 className="t-page mt-2">how to do it.</h2>
           </Reveal>
           <RevealGroup className="mt-6 divide-y divide-line border-y border-line" step={0.07}>
             {STEPS.map(([title, text], i) => (
