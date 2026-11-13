@@ -75,13 +75,6 @@ export default async function HomePage() {
     [87, "said yes for a cup with no microplastics"],
   ];
 
-  const trust: { k: string; v: string; logo?: string; sub?: string }[] = [
-    { k: "as heard on", v: press.outlet, logo: press.logo, sub: `${press.show} with ${press.host}` },
-    { k: "certified by", v: site.certifier },
-    { k: "lining", v: "PHA, no microplastics" },
-    { k: "ships from", v: `${site.city}, ${site.province}` },
-  ];
-
   const cards = [
     { title: "hot cups.", sub: "8, 12 and 16 oz. All three are the same paper and the same lining.", chips: ["home compostable", "no microplastics", "PHA lined"], img: "/card-cups.jpg", alt: "The three cup sizes with one cup on its side showing the mark on its base", href: "/products/cups", cta: "shop cups", primary: true },
     { title: "lids.", sub: "One lid fits all three cups. Same material, same certificate.", chips: ["fits 8, 12 and 16 oz", "home compostable"], img: "/card-lids.jpg", alt: "A cup wearing the lid, with a second lid lying in front", href: "/products/lids", cta: "shop lids", primary: false },
@@ -116,21 +109,20 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* trust strip: four short facts on one baseline. */}
-      <section className="grid grid-cols-2 gap-x-6 gap-y-5 border-y border-line py-5 md:py-6 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
-        {trust.map((t) => (
-          <div key={t.k}>
-            <p className="t-label">{t.k}</p>
-            <p className="mt-1.5 flex items-center gap-2 whitespace-nowrap text-[15px] text-ink">
-              {t.logo ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={t.logo} alt="" width="20" height="20" className="h-5 w-5 shrink-0" />
-              ) : null}
-              {t.v}
-            </p>
-            {t.sub ? <p className="mt-0.5 text-[13px] text-stone">{t.sub}</p> : null}
-          </div>
-        ))}
+      {/* press band: the CBC segment, on its own. */}
+      <section className="border-y border-line py-5 md:py-6">
+        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-center">
+          <p className="t-label">as heard on</p>
+          <p className="flex items-center gap-2.5 text-[16px] text-ink md:text-[17px]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={press.logo} alt="" width="22" height="22" className="h-[22px] w-[22px] shrink-0" />
+            <span className="font-medium">{press.outlet}</span>
+            <span className="text-stone">·</span>
+            <span>
+              {press.show} with {press.host}
+            </span>
+          </p>
+        </div>
       </section>
 
       {/* two split cards */}
