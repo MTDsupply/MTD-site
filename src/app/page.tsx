@@ -102,8 +102,8 @@ export default async function HomePage() {
           </div>
           {fromCup != null ? <p className="mt-8 text-[14px] text-stone tnum">from {unitMoney(fromCup)} a cup by the case · packs of 100 for home</p> : null}
         </div>
-        <div className="hero-photo relative order-1 aspect-[4/3] overflow-hidden md:order-2 md:aspect-auto md:min-h-[680px] lg:min-h-[760px]">
-          <Image src={v("/hero-wide.jpg")} alt="The three cup sizes and the lid on a bone backdrop, a fourth cup on its side showing the made to disappear mark on its base" fill priority fetchPriority="high" sizes="(min-width: 768px) 50vw, 100vw" className="object-cover object-[62%_center] md:object-[72%_center]" />
+        <div className="hero-photo relative order-1 aspect-[4/3] overflow-hidden md:order-2 md:aspect-auto md:min-h-[680px] lg:min-h-[760px] md:pr-[max(16px,calc((100vw-1120px)/2))]">
+          <Image src={v("/hero-lineup.jpg")} alt="The three cup sizes and the lid on a bone backdrop, a fourth cup on its side showing the made to disappear mark on its base" fill priority fetchPriority="high" sizes="(min-width: 768px) 50vw, 100vw" className="object-contain" />
         </div>
       </section>
 
