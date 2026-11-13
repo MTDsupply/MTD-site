@@ -6,6 +6,8 @@ import { claims } from "@/lib/copy";
 import { NotifyForm } from "./NotifyForm";
 import { Wordmark } from "./Wordmark";
 import { ARTICLES } from "@/lib/learn";
+import Image from "next/image";
+import wordmarkWhite from "../../public/logo-wordmark-white.png";
 
 async function copyrightYear(): Promise<number> {
   "use cache";
@@ -175,6 +177,10 @@ export async function Footer() {
           <p>
             © {year} {site.legalName}. {site.city}, {site.province}, {site.country}.
           </p>
+        </div>
+        {/* The wordmark, set large across the foot of the page. */}
+        <div className="mx-auto max-w-7xl px-4 pb-6 pt-8 md:pt-12" aria-hidden="true">
+          <Image src={wordmarkWhite} alt="" sizes="(min-width: 1120px) 1120px, 100vw" className="footer-mark" draggable={false} />
         </div>
       </div>
       </div>

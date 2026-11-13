@@ -811,7 +811,6 @@ html[data-scrolled] .header-surface, html[data-scrolled] .site-header { backgrou
 html[data-scrolled] .header-surface { border-bottom-color: var(--color-line); }
 @media (max-width: 1023px) { .header-surface { background: var(--color-bone); border-bottom-color: var(--color-line); } }
 
-.section-num { position: sticky; top: 112px; align-self: start; }
 
 .section-rail { position: fixed; left: 28px; top: 50%; transform: translateY(-50%); z-index: 20; display: none; opacity: 0; transition: opacity 250ms ease; pointer-events: none; }
 .section-rail.is-visible { opacity: 1; pointer-events: auto; }
@@ -828,3 +827,9 @@ html[data-scrolled] .header-surface { border-bottom-color: var(--color-line); }
 
 .scrub-well { touch-action: pan-y; }
 .scrub-track span { transition: background-color 250ms ease; }
+
+/* ---- Home layout (2026-11-13): Nothing / Bloom skeleton in the card's palette. */
+.bleed { position: relative; left: 50%; width: 100vw; margin-left: -50vw; }
+.feature-card .chip { background: color-mix(in srgb, var(--color-bone) 70%, transparent); color: var(--color-ink); border-color: var(--color-line); }
+.footer-mark { display: block; width: 100%; height: auto; opacity: 0.18; }
+.bg-soil-band h1, .bg-soil-band h2, .bg-soil-band h3 { color: var(--color-bone); }
