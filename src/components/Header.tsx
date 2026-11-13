@@ -3,7 +3,7 @@ import { getCatalog } from "@/lib/catalog/queries";
 import { money } from "@/lib/format";
 import { restockNote, stockSentence } from "@/lib/site";
 import { site } from "@/lib/site";
-import { BULK_MIN_UNITS } from "@/lib/pricing";
+import { hasVolumeTier, BULK_MIN_UNITS } from "@/lib/pricing";
 import { count } from "@/lib/format";
 import { Wordmark } from "./Wordmark";
 import { Nav } from "./Nav";
@@ -69,7 +69,7 @@ export async function Header() {
                     <span className="hidden sm:inline"> · </span>
                   </>
                 ) : null}
-                <span className={categories.some((c) => c.restockWhen) ? "hidden sm:inline" : ""}>Volume pricing from {count(BULK_MIN_UNITS)} units, applied in the cart</span>
+                {hasVolumeTier(catalog.products) ? <span className={categories.some((c) => c.restockWhen) ? "hidden sm:inline" : ""}>Volume pricing from {count(BULK_MIN_UNITS)} units, applied in the cart</span> : <span className={categories.some((c) => c.restockWhen) ? "hidden sm:inline" : ""}>Cases of 1,000 for the café, packs of 100 for the house</span>}
               </span>
             )}
             <Link href="/quick-order" className="hidden hover:underline sm:inline">

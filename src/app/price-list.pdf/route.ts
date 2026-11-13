@@ -57,8 +57,13 @@ export async function GET() {
   page.drawText("Hot cups and lids, 100% certified home-compostable material.", { x: margin, y, size: 13, font: bold, color: FOREST });
   y -= 28;
 
-  const cols = [margin, margin + 64, margin + 158, margin + 234, margin + 270, margin + 316, margin + 364, margin + 418];
-  const head = ["SKU", "Product", "Material", "Case", "Per case", "Per unit", "10k+ units", "Packs 100 / 200 / 500"];
+  const volume = products.some((p) => p.bulkUnitPrice != null);
+  const cols = volume
+    ? [margin, margin + 64, margin + 158, margin + 234, margin + 270, margin + 316, margin + 364, margin + 418]
+    : [margin, margin + 64, margin + 166, margin + 250, margin + 294, margin + 348, margin + 410];
+  const head = volume
+    ? ["SKU", "Product", "Material", "Case", "Per case", "Per unit", "10k+ units", "Packs 100 / 200 / 500"]
+    : ["SKU", "Product", "Material", "Case", "Per case", "Per unit", "Packs 100 / 200 / 500"];
   const clip = (v: string, n: number) => (v.length > n ? `${v.slice(0, n - 1).trimEnd()}…` : v);
   const packCol = (p: (typeof products)[number]) =>
     (p.packs?.length ? p.packs : [{ count: p.packCount, price: p.packPrice }]).map((t) => cad(t.price, 0)).join(" / ");
@@ -74,7 +79,7 @@ export async function GET() {
       p.caseCount.toLocaleString("en-CA"),
       cad(p.casePrice),
       cad(p.unitPrice, 3),
-      p.bulkUnitPrice != null ? cad(p.bulkUnitPrice, 3) : cad(p.unitPrice, 3),
+      ...(volume ? [p.bulkUnitPrice != null ? cad(p.bulkUnitPrice, 3) : cad(p.unitPrice, 3)] : []),
       packCol(p),
     ];
     row.forEach((v, i) => text(v, cols[i], 8.5));
@@ -96,7 +101,7 @@ export async function GET() {
       p.caseCount.toLocaleString("en-CA"),
       cad(p.casePrice),
       cad(p.unitPrice, 3),
-      p.bulkUnitPrice != null ? cad(p.bulkUnitPrice, 3) : cad(p.unitPrice, 3),
+      ...(volume ? [p.bulkUnitPrice != null ? cad(p.bulkUnitPrice, 3) : cad(p.unitPrice, 3)] : []),
       packCol(p),
     ];
     row.forEach((v, i) => text(v, cols[i], 8.5, font, FOG));

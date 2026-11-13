@@ -5,6 +5,11 @@ import { unitInfo, type UnitInfo } from "./units";
 /** Orders of this many units or more pay the volume price on every case. */
 export const BULK_MIN_UNITS = 10_000;
 
+/** True when at least one product carries a volume tier; surfaces hide their volume copy otherwise. */
+export function hasVolumeTier(products: Product[]): boolean {
+  return products.some((p) => p.bulkUnitPrice != null);
+}
+
 const round2 = (n: number) => Math.round(n * 100) / 100;
 
 /** How many cases of this product make up the volume threshold (10 for a case of 1,000). */

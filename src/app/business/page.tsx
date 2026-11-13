@@ -7,17 +7,18 @@ import { Reveal } from "@/components/Reveal";
 import Link from "next/link";
 import { QUOTE_KINDS } from "@/lib/quote-kinds";
 import { restockNote } from "@/lib/site";
-import { bulkCasePrice, BULK_MIN_UNITS } from "@/lib/pricing";
+import { bulkCasePrice, hasVolumeTier, BULK_MIN_UNITS } from "@/lib/pricing";
 
 export const metadata = pageMeta({
   title: "Wholesale compostable cups for cafés · case pricing and net-30",
   description:
-    "Case pricing on every hot cup and lid, a lower volume price from 10,000 units, net-30 on approval, sample packs and custom printing. 100% certified home-compostable material (TÜV Austria), shipped from Victoria, BC across Canada and the US.",
+    "Case pricing on every hot cup and lid, net-30 on approval, free sample packs for verified cafés and custom printing. 100% certified home-compostable material (TÜV Austria), shipped from Victoria, BC across Canada and the US.",
   path: "/business",
 });
 
 export default async function BusinessPage({ searchParams }: PageProps<"/business">) {
   const catalog = await getCatalog();
+  const volume = hasVolumeTier(catalog.products);
   const catOrder = new Map(catalog.categories.map((c) => [c.slug, c.sortOrder]));
   const liveCats = new Set(catalog.categories.filter((c) => c.status === "live").map((c) => c.slug));
   const rows = [...catalog.products].sort(
@@ -34,7 +35,7 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
             <p className="t-label text-cream/70">Business accounts</p>
             <h1 className="t-section mt-3 text-cream">Supply for cafés, restaurants, caterers and events.</h1>
             <p className="mt-4 max-w-[52ch] text-[17px] leading-7 text-paper/85">
-              One supplier for the whole range, certified, shipping across North America. Case pricing below, and a lower volume price on every case once an order reaches {count(BULK_MIN_UNITS)} units. Approved accounts get net-30.
+              One supplier for the whole range, certified, shipping across North America. Case pricing below{volume ? <>, and a lower volume price on every case once an order reaches {count(BULK_MIN_UNITS)} units</> : null}. Approved accounts get net-30.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a href="#quote" className="btn btn-paper">
@@ -50,7 +51,8 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
               {[
                 ["Case pricing", "Every price below is per case. Switch the header toggle to Business and the whole site shows case prices."],
                 ["Net-30 on approval", "Send a quote request with your company details. Approved accounts order on terms and reorder from their account page."],
-                ["Volume pricing", `Order ${count(BULK_MIN_UNITS)} units or more (ten cases) and every case is charged at the volume rate in the cart. No quote needed. For pallet quantities or custom printing, send a quote request and we reply within one business day.`],
+                ...(hasVolumeTier(catalog.products) ? [["Volume pricing", `Order ${count(BULK_MIN_UNITS)} units or more (ten cases) and every case is charged at the volume rate in the cart. No quote needed.`]] : []),
+                ["Pallets and printing", "For pallet quantities or custom printing, send a quote request and we reply within one business day."],
               ].map(([h, t]) => (
                 <div key={h}>
                   <dt className="t-card text-[17px] leading-[22px] text-white">{h}</dt>
@@ -102,7 +104,7 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
                 <th className="num">Case count</th>
                 <th className="num">Per case</th>
                 <th className="num">Per unit</th>
-                <th className="num">Per unit, {count(BULK_MIN_UNITS)}+ units</th>
+                {volume ? <th className="num">Per unit, {count(BULK_MIN_UNITS)}+ units</th> : null}
                 <th className="num">Packs 100 / 200 / 500</th>
                 <th>Certification</th>
                 <th>Status</th>
@@ -120,7 +122,7 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
                     <td className="num">{count(p.caseCount)}</td>
                     <td className="num">{money(p.casePrice)}</td>
                     <td className="num">{unitMoney(p.unitPrice)}</td>
-                    <td className="num">{p.bulkUnitPrice != null ? <>{unitMoney(p.bulkUnitPrice)} <span className="text-soil/60">({money(bulkCasePrice(p) ?? 0)} per case)</span></> : unitMoney(p.unitPrice)}</td>
+                    {volume ? <td className="num">{p.bulkUnitPrice != null ? <>{unitMoney(p.bulkUnitPrice)} <span className="text-soil/60">({money(bulkCasePrice(p) ?? 0)} per case)</span></> : unitMoney(p.unitPrice)}</td> : null}
                     <td className="num text-soil/80">{(p.packs?.length ? p.packs : [{ count: p.packCount, price: p.packPrice }]).map((t) => money(t.price).replace(".00", "")).join(" / ")}</td>
                     <td className="wrap">{cert && live ? cert.certifier : "In testing"}</td>
                     <td>{live ? <span className="chip chip-clay">{restockNote(p.restockWhen) ?? "In stock"}</span> : <span className="chip chip-fog">Coming soon</span>}</td>
@@ -131,7 +133,7 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
           </table>
         </div>
         <p className="mt-2 text-xs text-soil/60">
-          Prices in CAD before tax. The volume price applies to every case in an order of {count(BULK_MIN_UNITS)} units or more, packs counted, and is applied automatically in the cart. Coming-soon rows show planned pricing; add them to a quote and we will confirm availability. Download the{" "}
+          Prices in CAD before tax. Coming-soon rows show planned pricing; add them to a quote and we will confirm availability. Download the{" "}
           <a href="/price-list.pdf" className="link">
             one-page price list (PDF)
           </a>

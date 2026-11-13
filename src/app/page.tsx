@@ -13,7 +13,7 @@ import { NotifyForm } from "@/components/NotifyForm";
 import { Marquee } from "@/components/Marquee";
 import { PRESS } from "@/components/PressBand";
 import { money, unitMoney, count } from "@/lib/format";
-import { BULK_MIN_UNITS } from "@/lib/pricing";
+import { hasVolumeTier, BULK_MIN_UNITS } from "@/lib/pricing";
 import { pageMeta, faqLd, SITE_DESCRIPTION } from "@/lib/seo";
 import { homeFaq } from "@/lib/faq";
 import { JsonLd } from "@/components/JsonLd";
@@ -65,11 +65,12 @@ export default async function HomePage() {
   const cheapestCupPack = products.filter((p) => p.categorySlug === "cups").sort((a, b) => a.packPrice - b.packPrice)[0];
   const press = PRESS[0];
   const restock = categories.some((c) => c.restockWhen);
+  const volume = hasVolumeTier(products);
 
   const tiles = [
     { name: "Hot cups", sub: "8, 12 and 16 oz", href: "/products/cups", photo: cup16?.photo ?? null, bg: "bg-mint", cover: false },
     { name: "Lids", sub: "One lid fits all three", href: "/products/lids", photo: lid?.photo ?? null, bg: "bg-peach", cover: false },
-    { name: "For the café", sub: "Cases, net-30, volume pricing", href: "/business", photo: "/hero-banner-peach.jpg", bg: "bg-peach-light", cover: true },
+    { name: "For the café", sub: "Cases, net-30, free samples", href: "/business", photo: "/hero-banner-peach.jpg", bg: "bg-peach-light", cover: true },
     { name: "Custom printing", sub: "Your logo, from 100 cases", href: "/custom-printing", photo: cup16?.photo ?? null, bg: "bg-butter", cover: false },
   ];
 
@@ -326,7 +327,7 @@ export default async function HomePage() {
             <p className="t-label text-cream/70">Business accounts</p>
             <h2 className="t-section mt-3 text-cream">Order by the case.</h2>
             <p className="mt-4 max-w-[48ch] text-[17px] leading-7 text-cream/80">
-              Cafés, restaurants, hotels, caterers and events. Case pricing on every SKU, a lower volume price from {count(BULK_MIN_UNITS)} units, net-30 on approval and one-click reorders from your account.
+              Cafés, restaurants, hotels, caterers and events. Case pricing on every SKU{volume ? <>, a lower volume price from {count(BULK_MIN_UNITS)} units</> : null}, net-30 on approval and one-click reorders from your account.
             </p>
             <div className="mt-7 overflow-hidden rounded-[18px] bg-white/10">
               <table className="w-full text-sm text-cream">
@@ -335,7 +336,7 @@ export default async function HomePage() {
                     <th className="px-4 py-3 text-left">Product</th>
                     <th className="px-4 py-3 text-right">Per case</th>
                     <th className="px-4 py-3 text-right">Per unit</th>
-                    <th className="px-4 py-3 text-right">{count(BULK_MIN_UNITS)}+ units</th>
+                    {volume ? <th className="px-4 py-3 text-right">{count(BULK_MIN_UNITS)}+ units</th> : null}
                   </tr>
                 </thead>
                 <tbody className="tnum">
@@ -346,13 +347,13 @@ export default async function HomePage() {
                       </td>
                       <td className="px-4 py-3 text-right">{money(p.casePrice)}</td>
                       <td className="px-4 py-3 text-right">{unitMoney(p.unitPrice)}</td>
-                      <td className="px-4 py-3 text-right font-semibold text-butter">{unitMoney(p.bulkUnitPrice ?? p.unitPrice)}</td>
+                      {volume ? <td className="px-4 py-3 text-right font-semibold text-butter">{unitMoney(p.bulkUnitPrice ?? p.unitPrice)}</td> : null}
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-            <p className="mt-2 text-xs text-cream/60">Per unit, CAD before tax. The volume column applies automatically to every case once an order reaches {count(BULK_MIN_UNITS)} units.</p>
+            <p className="mt-2 text-xs text-cream/60">Per unit, CAD before tax.{volume ? <> The volume column applies automatically to every case once an order reaches {count(BULK_MIN_UNITS)} units.</> : null}</p>
             <div className="mt-7 flex flex-wrap gap-3">
               <Link href="/business#quote" className="btn btn-paper btn-lg">
                 Open a business account
