@@ -32,7 +32,7 @@ export default function LearnIndexPage() {
           {compare.map((a) => (
             <Link key={a.slug} href={`/learn/${a.slug}`} className="card flex h-full flex-col p-6 md:p-8">
               <p className="t-label text-soil/55">{a.eyebrow}</p>
-              <h3 className="t-heading mt-2 text-forest">{a.title}</h3>
+              <h3 className="t-heading mt-2 text-ink">{a.heading}</h3>
               <p className="mt-3 text-[15px] leading-6 text-soil/75">{a.description}</p>
               <span className="link mt-5 text-sm font-medium text-forest">Read the comparison</span>
             </Link>
@@ -48,7 +48,7 @@ export default function LearnIndexPage() {
           {deep.map((a) => (
             <Link key={a.slug} href={`/learn/${a.slug}`} className="card flex h-full flex-col p-6">
               <p className="t-label text-soil/55">{a.eyebrow}</p>
-              <h3 className="t-card mt-2 text-forest">{a.title}</h3>
+              <h3 className="t-card mt-2 text-ink">{a.heading}</h3>
               <p className="mt-2 text-sm leading-6 text-soil/70">{a.description}</p>
               <span className="link mt-4 text-sm font-medium text-forest">Read</span>
             </Link>
@@ -58,19 +58,9 @@ export default function LearnIndexPage() {
 
       <section className="mt-12 md:mt-16">
         <Reveal>
-          <div className="band-mint grid gap-6 rounded-[24px] px-6 py-8 md:grid-cols-[1fr_auto] md:items-center md:px-10">
-            <div>
-              <h2 className="t-page text-forest">two questions to ask any cup supplier.</h2>
-              <p className="mt-2 text-forest/80">What polymer is the lining, and does the certificate cover the finished cup for home composting? Our answers are on the certifications page.</p>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <Link href="/certifications" className="btn btn-primary">
-                Certifications
-              </Link>
-              <Link href="/whats-in-your-cup" className="btn btn-outline">
-                What&rsquo;s in your cup
-              </Link>
-            </div>
+          <div className="note max-w-2xl">
+            <p className="t-heading text-ink">two questions to ask any cup supplier.</p>
+            <p className="mt-2 text-stone">What polymer is the lining, and does the certificate cover the finished cup for home composting? Our answers are on the <Link href="/certifications" className="link text-ink">certifications page</Link> and in <Link href="/whats-in-your-cup" className="link text-ink">what&rsquo;s in your cup</Link>.</p>
           </div>
         </Reveal>
       </section>

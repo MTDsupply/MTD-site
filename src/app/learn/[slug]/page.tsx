@@ -61,7 +61,7 @@ export default async function LearnArticlePage({ params }: { params: Promise<{ s
 
   return (
     <div className="mx-auto max-w-7xl px-4 pb-8">
-      <PageHeader eyebrow={a.eyebrow} title={a.title} description={a.description} />
+      <PageHeader eyebrow={a.eyebrow} title={a.heading} description={a.description} />
 
       <article className="mx-auto mt-10 max-w-3xl md:mt-14">
         <Reveal>
@@ -205,7 +205,7 @@ export default async function LearnArticlePage({ params }: { params: Promise<{ s
             {related.map((r) => (
               <li key={r.slug} className="border-b border-line">
                 <Link href={`/learn/${r.slug}`} className="flex items-baseline justify-between gap-6 py-3 text-[16px] text-ink hover:text-stone">
-                  <span>{r.title}</span>
+                  <span>{r.heading}</span>
                   <span className="t-label shrink-0">{r.eyebrow}</span>
                 </Link>
               </li>

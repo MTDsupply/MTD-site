@@ -16,6 +16,8 @@ export type Section = { h: string; p?: string[]; list?: string[]; table?: { head
 export type Article = {
   slug: string;
   title: string;
+  /** Short lowercase heading for the page and cards; `title` stays for metadata and schema. */
+  heading: string;
   eyebrow: string;
   description: string;
   summary: string[];
@@ -95,6 +97,7 @@ export const ARTICLES: Article[] = [
   {
     slug: "pha-vs-pla",
     title: "PHA vs PLA: what actually happens to each cup lining",
+    heading: "PHA vs PLA: what happens to each lining.",
     eyebrow: "Cup linings, compared",
     description:
       "PHA and PLA are both called compostable. One breaks down in a backyard pile and the other needs a 58 °C industrial facility. The chemistry, the test data, the microplastics studies and what to ask a supplier.",
@@ -164,6 +167,7 @@ export const ARTICLES: Article[] = [
   {
     slug: "pha-vs-water-based-coatings",
     title: "PHA vs water-based coatings: why plastic-free is not what it sounds like",
+    heading: "PHA vs water-based coatings: what is left behind.",
     eyebrow: "Cup linings, compared",
     description:
       "Water-based describes how a cup coating is applied, not what it is. Most aqueous barrier coatings are acrylic or styrene-acrylic plastics in water. What the EU rules say, how a thin plastic coating can sit under a compost certificate, and what to ask.",
@@ -242,6 +246,7 @@ export const ARTICLES: Article[] = [
   {
     slug: "what-is-pha",
     title: "What is PHA? The cup lining that microbes make and microbes eat",
+    heading: "what is PHA? the lining microbes make and eat.",
     eyebrow: "Deep dive",
     description:
       "PHA (polyhydroxyalkanoate) is a polyester that bacteria build inside their cells. How it is made, why it breaks down in soil, water and a garden compost pile, what the studies show, and what it is like as a hot-cup lining.",
@@ -297,6 +302,7 @@ export const ARTICLES: Article[] = [
   {
     slug: "what-is-pla",
     title: "What is PLA? The compostable plastic that needs a 58 °C facility",
+    heading: "what is PLA? the plastic that needs a 58 °C facility.",
     eyebrow: "Deep dive",
     description:
       "PLA (polylactic acid) is made from fermented plant sugar and polymerised in a reactor. Why it only composts in industrial conditions, what happens to it in a backyard bin, and what the microplastics studies on PLA cups found.",
@@ -350,6 +356,7 @@ export const ARTICLES: Article[] = [
   {
     slug: "water-based-coatings",
     title: "Water-based cup coatings: what the words hide",
+    heading: "water-based coatings: what the words hide.",
     eyebrow: "Deep dive",
     description:
       "Aqueous, dispersion and water-based cup coatings are plastic polymers applied from water. The chemistry (acrylic, styrene-acrylic, polyolefin), the recycling case for them, the compostability case against them, and how plastic-free claims survive on a plastic film.",
@@ -412,6 +419,7 @@ export const ARTICLES: Article[] = [
   {
     slug: "home-compostable-vs-industrial-compostable",
     title: "Home compostable vs industrial compostable: the two logos are not the same claim",
+    heading: "home compostable vs industrial compostable: not the same claim.",
     eyebrow: "Compostability, compared",
     description:
       "Industrial compostability is tested at 58 °C for six months. Home compostability is tested at garden temperature for twelve. What each standard requires, which certifiers issue which mark, the 1% rule on untested constituents, and why the difference decides whether a cup composts at all.",

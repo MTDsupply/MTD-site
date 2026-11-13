@@ -18,8 +18,9 @@ const TEAM = [
 
 export default function AboutPage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 pb-8">
+    <div className="mx-auto max-w-7xl px-4 pb-8">
       <PageHeader eyebrow="Our story" title="about." description="Who we are, where the stock sits, and why the name." image="/atmosphere/meadow.jpg" imageAlt="Meadow grasses in late light below a sage hillside" />
+      <div className="mx-auto max-w-2xl">
 
       <Reveal as="section" className="mt-10 space-y-4 text-base text-soil/85">
         <h2 className="t-heading">who.</h2>
@@ -37,7 +38,7 @@ export default function AboutPage() {
           {TEAM.map((m) => (
             <li key={m.name} className="card bg-white p-3">
               <div className="relative aspect-[4/5] overflow-hidden bg-paper-deep">
-                <Image src={m.photo} alt={m.alt} fill quality={90} sizes="(min-width: 640px) 360px, 100vw" className="object-cover" />
+                <Image src={m.photo} alt={m.alt} fill quality={90} sizes="(min-width: 640px) 360px, 100vw" className="object-cover" style={{ filter: "saturate(0.55) contrast(1.03)" }} />
               </div>
               <p className="t-card mt-3">{m.name}</p>
               <p className="mt-0.5 text-sm text-soil/70">{m.role}</p>
@@ -87,6 +88,7 @@ export default function AboutPage() {
           ) : null}
         </p>
       </section>
+      </div>
     </div>
   );
 }

@@ -160,7 +160,7 @@ export default function WhatsInYourCupPage() {
                 ["Lids and sleeves", "These are separate items. Check their own labels for disposal."],
               ].map(([h, t], i) => (
                 <li key={h} className="flex gap-4">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-forest font-display text-[15px] font-bold text-cream tnum">{i + 1}</span>
+                  <span className="t-label shrink-0 pt-1 tnum">0{i + 1}</span>
                   <div>
                     <p className="font-display text-[17px] font-semibold text-forest">{h}</p>
                     <p className="mt-1 text-[15px] leading-6 text-forest/80">{t}</p>
@@ -173,9 +173,9 @@ export default function WhatsInYourCupPage() {
             </Link>
           </Reveal>
           <Reveal delay={0.1}>
-            <div className="rounded-[24px] bg-forest p-7 text-cream md:p-9">
-              <h2 className="t-page text-cream">two questions to ask any cup supplier.</h2>
-              <p className="mt-4 text-cream/80">
+            <div className="note">
+              <h2 className="t-page text-ink">two questions to ask any cup supplier.</h2>
+              <p className="mt-4 text-stone">
                 Words like <em>compostable</em>, <em>plant-based</em> and <em>water-based</em> get used loosely. Two questions cut through it:
               </p>
               <ol className="mt-5 space-y-4">
@@ -184,10 +184,10 @@ export default function WhatsInYourCupPage() {
                   ["What does the certificate actually cover?", "Home or industrial composting, and the finished cup or just the material?"],
                 ].map(([h, t], i) => (
                   <li key={h} className="flex gap-4">
-                    <span className="t-serif-italic shrink-0 text-[30px] leading-none text-butter tnum">{i + 1}</span>
+                    <span className="t-label shrink-0 pt-1 tnum">0{i + 1}</span>
                     <div>
                       <p className="font-display text-[17px] font-semibold">{h}</p>
-                      {t ? <p className="mt-1 text-[15px] leading-6 text-cream/75">{t}</p> : null}
+                      {t ? <p className="mt-1 text-[15px] leading-6 text-stone">{t}</p> : null}
                     </div>
                   </li>
                 ))}
@@ -221,14 +221,9 @@ export default function WhatsInYourCupPage() {
       </section>
 
       <Reveal className="mt-16 md:mt-24">
-        <div className="band-peach grid gap-6 rounded-[24px] px-6 py-10 md:grid-cols-[1fr_auto] md:items-center md:px-12 md:py-14">
-          <div>
-            <h2 className="t-page text-forest">try them in your café.</h2>
-            <p className="mt-2 text-forest/80">We&rsquo;ll send verified cafés free sample cups so you can test them on your own bar.</p>
-          </div>
-          <Link href="/business?kind=sample#quote" className="btn btn-primary btn-lg">
-            Get free samples
-          </Link>
+        <div className="note max-w-2xl">
+          <h2 className="t-heading text-ink">try them in your café.</h2>
+          <p className="mt-2 text-stone">We send verified cafés free sample cups to test on their own bar. <Link href="/business?kind=sample#quote" className="link text-ink">request a sample pack</Link></p>
         </div>
       </Reveal>
       <JsonLd

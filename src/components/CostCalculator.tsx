@@ -50,7 +50,7 @@ export function CostCalculator({ cups, lid }: { cups: Product[]; lid: Product | 
             max={5000}
             value={perDay}
             onChange={(e) => setPerDay(Math.max(1, Math.min(5000, Number(e.target.value) || 1)))}
-            className="input inline-block w-[5.5ch] px-2 py-0.5 text-center font-display text-[19px] font-medium text-forest tnum md:text-[21px]"
+            className="input inline-block w-[3.8em] px-2 py-0.5 text-center font-display text-[19px] font-medium text-forest tnum md:text-[21px]"
           />{" "}
           cups a day, mostly{" "}
           <select aria-label="Cup size" value={cup.sku} onChange={(e) => setSku(e.target.value)} className="input inline-block w-auto py-0.5 pl-3 font-display text-[19px] font-medium text-forest md:text-[21px]">
