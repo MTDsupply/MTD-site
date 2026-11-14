@@ -7,10 +7,9 @@ import { QUOTE_KINDS, type QuoteKind } from "@/lib/quote-kinds";
 
 export function QuoteForm({ categories, presetSku, presetKind = "bulk" }: { categories: Category[]; presetSku?: string; presetKind?: QuoteKind }) {
   const [state, action, pending] = useActionState<QuoteState, FormData>(submitQuote, null);
-  // Cafés know their cups a day, not their cases a month, so we ask for the day and show the month.
-  const [cupsPerDay, setCupsPerDay] = useState("");
-  const perDay = Math.max(0, Math.floor(Number(cupsPerDay) || 0));
-  const perMonth = perDay * 30;
+  // Cafés think in cups, not cases, so we ask for cups a month and show the cases.
+  const [cupsPerMonth, setCupsPerMonth] = useState("");
+  const perMonth = Math.max(0, Math.floor(Number(cupsPerMonth) || 0));
 
   if (state?.ok) {
     return (
@@ -64,24 +63,24 @@ export function QuoteForm({ categories, presetSku, presetKind = "bulk" }: { cate
       </div>
       <div className="md:col-span-2">
         <label className="label" htmlFor="q-cups">
-          Cups a day, roughly
+          Cups a month, roughly
         </label>
         <input
           id="q-cups"
-          name="cupsPerDay"
+          name="cupsPerMonth"
           type="number"
           inputMode="numeric"
           min={1}
-          max={1000000}
+          max={10000000}
           step={1}
           required
           className="input max-w-[12rem]"
-          placeholder="150"
-          value={cupsPerDay}
-          onChange={(e) => setCupsPerDay(e.target.value)}
+          placeholder="4500"
+          value={cupsPerMonth}
+          onChange={(e) => setCupsPerMonth(e.target.value)}
         />
         <p className="mt-1.5 text-[13px] text-stone tnum" aria-live="polite">
-          {perDay > 0 ? `About ${count(perMonth)} cups a month, which is ${count(Math.ceil(perMonth / 1000))} ${perMonth > 1000 ? "cases" : "case"} of 1,000. A best guess is fine.` : "A best guess is fine. We turn it into cases a month."}
+          {perMonth > 0 ? `That is ${count(Math.ceil(perMonth / 1000))} ${perMonth > 1000 ? "cases" : "case"} of 1,000 a month. A best guess is fine.` : "A best guess is fine. We turn it into cases."}
         </p>
       </div>
       <fieldset className="md:col-span-2">
