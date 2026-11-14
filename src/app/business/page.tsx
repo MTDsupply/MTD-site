@@ -7,7 +7,7 @@ import { Reveal } from "@/components/Reveal";
 import Link from "next/link";
 import { QUOTE_KINDS } from "@/lib/quote-kinds";
 import { stockSentence } from "@/lib/site";
-import { bulkCasePrice, hasVolumeTier, BULK_MIN_UNITS } from "@/lib/pricing";
+import { bulkCasePrice, hasVolumeTier, BULK_MIN_UNITS, PRINT_MIN_UNITS } from "@/lib/pricing";
 
 export const metadata = pageMeta({
   title: "Wholesale compostable cups for cafés · case pricing and net-30",
@@ -57,7 +57,7 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
           {[
             ["sample pack.", "A small pack of each cup size and the lid, so your team can run them on the machines before committing to a case. Free for cafés and other foodservice businesses; ask with the form below.", "/business?kind=sample#quote", "request a sample pack"],
             ["net-30 on approval.", "Send a quote request with your company details. Approved accounts order on terms and reorder from their account page. Cafés on Cup Casa can have us reorder before they run out; say so in the notes.", "#quote", "request a quote"],
-            ["custom printing.", "Your logo on the same certified cup, from 100 cases. Send your artwork details and we reply with options, pricing and a proof.", "/custom-printing", "about custom printing"],
+            ["custom printing.", `Your logo on the same certified cup, on orders of ${count(PRINT_MIN_UNITS)} cups or more. Send your artwork details and we reply with options, pricing and a proof.`, "/custom-printing", "about custom printing"],
           ].map(([h, t, href, label]) => (
             <div key={h} className="border-b border-line py-5 md:border-b-0 md:border-r md:pr-6 md:last:border-r-0 md:[&:not(:first-child)]:pl-6">
               <h3 className="t-card">{h}</h3>

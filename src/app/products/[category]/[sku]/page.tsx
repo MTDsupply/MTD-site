@@ -14,7 +14,7 @@ import { Reveal } from "@/components/Reveal";
 import { photoFor, sharedPhoto } from "@/lib/catalog/assets";
 import { restockNote } from "@/lib/site";
 import { money, unitMoney, count } from "@/lib/format";
-import { BULK_MIN_UNITS } from "@/lib/pricing";
+import { BULK_MIN_UNITS, PRINT_MIN_UNITS } from "@/lib/pricing";
 import { taglines } from "@/lib/copy";
 import { pageMeta, productLd, breadcrumbLd, faqLd, productPath } from "@/lib/seo";
 import { productFaq } from "@/lib/faq";
@@ -111,7 +111,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
             </div>
             <div className="min-w-0 flex-1">
               <p className="text-[17px] font-medium text-ink">need your logo on the cup?</p>
-              <p className="mt-1 text-[14px] text-stone">We print to order from one case up. Tell us the sizes and the quantity and we reply with a price.</p>
+              <p className="mt-1 text-[14px] text-stone">{`We print on orders of ${count(PRINT_MIN_UNITS)} cups or more. Tell us the sizes and the quantity and we reply with a price.`}</p>
             </div>
             <Link href="/custom-printing" className="btn btn-outline btn-sm shrink-0">
               get a quote

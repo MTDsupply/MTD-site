@@ -2,7 +2,7 @@ import type { Catalog, Product } from "@/lib/catalog/types";
 import { site, stockSentence } from "@/lib/site";
 import { SHIPPING } from "@/lib/shipping";
 import { money, unitMoney, count } from "@/lib/format";
-import { bulkCasesFor, BULK_MIN_UNITS } from "@/lib/pricing";
+import { bulkCasesFor, BULK_MIN_UNITS, PRINT_MIN_UNITS } from "@/lib/pricing";
 
 /*
  * Question-and-answer copy for the pages that answer engines quote from. Every
@@ -47,7 +47,7 @@ export function homeFaq(catalog: Catalog): [string, string][] {
     ],
     [
       "Is there a minimum order?",
-      `No. Anyone can buy a pack of ${count(cheapestPack?.packCount ?? 100)}; cafés usually buy by the case of ${count(cups[0]?.caseCount ?? 1000)}. Verified cafés can ask for a free sample pack first. Business accounts get net-30 on approval, and custom printing starts at 100 cases.`,
+      `No. Anyone can buy a pack of ${count(cheapestPack?.packCount ?? 100)}; cafés usually buy by the case of ${count(cups[0]?.caseCount ?? 1000)}. Verified cafés can ask for a free sample pack first. Business accounts get net-30 on approval, and custom printing is offered on orders of ${count(PRINT_MIN_UNITS)} cups or more.`,
     ],
     ...(lid
       ? ([["Does one lid fit every cup size?", `Yes. One PHA lid fits the ${list(cups.map((p) => p.size))} cups, so there is one lid SKU to stock.`]] as [string, string][])

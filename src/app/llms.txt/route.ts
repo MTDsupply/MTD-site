@@ -4,7 +4,7 @@ import { site, restockNote } from "@/lib/site";
 import { claims } from "@/lib/copy";
 import { SHIPPING } from "@/lib/shipping";
 import { money, unitMoney, count } from "@/lib/format";
-import { hasVolumeTier, BULK_MIN_UNITS } from "@/lib/pricing";
+import { hasVolumeTier, BULK_MIN_UNITS, PRINT_MIN_UNITS } from "@/lib/pricing";
 import { homeFaq } from "@/lib/faq";
 
 /**
@@ -51,7 +51,7 @@ export async function GET() {
     hasVolumeTier(catalog.products)
       ? `- Case pricing applies to any number of cases. Orders of ${count(BULK_MIN_UNITS)} units or more are charged the volume per-unit price on every case, automatically.`
       : "- Case pricing applies to any number of cases; the per-unit price is the same for one case or fifty.",
-    "- Business accounts: net-30 on approval, reorders from the account page, quotes for pallet quantities and custom printing (from 100 cases). Sample packs are free for verified cafés and other foodservice businesses.",
+    `- Business accounts: net-30 on approval, reorders from the account page, quotes for pallet quantities and custom printing (orders of ${count(PRINT_MIN_UNITS)} cups or more). Sample packs are free for verified cafés and other foodservice businesses.`,
     `- Shipping: Canada and the United States by courier. Packs ${money(SHIPPING.CA.pack)} per order in Canada (free over ${money(SHIPPING.CA.packFreeOver)}), ${money(SHIPPING.US.pack)} to the US (free over ${money(SHIPPING.US.packFreeOver)}). Cases ${money(SHIPPING.CA.perCase)} each in Canada, ${money(SHIPPING.US.perCase)} each to the US. Tax at checkout.`,
     "- Returns: unopened packs and cases within 30 days of delivery; damaged or incorrect orders replaced or refunded.",
     "",
@@ -65,7 +65,7 @@ export async function GET() {
     "",
     `- [Products](${base}/products): the full catalogue with search and filters.`,
     `- [Business accounts](${base}/business): case pricing table, net-30, quote and sample pack requests.`,
-    `- [Custom printing](${base}/custom-printing): your logo on the same certified cup, from 100 cases.`,
+    `- [Custom printing](${base}/custom-printing): your logo on the same certified cup, on orders of ${count(PRINT_MIN_UNITS)} cups or more.`,
     `- [Certifications](${base}/certifications): the certifier and the certificate for every product.`,
     `- [What's in your cup](${base}/whats-in-your-cup): paper outside, PHA inside; how PHA compares to PLA, water-based coatings and conventional plastic; the two questions to ask any cup supplier.`,
     `- [How to compost it](${base}/compost): the four steps and the questions we get asked.`,

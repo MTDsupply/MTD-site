@@ -8,11 +8,13 @@ import { QuoteForm } from "@/components/QuoteForm";
 import { Reveal, RevealGroup } from "@/components/Reveal";
 import { pageMeta } from "@/lib/seo";
 import { v } from "@/lib/asset-version";
+import { count } from "@/lib/format";
+import { PRINT_MIN_UNITS } from "@/lib/pricing";
 
 export const metadata = pageMeta({
-  title: "Custom printed compostable cups · your logo, from 100 cases",
+  title: "Custom printed compostable cups · your logo, from 100,000 cups",
   description:
-    "Your logo on the same 8, 12 or 16 oz PHA-lined paper hot cup, 100% certified home-compostable material (TÜV Austria). From 100 cases. Send the artwork, get options and pricing within one business day, approve a proof before anything runs.",
+    "Your logo on the same 8, 12 or 16 oz PHA-lined paper hot cup, 100% certified home-compostable material (TÜV Austria). For orders of 100,000 cups or more. Send the artwork, get options and pricing within one business day, approve a proof before anything runs.",
   path: "/custom-printing",
   image: "/products/MTD-CUP-16H-front.jpg",
   imageAlt: "A 16 oz hot cup, plain white, ready for printing",
@@ -24,7 +26,7 @@ export default async function CustomPrintingPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 pb-8">
-      <PageHeader eyebrow="Your mark on the cup" title="custom printing." description="The same cup, the same certified material, with your logo on the side. From 100 cases." />
+      <PageHeader eyebrow="Your mark on the cup" title="custom printing." description={`The same cup, the same certified material, with your logo on the side. We print on orders of ${count(PRINT_MIN_UNITS)} cups or more.`} />
 
       <div className="mt-10 grid gap-8 md:grid-cols-[1.1fr_1fr] md:items-center md:gap-12">
         <Reveal>
@@ -39,7 +41,7 @@ export default async function CustomPrintingPage() {
           </Reveal>
           <RevealGroup className="mt-6 divide-y divide-line border-y border-line" step={0.07}>
             {[
-              ["tell us what you need", "Cup sizes, roughly how many cases a year, and what the artwork is: a logo, a wordmark, a pattern."],
+              ["tell us what you need", `Cup sizes, how many cups (printing starts at ${count(PRINT_MIN_UNITS)}, which is 100 cases), and what the artwork is: a logo, a wordmark, a pattern.`],
               ["we reply with options and pricing", "Within one business day. Pricing depends on the sizes, the artwork and the run, so we quote each job rather than publish one number."],
               ["approve the proof", "You see the print on the cup before anything is made. Nothing runs until you sign it off."],
             ].map(([title, text], i) => (

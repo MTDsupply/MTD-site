@@ -5,6 +5,9 @@ import { unitInfo, type UnitInfo } from "./units";
 /** Orders of this many units or more pay the volume price on every case. */
 export const BULK_MIN_UNITS = 10_000;
 
+/** Custom printing is offered on orders of this many cups or more (100 cases of 1,000). */
+export const PRINT_MIN_UNITS = 100_000;
+
 /** True when at least one product carries a volume tier; surfaces hide their volume copy otherwise. */
 export function hasVolumeTier(products: Product[]): boolean {
   return products.some((p) => p.bulkUnitPrice != null);
