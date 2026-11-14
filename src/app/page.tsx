@@ -216,7 +216,7 @@ export default async function HomePage() {
         <Reveal>
           <SectionHead
             title="what it costs."
-            intro="One price whether you buy one case or fifty. Put in roughly how many cups you go through and see what a month costs."
+            intro="Case prices, with a lower price on every case of cups once an order reaches 10,000 cups. Put in roughly how many cups you go through a month and see what it costs."
             action={
               <a href="/price-list.pdf" className="btn btn-outline">
                 price list (<span className="keep-case">PDF</span>)

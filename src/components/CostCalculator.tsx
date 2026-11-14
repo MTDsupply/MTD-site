@@ -6,24 +6,24 @@ import { BULK_MIN_UNITS, hasVolumeTier } from "@/lib/pricing";
 import { money, unitMoney, count } from "@/lib/format";
 
 /*
- * A month's order, written out. Three plain inputs in a sentence (cups a day,
+ * A month's order, written out. Three plain inputs in a sentence (cups a month,
  * size, lids or not) and a receipt in the same price-table style as the
  * business page. The maths is the catalogue's: case price and count per SKU,
  * and the volume price on every case once one order reaches BULK_MIN_UNITS,
  * lids counted. Same rule the cart and checkout use.
  */
-const PRESETS = [50, 100, 150, 250, 400];
+const PRESETS = [1500, 3000, 4500, 7500, 12000];
 
 export function CostCalculator({ cups, lid }: { cups: Product[]; lid: Product | null }) {
   const sizes = cups.filter((c) => c.status === "live").sort((a, b) => a.sortOrder - b.sortOrder);
   const [sku, setSku] = useState(sizes[1]?.sku ?? sizes[0]?.sku ?? "");
-  const [perDay, setPerDay] = useState(150);
+  const [perMonth, setPerMonth] = useState(4500);
   const [withLids, setWithLids] = useState(true);
   const cup = sizes.find((c) => c.sku === sku) ?? sizes[0];
   const tiered = hasVolumeTier(cups) || (lid?.bulkUnitPrice != null);
   if (!cup) return null;
 
-  const unitsMonth = perDay * 30;
+  const unitsMonth = perMonth;
   const cases = Math.max(1, Math.ceil(unitsMonth / cup.caseCount));
   const lidCases = withLids && lid ? Math.max(1, Math.ceil(unitsMonth / lid.caseCount)) : 0;
   // Only tiered products count toward the threshold: cups, and the lid only if it ever carries a tier.
@@ -42,18 +42,19 @@ export function CostCalculator({ cups, lid }: { cups: Product[]; lid: Product | 
       {/* The order, as a sentence. */}
       <div className="text-[19px] leading-[1.9] text-ink md:text-[21px]">
         <p>
-          We serve about{" "}
+          We go through about{" "}
           <input
-            aria-label="Cups a day"
+            aria-label="Cups a month"
             type="number"
             inputMode="numeric"
             min={1}
-            max={5000}
-            value={perDay}
-            onChange={(e) => setPerDay(Math.max(1, Math.min(5000, Number(e.target.value) || 1)))}
-            className="input inline-block w-[3.8em] px-2 py-0.5 text-center font-display text-[19px] font-medium text-forest tnum md:text-[21px]"
+            max={200000}
+            step={100}
+            value={perMonth}
+            onChange={(e) => setPerMonth(Math.max(1, Math.min(200000, Number(e.target.value) || 1)))}
+            className="input inline-block w-[5.2em] px-2 py-0.5 text-center font-display text-[19px] font-medium text-forest tnum md:text-[21px]"
           />{" "}
-          cups a day, mostly{" "}
+          cups a month, mostly{" "}
           <select aria-label="Cup size" value={cup.sku} onChange={(e) => setSku(e.target.value)} className="input inline-block w-auto py-0.5 pl-3 font-display text-[19px] font-medium text-forest md:text-[21px]">
             {sizes.map((s) => (
               <option key={s.sku} value={s.sku}>
@@ -74,13 +75,13 @@ export function CostCalculator({ cups, lid }: { cups: Product[]; lid: Product | 
         </p>
         <div className="mt-5 flex flex-wrap gap-2">
           {PRESETS.map((n) => (
-            <button key={n} type="button" onClick={() => setPerDay(n)} className={`chip ${n === perDay ? "!border-ink !bg-ink !text-bone" : "chip-fog"}`} aria-pressed={n === perDay}>
-              {n} a day
+            <button key={n} type="button" onClick={() => setPerMonth(n)} className={`chip tnum ${n === perMonth ? "!border-ink !bg-ink !text-bone" : "chip-fog"}`} aria-pressed={n === perMonth}>
+              {count(n)} a month
             </button>
           ))}
         </div>
         <p className="mt-6 text-[14px] leading-6 text-stone">
-          A month is thirty days. Cases are {count(cup.caseCount)}.{tiered ? <> Order {count(BULK_MIN_UNITS)} cups or more and every case of cups is charged at the volume price. Lids do not count toward it.</> : null} Prices in CAD before tax and shipping.
+          Cases are {count(cup.caseCount)}, rounded up to whole cases.{tiered ? <> Order {count(BULK_MIN_UNITS)} cups or more and every case of cups is charged at the volume price. Lids do not count toward it.</> : null} Prices in CAD before tax and shipping.
         </p>
       </div>
 
@@ -126,11 +127,11 @@ export function CostCalculator({ cups, lid }: { cups: Product[]; lid: Product | 
               <td colSpan={3} className="wrap text-soil/70">
                 {bulk ? (
                   <>
-                    Volume price applied: {count(orderUnits)} units in the order.
+                    Volume price applied: {count(orderUnits)} cups in the order.
                   </>
                 ) : (
                   <>
-                    {count(orderUnits)} units. {count(toGo)} more in one order and every case drops to the volume price ({unitMoney(cup.bulkUnitPrice ?? cup.unitPrice)} for the {cup.size}).
+                    {count(orderUnits)} cups. {count(toGo)} more cups in one order and every case of cups drops to the volume price ({unitMoney(cup.bulkUnitPrice ?? cup.unitPrice)} for the {cup.size}).
                   </>
                 )}
               </td>
