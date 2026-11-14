@@ -872,8 +872,16 @@ html[data-scrolled] .header-surface { border-bottom-color: var(--color-line); }
 /* Photo cards and the product gallery (2026-11-13, after the user asked for
    the catalogue to read like nothing.eco: the photograph is the card, the
    text sits on it in bone). Square corners stay; only buttons are round. */
-.shot-card h3 { color: var(--color-bone); }
+/* The user asked (2026-11-14) for white type on the cards, slightly rounded corners and an order button
+   in a second colour with a little depth: these three rules are the one exception to the card's square,
+   shadowless surfaces. */
+.shot-card h3, .shot-card .t-label, .shot-card p, .shot-card .sku { color: #fff; }
+.shot-card .t-label { opacity: 0.8; }
 .shot-card, .shot-card .hover-swap, .featured-tile { background: #0b1a14; }
+.shot-card, .featured-tile { border-radius: 10px; }
+.btn-order { background: var(--color-bamboo); color: var(--color-ink); border-color: #a98c57; font-weight: 500; box-shadow: 0 3px 0 #8a7045; }
+.btn-order:hover:not(:disabled) { background: #d2b78a; border-color: #a98c57; color: var(--color-ink); transform: translateY(-1px); box-shadow: 0 4px 0 #8a7045; }
+.btn-order:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 1px 0 #8a7045; }
 .shot-card .shot-well { position: absolute; left: 0; right: 0; top: -12%; height: 112%; }
 /* Text set on a photograph (home hero, category cards, the soil band): bone type, a bone-filled button as the one primary, outlined bone chips. */
 .on-photo h1, .on-photo h2, .on-photo h3 { color: var(--color-bone); }

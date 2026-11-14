@@ -76,13 +76,13 @@ export function CardPrice({ product }: { product: Product }) {
   const noun = product.categorySlug === "lids" ? "lid" : "cup";
   if (mode === "business") {
     return (
-      <p className="tnum text-[14px] font-medium @[15rem]:text-[15px]">
+      <p className="tnum text-[14px] font-medium text-white @[15rem]:text-[15px]">
         from {unitMoney(product.unitPrice)} a {noun} <span className="hidden font-normal opacity-70 @[15rem]:inline">· case of {count(product.caseCount)}</span>
       </p>
     );
   }
   return (
-    <p className="tnum text-[14px] font-medium @[15rem]:text-[15px]">
+    <p className="tnum text-[14px] font-medium text-white @[15rem]:text-[15px]">
       {money(smallest.price)} <span className="hidden font-normal opacity-70 @[15rem]:inline">· pack of {count(smallest.count)}</span>
     </p>
   );

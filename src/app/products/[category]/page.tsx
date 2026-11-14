@@ -149,15 +149,6 @@ export default async function CategoryPage({ params }: PageProps<"/products/[cat
               ? { src: sharedPhoto("life-hand")!, alt: "A barista holding a lidded cup", line: "One lid for all three cups. Same material as the cup, so the whole thing goes in the compost together.", href: "/compost" }
               : undefined
           }
-          closers={
-            c.slug === "lids"
-              ? sharedPhoto("lid-on")
-                ? [{ src: sharedPhoto("lid-on")!, alt: "The 12 oz cup wearing the lid", line: "The lid on the 12 oz cup. It fits the 8 and 16 oz the same way.", href: "/products/cups" }]
-                : []
-              : sharedPhoto("trio")
-                ? [{ src: sharedPhoto("trio")!, alt: "The 8, 12 and 16 oz cups side by side", line: "All three sizes side by side. Same paper, same lining, one lid.", href: "/products/lids" }]
-                : []
-          }
         />
       </Suspense>
       <section className="mt-16 grid gap-4 md:mt-24 md:grid-cols-2">

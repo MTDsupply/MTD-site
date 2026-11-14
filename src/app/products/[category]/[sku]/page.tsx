@@ -86,7 +86,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
   const related = catalog.products
     .filter((p) => p.status === "live" && p.sku !== product.sku)
     .sort((a, b) => Number(product.goesWith.includes(b.sku)) - Number(product.goesWith.includes(a.sku)) || a.sortOrder - b.sortOrder)
-    .slice(0, 4);
+    .slice(0, 3);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
@@ -232,7 +232,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
       {related.length ? (
         <Reveal as="section" className="mt-16 md:mt-24">
           <h2 className="t-section text-ink">goes with it.</h2>
-          <div className={`mt-8 grid grid-cols-2 gap-3 md:gap-4 ${related.length >= 4 ? "lg:grid-cols-4" : related.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-2"}`}>
+          <div className={`mt-8 grid grid-cols-2 gap-3 md:gap-4 ${related.length >= 3 ? "lg:grid-cols-3" : "lg:grid-cols-2"}`}>
             {related.map((p) => (
               <ProductCard key={p.sku} product={p} categoryName={catalog.categories.find((c) => c.slug === p.categorySlug)?.name.toLowerCase()} />
             ))}

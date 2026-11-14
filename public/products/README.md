@@ -1,14 +1,18 @@
 Catalogue photography (reshot 2026-11-14 on a dark green sweep, GPT Image 2.6
 via Higgsfield at quality medium, masters in docs/brand/generated/108–119;
 the kraft set of 2026-11-13 is masters 96–107; the three cup alts were reshot
-with the current badge on 2026-11-14, masters 120–122). One set, one style: a
+with the current badge on 2026-11-14 (masters 120–122) and again the same day
+at a three-quarter angle so the taper reads and with the badge printed without
+its placeholder circle (masters 124–126, docs/brand/badge-cup-base-nocircle.png). One set, one style: a
 seamless deep bottle-green paper sweep (floor about #1D372A, the back wall
 falling into near-black green at the top), one hard key light from the upper
 left, a long shadow to the lower right, the product small and centred. The
 kraft frames were passed to the model as composition references, so each
-green frame matches its predecessor and the base mark is the current badge from docs/brand/badge-cup-base.png: a
-circle outline, the wordmark straight across, HOME COMPOSTABLE and NO
-MICROPLASTICS stacked beneath it, the dissolving-cup icon at the bottom. 2:3 portrait; the
+green frame matches its predecessor and the base mark is the current badge without its circle
+(docs/brand/badge-cup-base-nocircle.png; the circle in badge-cup-base.png was
+only a placeholder for the cup base): the wordmark straight across, HOME
+COMPOSTABLE and NO MICROPLASTICS stacked beneath it, the dissolving-cup icon
+at the bottom. 2:3 portrait; the
 catalogue cards show the photo in a well 12% taller than the card so the
 product sits in the middle band, and the product-page gallery is square with
 object-cover.
@@ -16,7 +20,7 @@ object-cover.
 Per SKU:
 
   [SKU]-front.jpg   the product alone, standing (cards, gallery 1); 1360 × 2048
-  [SKU]-alt.jpg     cups: on their side, the base mark towards camera; lid: on a 12 oz cup (card hover, gallery 2); 688 × 1024
+  [SKU]-alt.jpg     cups: on their side at a three-quarter angle, the base mark towards camera; lid: on a 12 oz cup (card hover, gallery 2); 688 × 1024
 
 Shared (src/lib/catalog/assets.ts `sharedPhoto(name)`):
 

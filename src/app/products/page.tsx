@@ -54,11 +54,6 @@ export default async function ProductsPage() {
               ? { src: sharedPhoto("life-counter")!, alt: "A lidded cup on a café counter beside a croissant", line: "Paper with a PHA lining. When the coffee is done, the cup and lid go in the compost with the grounds.", href: "/whats-in-your-cup" }
               : undefined
           }
-          closers={
-            sharedPhoto("life-hand")
-              ? [{ src: sharedPhoto("life-hand")!, alt: "A barista holding a lidded cup", line: "One lid for all three cups. Same material as the cup, so the whole thing goes in the compost together.", href: "/compost", span: 2 }]
-              : []
-          }
         />
       </Suspense>
 

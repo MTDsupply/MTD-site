@@ -26,7 +26,7 @@ function Tick() {
 function LifestyleTile({ tile, priority = false }: { tile: FeaturedTile; priority?: boolean }) {
   return (
     <Link href={tile.href} aria-label={tile.line} className="featured-tile zoom-on-hover relative block h-full min-h-[240px] overflow-hidden">
-      <Image src={tile.src} alt={tile.alt} fill sizes={tile.span === 2 ? "(min-width: 1024px) 50vw, 100vw" : "(min-width: 1024px) 25vw, 50vw"} className="object-cover" priority={priority} />
+      <Image src={tile.src} alt={tile.alt} fill sizes={tile.span === 2 ? "(min-width: 1024px) 66vw, 100vw" : "(min-width: 1024px) 33vw, 50vw"} className="object-cover" priority={priority} />
     </Link>
   );
 }
@@ -34,7 +34,7 @@ function LifestyleTile({ tile, priority = false }: { tile: FeaturedTile; priorit
 /**
  * /products and the category pages: category pills with the search field at
  * the right, a hairline strip of facts, then the catalogue as photo cards,
- * four across (two on phones). `featured` is a lifestyle photograph that takes
+ * three across (two on phones). `featured` is a lifestyle photograph that takes
  * two cells at the top of the grid; `closers` are more lifestyle tiles that
  * finish the last row. Filters live in the URL so a filtered view can be shared.
  */
@@ -143,7 +143,7 @@ export function CatalogGrid({ catalog, lockedCategory, featured, closers = [] }:
 
       {empty ? <p className="mt-8 text-[15px] text-stone">Nothing matches. Try a different SKU or clear the filters.</p> : null}
 
-      <RevealGroup className="mt-5 grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4" itemClassName={(i) => `h-full ${tiles[i]?.span === 2 ? "col-span-2" : ""}`} step={0.06}>
+      <RevealGroup className="mt-5 grid grid-cols-2 gap-3 md:gap-5 lg:grid-cols-3" itemClassName={(i) => `h-full ${tiles[i]?.span === 2 ? "col-span-2" : ""}`} step={0.06}>
         {tiles.map((t) => (
           <div key={t.key} className="h-full">
             {t.node}
