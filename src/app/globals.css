@@ -875,6 +875,12 @@ html[data-scrolled] .header-surface { border-bottom-color: var(--color-line); }
 .shot-card h3 { color: var(--color-bone); }
 .shot-card, .shot-card .hover-swap, .featured-tile { background: #0b1a14; }
 .shot-card .shot-well { position: absolute; left: 0; right: 0; top: -12%; height: 112%; }
+/* Text set on a photograph (home hero, category cards, the soil band): bone type, a bone-filled button as the one primary, outlined bone chips. */
+.on-photo h1, .on-photo h2, .on-photo h3 { color: var(--color-bone); }
+.btn-bone { background: var(--color-bone); color: var(--color-ink); border-color: var(--color-bone); }
+.btn-bone:hover:not(:disabled) { background: var(--color-paper); border-color: var(--color-paper); color: var(--color-ink); }
+.chip-shot { color: var(--color-bone); border-color: rgba(237, 232, 223, 0.55); }
+.photo-shade { background: rgba(17, 17, 17, 0.38); }
 .btn-shot { background: transparent; color: var(--color-bone); border-color: rgba(237, 232, 223, 0.65); }
 .btn-shot:hover:not(:disabled) { background: var(--color-bone); color: var(--color-ink); border-color: var(--color-bone); }
 .featured-tile span.btn { pointer-events: none; }
