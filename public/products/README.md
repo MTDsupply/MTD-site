@@ -3,8 +3,10 @@ via Higgsfield at quality medium, masters in docs/brand/generated/108–119;
 the kraft set of 2026-11-13 is masters 96–107; the three cup alts were reshot
 with the current badge on 2026-11-14 (masters 120–122) and again the same day
 with the badge printed without its placeholder circle, first at a three-quarter
-angle (masters 124–126) and finally tipped over in a side view, rim behind and
-wider than the base, so the taper is unmistakable (masters 129–131, reference
+angle (masters 124–126) then tipped over in a side view (masters 129–131, rejected: the open mouth
+read as a hole), and finally lying down with the mouth turned away into the
+background so no opening shows and the body widens from the marked base to the
+rim (masters 132–134, the installed set; reference
 docs/brand/badge-cup-base-nocircle.png). One set, one style: a
 seamless deep bottle-green paper sweep (floor about #1D372A, the back wall
 falling into near-black green at the top), one hard key light from the upper
@@ -22,7 +24,7 @@ object-cover.
 Per SKU:
 
   [SKU]-front.jpg   the product alone, standing (cards, gallery 1); 1360 × 2048
-  [SKU]-alt.jpg     cups: tipped over in a side view, the wider rim behind, the base mark turned to camera; lid: on a 12 oz cup (card hover, gallery 2); 688 × 1024
+  [SKU]-alt.jpg     cups: lying down, mouth turned away, the marked base to camera; lid: on a 12 oz cup (card hover, gallery 2); 688 × 1024
 
 Shared (src/lib/catalog/assets.ts `sharedPhoto(name)`):
 
