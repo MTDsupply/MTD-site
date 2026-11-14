@@ -124,7 +124,7 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
       <section id="quote" className="mt-12">
         <p className="t-label">03</p>
         <h2 className="t-heading mt-2">request a quote, a sample pack or custom printing.</h2>
-        <p className="mt-1 text-sm text-soil/70">Tell us your monthly volume and the categories you want, including ones not yet in stock.</p>
+        <p className="mt-1 text-sm text-soil/70">Tell us roughly how many cups you serve a day and the categories you want, including ones not yet in stock.</p>
         <div className="mt-4">
           <Suspense fallback={<QuoteForm categories={categories} />}>
             <QuoteWithPreset categories={categories} searchParams={searchParams} />

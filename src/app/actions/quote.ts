@@ -4,6 +4,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { notifyTeam } from "@/lib/email";
 import { rateLimited } from "@/lib/ratelimit";
 import { reportError } from "@/lib/monitoring";
+import { count } from "@/lib/format";
 
 export type QuoteState = { ok: boolean; message: string } | null;
 
@@ -13,7 +14,7 @@ const schema = z.object({
   contactName: z.string().min(1, "Your name is required.").max(120),
   email: z.email("Enter a valid email address."),
   phone: z.string().max(40).optional(),
-  volumePerMonth: z.string().min(1, "Tell us roughly how much you use per month.").max(200),
+  cupsPerDay: z.coerce.number({ message: "Tell us roughly how many cups you serve a day." }).int("Whole cups, please.").min(1, "Tell us roughly how many cups you serve a day.").max(1_000_000, "That is more cups than we can make. Email us."),
   categories: z.array(z.string().max(40)).max(20),
   deliveryAddress: z.string().min(1, "Delivery address is required.").max(400),
   notes: z.string().max(2000).optional(),
@@ -29,13 +30,16 @@ export async function submitQuote(_prev: QuoteState, formData: FormData): Promis
     contactName: String(formData.get("contactName") ?? "").trim(),
     email: String(formData.get("email") ?? "").trim(),
     phone: String(formData.get("phone") ?? "").trim() || undefined,
-    volumePerMonth: String(formData.get("volumePerMonth") ?? "").trim(),
+    cupsPerDay: String(formData.get("cupsPerDay") ?? "").trim(),
     categories: formData.getAll("categories").map(String),
     deliveryAddress: String(formData.get("deliveryAddress") ?? "").trim(),
     notes: String(formData.get("notes") ?? "").trim() || undefined,
   });
   if (!parsed.success) return { ok: false, message: parsed.error.issues[0]?.message ?? "Check the form." };
   const q = parsed.data;
+  // Stored and emailed as one line, in the quotes.volume_per_month column the team already reads.
+  const perMonth = q.cupsPerDay * 30;
+  const volumeLine = `about ${count(q.cupsPerDay)} cups a day, about ${count(perMonth)} a month (${count(Math.ceil(perMonth / 1000))} cases of 1,000)`;
   const kindLabel = { bulk: "Bulk order", sample: "Sample pack", printing: "Custom printing" }[q.kind];
   const notes = [q.kind !== "bulk" ? `Request type: ${kindLabel}.` : "", q.notes ?? ""].filter(Boolean).join(" ");
 
@@ -46,7 +50,7 @@ export async function submitQuote(_prev: QuoteState, formData: FormData): Promis
       contact_name: q.contactName,
       email: q.email,
       phone: q.phone ?? null,
-      volume_per_month: q.volumePerMonth,
+      volume_per_month: volumeLine,
       categories: q.categories,
       delivery_address: q.deliveryAddress,
       notes: notes || null,
@@ -63,7 +67,7 @@ export async function submitQuote(_prev: QuoteState, formData: FormData): Promis
     text: [
       `Company: ${q.company}`,
       `Contact: ${q.contactName} <${q.email}> ${q.phone ?? ""}`,
-      `Volume per month: ${q.volumePerMonth}`,
+      `Volume: ${volumeLine}`,
       `Categories: ${q.categories.join(", ") || "(none selected)"}`,
       `Delivery address: ${q.deliveryAddress}`,
       notes ? `Notes: ${notes}` : "",

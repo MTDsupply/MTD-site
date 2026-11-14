@@ -1,11 +1,16 @@
 "use client";
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
+import { count } from "@/lib/format";
 import { submitQuote, type QuoteState } from "@/app/actions/quote";
 import type { Category } from "@/lib/catalog/types";
 import { QUOTE_KINDS, type QuoteKind } from "@/lib/quote-kinds";
 
 export function QuoteForm({ categories, presetSku, presetKind = "bulk" }: { categories: Category[]; presetSku?: string; presetKind?: QuoteKind }) {
   const [state, action, pending] = useActionState<QuoteState, FormData>(submitQuote, null);
+  // Cafés know their cups a day, not their cases a month, so we ask for the day and show the month.
+  const [cupsPerDay, setCupsPerDay] = useState("");
+  const perDay = Math.max(0, Math.floor(Number(cupsPerDay) || 0));
+  const perMonth = perDay * 30;
 
   if (state?.ok) {
     return (
@@ -58,16 +63,26 @@ export function QuoteForm({ categories, presetSku, presetKind = "bulk" }: { cate
         <input id="q-phone" name="phone" type="tel" className="input" autoComplete="tel" />
       </div>
       <div className="md:col-span-2">
-        <label className="label" htmlFor="q-volume">
-          Volume per month
+        <label className="label" htmlFor="q-cups">
+          Cups a day, roughly
         </label>
         <input
-          id="q-volume"
-          name="volumePerMonth"
+          id="q-cups"
+          name="cupsPerDay"
+          type="number"
+          inputMode="numeric"
+          min={1}
+          max={1000000}
+          step={1}
           required
-          className="input"
-          placeholder="e.g. 6 cases of 16 oz cups, 2 cases of lids"
+          className="input max-w-[12rem]"
+          placeholder="150"
+          value={cupsPerDay}
+          onChange={(e) => setCupsPerDay(e.target.value)}
         />
+        <p className="mt-1.5 text-[13px] text-stone tnum" aria-live="polite">
+          {perDay > 0 ? `About ${count(perMonth)} cups a month, which is ${count(Math.ceil(perMonth / 1000))} ${perMonth > 1000 ? "cases" : "case"} of 1,000. A best guess is fine.` : "A best guess is fine. We turn it into cases a month."}
+        </p>
       </div>
       <fieldset className="md:col-span-2">
         <legend className="label">Categories wanted</legend>
