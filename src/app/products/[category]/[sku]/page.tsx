@@ -5,11 +5,11 @@ import { notFound } from "next/navigation";
 import { getCatalog, getLiveProducts } from "@/lib/catalog/queries";
 import { ProductGallery } from "@/components/ProductGallery";
 import { CertChip } from "@/components/CertChip";
-import { Price } from "@/components/Price";
 import { AddToCart } from "@/components/AddToCart";
 import { SpecTable } from "@/components/SpecTable";
 import { PairedAdd } from "@/components/PairedAdd";
 import { StickyBuyBar } from "@/components/StickyBuyBar";
+import { ProductCard } from "@/components/ProductCard";
 import { Reveal } from "@/components/Reveal";
 import { photoFor, sharedPhoto } from "@/lib/catalog/assets";
 import { restockNote } from "@/lib/site";
@@ -82,6 +82,11 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
     .filter((p): p is NonNullable<typeof p> => !!p && p.status === "live");
   const faq = productFaq(product, catalog);
   const counter = sharedPhoto("life-counter");
+  // The rest of the range, the paired product first.
+  const related = catalog.products
+    .filter((p) => p.status === "live" && p.sku !== product.sku)
+    .sort((a, b) => Number(product.goesWith.includes(b.sku)) - Number(product.goesWith.includes(a.sku)) || a.sortOrder - b.sortOrder)
+    .slice(0, 4);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
@@ -96,7 +101,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
         / <span className="sku">{product.sku}</span>
       </nav>
 
-      <div className="mt-5 grid gap-10 lg:grid-cols-[1.08fr_1fr] lg:gap-14">
+      <div className="mt-5 grid gap-10 lg:grid-cols-[1.5fr_1fr] lg:gap-14">
         {/* the photographs */}
         <div>
           <ProductGallery name={product.name} photos={photos} />
@@ -146,7 +151,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
                     key={s.sku}
                     href={`/products/${cat.slug}/${s.sku.toLowerCase()}`}
                     aria-current={s.sku === product.sku ? "page" : undefined}
-                    className={`chip ${s.sku === product.sku ? "!border-ink !bg-ink !text-bone" : "chip-fog"}`}
+                    className="size-pill"
                   >
                     {s.size}
                   </Link>
@@ -156,9 +161,6 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
           ) : null}
 
           <div className="mt-6">
-            <Price product={product} size="md" />
-          </div>
-          <div className="mt-5">
             <AddToCart product={product} />
             {restockNote(cat.restockWhen) ? <p className="mt-3 text-[13px] text-stone">{restockNote(cat.restockWhen)}. Orders placed now are filled from that stock.</p> : null}
           </div>
@@ -223,6 +225,17 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
                 how to compost it
               </Link>
             </p>
+          </div>
+        </Reveal>
+      ) : null}
+
+      {related.length ? (
+        <Reveal as="section" className="mt-16 md:mt-24">
+          <h2 className="t-section text-ink">goes with it.</h2>
+          <div className={`mt-8 grid grid-cols-2 gap-3 md:gap-4 ${related.length >= 4 ? "lg:grid-cols-4" : related.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-2"}`}>
+            {related.map((p) => (
+              <ProductCard key={p.sku} product={p} categoryName={catalog.categories.find((c) => c.slug === p.categorySlug)?.name.toLowerCase()} />
+            ))}
           </div>
         </Reveal>
       ) : null}

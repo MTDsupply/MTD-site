@@ -8,19 +8,37 @@ import { ProductCard } from "./ProductCard";
 import { ComingSoonTile } from "./ComingSoonTile";
 import { RevealGroup } from "./Reveal";
 
-export type FeaturedTile = { src: string; alt: string; line: string; href: string; cta?: string };
+/** A lifestyle photograph that takes one or two cells of the product grid. */
+export type FeaturedTile = { src: string; alt: string; line: string; href: string; span?: 1 | 2 };
 
-/** The five things that are true of every product, on a hairline row under the toolbar. */
+/** The five things that are true of every product, on a hairline strip under the filters. */
 const FACTS = ["paper cups with a PHA lining, PHA lids", "100% certified home-compostable material", "certified by TÜV Austria", "one lid fits all three cups", "packs of 100 or cases of 1,000"];
 
+function Tick() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" className="shrink-0">
+      <circle cx="12" cy="12" r="9.25" />
+      <path d="m8 12.5 2.6 2.5L16 9.5" />
+    </svg>
+  );
+}
+
+function LifestyleTile({ tile, priority = false }: { tile: FeaturedTile; priority?: boolean }) {
+  return (
+    <Link href={tile.href} aria-label={tile.line} className="featured-tile zoom-on-hover relative block h-full min-h-[240px] overflow-hidden">
+      <Image src={tile.src} alt={tile.alt} fill sizes={tile.span === 2 ? "(min-width: 1024px) 50vw, 100vw" : "(min-width: 1024px) 25vw, 50vw"} className="object-cover" priority={priority} />
+    </Link>
+  );
+}
+
 /**
- * /products and the category pages: a toolbar of category pills with the
- * search field at the right, a hairline row of facts, then the catalogue as
- * photo cards, three across (two on phones). `featured` is an optional
- * lifestyle photograph that takes two columns at the top of the grid. Filters
- * live in the URL so a filtered view can be shared.
+ * /products and the category pages: category pills with the search field at
+ * the right, a hairline strip of facts, then the catalogue as photo cards,
+ * four across (two on phones). `featured` is a lifestyle photograph that takes
+ * two cells at the top of the grid; `closers` are more lifestyle tiles that
+ * finish the last row. Filters live in the URL so a filtered view can be shared.
  */
-export function CatalogGrid({ catalog, lockedCategory, featured }: { catalog: Catalog; lockedCategory?: string; featured?: FeaturedTile }) {
+export function CatalogGrid({ catalog, lockedCategory, featured, closers = [] }: { catalog: Catalog; lockedCategory?: string; featured?: FeaturedTile; closers?: FeaturedTile[] }) {
   const params = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -58,12 +76,19 @@ export function CatalogGrid({ catalog, lockedCategory, featured }: { catalog: Ca
 
   const empty = liveProducts.length === 0 && comingSoon.length === 0;
   const total = liveProducts.length + comingSoon.length;
-  // The featured photograph only earns its two columns on an unfiltered view.
-  const showFeatured = !!featured && !qs && !empty && (lockedCategory ? true : !cat);
+  // The lifestyle photographs only earn their cells on an unfiltered view.
+  const unfiltered = !qs && !empty && (lockedCategory ? true : !cat);
+
+  const tiles: { key: string; span: 1 | 2; node: React.ReactNode }[] = [
+    ...(unfiltered && featured ? [{ key: "featured", span: 2 as const, node: <LifestyleTile tile={{ ...featured, span: 2 }} priority /> }] : []),
+    ...liveProducts.map((p, i) => ({ key: p.sku, span: 1 as const, node: <ProductCard product={p} categoryName={catBySlug.get(p.categorySlug)?.name.toLowerCase()} priority={i < 3} /> })),
+    ...comingSoon.map((c) => ({ key: c.slug, span: 1 as const, node: <ComingSoonTile category={c} compact photo={catalog.products.find((p) => p.categorySlug === c.slug)?.photo ?? null} /> })),
+    ...(unfiltered ? closers.map((t, i) => ({ key: `closer-${i}`, span: t.span ?? (1 as const), node: <LifestyleTile tile={t} /> })) : []),
+  ];
 
   return (
-    <div className="mt-8">
-      <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-4 border-b border-line pb-5">
+    <div className="mt-6">
+      <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-4">
         {!lockedCategory ? (
           <div role="group" aria-label="Category" className="flex flex-wrap gap-2">
             <button type="button" onClick={() => set("category", "")} aria-pressed={!cat} className={`chip ${!cat ? "!border-ink !bg-ink !text-bone" : "chip-fog"}`}>
@@ -107,10 +132,10 @@ export function CatalogGrid({ catalog, lockedCategory, featured }: { catalog: Ca
         </div>
       </div>
 
-      <ul className="flex flex-wrap gap-x-7 gap-y-2 border-b border-line py-4" aria-label="True of every product">
+      <ul className="facts-strip mt-5" aria-label="True of every product">
         {FACTS.map((f) => (
-          <li key={f} className="t-label flex items-center gap-2 !text-stone">
-            <span aria-hidden="true" className="inline-block h-1.5 w-1.5 rounded-full bg-ink" />
+          <li key={f}>
+            <Tick />
             {f}
           </li>
         ))}
@@ -118,18 +143,12 @@ export function CatalogGrid({ catalog, lockedCategory, featured }: { catalog: Ca
 
       {empty ? <p className="mt-8 text-[15px] text-stone">Nothing matches. Try a different SKU or clear the filters.</p> : null}
 
-      <RevealGroup className="mt-6 grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-3" itemClassName="h-full [&:first-child]:col-span-2" step={0.08}>
-        {[
-          ...(showFeatured && featured
-            ? [
-                <Link key="featured" href={featured.href} aria-label={featured.line} className="featured-tile zoom-on-hover relative block h-full min-h-[240px] overflow-hidden bg-soil-band">
-                  <Image src={featured.src} alt={featured.alt} fill sizes="(min-width: 1024px) 60vw, 100vw" className="object-cover" priority />
-                </Link>,
-              ]
-            : []),
-          ...liveProducts.map((p, i) => <ProductCard key={p.sku} product={p} categoryName={catBySlug.get(p.categorySlug)?.name.toLowerCase()} priority={i < 3} />),
-          ...comingSoon.map((c) => <ComingSoonTile key={c.slug} category={c} compact photo={catalog.products.find((p) => p.categorySlug === c.slug)?.photo ?? null} />),
-        ]}
+      <RevealGroup className="mt-5 grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4" itemClassName={(i) => `h-full ${tiles[i]?.span === 2 ? "col-span-2" : ""}`} step={0.06}>
+        {tiles.map((t) => (
+          <div key={t.key} className="h-full">
+            {t.node}
+          </div>
+        ))}
       </RevealGroup>
     </div>
   );

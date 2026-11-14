@@ -3,10 +3,10 @@ import Link from "next/link";
 import { getCatalog } from "@/lib/catalog/queries";
 import { CatalogGrid } from "@/components/CatalogGrid";
 import { sharedPhoto } from "@/lib/catalog/assets";
-import { PageHeader } from "@/components/PageHeader";
 import { Reveal } from "@/components/Reveal";
 import { money, unitMoney, count } from "@/lib/format";
 import { pageMeta, breadcrumbLd, itemListLd } from "@/lib/seo";
+import { homeFaq } from "@/lib/faq";
 import { JsonLd } from "@/components/JsonLd";
 
 export const metadata = pageMeta({
@@ -21,6 +21,7 @@ export default async function ProductsPage() {
   const live = catalog.products.filter((p) => p.status === "live");
   const cups = live.filter((p) => p.categorySlug === "cups").sort((a, b) => a.sortOrder - b.sortOrder);
   const lid = live.find((p) => p.categorySlug === "lids") ?? null;
+  const faq = homeFaq(catalog).slice(0, 6);
 
   const rows: [string, (p: (typeof cups)[number]) => string][] = [
     ["capacity", (p) => p.specs.capacity ?? p.size],
@@ -35,7 +36,16 @@ export default async function ProductsPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 pb-8">
-      <PageHeader eyebrow="Catalogue" title="products." description="Three cups and one lid. Packs of 100 for home, cases of 1,000 for cafés." />
+      <div className="pt-8">
+        <nav aria-label="Breadcrumb" className="t-label">
+          <Link href="/" className="hover:underline">
+            home
+          </Link>{" "}
+          / products
+        </nav>
+        <h1 className="t-section mt-3 text-ink">products.</h1>
+        <p className="t-lead mt-3 max-w-[48ch] text-stone">Three cups and one lid. Packs of 100 for home, cases of 1,000 for cafés.</p>
+      </div>
       <Suspense fallback={<p className="mt-8 text-sm text-stone">Loading catalogue…</p>}>
         <CatalogGrid
           catalog={catalog}
@@ -43,6 +53,11 @@ export default async function ProductsPage() {
             sharedPhoto("life-counter")
               ? { src: sharedPhoto("life-counter")!, alt: "A lidded cup on a café counter beside a croissant", line: "Paper with a PHA lining. When the coffee is done, the cup and lid go in the compost with the grounds.", href: "/whats-in-your-cup" }
               : undefined
+          }
+          closers={
+            sharedPhoto("life-hand")
+              ? [{ src: sharedPhoto("life-hand")!, alt: "A barista holding a lidded cup", line: "One lid for all three cups. Same material as the cup, so the whole thing goes in the compost together.", href: "/compost", span: 2 }]
+              : []
           }
         />
       </Suspense>
@@ -89,6 +104,29 @@ export default async function ProductsPage() {
           </div>
         </Reveal>
       ) : null}
+
+      <Reveal as="section" className="mt-16 md:mt-24">
+        <h2 className="t-section text-ink">asked often.</h2>
+        <div className="mt-6 divide-y divide-line border-y border-line">
+          {faq.map(([q, a]) => (
+            <details key={q} className="group py-4">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[17px] font-medium text-ink">
+                <h3 className="text-[17px] font-medium">{q}</h3>
+                <span aria-hidden="true" className="text-[22px] font-light leading-none transition-transform group-open:rotate-45">
+                  +
+                </span>
+              </summary>
+              <p className="mt-3 max-w-[62ch] text-[15px] leading-6 text-stone">{a}</p>
+            </details>
+          ))}
+        </div>
+        <p className="mt-5 text-[15px] text-stone">
+          More questions?{" "}
+          <Link href="/contact" className="link text-ink">
+            write to us
+          </Link>
+        </p>
+      </Reveal>
 
       <Reveal as="section" className="mt-16 grid gap-4 md:mt-24 md:grid-cols-2">
         <div className="note">

@@ -60,14 +60,14 @@ export function RevealGroup({
 }: {
   children: ReactNode[];
   className?: string;
-  itemClassName?: string;
+  itemClassName?: string | ((i: number) => string);
   step?: number;
   base?: number;
 }) {
   return (
     <div className={className}>
       {children.map((child, i) => (
-        <Reveal key={i} delay={base + i * step} className={itemClassName}>
+        <Reveal key={i} delay={base + i * step} className={typeof itemClassName === "function" ? itemClassName(i) : itemClassName}>
           {child}
         </Reveal>
       ))}

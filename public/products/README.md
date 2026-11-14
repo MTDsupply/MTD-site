@@ -1,22 +1,28 @@
-Catalogue photography (2026-11-13, GPT Image 2.6 via Higgsfield, masters in
-docs/brand/generated/96–107). One set, one style: a seamless warm kraft-tan
-paper sweep, the back wall falling into umber at the top, one hard key light
-from the upper left, a long shadow to the lower right, the product small and
-centred. 2:3 portrait; the catalogue cards show the photo whole and the
-product-page gallery shows it at 4:5 with object-cover.
+Catalogue photography (reshot 2026-11-14 on a dark green sweep, GPT Image 2.6
+via Higgsfield at quality medium, masters in docs/brand/generated/108–119;
+the kraft set of 2026-11-13 is masters 96–107). One set, one style: a
+seamless deep bottle-green paper sweep (floor about #1D372A, the back wall
+falling into near-black green at the top), one hard key light from the upper
+left, a long shadow to the lower right, the product small and centred. The
+kraft frames were passed to the model as composition references, so each
+green frame matches its predecessor and the base mark reads only "HOME
+COMPOSTABLE / made to disappear. / NO MICROPLASTICS". 2:3 portrait; the
+catalogue cards show the photo in a well 12% taller than the card so the
+product sits in the middle band, and the product-page gallery is square with
+object-cover.
 
 Per SKU:
 
-  [SKU]-front.jpg   the product alone, standing (cards, gallery 1); 1376 px wide, upscaled from the 1k frame
-  [SKU]-alt.jpg     cups: on their side, the base mark towards camera; lid: on a 12 oz cup (card hover, gallery 2)
+  [SKU]-front.jpg   the product alone, standing (cards, gallery 1); 1360 × 2048
+  [SKU]-alt.jpg     cups: on their side, the base mark towards camera; lid: on a 12 oz cup (card hover, gallery 2); 688 × 1024
 
 Shared (src/lib/catalog/assets.ts `sharedPhoto(name)`):
 
-  shared-trio.jpg          8, 12 and 16 oz in a row (home feature card, cup galleries)
-  shared-lid-on.jpg        the 12 oz wearing the lid (same frame as MTD-LID-HOT-alt)
+  shared-trio.jpg          8, 12 and 16 oz in a row (home feature card, cups-page closer tile, cup galleries)
+  shared-lid-on.jpg        the 12 oz wearing the lid (same frame as MTD-LID-HOT-alt; lids-page closer tile)
   shared-case.jpg          a kraft shipping case, flaps open, wordmark on the front
-  shared-life-hand.jpg     a barista holding a lidded cup (lids featured tile, galleries)
-  shared-life-counter.jpg  a lidded cup on a café counter with a croissant, 3:2 (products featured tile, product-page band)
+  shared-life-hand.jpg     a barista holding a lidded cup against a green wall (lids featured tile, products-page closer, galleries)
+  shared-life-counter.jpg  a lidded cup on a green stone counter with a croissant, 3:2, 2048 × 1360 (products featured tile, product-page band)
 
 The site picks these up automatically through photoFor()/sharedPhoto(); every
 URL carries ?v=ASSET_VERSION from src/lib/asset-version.ts, so bump that

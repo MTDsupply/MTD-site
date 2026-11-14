@@ -123,7 +123,23 @@ export default async function CategoryPage({ params }: PageProps<"/products/[cat
 
   return (
     <div className="mx-auto max-w-7xl px-4 pb-8">
-      <PageHeader eyebrow={restockNote(c.restockWhen) ?? "In stock"} title={`${c.name.toLowerCase()}.`} description={c.description} />
+      <div className="pt-8">
+        <nav aria-label="Breadcrumb" className="t-label">
+          <Link href="/" className="hover:underline">
+            home
+          </Link>{" "}
+          /{" "}
+          <Link href="/products" className="hover:underline">
+            products
+          </Link>{" "}
+          / {c.name.toLowerCase()}
+        </nav>
+        <h1 className="t-section mt-3 text-ink">{c.name.toLowerCase()}.</h1>
+        <p className="t-lead mt-3 max-w-[48ch] text-stone">
+          {c.description}
+          {restockNote(c.restockWhen) ? ` ${restockNote(c.restockWhen)}.` : ""}
+        </p>
+      </div>
       <Suspense fallback={<p className="mt-8 text-sm text-soil/60">Loading…</p>}>
         <CatalogGrid
           catalog={catalog}
@@ -132,6 +148,15 @@ export default async function CategoryPage({ params }: PageProps<"/products/[cat
             c.slug === "lids" && sharedPhoto("life-hand")
               ? { src: sharedPhoto("life-hand")!, alt: "A barista holding a lidded cup", line: "One lid for all three cups. Same material as the cup, so the whole thing goes in the compost together.", href: "/compost" }
               : undefined
+          }
+          closers={
+            c.slug === "lids"
+              ? sharedPhoto("lid-on")
+                ? [{ src: sharedPhoto("lid-on")!, alt: "The 12 oz cup wearing the lid", line: "The lid on the 12 oz cup. It fits the 8 and 16 oz the same way.", href: "/products/cups" }]
+                : []
+              : sharedPhoto("trio")
+                ? [{ src: sharedPhoto("trio")!, alt: "The 8, 12 and 16 oz cups side by side", line: "All three sizes side by side. Same paper, same lining, one lid.", href: "/products/lids" }]
+                : []
           }
         />
       </Suspense>
