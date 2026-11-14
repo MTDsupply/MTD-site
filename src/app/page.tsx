@@ -143,7 +143,7 @@ export default async function HomePage() {
         <div className="relative flex min-h-[480px] flex-col items-center justify-center px-6 py-16 text-center md:min-h-[620px]">
           <p className="t-label !text-bone/70">the lining</p>
           <h2 className="t-section mt-3 max-w-[22ch] text-bone">why ours composts and most don&rsquo;t.</h2>
-          <p className="t-lead mt-5 max-w-[52ch] text-bone/85">Every paper cup has a thin lining so it holds liquid. In most cups that lining is plastic, which is why they never really break down. Ours is PHA. Bacteria make it, and bacteria eat it, so the cup goes in the compost pile with the grounds and disappears.</p>
+          <p className="t-lead mt-5 max-w-[52ch] text-bone/85">Every paper cup has a thin lining so it holds liquid. In most cups that lining is plastic, which is why they never really break down. Ours is PHA. Bacteria makes it, and bacteria eats it, so the cup goes in the compost pile with the grounds and disappears.</p>
           <p className="mt-7">
             <Link href="/whats-in-your-cup" className="btn btn-bone">
               what&rsquo;s in your cup
