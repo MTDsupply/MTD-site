@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getCatalog, getLiveProducts } from "@/lib/catalog/queries";
 import { ProductGallery } from "@/components/ProductGallery";
@@ -9,10 +10,12 @@ import { AddToCart } from "@/components/AddToCart";
 import { SpecTable } from "@/components/SpecTable";
 import { PairedAdd } from "@/components/PairedAdd";
 import { StickyBuyBar } from "@/components/StickyBuyBar";
-import { photoFor } from "@/lib/catalog/assets";
-import { restockNote, restockNoteLower } from "@/lib/site";
+import { Reveal } from "@/components/Reveal";
+import { photoFor, sharedPhoto } from "@/lib/catalog/assets";
+import { restockNote } from "@/lib/site";
 import { money, unitMoney, count } from "@/lib/format";
 import { BULK_MIN_UNITS } from "@/lib/pricing";
+import { taglines } from "@/lib/copy";
 import { pageMeta, productLd, breadcrumbLd, faqLd, productPath } from "@/lib/seo";
 import { productFaq } from "@/lib/faq";
 import { JsonLd } from "@/components/JsonLd";
@@ -39,6 +42,10 @@ export async function generateMetadata({ params }: PageProps<"/products/[categor
   });
 }
 
+/** True of every product; the row under the description. */
+const CUP_FACTS = ["paper with a PHA lining", "100% certified home-compostable material", "certified by TÜV Austria"];
+const LID_FACTS = ["PHA, the same material as the lining", "100% certified home-compostable material", "certified by TÜV Austria"];
+
 export default async function ProductPage({ params }: PageProps<"/products/[category]/[sku]">) {
   const { category, sku } = await params;
   const catalog = await getCatalog();
@@ -47,75 +54,99 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
   if (!product || !cat || product.categorySlug !== cat.slug) notFound();
 
   const cert = catalog.certs.find((c) => c.id === product.certId);
-  const siblings = catalog.products
-    .filter((p) => p.categorySlug === cat.slug && p.status === "live")
-    .sort((a, b) => a.sortOrder - b.sortOrder);
-  const photo = product.photo ?? null;
-  const angles: { key: string; label: string }[] = [
-    { key: "3q", label: "In the open" },
-    { key: "base", label: "Base, logo showing" },
-    { key: "case", label: "Wrapper" },
-  ];
+  const isLid = cat.slug === "lids";
+  const siblings = catalog.products.filter((p) => p.categorySlug === cat.slug && p.status === "live").sort((a, b) => a.sortOrder - b.sortOrder);
+  const name = product.name.toLowerCase();
+  const tagline = taglines[product.sku];
 
-  // "Goes with": paired SKUs (live) and their categories (coming soon tiles).
-  const goesWithProducts = product.goesWith
+  // The gallery: the product alone, then the base mark, then the shared shots.
+  const own = [
+    { src: product.photo ?? null, alt: name },
+    { src: photoFor(product.sku, "alt"), alt: isLid ? `${name} on a 12 oz cup` : `${name} on its side, the mark on its base showing` },
+  ];
+  const shared = isLid
+    ? [
+        { src: sharedPhoto("life-hand"), alt: "A barista holding a lidded cup" },
+        { src: sharedPhoto("case"), alt: "A shipping case of cups, flaps open" },
+      ]
+    : [
+        { src: sharedPhoto("lid-on"), alt: "The 12 oz cup wearing the lid" },
+        { src: sharedPhoto("trio"), alt: "The 8, 12 and 16 oz cups side by side" },
+        { src: sharedPhoto("life-hand"), alt: "A barista holding a lidded cup" },
+        { src: sharedPhoto("case"), alt: "A shipping case of cups, flaps open" },
+      ];
+  const photos = [...own, ...shared].filter((p): p is { src: string; alt: string } => !!p.src);
+
+  const goesWith = product.goesWith
     .map((s) => catalog.products.find((p) => p.sku === s))
     .filter((p): p is NonNullable<typeof p> => !!p && p.status === "live");
-  const pairedLid = cat.slug === "cups" ? goesWithProducts.find((p) => p.categorySlug === "lids") ?? null : null;
   const faq = productFaq(product, catalog);
+  const counter = sharedPhoto("life-counter");
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
-      <nav aria-label="Breadcrumb" className="t-label text-soil/55">
+      <nav aria-label="Breadcrumb" className="t-label">
         <Link href="/products" className="hover:underline">
-          Products
+          products
         </Link>{" "}
         /{" "}
         <Link href={`/products/${cat.slug}`} className="hover:underline">
-          {cat.name}
+          {cat.name.toLowerCase()}
         </Link>{" "}
         / <span className="sku">{product.sku}</span>
       </nav>
 
-      <div className="mt-4 grid gap-8 lg:grid-cols-[1.1fr_1fr]">
-        {/* Gallery */}
+      <div className="mt-5 grid gap-10 lg:grid-cols-[1.08fr_1fr] lg:gap-14">
+        {/* the photographs */}
         <div>
-          <ProductGallery
-            name={product.name}
-            photos={[
-              ...(photo ? [{ src: photo, alt: product.name }] : []),
-              ...angles
-                .map((a) => ({ src: photoFor(product.sku, a.key), alt: `${product.name}, ${a.label.toLowerCase()}` }))
-                .filter((a): a is { src: string; alt: string } => !!a.src),
-            ]}
-          />
+          <ProductGallery name={product.name} photos={photos} />
+          <div className="mt-6 hidden items-center gap-5 border border-line bg-card p-4 lg:flex">
+            <div className="relative h-[88px] w-[88px] shrink-0 overflow-hidden bg-card">
+              {sharedPhoto("case") ? <Image src={sharedPhoto("case")!} alt="" fill sizes="88px" className="object-cover" /> : null}
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-[17px] font-medium text-ink">need your logo on the cup?</p>
+              <p className="mt-1 text-[14px] text-stone">We print to order from one case up. Tell us the sizes and the quantity and we reply with a price.</p>
+            </div>
+            <Link href="/custom-printing" className="btn btn-outline btn-sm shrink-0">
+              get a quote
+            </Link>
+          </div>
         </div>
 
-        {/* Buy box */}
+        {/* the buy box */}
         <div>
-          <p className="t-label text-forest">{cat.name}</p>
-          <h1 className="t-page mt-2">{product.name.charAt(0).toLowerCase() + product.name.slice(1)}</h1>
-          <p className="mt-1 text-base text-soil/80">
-            {product.material}. 100% certified home-compostable material. {product.caseCount.toLocaleString("en-CA")} per case.{" "}
-            <span className="sku text-soil/60">{product.sku}</span>
+          <p className="t-label">
+            {cat.name.toLowerCase()} · <span className="sku">{product.sku}</span>
           </p>
-          <div className="mt-3 flex flex-wrap items-center gap-2">
+          <h1 className="t-section mt-3 text-ink">{name}.</h1>
+          <p className="t-lead mt-4 max-w-[40ch] text-ink">
+            {tagline ? `${tagline.charAt(0).toUpperCase()}${tagline.slice(1)} ` : ""}
+            {product.material}, {count(product.caseCount)} to a case.
+          </p>
+          <div className="mt-3">
             <CertChip cert={cert} sku={product.sku} compact />
-            
           </div>
 
+          <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 border-y border-line py-3" aria-label="About this product">
+            {(isLid ? LID_FACTS : CUP_FACTS).map((f) => (
+              <li key={f} className="t-label flex items-center gap-2 !text-stone">
+                <span aria-hidden="true" className="inline-block h-1.5 w-1.5 rounded-full bg-ink" />
+                {f}
+              </li>
+            ))}
+          </ul>
+
           {siblings.length > 1 ? (
-            <div className="mt-5">
-              <p className="label">Size</p>
-              <div className="flex flex-wrap gap-1.5">
+            <div className="mt-6">
+              <p className="t-label">size</p>
+              <div className="mt-2 flex flex-wrap gap-2">
                 {siblings.map((s) => (
                   <Link
                     key={s.sku}
                     href={`/products/${cat.slug}/${s.sku.toLowerCase()}`}
                     aria-current={s.sku === product.sku ? "page" : undefined}
-                    className={`rounded-full border-[1.5px] px-4 py-2 font-display text-[14px] font-semibold transition-colors ${
-                      s.sku === product.sku ? "border-forest bg-forest text-cream" : "border-forest/40 text-forest hover:border-forest"
-                    }`}
+                    className={`chip ${s.sku === product.sku ? "!border-ink !bg-ink !text-bone" : "chip-fog"}`}
                   >
                     {s.size}
                   </Link>
@@ -124,62 +155,77 @@ export default async function ProductPage({ params }: PageProps<"/products/[cate
             </div>
           ) : null}
 
+          <div className="mt-6">
+            <Price product={product} size="md" />
+          </div>
           <div className="mt-5">
-            <Price product={product} size="lg" />
-          </div>
-          <div className="mt-4 rounded-[20px] bg-white p-4">
             <AddToCart product={product} />
-            {restockNote(cat.restockWhen) ? <p className="mt-3 text-xs text-soil/70">{restockNote(cat.restockWhen)}. Orders placed now are filled from that stock.</p> : null}
+            {restockNote(cat.restockWhen) ? <p className="mt-3 text-[13px] text-stone">{restockNote(cat.restockWhen)}. Orders placed now are filled from that stock.</p> : null}
           </div>
-          {pairedLid ? (
-            <div className="mt-3">
-              <PairedAdd product={pairedLid} label="Add the matching lid" />
+
+          {goesWith.length ? (
+            <div className="mt-8">
+              <p className="t-label">{isLid ? "fits these cups" : "pair it with"}</p>
+              <div className="mt-2 grid gap-2">
+                {goesWith.map((p) => (
+                  <PairedAdd key={p.sku} product={p} />
+                ))}
+              </div>
             </div>
           ) : null}
-          {cat.slug === "lids" && goesWithProducts.length ? (
-            <p className="mt-4 text-sm text-soil/75">
-              Fits{" "}
-              {goesWithProducts.map((p, i) => (
-                <span key={p.sku}>
-                  {i > 0 ? (i === goesWithProducts.length - 1 ? " and " : ", ") : ""}
-                  <Link href={`/products/${p.categorySlug}/${p.sku.toLowerCase()}`} className="link font-medium">
-                    the {p.size} cup
-                  </Link>
-                </span>
-              ))}
-              .
-            </p>
-          ) : null}
+
+          <details className="group mt-8 border-y border-line">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-4 text-[17px] font-medium text-ink">
+              details and specs.
+              <span aria-hidden="true" className="text-[22px] font-light leading-none transition-transform group-open:rotate-45">
+                +
+              </span>
+            </summary>
+            <div className="spec-wrap pb-4">
+              <SpecTable product={product} cert={cert} />
+            </div>
+          </details>
+
           <StickyBuyBar product={product} />
         </div>
       </div>
 
-      <section className="mt-12">
-        <div>
-          <h2 className="t-heading">specifications.</h2>
-          <div className="spec-wrap mt-3 rounded-[20px] bg-white p-2">
-            <SpecTable product={product} cert={cert} />
-          </div>
-        </div>
-      </section>
-
-      <section className="mt-12">
-        <h2 className="t-heading">questions about the {product.name.toLowerCase()}.</h2>
-        <div className="mt-3 divide-y divide-line border-y border-line">
+      <Reveal as="section" className="mt-16 md:mt-24">
+        <h2 className="t-section text-ink">questions about the {name}.</h2>
+        <div className="mt-6 divide-y divide-line border-y border-line">
           {faq.map(([q, a]) => (
-            <details key={q} className="group py-3">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[15px] font-medium">
-                <h3 className="text-[15px] font-medium">{q}</h3>
-                <span aria-hidden="true" className="text-forest transition-transform group-open:rotate-45">
+            <details key={q} className="group py-4">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[17px] font-medium text-ink">
+                <h3 className="text-[17px] font-medium">{q}</h3>
+                <span aria-hidden="true" className="text-[22px] font-light leading-none transition-transform group-open:rotate-45">
                   +
                 </span>
               </summary>
-              <p className="mt-2 max-w-[62ch] text-sm leading-6 text-soil/80">{a}</p>
+              <p className="mt-3 max-w-[62ch] text-[15px] leading-6 text-stone">{a}</p>
             </details>
           ))}
         </div>
-      </section>
+      </Reveal>
 
+      {counter ? (
+        <Reveal as="section" className="mt-16 grid md:mt-24 md:grid-cols-2">
+          <div className="relative aspect-[3/2] overflow-hidden bg-soil-band md:aspect-auto md:min-h-[460px]">
+            <Image src={counter} alt="A lidded cup on a café counter beside a croissant" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+          </div>
+          <div className="flex flex-col justify-center border border-line bg-card p-8 md:border-l-0 md:p-12">
+            <p className="t-label">after the coffee</p>
+            <h2 className="t-page mt-3 text-ink">the whole thing goes in the compost.</h2>
+            <p className="mt-4 max-w-[36ch] text-[16px] leading-[1.6] text-stone">
+              Cup, lid and grounds together. The paper and the PHA lining break down in a home pile at ordinary temperatures, which is what the TÜV Austria home-compostable certification tests for.
+            </p>
+            <p className="mt-6">
+              <Link href="/compost" className="btn btn-outline">
+                how to compost it
+              </Link>
+            </p>
+          </div>
+        </Reveal>
+      ) : null}
 
       <JsonLd
         data={[

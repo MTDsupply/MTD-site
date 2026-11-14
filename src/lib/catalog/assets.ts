@@ -21,6 +21,15 @@ export function photoFor(sku: string, angle = "front"): string | null {
   return null;
 }
 
+/** Shared catalogue photographs that are not tied to one SKU: /public/products/shared-[name].(jpg|png|webp). */
+export function sharedPhoto(name: string): string | null {
+  for (const ext of ["jpg", "jpeg", "png", "webp"]) {
+    const f = `shared-${name}.${ext}`;
+    if (existsSync(path.join(PUBLIC, "products", f))) return v(`/products/${f}`);
+  }
+  return null;
+}
+
 /** Resolves drawing and photo paths for every product so client components get plain data. */
 export function withAssets(catalog: Catalog): Catalog {
   const drawingByCat = new Map(catalog.categories.map((c) => [c.slug, c.lineDrawing]));
@@ -29,7 +38,7 @@ export function withAssets(catalog: Catalog): Catalog {
     ...p,
     drawing: drawingFor(p.sku, drawingByCat.get(p.categorySlug) ?? "/drawings/category-cups.svg"),
     photo: p.images[0] ?? photoFor(p.sku),
-    hover: photoFor(p.sku, "3q"),
+    hover: photoFor(p.sku, "alt"),
     restockWhen: whenByCat.get(p.categorySlug) ?? null,
   }));
   return { ...catalog, products };

@@ -64,3 +64,26 @@ export function PriceFrom({ product }: { product: Product }) {
     </span>
   );
 }
+
+/**
+ * The one price line on a catalogue card. Business: the per-unit price by the
+ * case. Consumer: the smallest pack. Bone on the photo cards, so no colour
+ * classes here; the card sets the colour.
+ */
+export function CardPrice({ product }: { product: Product }) {
+  const mode = useMode();
+  const smallest = unitsFor(product)[0];
+  const noun = product.categorySlug === "lids" ? "lid" : "cup";
+  if (mode === "business") {
+    return (
+      <p className="tnum text-[14px] font-medium @xs:text-[15px]">
+        from {unitMoney(product.unitPrice)} a {noun} <span className="hidden font-normal opacity-70 @xs:inline">· case of {count(product.caseCount)}</span>
+      </p>
+    );
+  }
+  return (
+    <p className="tnum text-[14px] font-medium @xs:text-[15px]">
+      {money(smallest.price)} <span className="hidden font-normal opacity-70 @xs:inline">· pack of {count(smallest.count)}</span>
+    </p>
+  );
+}

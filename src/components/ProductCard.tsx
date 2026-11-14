@@ -1,28 +1,26 @@
 import Link from "next/link";
-import type { Cert, Product } from "@/lib/catalog/types";
-import { CertChip } from "./CertChip";
+import type { Product } from "@/lib/catalog/types";
 import { HoverSwap } from "./HoverSwap";
-import { Price } from "./Price";
-import { AddToCart } from "./AddToCart";
+import { CardPrice } from "./Price";
 import { restockNoteLower } from "@/lib/site";
 import { taglines } from "@/lib/copy";
 
 /**
- * Catalogue card (brand card): a paper tile with a hairline. The 4:5 photo
- * fills the top, then the name, what it is for, size, material and rim on
- * hairlines, the certification, the price that follows the Business/Consumer
- * toggle, the stock line and the add control. Hover fades the photo to the
- * standing shot. Two across on the catalogue page.
+ * Catalogue card: the photograph is the card. A 2:3 studio shot on the warm
+ * sweep fills the tile; the name and what it is for sit in bone over the dark
+ * back wall at the top, the from-price, stock line and one outlined "order"
+ * button sit over the floor at the bottom. Hover fades to the second shot.
+ * The whole tile links to the product page. The card is a container: below
+ * 320 px wide (phones two across, the home row of four) it drops the tagline,
+ * the stock line and the SKU and puts the price beside a small button, so the
+ * text never runs over the cup.
  */
 export function ProductCard({
   product,
-  cert,
   priority = false,
   categoryName,
 }: {
   product: Product;
-  cert?: Cert;
-  categoryDrawing?: string;
   priority?: boolean;
   categoryName?: string;
 }) {
@@ -30,39 +28,40 @@ export function ProductCard({
   const photo = product.photo ?? product.images[0] ?? null;
   const status = restockNoteLower(product.restockWhen) ?? "in stock";
   const tagline = taglines[product.sku];
+  const label = categoryName ?? (product.categorySlug === "lids" ? "lids" : "hot cups");
 
   return (
-    <article className="card flex h-full flex-col bg-card" data-sku={product.sku}>
-      <Link href={href} className="block" aria-label={product.name}>
+    <article className="shot-card @container relative flex h-full flex-col overflow-hidden bg-soil-band" data-sku={product.sku}>
+      <Link href={href} aria-label={product.name} className="block">
         {photo ? (
-          <HoverSwap front={photo} hover={product.hover} alt={product.name} priority={priority} sizes="(min-width: 1024px) 24vw, (min-width: 768px) 40vw, 100vw" />
+          <HoverSwap front={photo} hover={product.hover} alt={product.name} priority={priority} aspect="aspect-[2/3]" sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 50vw" />
         ) : (
-          <div className="aspect-[4/5] w-full bg-card" />
+          <div className="aspect-[2/3] w-full bg-soil-band" />
         )}
       </Link>
-      <div className="flex flex-1 flex-col p-5 md:p-6">
+
+      {/* top: name and use, over the back wall */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 p-3.5 @xs:p-5 @md:p-6">
         <div className="flex items-baseline justify-between gap-3">
-          <p className="t-label">{categoryName ?? (product.categorySlug === "lids" ? "lids" : "hot cups")}</p>
-          <span className="sku text-ash">{product.sku}</span>
+          <p className="t-label !text-bone/70">{label}</p>
+          <span className="sku hidden text-[11px] text-bone/55 @xs:inline">{product.sku}</span>
         </div>
-        <h3 className="t-page mt-2 text-ink">
-          <Link href={href} className="hover:underline">
-            {product.name.toLowerCase()}
-          </Link>
+        <h3 className="mt-1.5 text-[17px] font-medium leading-[1.15] tracking-[-0.015em] text-bone @xs:mt-2 @xs:text-[22px] @md:text-[25px]">
+          {product.name.toLowerCase()}
         </h3>
-        {tagline ? <p className="mt-1 text-[15px] text-stone">{tagline}</p> : null}
-        <p className="mt-3 text-[14px] text-stone">
-          {[product.specs.capacity ?? product.size, product.material, product.specs.rimDiameter ? `${product.specs.rimDiameter} rim` : null].filter(Boolean).join(" · ")}
-        </p>
-        <div className="mt-2">
-          <CertChip cert={cert} sku={product.sku} compact />
-        </div>
-        <div className="mt-4">
-          <Price product={product} size="md" detail={false} />
-        </div>
-        <p className="mt-1 text-[13px] text-stone">{status}</p>
-        <div className="mt-auto pt-5">
-          <AddToCart product={product} compact />
+        {tagline ? <p className="mt-1.5 hidden max-w-[26ch] text-[14px] leading-[1.35] text-bone/80 @xs:block @md:text-[15px]">{tagline}</p> : null}
+      </div>
+
+      {/* bottom: price, stock, order */}
+      <div className="absolute inset-x-0 bottom-0 p-3.5 @xs:p-5 @md:p-6">
+        <div className="flex items-center justify-between gap-3 @xs:block">
+          <div className="pointer-events-none min-w-0">
+            <CardPrice product={product} />
+            <p className="mt-0.5 hidden text-[13px] text-bone/65 @xs:block">{status}</p>
+          </div>
+          <Link href={href} className="btn btn-shot btn-sm shrink-0 @xs:mt-4 @xs:flex @xs:w-full @xs:justify-center @xs:py-3">
+            order
+          </Link>
         </div>
       </div>
     </article>

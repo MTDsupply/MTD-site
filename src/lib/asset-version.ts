@@ -3,7 +3,7 @@
  * are replaced: the URLs change, so no browser or CDN keeps serving the old
  * files. next.config.ts allows exactly this query on local images.
  */
-export const ASSET_VERSION = "11";
+export const ASSET_VERSION = "12";
 
 export function v(publicPath: string): string {
   return `${publicPath}?v=${ASSET_VERSION}`;

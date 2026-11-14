@@ -6,6 +6,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { notFound } from "next/navigation";
 import { getCatalog, getCategories } from "@/lib/catalog/queries";
 import { CatalogGrid } from "@/components/CatalogGrid";
+import { sharedPhoto } from "@/lib/catalog/assets";
 import { ComingSoonTile } from "@/components/ComingSoonTile";
 import { PageHeader } from "@/components/PageHeader";
 import { restockNote } from "@/lib/site";
@@ -124,7 +125,15 @@ export default async function CategoryPage({ params }: PageProps<"/products/[cat
     <div className="mx-auto max-w-7xl px-4 pb-8">
       <PageHeader eyebrow={restockNote(c.restockWhen) ?? "In stock"} title={`${c.name.toLowerCase()}.`} description={c.description} />
       <Suspense fallback={<p className="mt-8 text-sm text-soil/60">Loading…</p>}>
-        <CatalogGrid catalog={catalog} lockedCategory={c.slug} columns={c.slug === "cups" ? 3 : 2} />
+        <CatalogGrid
+          catalog={catalog}
+          lockedCategory={c.slug}
+          featured={
+            c.slug === "lids" && sharedPhoto("life-hand")
+              ? { src: sharedPhoto("life-hand")!, alt: "A barista holding a lidded cup", line: "One lid for all three cups. Same material as the cup, so the whole thing goes in the compost together.", href: "/compost" }
+              : undefined
+          }
+        />
       </Suspense>
       <section className="mt-16 grid gap-4 md:mt-24 md:grid-cols-2">
         <div className="note">

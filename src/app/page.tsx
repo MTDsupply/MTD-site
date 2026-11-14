@@ -1,14 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getCatalog } from "@/lib/catalog/queries";
-import { site, restockNoteLower } from "@/lib/site";
+import { site } from "@/lib/site";
 import { CostCalculator } from "@/components/CostCalculator";
 import { PRESS } from "@/components/PressBand";
-import { money, unitMoney, count } from "@/lib/format";
+import { unitMoney } from "@/lib/format";
 import { pageMeta, faqLd, SITE_DESCRIPTION } from "@/lib/seo";
 import { homeFaq } from "@/lib/faq";
 import { JsonLd } from "@/components/JsonLd";
-import { HoverSwap } from "@/components/HoverSwap";
+import { ProductCard } from "@/components/ProductCard";
 import { BreakdownScrubber } from "@/components/BreakdownScrubber";
 import { CountUp } from "@/components/CountUp";
 import { Reveal, RevealGroup } from "@/components/Reveal";
@@ -76,8 +76,8 @@ export default async function HomePage() {
   ];
 
   const cards = [
-    { title: "hot cups.", sub: "8, 12 and 16 oz. All three are the same paper and the same lining.", chips: ["home compostable", "no microplastics", "PHA lined"], img: "/card-cups.jpg", alt: "The three cup sizes with one cup on its side showing the mark on its base", href: "/products/cups", cta: "shop cups", primary: true },
-    { title: "lids.", sub: "One lid fits all three cups. Same material, same certificate.", chips: ["fits 8, 12 and 16 oz", "home compostable"], img: "/card-lids.jpg", alt: "A cup wearing the lid, with a second lid lying in front", href: "/products/lids", cta: "shop lids", primary: false },
+    { title: "hot cups.", sub: "8, 12 and 16 oz. All three are the same paper and the same lining.", chips: ["home compostable", "no microplastics", "PHA lined"], img: "/products/shared-trio.jpg", alt: "The 8, 12 and 16 oz cups side by side", href: "/products/cups", cta: "shop cups", primary: true },
+    { title: "lids.", sub: "One lid fits all three cups. Same material, same certificate.", chips: ["fits 8, 12 and 16 oz", "home compostable"], img: "/products/MTD-LID-HOT-alt.jpg", alt: "The 12 oz cup wearing the lid", href: "/products/lids", cta: "shop lids", primary: false },
   ];
 
   return (
@@ -221,29 +221,9 @@ export default async function HomePage() {
           }
         />
         </Reveal>
-        <RevealGroup className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4" itemClassName="flex flex-col" step={0.08}>
-          {range.map(({ p, use }) => (
-            <article key={p.sku} className="card flex flex-1 flex-col">
-              <Link href={`/products/${p.categorySlug}/${p.sku.toLowerCase()}`} aria-label={p.name} className="block">
-                <HoverSwap front={p.photo ?? "/products/MTD-CUP-12H-front.jpg"} hover={p.hover} alt={p.name} sizes="(min-width: 1024px) 25vw, 50vw" />
-              </Link>
-              <div className="flex flex-1 flex-col p-4 md:p-5">
-                <h3 className="t-card text-ink">{p.name.toLowerCase()}</h3>
-                <p className="mt-1 text-[14px] text-stone">{use}</p>
-                <p className="mt-4 text-[15px] text-ink tnum">
-                  from {unitMoney(p.unitPrice)} each
-                  <span className="block text-[13px] text-stone">
-                    {money(p.packPrice)} per {p.packCount} · {money(p.casePrice)} per {count(p.caseCount)}
-                  </span>
-                </p>
-                <p className="mt-1 text-[13px] text-stone">{restockNoteLower(p.restockWhen) ?? "in stock"}</p>
-                <div className="mt-auto pt-5">
-                  <Link href={`/products/${p.categorySlug}/${p.sku.toLowerCase()}`} className="btn btn-outline btn-sm">
-                    order
-                  </Link>
-                </div>
-              </div>
-            </article>
+        <RevealGroup className="mt-10 grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4" itemClassName="h-full" step={0.08}>
+          {range.map(({ p }) => (
+            <ProductCard key={p.sku} product={p} />
           ))}
         </RevealGroup>
       </section>

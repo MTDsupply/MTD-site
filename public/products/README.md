@@ -1,13 +1,23 @@
-Product photography goes here, one angle set per SKU on Paper #F4F1EA seamless:
+Catalogue photography (2026-11-13, GPT Image 2.6 via Higgsfield, masters in
+docs/brand/generated/96–107). One set, one style: a seamless warm kraft-tan
+paper sweep, the back wall falling into umber at the top, one hard key light
+from the upper left, a long shadow to the lower right, the product small and
+centred. 2:3 portrait; the catalogue cards show the photo whole and the
+product-page gallery shows it at 4:5 with object-cover.
 
-  MTD-CUP-16H-front.jpg
-  MTD-CUP-16H-3q.jpg
-  MTD-CUP-16H-base.jpg
-  MTD-CUP-16H-case.jpg
+Per SKU:
 
-The site picks these up automatically; until they exist it renders a neutral
-Paper-coloured placeholder with the product name and the SKU's line drawing.
+  [SKU]-front.jpg   the product alone, standing (cards, gallery 1); 1376 px wide, upscaled from the 1k frame
+  [SKU]-alt.jpg     cups: on their side, the base mark towards camera; lid: on a 12 oz cup (card hover, gallery 2)
 
-Hero video: drop `public/hero.mp4` (16:9, muted, loops) and optionally
-`public/hero-poster.jpg`. The home page uses them automatically; until then it
-plays the generated peaks clip.
+Shared (src/lib/catalog/assets.ts `sharedPhoto(name)`):
+
+  shared-trio.jpg          8, 12 and 16 oz in a row (home feature card, cup galleries)
+  shared-lid-on.jpg        the 12 oz wearing the lid (same frame as MTD-LID-HOT-alt)
+  shared-case.jpg          a kraft shipping case, flaps open, wordmark on the front
+  shared-life-hand.jpg     a barista holding a lidded cup (lids featured tile, galleries)
+  shared-life-counter.jpg  a lidded cup on a café counter with a croissant, 3:2 (products featured tile, product-page band)
+
+The site picks these up automatically through photoFor()/sharedPhoto(); every
+URL carries ?v=ASSET_VERSION from src/lib/asset-version.ts, so bump that
+constant whenever a file here is replaced.

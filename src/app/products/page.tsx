@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { getCatalog } from "@/lib/catalog/queries";
 import { CatalogGrid } from "@/components/CatalogGrid";
+import { sharedPhoto } from "@/lib/catalog/assets";
 import { PageHeader } from "@/components/PageHeader";
 import { Reveal } from "@/components/Reveal";
 import { money, unitMoney, count } from "@/lib/format";
@@ -36,7 +37,14 @@ export default async function ProductsPage() {
     <div className="mx-auto max-w-7xl px-4 pb-8">
       <PageHeader eyebrow="Catalogue" title="products." description="Three cups and one lid. Packs of 100 for home, cases of 1,000 for cafés." />
       <Suspense fallback={<p className="mt-8 text-sm text-stone">Loading catalogue…</p>}>
-        <CatalogGrid catalog={catalog} />
+        <CatalogGrid
+          catalog={catalog}
+          featured={
+            sharedPhoto("life-counter")
+              ? { src: sharedPhoto("life-counter")!, alt: "A lidded cup on a café counter beside a croissant", line: "Paper with a PHA lining. When the coffee is done, the cup and lid go in the compost with the grounds.", href: "/whats-in-your-cup" }
+              : undefined
+          }
+        />
       </Suspense>
 
       {cups.length > 1 ? (
