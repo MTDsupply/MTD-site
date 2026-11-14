@@ -116,12 +116,12 @@ export function CartView({ products }: { products: Product[] }) {
         </div>
         {order.bulk ? (
           <p className="mt-1 text-xs text-forest">
-            Volume price applied: {count(order.units)} units in this order.
+            Volume price applied: {count(order.units)} cups in this order.
             {order.listSubtotal > subtotal ? <> You save {money(order.listSubtotal - subtotal)}.</> : null}
           </p>
         ) : hasCases && bulkEligible ? (
           <p className="mt-1 text-xs text-soil/60">
-            Orders of {count(BULK_MIN_UNITS)} units or more get the volume price on every case. {count(order.unitsToBulk)} more units to go.
+            Orders of {count(BULK_MIN_UNITS)} cups or more get the volume price on every case of cups. {count(order.unitsToBulk)} more cups to go.
           </p>
         ) : null}
         <div className="mt-3">

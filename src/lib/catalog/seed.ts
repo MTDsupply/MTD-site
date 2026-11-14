@@ -34,9 +34,9 @@ const CUP_CERT = "tuv-home-cups";
 /*
  * Pricing (set by the user on 2026-11-14), cases of 1,000:
  *   cups 17¢ / 18¢ / 19¢ → $170 / $180 / $190 per case under 10,000 units
- *   cups 16¢ / 17¢ / 18¢ → $160 / $170 / $180 per case at 10,000 units or more
- *     (bulkUnitPrice; src/lib/pricing.ts BULK_MIN_UNITS counts every unit in
- *     the order, packs included, and reprices every case line once reached)
+ *   cups 16¢ / 17¢ / 18¢ → $160 / $170 / $180 per case at 10,000 cups or more
+ *     (bulkUnitPrice; src/lib/pricing.ts BULK_MIN_UNITS counts cups only,
+ *     packs included, never lids, and reprices every cup case line once reached)
  *   lids 9¢ (one lid fits all three sizes) → $90 per case, no volume tier
  * Consumer packs follow Cup Casa's bundle sizes (100 / 200 / 500) and its
  * markup: the 100-pack is about 2× the café unit price, the 500-pack about

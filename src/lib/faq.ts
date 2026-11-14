@@ -36,7 +36,7 @@ export function homeFaq(catalog: Catalog): [string, string][] {
     [
       "How much do compostable coffee cups cost?",
       `Cases of ${count(cups[0]?.caseCount ?? 1000)}: ${cupPrices}, which is ${unitRange}.${
-        bulk.length ? ` Orders of ${count(BULK_MIN_UNITS)} units or more drop to ${bulkRange}, applied automatically in the cart.` : ""
+        bulk.length ? ` Orders of ${count(BULK_MIN_UNITS)} cups or more drop to ${bulkRange}, applied automatically in the cart; lids do not count toward the ${count(BULK_MIN_UNITS)}.` : ""
       }${lid ? ` The lid is ${money(lid.casePrice)} per ${count(lid.caseCount)} (${unitMoney(lid.unitPrice)} each).` : ""}${
         cheapestPack ? ` Packs of ${count(cheapestPack.packCount)} start at ${money(cheapestPack.packPrice)}.` : ""
       } All prices in Canadian dollars before tax.`,
@@ -70,7 +70,7 @@ export function productFaq(p: Product, catalog: Catalog): [string, string][] {
     .filter((x): x is Product => !!x && x.status === "live");
   const packs = (p.packs?.length ? p.packs : [{ count: p.packCount, price: p.packPrice }]).slice().sort((a, b) => a.count - b.count);
   const price = `${money(p.casePrice)} per case of ${count(p.caseCount)} (${unitMoney(p.unitPrice)} each)${
-    p.bulkUnitPrice != null ? `, or ${unitMoney(p.bulkUnitPrice)} each on orders of ${count(BULK_MIN_UNITS)} units or more (${count(bulkCasesFor(p))} cases)` : ""
+    p.bulkUnitPrice != null ? `, or ${unitMoney(p.bulkUnitPrice)} each on orders of ${count(BULK_MIN_UNITS)} cups or more (${count(bulkCasesFor(p))} cases)` : ""
   }. Packs: ${list(packs.map((t) => `${money(t.price)} for ${count(t.count)}`))}. Prices in CAD before tax.`;
   const out: [string, string][] = [];
   if (p.categorySlug === "cups") {

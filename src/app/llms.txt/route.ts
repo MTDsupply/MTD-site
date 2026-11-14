@@ -38,7 +38,7 @@ export async function GET() {
       `- [${p.name}](${base}/products/${p.categorySlug}/${p.sku.toLowerCase()}): SKU ${p.sku}. ${p.size}${p.specs.capacity ? ` (${p.specs.capacity})` : ""}. ${p.material}${
         p.specs.rimDiameter ? `, rim ${p.specs.rimDiameter}` : ""
       }. ${money(p.casePrice)} per case of ${count(p.caseCount)} (${unitMoney(p.unitPrice)} per unit)${
-        p.bulkUnitPrice != null ? `; ${unitMoney(p.bulkUnitPrice)} per unit on orders of ${count(BULK_MIN_UNITS)}+ units` : ""
+        p.bulkUnitPrice != null ? `; ${unitMoney(p.bulkUnitPrice)} per unit on orders of ${count(BULK_MIN_UNITS)}+ cups` : ""
       }. Packs: ${packs}. ${cert ? `${cert.name}, ${cert.certifier}${cert.number ? `, certificate ${cert.number}` : ""}.` : ""}${
         restockNote(p.restockWhen) ? ` ${restockNote(p.restockWhen)}; orders are accepted now.` : " In stock."
       }${cat ? ` Category: ${cat.name}.` : ""}`,
@@ -49,7 +49,7 @@ export async function GET() {
     "## Pricing and terms",
     "",
     hasVolumeTier(catalog.products)
-      ? `- Case pricing applies to any number of cases. Orders of ${count(BULK_MIN_UNITS)} units or more are charged the volume per-unit price on every case, automatically.`
+      ? `- Case pricing applies to any number of cases. Orders of ${count(BULK_MIN_UNITS)} cups or more are charged the volume per-unit price on every case of cups, automatically. Lids do not count toward the ${count(BULK_MIN_UNITS)}.`
       : "- Case pricing applies to any number of cases; the per-unit price is the same for one case or fifty.",
     `- Business accounts: net-30 on approval, reorders from the account page, quotes for pallet quantities and custom printing (orders of ${count(PRINT_MIN_UNITS)} cups or more). Sample packs are free for verified cafés and other foodservice businesses.`,
     `- Shipping: Canada and the United States by courier. Packs ${money(SHIPPING.CA.pack)} per order in Canada (free over ${money(SHIPPING.CA.packFreeOver)}), ${money(SHIPPING.US.pack)} to the US (free over ${money(SHIPPING.US.packFreeOver)}). Cases ${money(SHIPPING.CA.perCase)} each in Canada, ${money(SHIPPING.US.perCase)} each to the US. Tax at checkout.`,

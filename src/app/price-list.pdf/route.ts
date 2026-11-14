@@ -62,7 +62,7 @@ export async function GET() {
     ? [margin, margin + 64, margin + 158, margin + 234, margin + 270, margin + 316, margin + 364, margin + 418]
     : [margin, margin + 64, margin + 166, margin + 250, margin + 294, margin + 348, margin + 410];
   const head = volume
-    ? ["SKU", "Product", "Material", "Case", "Per case", "Per unit", "10k+ units", "Packs 100 / 200 / 500"]
+    ? ["SKU", "Product", "Material", "Case", "Per case", "Per unit", "10k+ cups", "Packs 100 / 200 / 500"]
     : ["SKU", "Product", "Material", "Case", "Per case", "Per unit", "Packs 100 / 200 / 500"];
   const clip = (v: string, n: number) => (v.length > n ? `${v.slice(0, n - 1).trimEnd()}…` : v);
   const packCol = (p: (typeof products)[number]) =>
@@ -128,7 +128,7 @@ export async function GET() {
   text("Terms", margin, 9, bold, FOREST);
   y -= 13;
   for (const l of [
-    "Prices in CAD before tax. Orders of 10,000 units or more pay the 10,000+ per-unit price on every case, automatically. Net-30 on approval.",
+    "Prices in CAD before tax. Orders of 10,000 cups or more pay the 10,000+ price on every case of cups, automatically; lids do not count toward it. Net-30 on approval.",
     `${site.phone ? `Order by phone ${site.phone}, ` : "Order "}online at ${site.url.replace(/^https?:\/\//, "")}, or by email ${site.email}.`,
     `Quick order: paste SKUs and quantities at ${site.url.replace(/^https?:\/\//, "")}/quick-order.`,
   ]) {

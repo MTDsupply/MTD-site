@@ -53,7 +53,7 @@ export async function startCheckout(input: CheckoutInput): Promise<{ error: stri
       product_data: {
         name: `${p.name} · ${info.label.toLowerCase()}${bulk ? " · volume price" : ""}`,
         description: `${p.sku} · ${p.material} · 100% certified home-compostable material${
-          bulk ? ` · volume price for orders of ${BULK_MIN_UNITS.toLocaleString("en-CA")}+ units` : ""
+          bulk ? ` · volume price for orders of ${BULK_MIN_UNITS.toLocaleString("en-CA")}+ cups` : ""
         }`,
       },
     },

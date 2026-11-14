@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: PageProps<"/products/[categor
   const { products } = await getCatalog();
   const p = products.find((x) => x.sku.toLowerCase() === sku.toLowerCase());
   if (!p) return {};
-  const volume = p.bulkUnitPrice != null ? ` ${unitMoney(p.bulkUnitPrice)} each from ${count(BULK_MIN_UNITS)} units.` : "";
+  const volume = p.bulkUnitPrice != null ? ` ${unitMoney(p.bulkUnitPrice)} each from ${count(BULK_MIN_UNITS)} cups.` : "";
   return pageMeta({
     title: `${p.name}, certified home-compostable (${p.sku})`,
     description: `${p.name} in ${p.material}${p.specs.capacity ? `, ${p.specs.capacity}` : ""}. 100% certified home-compostable material, TÜV Austria. ${money(

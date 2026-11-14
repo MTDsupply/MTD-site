@@ -35,7 +35,7 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
             <p className="t-label">Business accounts</p>
             <h1 className="t-section mt-3 text-ink">for cafés, restaurants, caterers and events.</h1>
             <p className="mt-4 max-w-[52ch] t-lead text-stone">
-              Case prices below{volume ? <>, with a lower price on every case once an order reaches {count(BULK_MIN_UNITS)} units</> : null}. Approved accounts get net-30. Ask for a free sample pack first if you want to run them on your machines.
+              Case prices below{volume ? <>, with a lower price on every case of cups once an order reaches {count(BULK_MIN_UNITS)} cups</> : null}. Approved accounts get net-30. Ask for a free sample pack first if you want to run them on your machines.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <a href="#quote" className="btn btn-primary">
@@ -83,7 +83,7 @@ export default async function BusinessPage({ searchParams }: PageProps<"/busines
                 <th className="num">Case count</th>
                 <th className="num">Per case</th>
                 <th className="num">Per unit</th>
-                {volume ? <th className="num">Per unit, {count(BULK_MIN_UNITS)}+ units</th> : null}
+                {volume ? <th className="num">Per unit, {count(BULK_MIN_UNITS)}+ cups</th> : null}
                 <th className="num">Packs 100 / 200 / 500</th>
                 <th className="hidden md:table-cell">Certification</th>
               </tr>

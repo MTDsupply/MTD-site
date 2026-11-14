@@ -69,7 +69,7 @@ export async function Header() {
                     <span className="hidden sm:inline"> · </span>
                   </>
                 ) : null}
-                {hasVolumeTier(catalog.products) ? <span className={categories.some((c) => c.restockWhen) ? "hidden sm:inline" : ""}>Volume pricing from {count(BULK_MIN_UNITS)} units, applied in the cart</span> : <span className={categories.some((c) => c.restockWhen) ? "hidden sm:inline" : ""}>Cases of 1,000 for cafés, packs of 100 for home</span>}
+                {hasVolumeTier(catalog.products) ? <span className={categories.some((c) => c.restockWhen) ? "hidden sm:inline" : ""}>Volume pricing from {count(BULK_MIN_UNITS)} cups, applied in the cart</span> : <span className={categories.some((c) => c.restockWhen) ? "hidden sm:inline" : ""}>Cases of 1,000 for cafés, packs of 100 for home</span>}
               </span>
             )}
             <Link href="/quick-order" className="hidden hover:underline sm:inline">

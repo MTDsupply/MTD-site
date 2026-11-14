@@ -260,7 +260,7 @@ export function productLd(p: Product, cert: Cert | undefined, category: Category
   if (volume != null) {
     offers.push({
       "@type": "Offer",
-      name: `Case of ${p.caseCount.toLocaleString("en-CA")}, orders of ${BULK_MIN_UNITS.toLocaleString("en-CA")}+ units`,
+      name: `Case of ${p.caseCount.toLocaleString("en-CA")}, orders of ${BULK_MIN_UNITS.toLocaleString("en-CA")}+ cups`,
       url,
       price: volume.toFixed(2),
       priceCurrency: site.currency,

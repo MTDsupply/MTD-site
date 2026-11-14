@@ -2,7 +2,7 @@ import type { Product } from "@/lib/catalog/types";
 import type { CartLine, Unit } from "@/lib/store/cart";
 import { unitInfo, type UnitInfo } from "./units";
 
-/** Orders of this many units or more pay the volume price on every case. */
+/** Orders of this many cups (units of tiered products; lids never count) pay the volume price on every cup case. */
 export const BULK_MIN_UNITS = 10_000;
 
 /** Custom printing is offered on orders of this many cups or more (100 cases of 1,000). */
@@ -37,7 +37,7 @@ export type PricedLine = {
 
 export type PricedOrder = {
   rows: PricedLine[];
-  /** Units in the order across every line, packs included. */
+  /** Units of tiered products (cups) in the order, packs included; lids do not count. */
   units: number;
   /** True once the order reaches BULK_MIN_UNITS. */
   bulk: boolean;
@@ -49,8 +49,9 @@ export type PricedOrder = {
 };
 
 /**
- * Prices a whole order. The threshold counts every unit in the order; the
- * volume price applies to case lines of products that have one. Packs keep
+ * Prices a whole order. The threshold counts only units of products that
+ * carry a volume tier (the cups), so lids in the same order never push it
+ * over; the volume price applies to case lines of those products. Packs keep
  * their pack price. Lines whose SKU is not in `products` are dropped, so the
  * caller validates SKUs first when that matters (checkout does).
  */
@@ -60,7 +61,7 @@ export function priceOrder(lines: CartLine[], products: Product[]): PricedOrder 
     .map((line) => ({ line, product: bySku.get(line.sku) }))
     .filter((r): r is { line: CartLine; product: Product } => !!r.product)
     .map((r) => ({ ...r, info: unitInfo(r.product, r.line.unit as Unit) }));
-  const units = rows.reduce((n, r) => n + r.line.qty * r.info.count, 0);
+  const units = rows.reduce((n, r) => (r.product.bulkUnitPrice != null ? n + r.line.qty * r.info.count : n), 0);
   const bulk = units >= BULK_MIN_UNITS;
   const priced: PricedLine[] = rows.map((r) => {
     const volume = bulk && r.info.kind === "case" ? bulkCasePrice(r.product) : null;

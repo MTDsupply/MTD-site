@@ -26,7 +26,8 @@ export function CostCalculator({ cups, lid }: { cups: Product[]; lid: Product | 
   const unitsMonth = perDay * 30;
   const cases = Math.max(1, Math.ceil(unitsMonth / cup.caseCount));
   const lidCases = withLids && lid ? Math.max(1, Math.ceil(unitsMonth / lid.caseCount)) : 0;
-  const orderUnits = cases * cup.caseCount + lidCases * (lid?.caseCount ?? 0);
+  // Only tiered products count toward the threshold: cups, and the lid only if it ever carries a tier.
+  const orderUnits = (cup.bulkUnitPrice != null ? cases * cup.caseCount : 0) + (lid?.bulkUnitPrice != null ? lidCases * lid.caseCount : 0);
   const bulk = orderUnits >= BULK_MIN_UNITS;
   const cupEach = bulk && cup.bulkUnitPrice != null ? cup.bulkUnitPrice : cup.unitPrice;
   const lidEach = lid ? (bulk && lid.bulkUnitPrice != null ? lid.bulkUnitPrice : lid.unitPrice) : 0;
@@ -79,7 +80,7 @@ export function CostCalculator({ cups, lid }: { cups: Product[]; lid: Product | 
           ))}
         </div>
         <p className="mt-6 text-[14px] leading-6 text-stone">
-          A month is thirty days. Cases are {count(cup.caseCount)}.{tiered ? <> Every case in an order of {count(BULK_MIN_UNITS)} units or more is charged at the volume price, lids counted.</> : null} Prices in CAD before tax and shipping.
+          A month is thirty days. Cases are {count(cup.caseCount)}.{tiered ? <> Order {count(BULK_MIN_UNITS)} cups or more and every case of cups is charged at the volume price. Lids do not count toward it.</> : null} Prices in CAD before tax and shipping.
         </p>
       </div>
 
