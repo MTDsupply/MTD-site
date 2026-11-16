@@ -52,9 +52,9 @@ export function CostCalculator({ cups, lid }: { cups: Product[]; lid: Product | 
             step={100}
             value={perMonth}
             onChange={(e) => setPerMonth(Math.max(1, Math.min(200000, Number(e.target.value) || 1)))}
-            className="input inline-block w-[5.2em] px-2 py-0.5 text-center font-display text-[19px] font-medium text-forest tnum md:text-[21px]"
+            className="input inline-block w-[4.6em] px-2 py-0.5 text-center font-display text-[19px] font-medium text-forest tnum md:text-[21px]"
           />{" "}
-          cups a month, mostly{" "}
+          <span className="whitespace-nowrap">cups a month,</span> mostly{" "}
           <select aria-label="Cup size" value={cup.sku} onChange={(e) => setSku(e.target.value)} className="input inline-block w-auto py-0.5 pl-3 font-display text-[19px] font-medium text-forest md:text-[21px]">
             {sizes.map((s) => (
               <option key={s.sku} value={s.sku}>
@@ -76,7 +76,8 @@ export function CostCalculator({ cups, lid }: { cups: Product[]; lid: Product | 
         <div className="mt-5 flex flex-wrap gap-2">
           {PRESETS.map((n) => (
             <button key={n} type="button" onClick={() => setPerMonth(n)} className={`chip tnum ${n === perMonth ? "!border-ink !bg-ink !text-bone" : "chip-fog"}`} aria-pressed={n === perMonth}>
-              {count(n)} a month
+              {count(n)}
+              <span className="hidden sm:inline"> a month</span>
             </button>
           ))}
         </div>
@@ -92,8 +93,8 @@ export function CostCalculator({ cups, lid }: { cups: Product[]; lid: Product | 
           <thead>
             <tr>
               <th>A month</th>
-              <th className="num hidden sm:table-cell">Cases</th>
-              <th className="num hidden sm:table-cell">Each</th>
+              <th className="num max-sm:w-0 max-sm:p-0!"><span className="hidden sm:inline">Cases</span></th>
+              <th className="num max-sm:w-0 max-sm:p-0!"><span className="hidden sm:inline">Each</span></th>
               <th className="num">Line</th>
             </tr>
           </thead>
@@ -105,8 +106,8 @@ export function CostCalculator({ cups, lid }: { cups: Product[]; lid: Product | 
                   {cases} {cases === 1 ? "case" : "cases"} · {unitMoney(cupEach)} each
                 </span>
               </td>
-              <td className="num hidden sm:table-cell">{cases}</td>
-              <td className="num hidden sm:table-cell">{unitMoney(cupEach)}</td>
+              <td className="num max-sm:w-0 max-sm:p-0!"><span className="hidden sm:inline">{cases}</span></td>
+              <td className="num max-sm:w-0 max-sm:p-0!"><span className="hidden sm:inline">{unitMoney(cupEach)}</span></td>
               <td className="num">{money(cupLine)}</td>
             </tr>
             {lid && withLids ? (
@@ -117,8 +118,8 @@ export function CostCalculator({ cups, lid }: { cups: Product[]; lid: Product | 
                     {lidCases} {lidCases === 1 ? "case" : "cases"} · {unitMoney(lidEach)} each
                   </span>
                 </td>
-                <td className="num hidden sm:table-cell">{lidCases}</td>
-                <td className="num hidden sm:table-cell">{unitMoney(lidEach)}</td>
+                <td className="num max-sm:w-0 max-sm:p-0!"><span className="hidden sm:inline">{lidCases}</span></td>
+                <td className="num max-sm:w-0 max-sm:p-0!"><span className="hidden sm:inline">{unitMoney(lidEach)}</span></td>
                 <td className="num">{money(lidLine)}</td>
               </tr>
             ) : null}
@@ -155,11 +156,11 @@ export function CostCalculator({ cups, lid }: { cups: Product[]; lid: Product | 
           </tfoot>
         </table>
         </div>
-        <div className="flex flex-wrap gap-3 border-t border-line px-4 py-4">
-          <Link href={`/products/${cup.categorySlug}/${cup.sku.toLowerCase()}`} className="btn btn-primary btn-sm">
+        <div className="grid grid-cols-2 gap-3 border-t border-line px-4 py-4 sm:flex sm:flex-wrap">
+          <Link href={`/products/${cup.categorySlug}/${cup.sku.toLowerCase()}`} className="btn btn-primary btn-sm justify-center">
             order the {cup.size}
           </Link>
-          <Link href="/business#quote" className="btn btn-outline btn-sm">
+          <Link href="/business#quote" className="btn btn-outline btn-sm justify-center">
             wholesale pricing
           </Link>
         </div>

@@ -744,7 +744,7 @@ html[data-scrolled] .header-surface {
 .price-table thead th, .spec-table thead th { border-bottom: 1px solid var(--color-ink); }
 .spec-table tbody th { text-transform: none; font-size: 15px; letter-spacing: 0; }
 .price-table td, .spec-table td { border-bottom: 1px solid var(--color-line); }
-.price-table thead tr, .spec-table thead tr { background: transparent !important; }
+.price-table thead tr, .spec-table thead tr { background: transparent !important; border-bottom: 1px solid var(--color-ink); } /* the rule on the row too, so it spans columns whose header cell is hidden on phones */
 .on-cream { background: var(--color-card); }
 .on-cream img { mix-blend-mode: normal; }
 .link { background-image: linear-gradient(currentColor, currentColor); background-size: 100% 1px; }
